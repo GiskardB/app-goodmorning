@@ -4,8 +4,8 @@ import tailwindcss from '@tailwindcss/vite'
 import { VitePWA } from 'vite-plugin-pwa'
 
 // https://vite.dev/config/
-export default defineConfig({
-  base: '/goodmorning/',
+export default defineConfig(({ command }) => ({
+  base: command === 'serve' ? '/' : '/app-goodmorning/',
   plugins: [
     react(),
     tailwindcss(),
@@ -20,8 +20,8 @@ export default defineConfig({
         background_color: '#f3f4f6',
         display: 'standalone',
         orientation: 'portrait',
-        scope: '/goodmorning/',
-        start_url: '/goodmorning/',
+        scope: '/app-goodmorning/',
+        start_url: '/app-goodmorning/',
         icons: [
           {
             src: 'pwa-192x192.png',
@@ -80,4 +80,4 @@ export default defineConfig({
     outDir: 'dist',
     sourcemap: false
   }
-})
+}))
