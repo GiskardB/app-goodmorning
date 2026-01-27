@@ -6,7 +6,7 @@ A Progressive Web Application for a 28-day bodyweight fitness program. The app g
 
 - **28-Day Program**: Structured daily workouts targeting different muscle groups
 - **Three-Phase Workouts**: Each session includes warmup, main workout, and cooldown
-- **Animated Exercises**: GIF demonstrations for each exercise
+- **Animated Exercises**: GIF and video (MP4/WebM) demonstrations for each exercise
 - **Voice Coaching**: Italian text-to-speech announces exercises and provides rest tips
 - **Background Music**: Motivational workout music playlist
 - **Audio Countdown**: Beep sounds for exercise transitions

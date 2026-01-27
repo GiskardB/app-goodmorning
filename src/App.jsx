@@ -87,11 +87,89 @@ const VolumeOffIcon = () => (
   </svg>
 );
 
+// Navigation icons
+const HomeIcon = ({ active }) => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill={active ? "currentColor" : "none"} stroke="currentColor" strokeWidth={active ? "0" : "1.5"}>
+    {active ? (
+      <path d="M11.47 3.84a.75.75 0 011.06 0l8.69 8.69a.75.75 0 101.06-1.06l-8.689-8.69a2.25 2.25 0 00-3.182 0l-8.69 8.69a.75.75 0 001.061 1.06l8.69-8.69z" />
+    ) : (
+      <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+    )}
+    {active && (
+      <path d="M12 5.432l8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 01-.75-.75v-4.5a.75.75 0 00-.75-.75h-3a.75.75 0 00-.75.75V21a.75.75 0 01-.75.75H5.625a1.875 1.875 0 01-1.875-1.875v-6.198a2.29 2.29 0 00.091-.086L12 5.43z" />
+    )}
+  </svg>
+);
+
+const ListIcon = ({ active }) => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill={active ? "currentColor" : "none"} stroke="currentColor" strokeWidth={active ? "0" : "1.5"}>
+    {active ? (
+      <>
+        <path fillRule="evenodd" d="M2.625 6.75a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0zm4.875 0A.75.75 0 018.25 6h12a.75.75 0 010 1.5h-12a.75.75 0 01-.75-.75zM2.625 12a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0zM7.5 12a.75.75 0 01.75-.75h12a.75.75 0 010 1.5h-12A.75.75 0 017.5 12zm-4.875 5.25a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0zm4.875 0a.75.75 0 01.75-.75h12a.75.75 0 010 1.5h-12a.75.75 0 01-.75-.75z" clipRule="evenodd" />
+      </>
+    ) : (
+      <>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zM3.75 12h.007v.008H3.75V12zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm-.375 5.25h.007v.008H3.75v-.008zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+      </>
+    )}
+  </svg>
+);
+
+const SettingsIcon = ({ active }) => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+    <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
+  </svg>
+);
+
 // Format seconds to MM:SS
 const formatTime = (totalSeconds) => {
   const minutes = Math.floor(totalSeconds / 60);
   const seconds = totalSeconds % 60;
   return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+};
+
+// Check if URL is a video
+const isVideo = (url) => {
+  if (!url) return false;
+  const videoExtensions = ['.mp4', '.webm', '.ogg', '.mov'];
+  return videoExtensions.some(ext => url.toLowerCase().includes(ext));
+};
+
+// Get the full URL for media (handles both external URLs and local assets)
+const getMediaUrl = (url) => {
+  if (!url) return '';
+  // If it's already a full URL, return as-is
+  if (url.startsWith('http://') || url.startsWith('https://')) {
+    return url;
+  }
+  // For local assets, prepend the base URL
+  return `${import.meta.env.BASE_URL}${url}`;
+};
+
+// Media component that handles both images and videos
+const ExerciseMedia = ({ src, alt, className, style }) => {
+  const mediaSrc = getMediaUrl(src);
+  if (isVideo(src)) {
+    return (
+      <video
+        src={mediaSrc}
+        className={className}
+        style={style}
+        autoPlay
+        loop
+        muted
+        playsInline
+      />
+    );
+  }
+  return (
+    <img
+      src={mediaSrc}
+      alt={alt}
+      className={className}
+      style={style}
+    />
+  );
 };
 
 function App() {
@@ -126,6 +204,12 @@ function App() {
   // PWA Install prompt
   const [installPrompt, setInstallPrompt] = useState(null);
   const [isInstalled, setIsInstalled] = useState(false);
+
+  // Bottom navigation tab: 'home' | 'exercises' | 'settings'
+  const [activeTab, setActiveTab] = useState('home');
+
+  // Selected exercise for detail view
+  const [selectedExercise, setSelectedExercise] = useState(null);
 
   // Wake Lock to prevent screen from turning off
   const wakeLockRef = useRef(null);
@@ -655,6 +739,35 @@ function App() {
     </button>
   );
 
+  // Bottom Navigation component
+  const BottomNav = () => (
+    <div className="fixed bottom-0 left-0 right-0 bg-[var(--surface)]/95 backdrop-blur-sm border-t border-[var(--border)] px-2 py-1 z-50">
+      <div className="flex items-center justify-around max-w-sm mx-auto">
+        <button
+          onClick={() => { setActiveTab('home'); setScreen('home'); }}
+          className={`flex flex-col items-center py-1 px-4 transition-colors ${activeTab === 'home' ? 'text-[var(--primary)]' : 'text-[var(--text-muted)]'}`}
+        >
+          <HomeIcon active={activeTab === 'home'} />
+          <span className="text-[10px] mt-0.5">{activeTab === 'home' ? 'Home' : ''}</span>
+        </button>
+        <button
+          onClick={() => { setActiveTab('exercises'); setScreen('exercises'); }}
+          className={`flex flex-col items-center py-1 px-4 transition-colors ${activeTab === 'exercises' ? 'text-[var(--primary)]' : 'text-[var(--text-muted)]'}`}
+        >
+          <ListIcon active={activeTab === 'exercises'} />
+          <span className="text-[10px] mt-0.5">{activeTab === 'exercises' ? 'Esercizi' : ''}</span>
+        </button>
+        <button
+          onClick={() => { setActiveTab('settings'); setScreen('settings'); }}
+          className={`flex flex-col items-center py-1 px-4 transition-colors ${activeTab === 'settings' ? 'text-[var(--primary)]' : 'text-[var(--text-muted)]'}`}
+        >
+          <SettingsIcon active={activeTab === 'settings'} />
+          <span className="text-[10px] mt-0.5">{activeTab === 'settings' ? 'Altro' : ''}</span>
+        </button>
+      </div>
+    </div>
+  );
+
   // Loading Screen
   if (screen === 'loading') {
     return (
@@ -728,8 +841,8 @@ function App() {
         </div>
 
         {/* Timeline */}
-        <div className="overflow-x-auto py-4 px-4">
-          <div className="flex gap-2 max-w-2xl mx-auto pb-2">
+        <div className="overflow-x-auto py-2 px-3 mb-3">
+          <div className="flex gap-1.5 items-center max-w-2xl mx-auto pb-1">
             {workouts.map((w) => {
               const isCompleted = completed.includes(w.day);
               const isCurrent = w.day === nextDay;
@@ -747,8 +860,8 @@ function App() {
                       : 'day-card-future'
                   }`}
                 >
-                  <div className="text-[10px] opacity-60 uppercase tracking-wide">Day</div>
-                  <div className="text-base font-semibold">{w.day}</div>
+                  {!isFuture && <div className="text-[8px] opacity-50 uppercase">D</div>}
+                  <div className={`font-semibold ${isFuture ? 'text-xs' : isCompleted ? 'text-sm' : 'text-base'}`}>{w.day}</div>
                   {isCompleted && <CheckIcon />}
                 </div>
               );
@@ -782,8 +895,13 @@ function App() {
         {/* Workout Card */}
         <div className="px-4 max-w-2xl mx-auto animate-slide-up">
           <div className="card overflow-hidden">
-            <div className="relative h-40 bg-[var(--primary)] flex items-center justify-center">
-              <span className="text-6xl">{displayWorkout?.image}</span>
+            <div className="relative h-24 bg-[var(--primary)] flex items-center justify-center">
+              <div className="flex items-center gap-3">
+                <span className="text-4xl">{displayWorkout?.image}</span>
+                <span className="text-white/90 text-sm font-medium bg-white/20 px-3 py-0.5 rounded-full">
+                  Giorno {nextDay}
+                </span>
+              </div>
             </div>
             <div className="p-5">
               <h3 className="text-lg font-semibold mb-1">{displayWorkout?.title}</h3>
@@ -863,8 +981,182 @@ function App() {
           </div>
         )}
 
-        <div className="h-24"></div>
+        <div className="h-14"></div>
         <AudioToggle />
+        <BottomNav />
+      </div>
+    );
+  }
+
+  // Exercises List Screen
+  if (screen === 'exercises') {
+    const exercisesList = Object.entries(exercises).map(([id, ex]) => ({
+      id,
+      ...ex
+    }));
+
+    return (
+      <div className="min-h-screen bg-[var(--bg)]">
+        {/* Header */}
+        <div className="bg-[var(--surface)] border-b border-[var(--border)] p-4">
+          <div className="max-w-2xl mx-auto">
+            <h1 className="text-lg font-semibold">Tutti gli Esercizi</h1>
+            <p className="text-sm text-[var(--text-secondary)]">{exercisesList.length} esercizi disponibili</p>
+          </div>
+        </div>
+
+        {/* Exercises List */}
+        <div className="px-4 py-4 max-w-2xl mx-auto">
+          <div className="space-y-3">
+            {exercisesList.map((exercise) => (
+              <div
+                key={exercise.id}
+                className="card p-4 animate-fade-in cursor-pointer hover:bg-[var(--surface-hover)] transition-colors"
+                onClick={() => {
+                  setSelectedExercise(exercise);
+                  setScreen('exerciseDetail');
+                }}
+              >
+                <div className="flex gap-4 items-center">
+                  <div className="flex-shrink-0 overflow-hidden rounded-xl">
+                    <ExerciseMedia
+                      src={exercise.gif}
+                      alt={exercise.name}
+                      className="w-20 h-20 object-cover rounded-xl"
+                    />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <h3 className="font-semibold text-sm mb-1">{exercise.name}</h3>
+                    <p className="text-xs text-[var(--text-secondary)] line-clamp-2 mb-2">
+                      {exercise.description}
+                    </p>
+                    <div className="flex gap-2">
+                      {exercise.muscles && (
+                        <span className="chip chip-light text-xs">
+                          {exercise.muscles}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                  <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" className="text-[var(--text-muted)] flex-shrink-0">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="h-14"></div>
+        <AudioToggle />
+        <BottomNav />
+      </div>
+    );
+  }
+
+  // Exercise Detail Screen
+  if (screen === 'exerciseDetail' && selectedExercise) {
+    return (
+      <div className="min-h-screen bg-[var(--bg)]">
+        {/* Header with back button */}
+        <div className="bg-[var(--surface)] border-b border-[var(--border)] p-4">
+          <div className="flex items-center gap-3 max-w-2xl mx-auto">
+            <button
+              onClick={() => {
+                setSelectedExercise(null);
+                setScreen('exercises');
+              }}
+              className="w-10 h-10 rounded-full bg-[var(--surface-hover)] flex items-center justify-center border border-[var(--border)]"
+            >
+              <BackIcon />
+            </button>
+            <h1 className="text-lg font-semibold truncate">{selectedExercise.name}</h1>
+          </div>
+        </div>
+
+        {/* Exercise Media - Large */}
+        <div className="flex justify-center py-6 bg-[var(--surface)]">
+          <div className="overflow-hidden rounded-2xl shadow-lg">
+            <ExerciseMedia
+              src={selectedExercise.gif}
+              alt={selectedExercise.name}
+              className="w-72 h-72 object-cover"
+            />
+          </div>
+        </div>
+
+        {/* Exercise Info */}
+        <div className="px-4 max-w-2xl mx-auto py-6">
+          <div className="card p-5 animate-slide-up">
+            {/* Name */}
+            <h2 className="text-xl font-bold mb-4">{selectedExercise.name}</h2>
+
+            {/* Muscles */}
+            {selectedExercise.muscles && (
+              <div className="mb-4">
+                <h3 className="text-xs font-medium text-[var(--text-muted)] uppercase tracking-wide mb-2">
+                  Muscoli coinvolti
+                </h3>
+                <div className="flex flex-wrap gap-2">
+                  {selectedExercise.muscles.split(', ').map((muscle, i) => (
+                    <span key={i} className="chip chip-primary text-sm">
+                      {muscle}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Type */}
+            {selectedExercise.type && (
+              <div className="mb-4">
+                <h3 className="text-xs font-medium text-[var(--text-muted)] uppercase tracking-wide mb-2">
+                  Tipologia
+                </h3>
+                <span className="chip chip-light text-sm capitalize">
+                  {selectedExercise.type}
+                </span>
+              </div>
+            )}
+
+            {/* Description */}
+            <div>
+              <h3 className="text-xs font-medium text-[var(--text-muted)] uppercase tracking-wide mb-2">
+                Come eseguirlo
+              </h3>
+              <p className="text-[var(--text-secondary)] leading-relaxed">
+                {selectedExercise.description}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div className="h-14"></div>
+        <AudioToggle />
+        <BottomNav />
+      </div>
+    );
+  }
+
+  // Settings Screen (placeholder)
+  if (screen === 'settings') {
+    return (
+      <div className="min-h-screen bg-[var(--bg)]">
+        {/* Header */}
+        <div className="bg-[var(--surface)] border-b border-[var(--border)] p-4">
+          <div className="max-w-2xl mx-auto">
+            <h1 className="text-lg font-semibold">Impostazioni</h1>
+          </div>
+        </div>
+
+        <div className="px-4 py-8 max-w-2xl mx-auto text-center">
+          <div className="text-6xl mb-4">🚧</div>
+          <p className="text-[var(--text-secondary)]">Prossimamente...</p>
+        </div>
+
+        <div className="h-14"></div>
+        <AudioToggle />
+        <BottomNav />
       </div>
     );
   }
@@ -927,7 +1219,7 @@ function App() {
             <div className="space-y-2">
               {curr?.exercises?.map((exercise, i) => (
                 <div key={i} className="exercise-card">
-                  <img
+                  <ExerciseMedia
                     src={exercise.gif}
                     alt={exercise.name}
                     className="exercise-thumbnail"
@@ -978,7 +1270,7 @@ function App() {
           <div className="timer-display mb-6">{prepTimer}</div>
 
           <div className="mb-6 overflow-hidden rounded-2xl">
-            <img
+            <ExerciseMedia
               src={ex?.gif}
               alt={ex?.name}
               className="w-36 h-36 rounded-2xl object-cover"
@@ -1085,7 +1377,7 @@ function App() {
 
         <div className="flex-1 flex flex-col items-center justify-center p-4">
           <div className="relative mb-4 animate-fade-in overflow-hidden rounded-3xl w-fit">
-            <img
+            <ExerciseMedia
               src={ex?.gif}
               alt={ex?.name}
               className="max-h-72 rounded-3xl"
@@ -1130,22 +1422,24 @@ function App() {
               {paused ? <PlayIcon /> : <PauseIcon />}
               {paused ? 'Riprendi' : 'Pausa'}
             </button>
-            <button
-              onClick={() => {
-                const hasNext = exerciseIdx < currentExercises.length - 1;
-                if (hasNext) {
-                  setExerciseIdx(prev => prev + 1);
-                  setPrep(true);
-                  setPrepTimer(10);
-                } else {
-                  moveToNextPhase();
-                }
-              }}
-              className="btn-flat flex items-center gap-2"
-            >
-              <SkipIcon />
-              Salta
-            </button>
+            {import.meta.env.DEV && (
+              <button
+                onClick={() => {
+                  const hasNext = exerciseIdx < currentExercises.length - 1;
+                  if (hasNext) {
+                    setExerciseIdx(prev => prev + 1);
+                    setPrep(true);
+                    setPrepTimer(10);
+                  } else {
+                    moveToNextPhase();
+                  }
+                }}
+                className="btn-flat flex items-center gap-2"
+              >
+                <SkipIcon />
+                Salta
+              </button>
+            )}
           </div>
 
           {/* Next exercise preview */}
@@ -1153,7 +1447,7 @@ function App() {
             <div className="bg-white/5 rounded-xl p-3 w-full max-w-sm">
               <p className="text-xs text-white/50 mb-2">Prossimo:</p>
               <div className="flex items-center gap-3">
-                <img
+                <ExerciseMedia
                   src={next.gif}
                   alt={next.name}
                   className="w-10 h-10 rounded-xl object-cover"
