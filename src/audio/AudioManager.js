@@ -209,6 +209,22 @@ class WorkoutVoice {
     this.synthesis.speak(utterance);
   }
 
+  speakExit() {
+    if (!this.enabled || !('speechSynthesis' in window)) return;
+    this.synthesis.cancel();
+
+    const text = 'Non hai completato l\'allenamento, peccato!';
+
+    const utterance = new SpeechSynthesisUtterance(text);
+    if (this.voice) utterance.voice = this.voice;
+    utterance.lang = 'it-IT';
+    utterance.rate = 0.9;
+    utterance.pitch = 0.9;
+    utterance.volume = 0.9;
+
+    this.synthesis.speak(utterance);
+  }
+
   stop() {
     this.synthesis.cancel();
   }
@@ -453,6 +469,19 @@ class AudioManager {
       setTimeout(() => {
         this.voice.speakCompletion(elapsedTime);
       }, 500);
+    }
+  }
+
+  exitWorkout() {
+    this.workoutActive = false;
+    this.music.stop();
+    this.voice.stop();
+
+    // Say exit message
+    if (this.enabled) {
+      setTimeout(() => {
+        this.voice.speakExit();
+      }, 300);
     }
   }
 

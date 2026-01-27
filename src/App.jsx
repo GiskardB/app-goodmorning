@@ -687,7 +687,7 @@ function App() {
   // Exit workout handler
   const exitWorkout = () => {
     setActive(false);
-    audioManager.finishWorkout(elapsedTimeRef.current);
+    audioManager.exitWorkout();
     setScreen('detail');
     setElapsedTime(0);
     elapsedTimeRef.current = 0;
@@ -1565,18 +1565,18 @@ function App() {
                 <span>{formatTime(session.duration)}</span>
               </div>
             </div>
-            <div className="grid grid-cols-3 gap-3 text-center">
-              <div className="bg-blue-400/10 rounded-lg p-3">
+            <div className="grid grid-cols-3 gap-2 text-center">
+              <div className="bg-blue-400/10 rounded-lg p-2">
                 <div className="text-lg font-bold text-blue-400">{warmupExercises.length}</div>
-                <div className="text-xs text-[var(--text-secondary)]">Riscaldamento</div>
+                <div className="text-[10px] text-[var(--text-secondary)] truncate">Risc.</div>
               </div>
-              <div className="bg-[var(--primary)]/10 rounded-lg p-3">
+              <div className="bg-[var(--primary)]/10 rounded-lg p-2">
                 <div className="text-lg font-bold text-[var(--primary)]">{workoutExercises.length}</div>
-                <div className="text-xs text-[var(--text-secondary)]">Allenamento</div>
+                <div className="text-[10px] text-[var(--text-secondary)] truncate">Workout</div>
               </div>
-              <div className="bg-slate-600/20 rounded-lg p-3">
+              <div className="bg-slate-600/20 rounded-lg p-2">
                 <div className="text-lg font-bold text-slate-500">{cooldownExercises.length}</div>
-                <div className="text-xs text-[var(--text-secondary)]">Defaticamento</div>
+                <div className="text-[10px] text-[var(--text-secondary)] truncate">Defat.</div>
               </div>
             </div>
           </div>
