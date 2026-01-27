@@ -1,0 +1,370 @@
+@import "tailwindcss";
+
+/* Design System - Clean & Flat */
+:root {
+  /* Primary - Single accent color */
+  --primary: #6366F1;
+  --primary-light: #818CF8;
+
+  /* Success - Blue tones */
+  --success: #3B82F6;
+  --success-light: #60A5FA;
+
+  /* Neutral palette */
+  --bg: #FAFAFA;
+  --surface: #FFFFFF;
+  --surface-hover: #F5F5F5;
+  --border: #E5E5E5;
+  --text: #171717;
+  --text-secondary: #737373;
+  --text-muted: #A3A3A3;
+
+  /* Dark variants for workout screens */
+  --dark-bg: #2D2D35;
+  --dark-surface: #3A3A44;
+  --dark-border: #4A4A54;
+
+  /* Shadows - subtle */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.05);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.05);
+
+  /* Border Radius */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-full: 9999px;
+
+  /* Font */
+  --font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* Base Styles */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: var(--font-family);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background-color: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+}
+
+#root {
+  width: 100%;
+}
+
+/* Typography */
+h1, h2, h3 {
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+/* Timer Display */
+.timer-display {
+  font-size: 96px;
+  font-weight: 700;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.03em;
+}
+
+.timer-display-sm {
+  font-size: 64px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.03em;
+}
+
+/* Progress Bar */
+.progress-bar {
+  height: 4px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: white;
+  border-radius: var(--radius-full);
+  transition: width 0.3s ease-out;
+}
+
+.progress-bar-dark {
+  background: var(--border);
+}
+
+.progress-bar-dark .progress-bar-fill {
+  background: var(--primary);
+}
+
+/* Card Styles */
+.card {
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+}
+
+/* Button Styles */
+.btn-primary {
+  background: var(--primary);
+  color: white;
+  font-weight: 600;
+  padding: 16px 32px;
+  border-radius: var(--radius-full);
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: var(--font-family);
+}
+
+.btn-primary:hover {
+  background: var(--primary-light);
+}
+
+.btn-primary:active {
+  transform: scale(0.98);
+}
+
+.btn-secondary {
+  background: var(--surface);
+  color: var(--text);
+  font-weight: 500;
+  padding: 12px 24px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--border);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: var(--font-family);
+}
+
+.btn-secondary:hover {
+  background: var(--surface-hover);
+}
+
+/* Workout Backgrounds */
+.bg-workout {
+  background: var(--dark-bg);
+}
+
+.bg-prep {
+  background: linear-gradient(135deg, #6366F1 0%, #8B5CF6 100%);
+}
+
+.bg-success {
+  background: linear-gradient(135deg, #3B82F6 0%, #60A5FA 100%);
+}
+
+/* Day Card Styles */
+.day-card {
+  width: 56px;
+  height: 72px;
+  border-radius: var(--radius-md);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+  border: 1px solid transparent;
+}
+
+.day-card:hover {
+  transform: translateY(-2px);
+}
+
+.day-card-completed {
+  background: var(--success);
+  color: white;
+}
+
+.day-card-current {
+  background: var(--surface);
+  border-color: var(--primary);
+}
+
+.day-card-future {
+  background: var(--surface-hover);
+  color: var(--text-muted);
+  border-color: var(--border);
+}
+
+/* Exercise Card */
+.exercise-card {
+  background: var(--surface);
+  border-radius: var(--radius-md);
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border: 1px solid var(--border);
+  transition: all 0.2s ease;
+}
+
+.exercise-card:hover {
+  border-color: var(--primary);
+}
+
+.exercise-thumbnail {
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-md);
+  object-fit: cover;
+}
+
+/* Chip/Badge */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: var(--radius-full);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.chip-dark {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+.chip-light {
+  background: var(--surface-hover);
+  color: var(--text-secondary);
+}
+
+.chip-info {
+  background: rgba(99, 179, 237, 0.15);
+  color: #3B82F6;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-out;
+}
+
+.animate-slide-up {
+  animation: slideUp 0.4s ease-out;
+}
+
+.animate-pulse-soft {
+  animation: pulse 1s ease-in-out infinite;
+}
+
+/* Stats Card */
+.stat-card {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-lg);
+  padding: 16px 24px;
+  text-align: center;
+  min-width: 80px;
+}
+
+/* Audio Control - Fixed positioning and visibility */
+.audio-toggle {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 1000;
+  transition: all 0.2s ease;
+  box-shadow: var(--shadow-md);
+}
+
+.audio-toggle:hover {
+  transform: scale(1.05);
+  border-color: var(--primary);
+}
+
+.audio-toggle svg {
+  width: 20px;
+  height: 20px;
+  color: var(--text);
+}
+
+/* Safe Area for Mobile */
+@supports (padding: max(0px)) {
+  body {
+    padding-left: max(0px, env(safe-area-inset-left));
+    padding-right: max(0px, env(safe-area-inset-right));
+    padding-bottom: max(0px, env(safe-area-inset-bottom));
+  }
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+/* Header Card */
+.header-card {
+  background: var(--primary);
+  border-radius: var(--radius-md);
+  padding: 10px 16px;
+  color: white;
+}
+
+/* Flat button for dark backgrounds */
+.btn-flat {
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
+  font-weight: 500;
+  padding: 12px 24px;
+  border-radius: var(--radius-full);
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: var(--font-family);
+}
+
+.btn-flat:hover {
+  background: rgba(255, 255, 255, 0.25);
+}

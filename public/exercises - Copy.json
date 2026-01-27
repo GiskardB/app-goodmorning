@@ -1,0 +1,485 @@
+{
+  "push_up_knees": {
+    "name": "Push-up in ginocchio",
+    "description": "Push-up con ginocchia a terra per ridurre l'intensità mantenendo l'efficacia sul petto e tricipiti",
+    "muscles": "Petto, Tricipiti",
+    "type": "push",
+    "gif": "https://gymvisual.com/img/p/1/0/0/8/3/10083.gif"
+  },
+  "bird_dog": {
+    "name": "Bird dog",
+    "description": "Esercizio di stabilità del core che coinvolge anche la schiena",
+    "muscles": "Core, Schiena",
+    "type": "core",
+    "gif": "https://i.pinimg.com/originals/55/55/22/555522af5bc323b389b138e4b0e8e135.gif"
+  },
+  "bird_dog_knee_elbow": {
+    "name": "Bird dog con gomito al ginocchio",
+    "description": "Variante dinamica del bird dog con rotazione",
+    "muscles": "Core, Obliqui",
+    "type": "core",
+    "gif": "https://i.pinimg.com/originals/76/6e/f3/766ef3c824e2896dd4b201d88adbbc3e.gif"
+  },
+  "plank": {
+    "name": "Plank sui gomiti",
+    "description": "Posizione statica di tenuta che rafforza tutto il core",
+    "muscles": "Core, Addominali",
+    "type": "plank",
+    "gif": "https://gymvisual.com/img/p/1/0/2/1/2/10212.gif"
+  },
+  "plank_side_left": {
+    "name": "Plank laterale (sinistra)",
+    "description": "Plank sul fianco sinistro per gli obliqui",
+    "muscles": "Obliqui, Core",
+    "type": "plank",
+    "gif": "https://gymvisual.com/img/p/1/4/2/3/1/14231.gif"
+  },
+  "plank_side_right": {
+    "name": "Plank laterale (destra)",
+    "description": "Plank sul fianco destro per gli obliqui",
+    "muscles": "Obliqui, Core",
+    "type": "plank",
+    "gif": "https://gymvisual.com/img/p/1/4/2/3/1/14231.gif"
+  },
+  "plank_airplane": {
+    "name": "Plank Aeroplano",
+    "description": "Plank con estensione laterale del braccio",
+    "muscles": "Core, Spalle, Stabilità",
+    "type": "plank",
+    "gif": "https://gymvisual.com/img/p/1/0/2/1/2/10212.gif"
+  },
+  "plank_with_fist": {
+    "name": "Plank con pugni",
+    "description": "Plank con movimento dei pugni alternato",
+    "muscles": "Core, Spalle",
+    "type": "plank",
+    "gif": "https://gymvisual.com/img/p/1/0/2/1/2/10212.gif"
+  },
+  "dead_bug": {
+    "name": "Dead Bug",
+    "description": "Esercizio per gli addominali che migliora la coordinazione",
+    "muscles": "Addominali, Core",
+    "type": "core",
+    "gif": "https://i.pinimg.com/originals/1f/78/1a/1f781a85c032d5c79f5cb29c8b2e0e4f.gif"
+  },
+  "glute_bridge": {
+    "name": "Ponte Glutei",
+    "description": "Sollevamento del bacino per attivare e tonificare i glutei",
+    "muscles": "Glutei, Femorali",
+    "type": "glutes",
+    "gif": "https://gymvisual.com/img/p/1/2/7/5/4/12754.gif"
+  },
+  "glute_bridge_isometric": {
+    "name": "Ponte per i glutei isometrico",
+    "description": "Tenuta statica del ponte glutei",
+    "muscles": "Glutei, Femorali",
+    "type": "glutes",
+    "gif": "https://gymvisual.com/img/p/1/2/7/5/4/12754.gif"
+  },
+  "glute_bridge_march": {
+    "name": "Ponte Glutei con marcia",
+    "description": "Ponte glutei con sollevamento alternato delle gambe",
+    "muscles": "Glutei, Core",
+    "type": "glutes",
+    "gif": "https://gymvisual.com/img/p/1/2/7/5/4/12754.gif"
+  },
+  "heel_touches": {
+    "name": "Tocco Tallone",
+    "description": "Crunch laterale per allenare gli obliqui",
+    "muscles": "Obliqui, Addominali",
+    "type": "core",
+    "gif": "https://i.pinimg.com/originals/ff/ae/3d/ffae3d6f0fc9a9a9d3c8c0f6e1b5e5e5.gif"
+  },
+  "bodyweight_squat": {
+    "name": "Squat a corpo libero",
+    "description": "Squat classico per gambe e glutei senza pesi",
+    "muscles": "Gambe, Glutei, Quadricipiti",
+    "type": "squat",
+    "gif": "https://gymvisual.com/img/p/1/0/1/7/9/10179.gif"
+  },
+  "squat_malasana": {
+    "name": "Squat Malasana",
+    "description": "Squat profondo yoga style",
+    "muscles": "Gambe, Glutei, Mobilità",
+    "type": "squat",
+    "gif": "https://gymvisual.com/img/p/1/0/1/7/9/10179.gif"
+  },
+  "squat_sumo": {
+    "name": "Squat sumo",
+    "description": "Squat con gambe larghe per interno coscia",
+    "muscles": "Interno Coscia, Glutei",
+    "type": "squat",
+    "gif": "https://gymvisual.com/img/p/1/0/1/7/9/10179.gif"
+  },
+  "squat_lateral_step_push_up": {
+    "name": "Squat con passaggio a push up",
+    "description": "Movimento combinato squat e push-up",
+    "muscles": "Full Body",
+    "type": "cardio",
+    "gif": "https://gymvisual.com/img/p/1/3/8/9/3/13893.gif"
+  },
+  "burpee": {
+    "name": "Burpee con camminata",
+    "description": "Esercizio cardio total body ad alta intensità",
+    "muscles": "Full Body, Cardio",
+    "type": "cardio",
+    "gif": "https://gymvisual.com/img/p/1/3/8/9/3/13893.gif"
+  },
+  "burpee_walkout": {
+    "name": "Burpee con camminata",
+    "description": "Variante burpee con walkout al posto del salto",
+    "muscles": "Full Body, Cardio",
+    "type": "cardio",
+    "gif": "https://gymvisual.com/img/p/1/3/8/9/3/13893.gif"
+  },
+  "mountain_climber": {
+    "name": "Scalatore",
+    "description": "Esercizio cardio che coinvolge core e resistenza",
+    "muscles": "Core, Cardio, Spalle",
+    "type": "cardio",
+    "gif": "https://gymvisual.com/img/p/1/3/5/0/8/13508.gif"
+  },
+  "superman": {
+    "name": "Superman",
+    "description": "Estensione della schiena per rafforzare la zona lombare",
+    "muscles": "Lower Back, Schiena",
+    "type": "core",
+    "gif": "https://gymvisual.com/img/p/1/3/9/7/5/13975.gif"
+  },
+  "superman_swimmer": {
+    "name": "Superman nuotatore",
+    "description": "Superman con movimento nuoto alternato",
+    "muscles": "Schiena, Spalle",
+    "type": "core",
+    "gif": "https://gymvisual.com/img/p/1/3/9/7/5/13975.gif"
+  },
+  "sit_up": {
+    "name": "Sit up",
+    "description": "Crunch completo che solleva tutto il busto",
+    "muscles": "Addominali",
+    "type": "core",
+    "gif": "https://gymvisual.com/img/p/1/0/2/3/5/10235.gif"
+  },
+  "sit_up_reach_toes": {
+    "name": "Sit up con braccia alla testa",
+    "description": "Sit up con estensione braccia sopra la testa",
+    "muscles": "Addominali",
+    "type": "core",
+    "gif": "https://gymvisual.com/img/p/1/0/2/3/5/10235.gif"
+  },
+  "leg_raises": {
+    "name": "Sollevamenti delle gambe",
+    "description": "Sollevamento gambe per gli addominali bassi",
+    "muscles": "Lower Abs, Addominali bassi",
+    "type": "core",
+    "gif": "https://gymvisual.com/img/p/1/3/6/2/1/13621.gif"
+  },
+  "leg_lifts_scissor": {
+    "name": "Sollevamenti gambe a forbice",
+    "description": "Movimento forbice con le gambe",
+    "muscles": "Addominali bassi, Hip Flexors",
+    "type": "core",
+    "gif": "https://gymvisual.com/img/p/1/3/6/2/1/13621.gif"
+  },
+  "side_crunch_standing_left": {
+    "name": "Crunch laterale in posizione eretta (sinistra)",
+    "description": "Crunch laterale in piedi per gli obliqui lato sinistro",
+    "muscles": "Obliqui",
+    "type": "core",
+    "gif": "https://gymvisual.com/img/p/1/4/2/3/1/14231.gif"
+  },
+  "side_crunch_standing_right": {
+    "name": "Crunch laterale in posizione eretta (destra)",
+    "description": "Crunch laterale in piedi per gli obliqui lato destro",
+    "muscles": "Obliqui",
+    "type": "core",
+    "gif": "https://gymvisual.com/img/p/1/4/2/3/1/14231.gif"
+  },
+  "side_crunch_floor_left": {
+    "name": "Crunch laterale in posizione eretta (sinistra)",
+    "description": "Crunch laterale a terra sul fianco sinistro",
+    "muscles": "Obliqui",
+    "type": "core",
+    "gif": "https://gymvisual.com/img/p/1/4/2/3/1/14231.gif"
+  },
+  "side_crunch_floor_right": {
+    "name": "Crunch laterale in posizione eretta (destra)",
+    "description": "Crunch laterale a terra sul fianco destro",
+    "muscles": "Obliqui",
+    "type": "core",
+    "gif": "https://gymvisual.com/img/p/1/4/2/3/1/14231.gif"
+  },
+  "donkey_kicks_left": {
+    "name": "Calci d'asino (sinistra)",
+    "description": "Calcio all'indietro con gamba sinistra per i glutei",
+    "muscles": "Glutei",
+    "type": "glutes",
+    "gif": "https://gymvisual.com/img/p/1/2/4/3/6/12436.gif"
+  },
+  "donkey_kicks_right": {
+    "name": "Calci d'asino (destra)",
+    "description": "Calcio all'indietro con gamba destra per i glutei",
+    "muscles": "Glutei",
+    "type": "glutes",
+    "gif": "https://gymvisual.com/img/p/1/2/4/3/6/12436.gif"
+  },
+  "donkey_kicks_knee_left": {
+    "name": "Calci d'asino con gomito al ginocchio (sinistra)",
+    "description": "Calcio d'asino con tocco ginocchio-gomito",
+    "muscles": "Glutei, Core",
+    "type": "glutes",
+    "gif": "https://gymvisual.com/img/p/1/2/4/3/6/12436.gif"
+  },
+  "donkey_kicks_knee_right": {
+    "name": "Calci d'asino con gomito al ginocchio (destra)",
+    "description": "Calcio d'asino con tocco ginocchio-gomito",
+    "muscles": "Glutei, Core",
+    "type": "glutes",
+    "gif": "https://gymvisual.com/img/p/1/2/4/3/6/12436.gif"
+  },
+  "cobra_stretch": {
+    "name": "Cobra",
+    "description": "Stretching schiena posizione cobra",
+    "muscles": "Schiena, Flessibilità",
+    "type": "stretching",
+    "gif": "https://gymvisual.com/img/p/1/3/9/7/5/13975.gif"
+  },
+  "child_pose": {
+    "name": "Posizione del bambino",
+    "description": "Posizione rilassamento yoga",
+    "muscles": "Schiena, Rilassamento",
+    "type": "stretching",
+    "gif": "https://gymvisual.com/img/p/1/0/2/1/2/10212.gif"
+  },
+  "knee_push_up_down_dog": {
+    "name": "Kneeling Push-Ups to Down Dog",
+    "description": "Push-up in ginocchio con transizione a cane a testa in giù",
+    "muscles": "Petto, Spalle, Flessibilità",
+    "type": "push",
+    "gif": "https://gymvisual.com/img/p/1/0/0/8/3/10083.gif"
+  },
+  "hip_rotation": {
+    "name": "Rotazione Gambe Appaiate",
+    "description": "Rotazione delle anche a gambe piegate",
+    "muscles": "Obliqui, Anche",
+    "type": "core",
+    "gif": "https://gymvisual.com/img/p/1/3/6/2/1/13621.gif"
+  },
+  "lunge_static": {
+    "name": "Affondi all'indietro (sinistra)",
+    "description": "Affondo statico per gambe e glutei",
+    "muscles": "Gambe, Glutei",
+    "type": "squat",
+    "gif": "https://gymvisual.com/img/p/1/0/1/7/9/10179.gif"
+  },
+  "lunge_static_left": {
+    "name": "Affondi all'indietro (sinistra)",
+    "description": "Affondo statico gamba sinistra",
+    "muscles": "Gambe, Glutei",
+    "type": "squat",
+    "gif": "https://gymvisual.com/img/p/1/0/1/7/9/10179.gif"
+  },
+  "lunge_static_right": {
+    "name": "Affondi all'indietro (destra)",
+    "description": "Affondo statico gamba destra",
+    "muscles": "Gambe, Glutei",
+    "type": "squat",
+    "gif": "https://gymvisual.com/img/p/1/0/1/7/9/10179.gif"
+  },
+  "curtsy_lunge_left": {
+    "name": "Affondi incrociati (sinistra)",
+    "description": "Affondo con gamba incrociata dietro",
+    "muscles": "Glutei, Interno coscia",
+    "type": "squat",
+    "gif": "https://gymvisual.com/img/p/1/0/1/7/9/10179.gif"
+  },
+  "curtsy_lunge_right": {
+    "name": "Affondi incrociati (destra)",
+    "description": "Affondo con gamba incrociata dietro",
+    "muscles": "Glutei, Interno coscia",
+    "type": "squat",
+    "gif": "https://gymvisual.com/img/p/1/0/1/7/9/10179.gif"
+  },
+  "lunge_reverse": {
+    "name": "Affondi indietro alternati",
+    "description": "Affondi all'indietro con alternanza",
+    "muscles": "Gambe, Glutei",
+    "type": "squat",
+    "gif": "https://gymvisual.com/img/p/1/0/1/7/9/10179.gif"
+  },
+  "high_knees": {
+    "name": "Ginocchia alte",
+    "description": "Corsa sul posto con ginocchia alte",
+    "muscles": "Cardio, Gambe",
+    "type": "cardio",
+    "gif": "https://gymvisual.com/img/p/1/3/5/0/8/13508.gif"
+  },
+  "jumping_jacks": {
+    "name": "Jumping Jack",
+    "description": "Saltelli con apertura braccia e gambe",
+    "muscles": "Cardio, Full Body",
+    "type": "cardio",
+    "gif": "https://gymvisual.com/img/p/1/3/8/9/3/13893.gif"
+  },
+  "ankle_touch": {
+    "name": "Spinta dell'anca",
+    "description": "Tocco caviglie con spinta anca",
+    "muscles": "Obliqui, Flessibilità",
+    "type": "core",
+    "gif": "https://i.pinimg.com/originals/ff/ae/3d/ffae3d6f0fc9a9a9d3c8c0f6e1b5e5e5.gif"
+  },
+  "chest_opener_rotation": {
+    "name": "Aperture del petto con rotazione",
+    "description": "Rotazione toracica per apertura petto",
+    "muscles": "Petto, Mobilità toracica",
+    "type": "stretching",
+    "gif": "https://gymvisual.com/img/p/1/0/0/8/3/10083.gif"
+  },
+  "push_up_archer_left": {
+    "name": "Push up dell'arciere inginocchiato (sinistra)",
+    "description": "Push-up asimmetrico con enfasi su un lato",
+    "muscles": "Petto, Tricipiti, Spalle",
+    "type": "push",
+    "gif": "https://gymvisual.com/img/p/1/0/0/8/3/10083.gif"
+  },
+  "push_up_archer_right": {
+    "name": "Push up dell'arciere inginocchiato (destra)",
+    "description": "Push-up asimmetrico con enfasi su un lato",
+    "muscles": "Petto, Tricipiti, Spalle",
+    "type": "push",
+    "gif": "https://gymvisual.com/img/p/1/0/0/8/3/10083.gif"
+  },
+  "pseudo_push_up_knees": {
+    "name": "Pseudo push up in ginocchio",
+    "description": "Push-up con mani avanzate per più difficoltà",
+    "muscles": "Petto, Spalle anteriori",
+    "type": "push",
+    "gif": "https://gymvisual.com/img/p/1/0/0/8/3/10083.gif"
+  },
+  "push_up_wide_arm": {
+    "name": "Push up con braccia ad aeroplano",
+    "description": "Push-up con braccia larghe",
+    "muscles": "Petto, Spalle",
+    "type": "push",
+    "gif": "https://gymvisual.com/img/p/1/0/0/8/3/10083.gif"
+  },
+  "calf_raise_left": {
+    "name": "Calci d'asino (sinistra)",
+    "description": "Sollevamento polpacci gamba sinistra",
+    "muscles": "Polpacci",
+    "type": "squat",
+    "gif": "https://gymvisual.com/img/p/1/0/1/7/9/10179.gif"
+  },
+  "calf_raise_right": {
+    "name": "Calci d'asino (destra)",
+    "description": "Sollevamento polpacci gamba destra",
+    "muscles": "Polpacci",
+    "type": "squat",
+    "gif": "https://gymvisual.com/img/p/1/0/1/7/9/10179.gif"
+  },
+  "bicycle_crunch": {
+    "name": "Bicicletta",
+    "description": "Crunch con movimento bicicletta",
+    "muscles": "Addominali, Obliqui",
+    "type": "core",
+    "gif": "https://gymvisual.com/img/p/1/3/6/2/1/13621.gif"
+  },
+  "flutter_kicks": {
+    "name": "Sforbiciate",
+    "description": "Movimento forbice veloce con le gambe",
+    "muscles": "Addominali bassi",
+    "type": "core",
+    "gif": "https://gymvisual.com/img/p/1/3/6/2/1/13621.gif"
+  },
+  "hip_raise": {
+    "name": "Sollevamenti del bacino",
+    "description": "Sollevamento verticale del bacino",
+    "muscles": "Addominali bassi",
+    "type": "core",
+    "gif": "https://gymvisual.com/img/p/1/3/6/2/1/13621.gif"
+  },
+  "shoulder_taps": {
+    "name": "Tocchi spalle in plank",
+    "description": "Plank con tocco spalle alternato",
+    "muscles": "Core, Spalle, Stabilità",
+    "type": "plank",
+    "gif": "https://gymvisual.com/img/p/1/0/2/1/2/10212.gif"
+  },
+  "march_in_place": {
+    "name": "Marcia sul posto",
+    "description": "Camminata sul posto sollevando le ginocchia per attivare la circolazione",
+    "muscles": "Gambe, Cardio",
+    "type": "warmup",
+    "gif": "https://gymvisual.com/img/p/1/3/5/0/8/13508.gif"
+  },
+  "arm_circles": {
+    "name": "Circonduzioni delle braccia",
+    "description": "Rotazione delle braccia per scaldare spalle e articolazioni",
+    "muscles": "Spalle, Mobilità",
+    "type": "warmup",
+    "gif": "https://gymvisual.com/img/p/1/0/0/8/3/10083.gif"
+  },
+  "torso_rotation_standing": {
+    "name": "Rotazione del busto in piedi",
+    "description": "Rotazione del torso per mobilizzare la colonna vertebrale",
+    "muscles": "Core, Obliqui, Mobilità",
+    "type": "warmup",
+    "gif": "https://gymvisual.com/img/p/1/4/2/3/1/14231.gif"
+  },
+  "hip_circles": {
+    "name": "Circonduzioni delle anche",
+    "description": "Rotazione delle anche per aumentare la mobilità articolare",
+    "muscles": "Anche, Mobilità",
+    "type": "warmup",
+    "gif": "https://gymvisual.com/img/p/1/0/1/7/9/10179.gif"
+  },
+  "breathing_standing": {
+    "name": "Respirazione in piedi",
+    "description": "Respirazione profonda controllata per il recupero",
+    "muscles": "Rilassamento, Recupero",
+    "type": "cooldown",
+    "gif": "https://gymvisual.com/img/p/1/0/2/1/2/10212.gif"
+  },
+  "hamstring_stretch": {
+    "name": "Stretching bicipiti femorali",
+    "description": "Allungamento della parte posteriore della coscia",
+    "muscles": "Bicipiti femorali, Flessibilità",
+    "type": "stretching",
+    "gif": "https://gymvisual.com/img/p/1/0/1/7/9/10179.gif"
+  },
+  "glute_stretch": {
+    "name": "Stretching glutei",
+    "description": "Allungamento dei muscoli glutei",
+    "muscles": "Glutei, Flessibilità",
+    "type": "stretching",
+    "gif": "https://gymvisual.com/img/p/1/2/7/5/4/12754.gif"
+  },
+  "quad_stretch": {
+    "name": "Stretching quadricipiti",
+    "description": "Allungamento della parte anteriore della coscia",
+    "muscles": "Quadricipiti, Flessibilità",
+    "type": "stretching",
+    "gif": "https://gymvisual.com/img/p/1/0/1/7/9/10179.gif"
+  },
+  "calf_stretch": {
+    "name": "Stretching polpacci",
+    "description": "Allungamento dei muscoli del polpaccio",
+    "muscles": "Polpacci, Flessibilità",
+    "type": "stretching",
+    "gif": "https://gymvisual.com/img/p/1/0/1/7/9/10179.gif"
+  },
+  "shoulder_stretch": {
+    "name": "Stretching spalle",
+    "description": "Allungamento dei deltoidi e della cuffia dei rotatori",
+    "muscles": "Spalle, Flessibilità",
+    "type": "stretching",
+    "gif": "https://gymvisual.com/img/p/1/0/0/8/3/10083.gif"
+  },
+  "chest_stretch": {
+    "name": "Stretching pettorali",
+    "description": "Apertura del petto e allungamento dei pettorali",
+    "muscles": "Petto, Flessibilità",
+    "type": "stretching",
+    "gif": "https://gymvisual.com/img/p/1/0/0/8/3/10083.gif"
+  }
+}
