@@ -123,6 +123,13 @@ function App() {
   const [restTimer, setRestTimer] = useState(30);
   const [midWorkoutRestTaken, setMidWorkoutRestTaken] = useState(false);
 
+  // PWA Install prompt
+  const [installPrompt, setInstallPrompt] = useState(null);
+  const [isInstalled, setIsInstalled] = useState(false);
+
+  // Wake Lock to prevent screen from turning off
+  const wakeLockRef = useRef(null);
+
   const prepStartedRef = useRef(false);
   const workoutStartedRef = useRef(false);
   const elapsedIntervalRef = useRef(null);
@@ -189,6 +196,74 @@ function App() {
 
     loadData();
   }, []);
+
+  // PWA Install prompt handler
+  useEffect(() => {
+    // Check if already installed
+    if (window.matchMedia('(display-mode: standalone)').matches) {
+      setIsInstalled(true);
+    }
+
+    const handleBeforeInstall = (e) => {
+      e.preventDefault();
+      setInstallPrompt(e);
+    };
+
+    const handleAppInstalled = () => {
+      setIsInstalled(true);
+      setInstallPrompt(null);
+    };
+
+    window.addEventListener('beforeinstallprompt', handleBeforeInstall);
+    window.addEventListener('appinstalled', handleAppInstalled);
+
+    return () => {
+      window.removeEventListener('beforeinstallprompt', handleBeforeInstall);
+      window.removeEventListener('appinstalled', handleAppInstalled);
+    };
+  }, []);
+
+  // Wake Lock to prevent screen from turning off during workout
+  useEffect(() => {
+    const requestWakeLock = async () => {
+      if ('wakeLock' in navigator && active && !paused) {
+        try {
+          wakeLockRef.current = await navigator.wakeLock.request('screen');
+          console.log('Wake Lock attivato');
+        } catch (err) {
+          console.log('Wake Lock non disponibile:', err.message);
+        }
+      }
+    };
+
+    const releaseWakeLock = async () => {
+      if (wakeLockRef.current) {
+        await wakeLockRef.current.release();
+        wakeLockRef.current = null;
+        console.log('Wake Lock rilasciato');
+      }
+    };
+
+    if (active && !paused) {
+      requestWakeLock();
+    } else {
+      releaseWakeLock();
+    }
+
+    // Re-acquire wake lock when page becomes visible again
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'visible' && active && !paused) {
+        requestWakeLock();
+      }
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
+    return () => {
+      releaseWakeLock();
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
+  }, [active, paused]);
 
   // Save current day to IndexedDB
   useEffect(() => {
@@ -555,6 +630,19 @@ function App() {
     audioManager.onResume();
   };
 
+  // Install PWA handler
+  const handleInstall = async () => {
+    if (!installPrompt) return;
+
+    installPrompt.prompt();
+    const { outcome } = await installPrompt.userChoice;
+
+    if (outcome === 'accepted') {
+      setIsInstalled(true);
+    }
+    setInstallPrompt(null);
+  };
+
   // Audio toggle button component
   const AudioToggle = () => (
     <button
@@ -620,8 +708,21 @@ function App() {
         <div className="bg-[var(--surface)] border-b border-[var(--border)] p-4">
           <div className="flex items-center justify-between max-w-2xl mx-auto">
             <h1 className="text-lg font-semibold">Il mio Piano</h1>
-            <div className="w-9 h-9 bg-[var(--primary)] rounded-full flex items-center justify-center">
-              <span className="text-white text-sm font-medium">G</span>
+            <div className="flex items-center gap-2">
+              {installPrompt && !isInstalled && (
+                <button
+                  onClick={handleInstall}
+                  className="flex items-center gap-2 px-3 py-2 bg-[var(--primary)] text-white text-sm font-medium rounded-full"
+                >
+                  <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                  </svg>
+                  Installa
+                </button>
+              )}
+              <div className="w-9 h-9 bg-[var(--primary)] rounded-full flex items-center justify-center">
+                <span className="text-white text-sm font-medium">G</span>
+              </div>
             </div>
           </div>
         </div>
