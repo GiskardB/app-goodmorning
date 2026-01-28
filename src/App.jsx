@@ -1949,9 +1949,9 @@ function AppContent() {
     const phaseCode = getPhaseCode();
 
     return (
-      <div className={`min-h-screen ${prepBgColor} text-white flex flex-col`}>
+      <div className={`h-screen ${prepBgColor} text-white flex flex-col overflow-hidden`}>
         {showExitConfirm && <ExitConfirmModal />}
-        <div className="p-4 flex items-center justify-between">
+        <div className="p-3 flex items-center justify-between flex-shrink-0">
           <div className="flex flex-col">
             <div className="chip chip-dark">{getPhaseLabel()}</div>
             {import.meta.env.DEV && phaseCode && <span className="text-[10px] text-white/60 mt-1 ml-1">{phaseCode}</span>}
@@ -1964,21 +1964,21 @@ function AppContent() {
           </button>
         </div>
 
-        <div className="flex-1 flex flex-col items-center justify-center p-4 animate-fade-in">
+        <div className="flex-1 flex flex-col items-center justify-center p-3 animate-fade-in min-h-0">
           <p className="text-white/60 uppercase tracking-wider text-xs mb-1">Prossimo</p>
-          <h2 className="text-lg font-semibold text-center mb-3">{ex?.name}</h2>
+          <h2 className="text-base font-semibold text-center mb-2">{ex?.name}</h2>
 
-          <div className="text-5xl font-bold mb-4">{prepTimer}</div>
+          <div className="text-4xl font-bold mb-3">{prepTimer}</div>
 
-          <div className="mb-5 overflow-hidden rounded-2xl">
+          <div className="mb-3 overflow-hidden rounded-2xl flex-shrink-0">
             <ExerciseMedia
               src={ex?.gif}
               alt={ex?.name}
-              className="w-40 h-40 rounded-2xl object-cover"
+              className="w-36 h-36 rounded-2xl object-cover"
             />
           </div>
 
-          <p className="text-white/60 text-sm mb-5">Durata: {ex?.duration}s</p>
+          <p className="text-white/60 text-sm mb-3">Durata: {ex?.duration}s</p>
 
           <button
             onClick={() => {
@@ -2000,9 +2000,9 @@ function AppContent() {
   // Rest Screen - Mid-workout pause
   if (screen === 'workout' && phase === 'rest') {
     return (
-      <div className="min-h-screen bg-white text-[var(--text)] flex flex-col">
+      <div className="h-screen bg-white text-[var(--text)] flex flex-col overflow-hidden">
         {showExitConfirm && <ExitConfirmModal />}
-        <div className="p-4 flex items-center justify-end">
+        <div className="p-3 flex items-center justify-end flex-shrink-0">
           <button
             onClick={handleExitClick}
             className="w-10 h-10 rounded-full bg-[var(--surface-hover)] flex items-center justify-center border border-[var(--border)]"
@@ -2011,12 +2011,12 @@ function AppContent() {
           </button>
         </div>
 
-        <div className="flex-1 flex flex-col items-center justify-center p-6 animate-fade-in">
-          <p className="text-[var(--text-secondary)] uppercase tracking-wider text-xs mb-4">Riposa</p>
+        <div className="flex-1 flex flex-col items-center justify-center p-4 animate-fade-in min-h-0">
+          <p className="text-[var(--text-secondary)] uppercase tracking-wider text-xs mb-3">Riposa</p>
 
-          <div className="timer-display text-[var(--primary)] mb-8">{restTimer}</div>
+          <div className="timer-display text-[var(--primary)] mb-6">{restTimer}</div>
 
-          <p className="text-[var(--text-secondary)] text-center mb-8 max-w-xs">
+          <p className="text-[var(--text-secondary)] text-center mb-6 max-w-xs text-sm">
             Prenditi un momento per riprendere fiato prima di continuare
           </p>
 
@@ -2068,9 +2068,9 @@ function AppContent() {
     const overallProgress = totalAllExercises > 0 ? (completedCount / totalAllExercises) * 100 : 0;
 
     return (
-      <div className={`min-h-screen ${bgColor} text-white flex flex-col`}>
+      <div className={`h-screen ${bgColor} text-white flex flex-col overflow-hidden`}>
         {showExitConfirm && <ExitConfirmModal />}
-        <div className="p-4 flex items-center justify-between">
+        <div className="p-3 flex items-center justify-between flex-shrink-0">
           <div className="flex flex-col">
             <div className="chip chip-dark">
               {getPhaseLabel()} {exerciseIdx + 1}/{currentExercises.length}
@@ -2086,7 +2086,7 @@ function AppContent() {
         </div>
 
         {/* Elapsed time indicator with progress bar - full width */}
-        <div className="relative w-full bg-white/10 py-2.5 text-sm font-medium flex items-center justify-center gap-2 overflow-hidden">
+        <div className="relative w-full bg-white/10 py-2 text-sm font-medium flex items-center justify-center gap-2 overflow-hidden flex-shrink-0">
           {/* Progress bar background */}
           <div
             className="absolute left-0 top-0 bottom-0 bg-white/20 transition-all duration-300 ease-out"
@@ -2097,13 +2097,13 @@ function AppContent() {
           <span className="relative z-10 text-white/60 text-xs">({Math.round(overallProgress)}%)</span>
         </div>
 
-        <div className="flex-1 flex flex-col justify-center items-center p-4">
+        <div className="flex-1 flex flex-col justify-center items-center p-3 min-h-0">
           {/* Exercise image - full width when setting enabled */}
-          <div className={`relative mb-4 animate-fade-in ${fullWidthAnimation ? 'w-screen -mx-4 bg-white' : 'overflow-hidden rounded-3xl w-fit'}`}>
+          <div className={`relative mb-2 animate-fade-in flex-shrink ${fullWidthAnimation ? 'w-screen -mx-3 bg-white' : 'overflow-hidden rounded-2xl w-fit'}`}>
             <ExerciseMedia
               src={ex?.gif}
               alt={ex?.name}
-              className={fullWidthAnimation ? 'w-full h-auto max-h-80 object-contain' : 'max-h-72 rounded-3xl object-contain'}
+              className={fullWidthAnimation ? 'w-full h-auto max-h-[35vh] object-contain' : 'max-h-[30vh] rounded-2xl object-contain'}
               style={{
                 filter: paused ? 'grayscale(100%)' : 'none',
                 opacity: paused ? 0.4 : 1,
@@ -2120,27 +2120,27 @@ function AppContent() {
           </div>
 
           {/* Timer */}
-          <div className={`timer-display-sm mb-2 ${timer <= 3 ? 'text-sky-200 animate-pulse-soft' : ''}`}>
+          <div className={`text-4xl font-bold mb-1 ${timer <= 3 ? 'text-sky-200 animate-pulse-soft' : ''}`}>
             {timer}
           </div>
 
           {/* Progress bar */}
-          <div className="w-full max-w-xs progress-bar mb-4">
+          <div className="w-full max-w-xs progress-bar mb-2 flex-shrink-0">
             <div className="progress-bar-fill" style={{ width: `${progress}%` }} />
           </div>
 
           {/* Tip */}
-          <div className="chip chip-info mb-4">
+          <div className="chip chip-info mb-2 text-xs">
             {getTipText(ex?.type || phase)}
           </div>
 
-          <h2 className="text-lg font-semibold text-center mb-5">{ex?.name}</h2>
+          <h2 className="text-base font-semibold text-center mb-3">{ex?.name}</h2>
 
           {/* Controls */}
-          <div className="flex gap-3 mb-5">
+          <div className="flex gap-3 flex-shrink-0">
             <button
               onClick={() => setPaused(!paused)}
-              className="btn-secondary flex items-center gap-2"
+              className="btn-secondary flex items-center gap-2 py-2 px-4 text-sm"
             >
               {paused ? <PlayIcon /> : <PauseIcon />}
               {paused ? 'Riprendi' : 'Pausa'}
@@ -2157,23 +2157,25 @@ function AppContent() {
                     moveToNextPhase();
                   }
                 }}
-                className="btn-flat flex items-center gap-2"
+                className="btn-flat flex items-center gap-2 py-2 px-4 text-sm"
               >
                 <SkipIcon />
                 Salta
               </button>
             )}
           </div>
+        </div>
 
-          {/* Next exercise preview */}
+        {/* Next exercise preview - anchored at bottom */}
+        <div className="flex-shrink-0 px-3 pb-3">
           {next && (
-            <div className="bg-white/5 rounded-xl p-3 w-full max-w-sm">
-              <p className="text-xs text-white/50 mb-2">Prossimo:</p>
+            <div className="bg-white/10 rounded-xl p-3 w-full">
+              <p className="text-xs text-white/50 mb-1">Prossimo:</p>
               <div className="flex items-center gap-3">
                 <ExerciseMedia
                   src={next.gif}
                   alt={next.name}
-                  className="w-14 h-10 rounded-md object-cover"
+                  className="w-12 h-9 rounded-md object-cover"
                 />
                 <div>
                   <div className="font-medium text-sm">{next.name}</div>
@@ -2185,7 +2187,7 @@ function AppContent() {
 
           {/* Phase indicator */}
           {!next && phase !== 'cooldown' && (
-            <div className="bg-white/5 rounded-xl p-3 w-full max-w-sm text-center">
+            <div className="bg-white/10 rounded-xl p-3 w-full text-center">
               <p className="text-xs text-white/50">
                 Dopo: {phase === 'warmup' ? 'Allenamento principale' : 'Defaticamento'}
               </p>
