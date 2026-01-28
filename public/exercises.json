@@ -172,7 +172,7 @@
     "description": "Sdraiati sulla schiena con le gambe dritte. Solleva le gambe verso il soffitto mantenendole dritte, poi abbassale lentamente.",
     "muscles": "Lower Abs, Addominali bassi, Hip Flexors",
     "type": "core",
-    "gif": "assets/0865.gif"
+    "gif": "https://www.mybodycreator.com/content/files/2023/05/25/380_M.mp4"
   },
   "leg_lifts_scissor": {
     "name": "Sollevamenti gambe a forbice",
@@ -323,10 +323,10 @@
   },
   "ankle_touch": {
     "name": "Spinta dell'anca",
-    "description": "Sdraiati sulla schiena, raggiungi le caviglie alternando i lati con movimento laterale.",
-    "muscles": "Obliqui, Flessibilità",
+    "description": "Siediti sui talloni e tieni la schiena dritta. Spingi le anche in avanti contraendo i glutei.",
+    "muscles": "Glutei, Femorali",
     "type": "core",
-    "gif": "assets/0006.gif"
+    "gif": "https://cdnl.iconscout.com/lottie/premium/preview-watermark/man-doing-kneeling-squat-exercise-for-legs-animation-gif-download-10469921.mp4"
   },
   "chest_opener_rotation": {
     "name": "Aperture del petto con rotazione",

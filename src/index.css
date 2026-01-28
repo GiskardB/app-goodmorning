@@ -54,13 +54,27 @@ html {
 body {
   margin: 0;
   min-height: 100vh;
+  min-height: 100dvh;
   background-color: var(--bg);
   color: var(--text);
   line-height: 1.5;
+  overflow-x: hidden;
 }
 
 #root {
   width: 100%;
+}
+
+/* Workout screen - full height without scroll */
+.workout-screen {
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
 
 /* Typography */
@@ -252,6 +266,11 @@ h1, h2, h3 {
 .chip-info {
   background: rgba(99, 179, 237, 0.15);
   color: #3B82F6;
+}
+
+.chip-primary {
+  background: var(--primary);
+  color: white;
 }
 
 /* Animations */

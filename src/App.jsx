@@ -254,6 +254,9 @@ function AppContent() {
   const [workoutHistory, setWorkoutHistory] = useState([]);
   const [selectedHistorySession, setSelectedHistorySession] = useState(null);
   const [completedExercises, setCompletedExercises] = useState({ warmup: [], workout: [], cooldown: [] });
+  const [exerciseSearchTerm, setExerciseSearchTerm] = useState('');
+  const [editingExercise, setEditingExercise] = useState(null);
+  const [customExercises, setCustomExercises] = useState({});
   const [restTimer, setRestTimer] = useState(30);
   const [midWorkoutRestTaken, setMidWorkoutRestTaken] = useState(false);
 
@@ -293,7 +296,20 @@ function AppContent() {
         const exercisesRes = await fetch(`${import.meta.env.BASE_URL}exercises.json`);
         if (!exercisesRes.ok) throw new Error('Errore caricamento exercises.json');
         const exercisesData = await exercisesRes.json();
-        setExercises(exercisesData);
+
+        // Load custom exercises from localStorage and merge
+        const savedCustomExercises = localStorage.getItem('customExercises');
+        const customExercisesData = savedCustomExercises ? JSON.parse(savedCustomExercises) : {};
+        setCustomExercises(customExercisesData);
+
+        // Merge base exercises with custom modifications
+        const mergedExercises = { ...exercisesData };
+        Object.keys(customExercisesData).forEach(id => {
+          if (mergedExercises[id]) {
+            mergedExercises[id] = { ...mergedExercises[id], ...customExercisesData[id] };
+          }
+        });
+        setExercises(mergedExercises);
 
         // Load workouts.json
         const workoutsRes = await fetch(`${import.meta.env.BASE_URL}workouts.json`);
@@ -871,6 +887,62 @@ function AppContent() {
       cooldown: 'Rilassati e respira'
     };
     return tips[type] || null;
+  };
+
+  // Save exercise edits
+  const saveExerciseEdit = (exerciseId, updatedData) => {
+    const newCustomExercises = {
+      ...customExercises,
+      [exerciseId]: {
+        ...(customExercises[exerciseId] || {}),
+        ...updatedData
+      }
+    };
+    setCustomExercises(newCustomExercises);
+    localStorage.setItem('customExercises', JSON.stringify(newCustomExercises));
+
+    // Update exercises state
+    setExercises(prev => ({
+      ...prev,
+      [exerciseId]: {
+        ...prev[exerciseId],
+        ...updatedData
+      }
+    }));
+
+    // Update selected exercise if it's the one being edited
+    if (selectedExercise && selectedExercise.id === exerciseId) {
+      setSelectedExercise(prev => ({
+        ...prev,
+        ...updatedData
+      }));
+    }
+
+    setEditingExercise(null);
+  };
+
+  // Export exercises to JSON
+  const exportExercisesToJson = () => {
+    const exportData = {};
+    Object.entries(exercises).forEach(([id, ex]) => {
+      exportData[id] = {
+        name: ex.name,
+        description: ex.description,
+        muscles: ex.muscles,
+        type: ex.type,
+        gif: ex.gif
+      };
+    });
+
+    const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'exercises.json';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
   };
 
   // Start workout handler - now triggers pre-workout assessment first
@@ -1478,20 +1550,72 @@ function AppContent() {
       ...ex
     }));
 
+    // Filter exercises based on search term
+    const filteredExercises = exercisesList.filter(ex =>
+      ex.name.toLowerCase().includes(exerciseSearchTerm.toLowerCase()) ||
+      (ex.muscles && ex.muscles.toLowerCase().includes(exerciseSearchTerm.toLowerCase())) ||
+      (ex.type && ex.type.toLowerCase().includes(exerciseSearchTerm.toLowerCase()))
+    );
+
     return (
       <div className="min-h-screen bg-[var(--bg)]">
-        {/* Header */}
-        <div className="bg-[var(--surface)] border-b border-[var(--border)] p-4">
-          <div className="max-w-2xl mx-auto">
-            <h1 className="text-lg font-semibold">Tutti gli Esercizi</h1>
-            <p className="text-sm text-[var(--text-secondary)]">{exercisesList.length} esercizi disponibili</p>
+        {/* Header - Fixed */}
+        <div className="sticky top-0 z-20 bg-[var(--surface)] border-b border-[var(--border)]">
+          <div className="p-4">
+            <div className="max-w-2xl mx-auto">
+              <div className="flex items-center justify-between mb-3">
+                <div>
+                  <h1 className="text-lg font-semibold">Tutti gli Esercizi</h1>
+                  <p className="text-sm text-[var(--text-secondary)]">{filteredExercises.length} esercizi trovati</p>
+                </div>
+                <button
+                  onClick={exportExercisesToJson}
+                  className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-[var(--primary)] bg-[var(--primary)]/10 rounded-lg hover:bg-[var(--primary)]/20 transition-colors"
+                >
+                  <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                  </svg>
+                  Esporta JSON
+                </button>
+              </div>
+              {/* Search Bar */}
+              <div className="relative">
+                <svg
+                  className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--text-muted)]"
+                  width="18"
+                  height="18"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+                <input
+                  type="text"
+                  placeholder="Cerca esercizio..."
+                  value={exerciseSearchTerm}
+                  onChange={(e) => setExerciseSearchTerm(e.target.value)}
+                  className="w-full pl-10 pr-4 py-2.5 bg-[var(--surface-hover)] border border-[var(--border)] rounded-xl text-sm focus:outline-none focus:border-[var(--primary)] transition-colors"
+                />
+                {exerciseSearchTerm && (
+                  <button
+                    onClick={() => setExerciseSearchTerm('')}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--text-muted)] hover:text-[var(--text)]"
+                  >
+                    <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+                )}
+              </div>
+            </div>
           </div>
         </div>
 
         {/* Exercises List */}
         <div className="px-4 py-4 max-w-2xl mx-auto">
           <div className="space-y-3">
-            {exercisesList.map((exercise) => (
+            {filteredExercises.map((exercise) => (
               <div
                 key={exercise.id}
                 className="card p-4 animate-fade-in cursor-pointer hover:bg-[var(--surface-hover)] transition-colors"
@@ -1538,6 +1662,9 @@ function AppContent() {
 
   // Exercise Detail Screen
   if (screen === 'exerciseDetail' && selectedExercise) {
+    // Edit mode state
+    const isEditing = editingExercise === selectedExercise.id;
+
     return (
       <div className="min-h-screen bg-[var(--bg)]">
         {/* Header with back button */}
@@ -1546,13 +1673,25 @@ function AppContent() {
             <button
               onClick={() => {
                 setSelectedExercise(null);
+                setEditingExercise(null);
                 setScreen('exercises');
               }}
               className="w-10 h-10 rounded-full bg-[var(--surface-hover)] flex items-center justify-center border border-[var(--border)]"
             >
               <BackIcon />
             </button>
-            <h1 className="text-lg font-semibold truncate">{selectedExercise.name}</h1>
+            <h1 className="text-lg font-semibold truncate flex-1">{selectedExercise.name}</h1>
+            {!isEditing && (
+              <button
+                onClick={() => setEditingExercise(selectedExercise.id)}
+                className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-[var(--primary)] bg-[var(--primary)]/10 rounded-lg hover:bg-[var(--primary)]/20 transition-colors"
+              >
+                <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                </svg>
+                Modifica
+              </button>
+            )}
           </div>
         </div>
 
@@ -1569,48 +1708,132 @@ function AppContent() {
 
         {/* Exercise Info */}
         <div className="px-4 max-w-2xl mx-auto py-6">
-          <div className="card p-5 animate-slide-up">
-            {/* Name */}
-            <h2 className="text-xl font-bold mb-4">{selectedExercise.name}</h2>
+          {isEditing ? (
+            // Edit Mode
+            <div className="card p-5 animate-slide-up">
+              <h3 className="text-sm font-semibold mb-4 text-[var(--primary)]">Modifica Esercizio</h3>
 
-            {/* Muscles */}
-            {selectedExercise.muscles && (
+              {/* Name Input */}
               <div className="mb-4">
-                <h3 className="text-xs font-medium text-[var(--text-muted)] uppercase tracking-wide mb-2">
+                <label className="text-xs font-medium text-[var(--text-muted)] uppercase tracking-wide mb-2 block">
+                  Nome
+                </label>
+                <input
+                  type="text"
+                  defaultValue={selectedExercise.name}
+                  id="edit-name"
+                  className="w-full px-3 py-2.5 bg-[var(--surface-hover)] border border-[var(--border)] rounded-xl text-sm focus:outline-none focus:border-[var(--primary)] transition-colors"
+                />
+              </div>
+
+              {/* Muscles Input */}
+              <div className="mb-4">
+                <label className="text-xs font-medium text-[var(--text-muted)] uppercase tracking-wide mb-2 block">
                   Muscoli coinvolti
-                </h3>
-                <div className="flex flex-wrap gap-2">
-                  {selectedExercise.muscles.split(', ').map((muscle, i) => (
-                    <span key={i} className="chip chip-primary text-sm">
-                      {muscle}
-                    </span>
-                  ))}
-                </div>
+                </label>
+                <input
+                  type="text"
+                  defaultValue={selectedExercise.muscles}
+                  id="edit-muscles"
+                  placeholder="es. Petto, Tricipiti, Spalle"
+                  className="w-full px-3 py-2.5 bg-[var(--surface-hover)] border border-[var(--border)] rounded-xl text-sm focus:outline-none focus:border-[var(--primary)] transition-colors"
+                />
               </div>
-            )}
 
-            {/* Type */}
-            {selectedExercise.type && (
+              {/* Description Input */}
               <div className="mb-4">
-                <h3 className="text-xs font-medium text-[var(--text-muted)] uppercase tracking-wide mb-2">
-                  Tipologia
-                </h3>
-                <span className="chip chip-light text-sm capitalize">
-                  {selectedExercise.type}
-                </span>
+                <label className="text-xs font-medium text-[var(--text-muted)] uppercase tracking-wide mb-2 block">
+                  Come eseguirlo
+                </label>
+                <textarea
+                  defaultValue={selectedExercise.description}
+                  id="edit-description"
+                  rows={4}
+                  className="w-full px-3 py-2.5 bg-[var(--surface-hover)] border border-[var(--border)] rounded-xl text-sm focus:outline-none focus:border-[var(--primary)] transition-colors resize-none"
+                />
               </div>
-            )}
 
-            {/* Description */}
-            <div>
-              <h3 className="text-xs font-medium text-[var(--text-muted)] uppercase tracking-wide mb-2">
-                Come eseguirlo
-              </h3>
-              <p className="text-[var(--text-secondary)] leading-relaxed">
-                {selectedExercise.description}
-              </p>
+              {/* GIF URL Input */}
+              <div className="mb-6">
+                <label className="text-xs font-medium text-[var(--text-muted)] uppercase tracking-wide mb-2 block">
+                  URL Immagine/GIF
+                </label>
+                <input
+                  type="text"
+                  defaultValue={selectedExercise.gif}
+                  id="edit-gif"
+                  placeholder="https://..."
+                  className="w-full px-3 py-2.5 bg-[var(--surface-hover)] border border-[var(--border)] rounded-xl text-sm focus:outline-none focus:border-[var(--primary)] transition-colors"
+                />
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex gap-3">
+                <button
+                  onClick={() => setEditingExercise(null)}
+                  className="flex-1 py-2.5 px-4 text-sm font-medium text-[var(--text-secondary)] bg-[var(--surface-hover)] rounded-xl hover:bg-[var(--border)] transition-colors"
+                >
+                  Annulla
+                </button>
+                <button
+                  onClick={() => {
+                    const name = document.getElementById('edit-name').value;
+                    const muscles = document.getElementById('edit-muscles').value;
+                    const description = document.getElementById('edit-description').value;
+                    const gif = document.getElementById('edit-gif').value;
+                    saveExerciseEdit(selectedExercise.id, { name, muscles, description, gif });
+                  }}
+                  className="flex-1 py-2.5 px-4 text-sm font-medium text-white bg-[var(--primary)] rounded-xl hover:bg-[var(--primary-light)] transition-colors"
+                >
+                  Salva
+                </button>
+              </div>
             </div>
-          </div>
+          ) : (
+            // View Mode
+            <div className="card p-5 animate-slide-up">
+              {/* Name */}
+              <h2 className="text-xl font-bold mb-4">{selectedExercise.name}</h2>
+
+              {/* Muscles */}
+              {selectedExercise.muscles && (
+                <div className="mb-4">
+                  <h3 className="text-xs font-medium text-[var(--text-muted)] uppercase tracking-wide mb-2">
+                    Muscoli coinvolti
+                  </h3>
+                  <div className="flex flex-wrap gap-2">
+                    {selectedExercise.muscles.split(', ').map((muscle, i) => (
+                      <span key={i} className="chip chip-primary text-sm">
+                        {muscle}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Type */}
+              {selectedExercise.type && (
+                <div className="mb-4">
+                  <h3 className="text-xs font-medium text-[var(--text-muted)] uppercase tracking-wide mb-2">
+                    Tipologia
+                  </h3>
+                  <span className="chip chip-light text-sm capitalize">
+                    {selectedExercise.type}
+                  </span>
+                </div>
+              )}
+
+              {/* Description */}
+              <div>
+                <h3 className="text-xs font-medium text-[var(--text-muted)] uppercase tracking-wide mb-2">
+                  Come eseguirlo
+                </h3>
+                <p className="text-[var(--text-secondary)] leading-relaxed">
+                  {selectedExercise.description}
+                </p>
+              </div>
+            </div>
+          )}
         </div>
 
         <div className="h-14"></div>
@@ -1962,7 +2185,7 @@ function AppContent() {
     const phaseCode = getPhaseCode();
 
     return (
-      <div className={`h-screen ${prepBgColor} text-white flex flex-col overflow-hidden`}>
+      <div className={`workout-screen ${prepBgColor} text-white flex flex-col`}>
         {showExitConfirm && <ExitConfirmModal />}
         <div className="p-3 flex items-center justify-between flex-shrink-0">
           <div className="flex flex-col">
@@ -2013,7 +2236,7 @@ function AppContent() {
   // Rest Screen - Mid-workout pause
   if (screen === 'workout' && phase === 'rest') {
     return (
-      <div className="h-screen bg-white text-[var(--text)] flex flex-col overflow-hidden">
+      <div className="workout-screen bg-white text-[var(--text)] flex flex-col">
         {showExitConfirm && <ExitConfirmModal />}
         <div className="p-3 flex items-center justify-end flex-shrink-0">
           <button
@@ -2081,7 +2304,7 @@ function AppContent() {
     const overallProgress = totalAllExercises > 0 ? (completedCount / totalAllExercises) * 100 : 0;
 
     return (
-      <div className={`h-screen ${bgColor} text-white flex flex-col overflow-hidden`}>
+      <div className={`workout-screen ${bgColor} text-white flex flex-col`}>
         {showExitConfirm && <ExitConfirmModal />}
         <div className="p-3 flex items-center justify-between flex-shrink-0">
           <div className="flex flex-col">
