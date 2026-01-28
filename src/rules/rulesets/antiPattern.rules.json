@@ -1,0 +1,200 @@
+{
+  "name": "antiPattern",
+  "description": "Rules for detecting problematic training patterns",
+  "version": "1.0.0",
+  "rules": [
+    {
+      "name": "overtraining-detection",
+      "conditions": {
+        "all": [
+          {
+            "fact": "history",
+            "path": "$.hasConsistentlyHighRpe",
+            "operator": "equal",
+            "value": true
+          },
+          {
+            "fact": "history",
+            "path": "$.completionTrend",
+            "operator": "equal",
+            "value": "decreasing"
+          }
+        ]
+      },
+      "event": {
+        "type": "anti_pattern",
+        "params": {
+          "pattern": "overtraining",
+          "severity": "high",
+          "reason": "Segni di sovrallenamento rilevati",
+          "recommendation": "Considera 2-3 giorni di riposo attivo o recupero",
+          "priority": 10,
+          "category": "recovery"
+        }
+      },
+      "priority": 10
+    },
+    {
+      "name": "undertraining-detection",
+      "conditions": {
+        "all": [
+          {
+            "fact": "history",
+            "path": "$.hasConsistentlyLowRpe",
+            "operator": "equal",
+            "value": true
+          },
+          {
+            "fact": "history",
+            "path": "$.recentSessionCount",
+            "operator": "greaterThanInclusive",
+            "value": 3
+          }
+        ]
+      },
+      "event": {
+        "type": "anti_pattern",
+        "params": {
+          "pattern": "undertraining",
+          "severity": "medium",
+          "reason": "Allenamenti troppo leggeri rilevati",
+          "recommendation": "Puoi aumentare l'intensità per risultati migliori",
+          "priority": 6,
+          "category": "intensity"
+        }
+      },
+      "priority": 6
+    },
+    {
+      "name": "inconsistency-pattern",
+      "conditions": {
+        "all": [
+          {
+            "fact": "history",
+            "path": "$.showsInconsistency",
+            "operator": "equal",
+            "value": true
+          }
+        ]
+      },
+      "event": {
+        "type": "anti_pattern",
+        "params": {
+          "pattern": "inconsistency",
+          "severity": "medium",
+          "reason": "Allenamenti poco frequenti o irregolari",
+          "recommendation": "La costanza è fondamentale. Prova allenamenti più brevi ma regolari",
+          "priority": 7,
+          "category": "consistency"
+        }
+      },
+      "priority": 7
+    },
+    {
+      "name": "motivation-decline",
+      "conditions": {
+        "all": [
+          {
+            "fact": "history",
+            "path": "$.showsMotivationIssue",
+            "operator": "equal",
+            "value": true
+          }
+        ]
+      },
+      "event": {
+        "type": "anti_pattern",
+        "params": {
+          "pattern": "motivation_decline",
+          "severity": "medium",
+          "reason": "Calo della motivazione rilevato",
+          "recommendation": "Prova nuovi esercizi o allenati con un partner",
+          "priority": 6,
+          "category": "motivation"
+        }
+      },
+      "priority": 6
+    },
+    {
+      "name": "recurring-pain-pattern",
+      "conditions": {
+        "all": [
+          {
+            "fact": "history",
+            "path": "$.hasRecurringPain",
+            "operator": "equal",
+            "value": true
+          }
+        ]
+      },
+      "event": {
+        "type": "anti_pattern",
+        "params": {
+          "pattern": "recurring_pain",
+          "severity": "high",
+          "reason": "Dolore ricorrente durante gli allenamenti",
+          "recommendation": "Consulta un professionista se il dolore persiste",
+          "priority": 10,
+          "category": "health"
+        }
+      },
+      "priority": 10
+    },
+    {
+      "name": "low-completion-pattern",
+      "conditions": {
+        "all": [
+          {
+            "fact": "history",
+            "path": "$.hasLowCompletionRate",
+            "operator": "equal",
+            "value": true
+          }
+        ]
+      },
+      "event": {
+        "type": "anti_pattern",
+        "params": {
+          "pattern": "low_completion",
+          "severity": "medium",
+          "reason": "Difficoltà a completare gli allenamenti",
+          "recommendation": "Prova allenamenti più brevi o meno intensi",
+          "priority": 7,
+          "category": "difficulty"
+        }
+      },
+      "priority": 7
+    },
+    {
+      "name": "streak-broken-pattern",
+      "conditions": {
+        "all": [
+          {
+            "fact": "history",
+            "path": "$.streakBroken",
+            "operator": "equal",
+            "value": true
+          },
+          {
+            "fact": "history",
+            "path": "$.currentStreak",
+            "operator": "greaterThanInclusive",
+            "value": 5
+          }
+        ]
+      },
+      "event": {
+        "type": "anti_pattern",
+        "params": {
+          "pattern": "streak_broken",
+          "severity": "low",
+          "reason": "Interruzione di una buona serie di allenamenti",
+          "recommendation": "Non preoccuparti, riparti con un allenamento leggero",
+          "priority": 4,
+          "category": "consistency"
+        }
+      },
+      "priority": 4
+    }
+  ]
+}

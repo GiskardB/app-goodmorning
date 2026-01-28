@@ -1,0 +1,168 @@
+{
+  "name": "alerts",
+  "description": "Rules for generating user alerts and notifications",
+  "version": "1.0.0",
+  "rules": [
+    {
+      "name": "pain-alert",
+      "conditions": {
+        "all": [
+          {
+            "fact": "feedback",
+            "path": "$.pain",
+            "operator": "equal",
+            "value": true
+          },
+          {
+            "fact": "feedback",
+            "path": "$.painIntensity",
+            "operator": "greaterThanInclusive",
+            "value": 4
+          }
+        ]
+      },
+      "event": {
+        "type": "alert",
+        "params": {
+          "level": "warning",
+          "title": "Dolore Significativo Rilevato",
+          "message": "Hai riportato dolore intenso. Considera di consultare un professionista se persiste.",
+          "icon": "warning",
+          "priority": 10,
+          "category": "health"
+        }
+      },
+      "priority": 10
+    },
+    {
+      "name": "hydration-reminder",
+      "conditions": {
+        "all": [
+          {
+            "fact": "assessment",
+            "path": "$.hydration",
+            "operator": "equal",
+            "value": false
+          }
+        ]
+      },
+      "event": {
+        "type": "alert",
+        "params": {
+          "level": "info",
+          "title": "Promemoria Idratazione",
+          "message": "Bevi almeno 250ml d'acqua prima di iniziare l'allenamento.",
+          "icon": "water",
+          "priority": 5,
+          "category": "nutrition"
+        }
+      },
+      "priority": 5
+    },
+    {
+      "name": "streak-milestone",
+      "conditions": {
+        "any": [
+          {
+            "fact": "history",
+            "path": "$.currentStreak",
+            "operator": "equal",
+            "value": 7
+          },
+          {
+            "fact": "history",
+            "path": "$.currentStreak",
+            "operator": "equal",
+            "value": 14
+          },
+          {
+            "fact": "history",
+            "path": "$.currentStreak",
+            "operator": "equal",
+            "value": 21
+          },
+          {
+            "fact": "history",
+            "path": "$.currentStreak",
+            "operator": "equal",
+            "value": 28
+          }
+        ]
+      },
+      "event": {
+        "type": "alert",
+        "params": {
+          "level": "success",
+          "title": "Traguardo Raggiunto!",
+          "message": "Complimenti per la tua costanza! Continua così!",
+          "icon": "trophy",
+          "priority": 6,
+          "category": "motivation"
+        }
+      },
+      "priority": 6
+    },
+    {
+      "name": "rest-day-suggestion",
+      "conditions": {
+        "all": [
+          {
+            "fact": "history",
+            "path": "$.sessionsThisWeek",
+            "operator": "greaterThanInclusive",
+            "value": 5
+          },
+          {
+            "fact": "assessment",
+            "path": "$.readinessScore",
+            "operator": "lessThan",
+            "value": 50
+          }
+        ]
+      },
+      "event": {
+        "type": "alert",
+        "params": {
+          "level": "info",
+          "title": "Giorno di Riposo Consigliato",
+          "message": "Hai fatto molti allenamenti questa settimana. Un giorno di riposo aiuterà il recupero.",
+          "icon": "rest",
+          "priority": 7,
+          "category": "recovery"
+        }
+      },
+      "priority": 7
+    },
+    {
+      "name": "comeback-encouragement",
+      "conditions": {
+        "all": [
+          {
+            "fact": "history",
+            "path": "$.daysSinceLastSession",
+            "operator": "greaterThanInclusive",
+            "value": 5
+          },
+          {
+            "fact": "history",
+            "path": "$.totalSessions",
+            "operator": "greaterThan",
+            "value": 0
+          }
+        ]
+      },
+      "event": {
+        "type": "alert",
+        "params": {
+          "level": "info",
+          "title": "Bentornato!",
+          "message": "È passato un po' di tempo. Ripartiamo con calma, ogni allenamento conta!",
+          "icon": "welcome",
+          "priority": 6,
+          "category": "motivation"
+        }
+      },
+      "priority": 6
+    }
+  ]
+}

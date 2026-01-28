@@ -1,0 +1,158 @@
+{
+  "name": "specialCases",
+  "description": "Rules for handling special training scenarios",
+  "version": "1.0.0",
+  "rules": [
+    {
+      "name": "first-workout-ever",
+      "conditions": {
+        "all": [
+          {
+            "fact": "history",
+            "path": "$.totalSessions",
+            "operator": "equal",
+            "value": 0
+          }
+        ]
+      },
+      "event": {
+        "type": "special_case",
+        "params": {
+          "case": "first_workout",
+          "recommendation": "Benvenuto! Inizieremo con un allenamento introduttivo",
+          "priority": 10,
+          "adjustIntensity": 0.7,
+          "adjustDuration": 0.8
+        }
+      },
+      "priority": 10
+    },
+    {
+      "name": "returning-after-break",
+      "conditions": {
+        "all": [
+          {
+            "fact": "history",
+            "path": "$.daysSinceLastSession",
+            "operator": "greaterThanInclusive",
+            "value": 7
+          },
+          {
+            "fact": "history",
+            "path": "$.totalSessions",
+            "operator": "greaterThan",
+            "value": 0
+          }
+        ]
+      },
+      "event": {
+        "type": "special_case",
+        "params": {
+          "case": "returning_after_break",
+          "recommendation": "Bentornato! Ripartiamo con calma per riabituare il corpo",
+          "priority": 9,
+          "adjustIntensity": 0.8,
+          "adjustDuration": 0.9
+        }
+      },
+      "priority": 9
+    },
+    {
+      "name": "pregnancy-modifications",
+      "conditions": {
+        "all": [
+          {
+            "fact": "hasPregnancy",
+            "operator": "equal",
+            "value": true
+          }
+        ]
+      },
+      "event": {
+        "type": "special_case",
+        "params": {
+          "case": "pregnancy",
+          "recommendation": "Allenamento adattato per la gravidanza",
+          "priority": 10,
+          "adjustIntensity": 0.6,
+          "excludeExercises": ["plank", "crunch", "burpee", "jump"],
+          "focusOn": ["mobility", "breathing", "pelvic_floor"]
+        }
+      },
+      "priority": 10
+    },
+    {
+      "name": "heart-condition-modifications",
+      "conditions": {
+        "all": [
+          {
+            "fact": "hasHeartCondition",
+            "operator": "equal",
+            "value": true
+          }
+        ]
+      },
+      "event": {
+        "type": "special_case",
+        "params": {
+          "case": "heart_condition",
+          "recommendation": "Allenamento a intensità controllata per la salute cardiaca",
+          "priority": 10,
+          "maxRpe": 6,
+          "excludeExercises": ["hiit", "sprint", "burpee"],
+          "includeRecovery": true
+        }
+      },
+      "priority": 10
+    },
+    {
+      "name": "limited-time-workout",
+      "conditions": {
+        "all": [
+          {
+            "fact": "assessment",
+            "path": "$.availableTime",
+            "operator": "lessThanInclusive",
+            "value": 20
+          }
+        ]
+      },
+      "event": {
+        "type": "special_case",
+        "params": {
+          "case": "limited_time",
+          "recommendation": "Allenamento express ad alta efficienza",
+          "priority": 7,
+          "focusOn": ["compound_exercises", "circuit"],
+          "reduceRest": true
+        }
+      },
+      "priority": 7
+    },
+    {
+      "name": "senior-athlete-adjustments",
+      "conditions": {
+        "all": [
+          {
+            "fact": "isSenior",
+            "operator": "equal",
+            "value": true
+          }
+        ]
+      },
+      "event": {
+        "type": "special_case",
+        "params": {
+          "case": "senior_athlete",
+          "recommendation": "Allenamento adattato per over 65",
+          "priority": 8,
+          "adjustIntensity": 0.85,
+          "extendWarmup": true,
+          "focusOn": ["balance", "mobility", "strength"],
+          "longerRest": true
+        }
+      },
+      "priority": 8
+    }
+  ]
+}

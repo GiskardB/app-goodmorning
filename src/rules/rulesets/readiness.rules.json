@@ -1,0 +1,271 @@
+{
+  "name": "readiness",
+  "description": "Rules for calculating and adjusting readiness scores",
+  "version": "1.0.0",
+  "rules": [
+    {
+      "name": "low-energy-penalty",
+      "conditions": {
+        "all": [
+          {
+            "fact": "assessment",
+            "path": "$.energy",
+            "operator": "lessThanInclusive",
+            "value": 2
+          }
+        ]
+      },
+      "event": {
+        "type": "readiness_modifier",
+        "params": {
+          "modifier": -15,
+          "reason": "Livello di energia molto basso",
+          "recommendation": "Considera un allenamento leggero o riposo attivo",
+          "priority": 8,
+          "category": "energy"
+        }
+      },
+      "priority": 10
+    },
+    {
+      "name": "high-doms-penalty",
+      "conditions": {
+        "all": [
+          {
+            "fact": "assessment",
+            "path": "$.doms",
+            "operator": "greaterThanInclusive",
+            "value": 4
+          }
+        ]
+      },
+      "event": {
+        "type": "readiness_modifier",
+        "params": {
+          "modifier": -20,
+          "reason": "Dolore muscolare significativo",
+          "recommendation": "Evita di allenare le zone indolenzite oggi",
+          "priority": 9,
+          "category": "doms"
+        }
+      },
+      "priority": 10
+    },
+    {
+      "name": "high-stress-penalty",
+      "conditions": {
+        "all": [
+          {
+            "fact": "assessment",
+            "path": "$.stress",
+            "operator": "greaterThanInclusive",
+            "value": 4
+          }
+        ]
+      },
+      "event": {
+        "type": "readiness_modifier",
+        "params": {
+          "modifier": -10,
+          "reason": "Alto livello di stress",
+          "recommendation": "Includi esercizi di respirazione e stretching",
+          "priority": 7,
+          "category": "stress"
+        }
+      },
+      "priority": 8
+    },
+    {
+      "name": "low-motivation-penalty",
+      "conditions": {
+        "all": [
+          {
+            "fact": "assessment",
+            "path": "$.motivation",
+            "operator": "lessThanInclusive",
+            "value": 2
+          }
+        ]
+      },
+      "event": {
+        "type": "readiness_modifier",
+        "params": {
+          "modifier": -10,
+          "reason": "Motivazione bassa",
+          "recommendation": "Un allenamento breve è meglio di niente",
+          "priority": 6,
+          "category": "motivation"
+        }
+      },
+      "priority": 7
+    },
+    {
+      "name": "dehydration-penalty",
+      "conditions": {
+        "all": [
+          {
+            "fact": "assessment",
+            "path": "$.hydration",
+            "operator": "equal",
+            "value": false
+          }
+        ]
+      },
+      "event": {
+        "type": "readiness_modifier",
+        "params": {
+          "modifier": -5,
+          "reason": "Non adeguatamente idratato",
+          "recommendation": "Bevi almeno 250ml d'acqua prima di iniziare",
+          "priority": 5,
+          "category": "hydration"
+        }
+      },
+      "priority": 6
+    },
+    {
+      "name": "fasting-warning",
+      "conditions": {
+        "all": [
+          {
+            "fact": "assessment",
+            "path": "$.fasting",
+            "operator": "equal",
+            "value": true
+          }
+        ]
+      },
+      "event": {
+        "type": "readiness_modifier",
+        "params": {
+          "modifier": -5,
+          "reason": "Allenamento a digiuno",
+          "recommendation": "Uno snack leggero potrebbe migliorare le prestazioni",
+          "priority": 4,
+          "category": "nutrition"
+        }
+      },
+      "priority": 5
+    },
+    {
+      "name": "menstrual-phase-penalty",
+      "conditions": {
+        "all": [
+          {
+            "fact": "assessment",
+            "path": "$.menstrualPhase",
+            "operator": "equal",
+            "value": "menstrual"
+          }
+        ]
+      },
+      "event": {
+        "type": "readiness_modifier",
+        "params": {
+          "modifier": -10,
+          "reason": "Fase mestruale",
+          "recommendation": "Riduci l'intensità e ascolta il tuo corpo",
+          "priority": 6,
+          "category": "menstrual"
+        }
+      },
+      "priority": 7
+    },
+    {
+      "name": "luteal-phase-adjustment",
+      "conditions": {
+        "all": [
+          {
+            "fact": "assessment",
+            "path": "$.menstrualPhase",
+            "operator": "equal",
+            "value": "luteal"
+          }
+        ]
+      },
+      "event": {
+        "type": "readiness_modifier",
+        "params": {
+          "modifier": -5,
+          "reason": "Fase luteale",
+          "recommendation": "Potresti avere meno energia del solito",
+          "priority": 4,
+          "category": "menstrual"
+        }
+      },
+      "priority": 5
+    },
+    {
+      "name": "high-energy-bonus",
+      "conditions": {
+        "all": [
+          {
+            "fact": "assessment",
+            "path": "$.energy",
+            "operator": "greaterThanInclusive",
+            "value": 5
+          }
+        ]
+      },
+      "event": {
+        "type": "readiness_modifier",
+        "params": {
+          "modifier": 10,
+          "reason": "Energia al massimo",
+          "recommendation": "Ottima giornata per spingerti un po' di più!",
+          "priority": 7,
+          "category": "energy"
+        }
+      },
+      "priority": 8
+    },
+    {
+      "name": "high-motivation-bonus",
+      "conditions": {
+        "all": [
+          {
+            "fact": "assessment",
+            "path": "$.motivation",
+            "operator": "greaterThanInclusive",
+            "value": 5
+          }
+        ]
+      },
+      "event": {
+        "type": "readiness_modifier",
+        "params": {
+          "modifier": 5,
+          "reason": "Super motivato",
+          "recommendation": "Sfrutta questa energia positiva!",
+          "priority": 5,
+          "category": "motivation"
+        }
+      },
+      "priority": 6
+    },
+    {
+      "name": "ovulation-phase-bonus",
+      "conditions": {
+        "all": [
+          {
+            "fact": "assessment",
+            "path": "$.menstrualPhase",
+            "operator": "equal",
+            "value": "ovulation"
+          }
+        ]
+      },
+      "event": {
+        "type": "readiness_modifier",
+        "params": {
+          "modifier": 5,
+          "reason": "Fase ovulatoria",
+          "recommendation": "Periodo ideale per allenamenti intensi",
+          "priority": 5,
+          "category": "menstrual"
+        }
+      },
+      "priority": 6
+    }
+  ]
+}

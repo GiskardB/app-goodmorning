@@ -45,13 +45,15 @@ class SoundFX {
 
   playCountdownBeep(secondsRemaining) {
     // Professional gym-style countdown ticks
-    // Ascending pitch creates anticipation
-    if (secondsRemaining === 3) {
+    // Ascending pitch creates anticipation (4 seconds countdown)
+    if (secondsRemaining === 4) {
+      this.playTick(392, 0.12, 0.45); // G4 - lowest tick
+    } else if (secondsRemaining === 3) {
       this.playTick(440, 0.12, 0.4); // A4 - low tick
     } else if (secondsRemaining === 2) {
       this.playTick(554, 0.12, 0.45); // C#5 - medium tick
     } else if (secondsRemaining === 1) {
-      this.playTick(659, 0.15, 0.5); // E5 - high tick
+      this.playTick(659, 0.15, 0.6); // E5 - high tick
       // Final confirmation tone
       setTimeout(() => this.playTick(880, 0.2, 0.55), 150); // A5 - resolution
     }
@@ -228,6 +230,28 @@ class WorkoutVoice {
   stop() {
     this.synthesis.cancel();
   }
+
+  getAvailableVoices() {
+    const voices = this.synthesis.getVoices();
+    // Filter to Italian voices primarily, but include some English as fallback
+    const italianVoices = voices.filter(v => v.lang.startsWith('it'));
+    const englishVoices = voices.filter(v => v.lang.startsWith('en')).slice(0, 3);
+    return [...italianVoices, ...englishVoices];
+  }
+
+  setVoice(voiceName) {
+    const voices = this.synthesis.getVoices();
+    const found = voices.find(v => v.name === voiceName);
+    if (found) {
+      this.voice = found;
+      return true;
+    }
+    return false;
+  }
+
+  getCurrentVoiceName() {
+    return this.voice?.name || null;
+  }
 }
 
 // Background Music Player
@@ -356,6 +380,11 @@ class AudioManager {
     this.enabled = true;
     this.audioUnlocked = false;
     this.workoutActive = false;
+
+    // Separate audio controls
+    this.voiceEnabled = true;
+    this.countdownEnabled = true;
+    this.musicEnabled = true;
   }
 
   init(basePath = '') {
@@ -392,11 +421,13 @@ class AudioManager {
     if (!this.enabled) return;
     this.soundFX.init();
     this.soundFX.resume();
-    this.music.start();
+    if (this.musicEnabled) {
+      this.music.start();
+    }
   }
 
   onPreparation(exercise) {
-    if (!this.enabled) return;
+    if (!this.enabled || !this.voiceEnabled) return;
 
     // Just announce the exercise name without "prossimo"
     const text = exercise.name;
@@ -408,7 +439,7 @@ class AudioManager {
   }
 
   onRestStart() {
-    if (!this.enabled) return;
+    if (!this.enabled || !this.voiceEnabled) return;
 
     const restMessages = [
       "Inspira con il naso ed espira lentamente con la bocca per abbassare il battito cardiaco.",
@@ -428,13 +459,13 @@ class AudioManager {
   onPrepTick(secondsRemaining) {
     if (!this.enabled) return;
     // Say "GO" at 2 seconds before end of preparation
-    if (secondsRemaining === 2) {
+    if (secondsRemaining === 2 && this.voiceEnabled) {
       this.voice.speakGo();
     }
   }
 
   onExerciseStart(exercise) {
-    if (!this.enabled) return;
+    if (!this.enabled || !this.voiceEnabled) return;
     // Speak the exercise description when starting
     if (exercise?.description) {
       setTimeout(() => {
@@ -444,8 +475,8 @@ class AudioManager {
   }
 
   onExerciseTick(secondsRemaining) {
-    if (!this.enabled) return;
-    if (secondsRemaining <= 3 && secondsRemaining >= 1) {
+    if (!this.enabled || !this.countdownEnabled) return;
+    if (secondsRemaining <= 4 && secondsRemaining >= 1) {
       this.soundFX.playCountdownBeep(secondsRemaining);
     }
   }
@@ -465,7 +496,7 @@ class AudioManager {
     this.voice.stop();
 
     // Say completion message with time
-    if (this.enabled && elapsedTime) {
+    if (this.enabled && this.voiceEnabled && elapsedTime) {
       setTimeout(() => {
         this.voice.speakCompletion(elapsedTime);
       }, 500);
@@ -478,23 +509,26 @@ class AudioManager {
     this.voice.stop();
 
     // Say exit message
-    if (this.enabled) {
+    if (this.enabled && this.voiceEnabled) {
       setTimeout(() => {
         this.voice.speakExit();
       }, 300);
     }
   }
 
+  // Master toggle - mutes everything
   toggle() {
     this.enabled = !this.enabled;
     if (!this.enabled) {
       this.music.stop();
       this.voice.stop();
     } else if (this.workoutActive) {
-      // Re-enable during workout: restart music
+      // Re-enable during workout: restart music if music is enabled
       this.soundFX.init();
       this.soundFX.resume();
-      this.music.forceRestart();
+      if (this.musicEnabled) {
+        this.music.forceRestart();
+      }
     }
     return this.enabled;
   }
@@ -503,8 +537,54 @@ class AudioManager {
     return this.enabled;
   }
 
+  // Individual audio controls
+  setVoiceEnabled(enabled) {
+    this.voiceEnabled = enabled;
+    if (!enabled) {
+      this.voice.stop();
+    }
+  }
+
+  setCountdownEnabled(enabled) {
+    this.countdownEnabled = enabled;
+  }
+
+  setMusicEnabled(enabled) {
+    this.musicEnabled = enabled;
+    if (!enabled) {
+      this.music.stop();
+    } else if (this.workoutActive && this.enabled) {
+      this.music.forceRestart();
+    }
+  }
+
+  isVoiceEnabled() {
+    return this.voiceEnabled;
+  }
+
+  isCountdownEnabled() {
+    return this.countdownEnabled;
+  }
+
+  isMusicEnabled() {
+    return this.musicEnabled;
+  }
+
   setMusicVolume(volume) {
     this.music.setVolume(volume);
+  }
+
+  // Voice selection
+  getAvailableVoices() {
+    return this.voice.getAvailableVoices();
+  }
+
+  setSelectedVoice(voiceName) {
+    return this.voice.setVoice(voiceName);
+  }
+
+  getCurrentVoiceName() {
+    return this.voice.getCurrentVoiceName();
   }
 }
 

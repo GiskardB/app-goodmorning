@@ -1,0 +1,327 @@
+{
+  "name": "progression",
+  "description": "Rules for determining workout progression decisions",
+  "version": "1.0.0",
+  "rules": [
+    {
+      "name": "progress-easy-high-completion",
+      "conditions": {
+        "all": [
+          {
+            "fact": "feedback",
+            "path": "$.rpe",
+            "operator": "lessThanInclusive",
+            "value": 5
+          },
+          {
+            "fact": "feedback",
+            "path": "$.completion",
+            "operator": "greaterThanInclusive",
+            "value": 90
+          },
+          {
+            "fact": "feedback",
+            "path": "$.couldDoMore",
+            "operator": "equal",
+            "value": true
+          }
+        ]
+      },
+      "event": {
+        "type": "progression",
+        "params": {
+          "action": "increase",
+          "reason": "Allenamento facile con alta completezza e capacità residua",
+          "recommendation": "Aumenta intensità o volume nel prossimo allenamento",
+          "priority": 10,
+          "adjustmentFactor": 1.1
+        }
+      },
+      "priority": 10
+    },
+    {
+      "name": "progress-moderate-consistent",
+      "conditions": {
+        "all": [
+          {
+            "fact": "feedback",
+            "path": "$.rpe",
+            "operator": "greaterThanInclusive",
+            "value": 6
+          },
+          {
+            "fact": "feedback",
+            "path": "$.rpe",
+            "operator": "lessThanInclusive",
+            "value": 7
+          },
+          {
+            "fact": "feedback",
+            "path": "$.completion",
+            "operator": "greaterThanInclusive",
+            "value": 95
+          },
+          {
+            "fact": "history",
+            "path": "$.currentStreak",
+            "operator": "greaterThanInclusive",
+            "value": 5
+          }
+        ]
+      },
+      "event": {
+        "type": "progression",
+        "params": {
+          "action": "increase",
+          "reason": "Prestazioni costanti con buona streak",
+          "recommendation": "Sei pronto per il prossimo livello",
+          "priority": 8,
+          "adjustmentFactor": 1.05
+        }
+      },
+      "priority": 8
+    },
+    {
+      "name": "maintain-optimal-zone",
+      "conditions": {
+        "all": [
+          {
+            "fact": "feedback",
+            "path": "$.rpe",
+            "operator": "greaterThanInclusive",
+            "value": 6
+          },
+          {
+            "fact": "feedback",
+            "path": "$.rpe",
+            "operator": "lessThanInclusive",
+            "value": 8
+          },
+          {
+            "fact": "feedback",
+            "path": "$.completion",
+            "operator": "greaterThanInclusive",
+            "value": 80
+          },
+          {
+            "fact": "feedback",
+            "path": "$.completion",
+            "operator": "lessThan",
+            "value": 95
+          }
+        ]
+      },
+      "event": {
+        "type": "progression",
+        "params": {
+          "action": "maintain",
+          "reason": "Zona ottimale di allenamento",
+          "recommendation": "Continua con questo livello di intensità",
+          "priority": 5,
+          "adjustmentFactor": 1.0
+        }
+      },
+      "priority": 5
+    },
+    {
+      "name": "regress-too-hard",
+      "conditions": {
+        "all": [
+          {
+            "fact": "feedback",
+            "path": "$.rpe",
+            "operator": "greaterThanInclusive",
+            "value": 9
+          }
+        ]
+      },
+      "event": {
+        "type": "progression",
+        "params": {
+          "action": "decrease",
+          "reason": "Allenamento troppo intenso",
+          "recommendation": "Riduci l'intensità nel prossimo allenamento",
+          "priority": 9,
+          "adjustmentFactor": 0.9
+        }
+      },
+      "priority": 9
+    },
+    {
+      "name": "regress-low-completion",
+      "conditions": {
+        "all": [
+          {
+            "fact": "feedback",
+            "path": "$.completion",
+            "operator": "lessThan",
+            "value": 60
+          }
+        ]
+      },
+      "event": {
+        "type": "progression",
+        "params": {
+          "action": "decrease",
+          "reason": "Completamento basso dell'allenamento",
+          "recommendation": "Prova con un allenamento più breve o meno intenso",
+          "priority": 8,
+          "adjustmentFactor": 0.85
+        }
+      },
+      "priority": 8
+    },
+    {
+      "name": "regress-pain-reported",
+      "conditions": {
+        "all": [
+          {
+            "fact": "feedback",
+            "path": "$.pain",
+            "operator": "equal",
+            "value": true
+          },
+          {
+            "fact": "feedback",
+            "path": "$.painIntensity",
+            "operator": "greaterThanInclusive",
+            "value": 3
+          }
+        ]
+      },
+      "event": {
+        "type": "progression",
+        "params": {
+          "action": "decrease",
+          "reason": "Dolore riportato durante l'allenamento",
+          "recommendation": "Riduci l'intensità e evita esercizi che causano dolore",
+          "priority": 10,
+          "adjustmentFactor": 0.8
+        }
+      },
+      "priority": 10
+    },
+    {
+      "name": "beginner-slower-progression",
+      "conditions": {
+        "all": [
+          {
+            "fact": "isBeginner",
+            "operator": "equal",
+            "value": true
+          },
+          {
+            "fact": "feedback",
+            "path": "$.rpe",
+            "operator": "lessThanInclusive",
+            "value": 6
+          },
+          {
+            "fact": "feedback",
+            "path": "$.completion",
+            "operator": "greaterThanInclusive",
+            "value": 85
+          }
+        ]
+      },
+      "event": {
+        "type": "progression",
+        "params": {
+          "action": "increase",
+          "reason": "Progressione graduale per principianti",
+          "recommendation": "Aumento progressivo per costruire una base solida",
+          "priority": 6,
+          "adjustmentFactor": 1.03
+        }
+      },
+      "priority": 6
+    },
+    {
+      "name": "senior-conservative-progression",
+      "conditions": {
+        "all": [
+          {
+            "fact": "isSenior",
+            "operator": "equal",
+            "value": true
+          },
+          {
+            "fact": "feedback",
+            "path": "$.rpe",
+            "operator": "lessThanInclusive",
+            "value": 5
+          },
+          {
+            "fact": "feedback",
+            "path": "$.completion",
+            "operator": "greaterThanInclusive",
+            "value": 90
+          }
+        ]
+      },
+      "event": {
+        "type": "progression",
+        "params": {
+          "action": "increase",
+          "reason": "Progressione conservativa per senior",
+          "recommendation": "Aumento graduale rispettando i tempi di recupero",
+          "priority": 6,
+          "adjustmentFactor": 1.02
+        }
+      },
+      "priority": 6
+    },
+    {
+      "name": "low-enjoyment-maintain",
+      "conditions": {
+        "all": [
+          {
+            "fact": "feedback",
+            "path": "$.enjoyment",
+            "operator": "lessThanInclusive",
+            "value": 2
+          },
+          {
+            "fact": "feedback",
+            "path": "$.rpe",
+            "operator": "lessThanInclusive",
+            "value": 6
+          }
+        ]
+      },
+      "event": {
+        "type": "progression",
+        "params": {
+          "action": "maintain",
+          "reason": "Basso divertimento nonostante buone prestazioni",
+          "recommendation": "Considera di variare gli esercizi per aumentare il divertimento",
+          "priority": 7
+        }
+      },
+      "priority": 7
+    },
+    {
+      "name": "technique-confidence-low",
+      "conditions": {
+        "all": [
+          {
+            "fact": "feedback",
+            "path": "$.techniqueConfidence",
+            "operator": "lessThanInclusive",
+            "value": 2
+          }
+        ]
+      },
+      "event": {
+        "type": "progression",
+        "params": {
+          "action": "maintain",
+          "reason": "Bassa confidenza nella tecnica",
+          "recommendation": "Concentrati sulla forma corretta prima di aumentare l'intensità",
+          "priority": 7
+        }
+      },
+      "priority": 7
+    }
+  ]
+}

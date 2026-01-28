@@ -6,9 +6,19 @@ import {
   getCurrentDay,
   setCurrentDay,
   addWorkoutHistory,
-  getWorkoutHistory
+  getWorkoutHistory,
+  isOnboardingCompleted,
+  getUserProfile,
+  getTrainingStats,
+  getSetting,
+  setSetting
 } from './db';
 import audioManager from './audio/AudioManager';
+import { TrainingProvider, useTraining } from './context/TrainingContext';
+import OnboardingWizard from './components/onboarding/OnboardingWizard';
+import PreWorkoutAssessment from './components/assessment/PreWorkoutAssessment';
+import PostWorkoutFeedback from './components/assessment/PostWorkoutFeedback';
+import ProfileScreen from './components/profile/ProfileScreen';
 
 // Day to focus mapping (from GUIDA_MAPPATURA_WARMUP_COOLDOWN.md)
 const DAY_FOCUS_MAP = {
@@ -172,7 +182,40 @@ const ExerciseMedia = ({ src, alt, className, style }) => {
   );
 };
 
-function App() {
+function AppContent() {
+  // Training context
+  const {
+    userProfile,
+    onboardingCompleted,
+    profileLoading,
+    updateUserProfile,
+    handleResetOnboarding,
+    showOnboarding,
+    setShowOnboarding,
+    showPreWorkout,
+    setShowPreWorkout,
+    showPostWorkout,
+    setShowPostWorkout,
+    showProfile,
+    setShowProfile,
+    startPreWorkoutAssessment,
+    completePreWorkoutAssessment,
+    skipPreWorkoutAssessment,
+    startPostWorkoutFeedback,
+    completePostWorkoutFeedback,
+    skipPostWorkoutFeedback,
+    saveCompleteSession,
+    preWorkoutData,
+    readinessScore,
+    trainingStats,
+    refreshStats,
+    allProfiles,
+    activeProfileId,
+    handleSwitchProfile,
+    handleCreateProfile,
+    handleDeleteProfile
+  } = useTraining();
+
   // State
   const [screen, setScreen] = useState('loading');
   const [day, setDay] = useState(1);
@@ -189,7 +232,16 @@ function App() {
   const [error, setError] = useState(null);
   const [dbReady, setDbReady] = useState(false);
   const [audioEnabled, setAudioEnabled] = useState(true);
+  const [voiceEnabled, setVoiceEnabled] = useState(true);
+  const [countdownEnabled, setCountdownEnabled] = useState(true);
+  const [musicEnabled, setMusicEnabled] = useState(true);
+  const [fullWidthAnimation, setFullWidthAnimation] = useState(false);
+  const [availableVoices, setAvailableVoices] = useState([]);
+  const [selectedVoice, setSelectedVoice] = useState(null);
   const [elapsedTime, setElapsedTime] = useState(0);
+
+  // Selected day for viewing (separate from current progress day)
+  const [selectedDay, setSelectedDay] = useState(null);
 
   // Phase: 'warmup' | 'workout' | 'cooldown' | 'rest'
   const [phase, setPhase] = useState('warmup');
@@ -200,6 +252,9 @@ function App() {
   const [completedExercises, setCompletedExercises] = useState({ warmup: [], workout: [], cooldown: [] });
   const [restTimer, setRestTimer] = useState(30);
   const [midWorkoutRestTaken, setMidWorkoutRestTaken] = useState(false);
+
+  // Exit confirmation modal
+  const [showExitConfirm, setShowExitConfirm] = useState(false);
 
   // PWA Install prompt
   const [installPrompt, setInstallPrompt] = useState(null);
@@ -281,6 +336,47 @@ function App() {
     loadData();
   }, []);
 
+  // Reload profile-specific data when active profile changes
+  useEffect(() => {
+    async function reloadProfileData() {
+      if (!dbReady || !activeProfileId) return;
+
+      try {
+        // Reload completed days for this profile
+        const completedDays = await getCompletedDays();
+        setCompleted(completedDays);
+
+        // Reload workout history for this profile
+        const history = await getWorkoutHistory(10);
+        setWorkoutHistory(history);
+
+        // Reload profile-specific settings
+        const savedVoiceEnabled = await getSetting('voiceEnabled');
+        const savedCountdownEnabled = await getSetting('countdownEnabled');
+        const savedMusicEnabled = await getSetting('musicEnabled');
+        const savedFullWidthAnimation = await getSetting('fullWidthAnimation');
+
+        // Apply settings (use defaults if not set)
+        setVoiceEnabled(savedVoiceEnabled !== undefined ? savedVoiceEnabled : true);
+        setCountdownEnabled(savedCountdownEnabled !== undefined ? savedCountdownEnabled : true);
+        setMusicEnabled(savedMusicEnabled !== undefined ? savedMusicEnabled : true);
+        setFullWidthAnimation(savedFullWidthAnimation !== undefined ? savedFullWidthAnimation : false);
+
+        // Apply audio settings
+        audioManager.setVoiceEnabled(savedVoiceEnabled !== undefined ? savedVoiceEnabled : true);
+        audioManager.setCountdownEnabled(savedCountdownEnabled !== undefined ? savedCountdownEnabled : true);
+        audioManager.setMusicEnabled(savedMusicEnabled !== undefined ? savedMusicEnabled : true);
+
+        // Reset selected day to first available
+        setSelectedDay(null);
+      } catch (err) {
+        console.error('Error reloading profile data:', err);
+      }
+    }
+
+    reloadProfileData();
+  }, [activeProfileId, dbReady]);
+
   // PWA Install prompt handler
   useEffect(() => {
     // Check if already installed
@@ -306,6 +402,43 @@ function App() {
       window.removeEventListener('appinstalled', handleAppInstalled);
     };
   }, []);
+
+  // Load available voices for TTS
+  useEffect(() => {
+    const loadVoices = async () => {
+      // Wait a bit for voices to be available
+      const checkVoices = () => {
+        const voices = audioManager.getAvailableVoices();
+        if (voices.length > 0) {
+          setAvailableVoices(voices);
+          // Load saved voice preference
+          if (dbReady) {
+            getSetting('selectedVoice').then(savedVoice => {
+              if (savedVoice) {
+                audioManager.setSelectedVoice(savedVoice);
+                setSelectedVoice(savedVoice);
+              } else {
+                setSelectedVoice(audioManager.getCurrentVoiceName());
+              }
+            });
+          }
+        }
+      };
+
+      // Check immediately
+      checkVoices();
+
+      // Also listen for voiceschanged event
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.addEventListener('voiceschanged', checkVoices);
+        return () => {
+          window.speechSynthesis.removeEventListener('voiceschanged', checkVoices);
+        };
+      }
+    };
+
+    loadVoices();
+  }, [dbReady]);
 
   // Wake Lock to prevent screen from turning off during workout
   useEffect(() => {
@@ -507,8 +640,8 @@ function App() {
     if (active && !prep && !paused && phase !== 'rest' && timer > 0) {
       const interval = setInterval(() => {
         setTimer(p => {
-          // Play beep for last 3 seconds
-          if (p <= 3 && p >= 1) {
+          // Play beep for last 4 seconds
+          if (p <= 4 && p >= 1) {
             audioManager.onExerciseTick(p);
           }
 
@@ -615,8 +748,19 @@ function App() {
     return { warmup: enrichWarmup, cooldown: enrichCooldown };
   }, [warmupCooldownData, exercises]);
 
-  // Mark day as completed
+  // Mark day as completed - now triggers post-workout feedback
   const handleComplete = useCallback(async () => {
+    // If onboarding is completed, show post-workout feedback first
+    if (onboardingCompleted && userProfile) {
+      startPostWorkoutFeedback();
+    } else {
+      // Skip feedback if no profile (legacy behavior)
+      await finishWorkoutAfterFeedback();
+    }
+  }, [onboardingCompleted, userProfile, startPostWorkoutFeedback]);
+
+  // Called after post-workout feedback is complete or skipped
+  const finishWorkoutAfterFeedback = useCallback(async () => {
     // Save workout to history with exercise details
     const workoutTitle = curr?.title || `Giorno ${day}`;
     await addWorkoutHistory(day, elapsedTimeRef.current, workoutTitle, completedExercises);
@@ -624,6 +768,21 @@ function App() {
     // Update history state
     const history = await getWorkoutHistory(10);
     setWorkoutHistory(history);
+
+    // Save complete session to new DB if profile exists
+    if (onboardingCompleted && userProfile) {
+      try {
+        await saveCompleteSession({
+          day,
+          workoutTitle,
+          duration: elapsedTimeRef.current,
+          exerciseDetails: completedExercises
+        });
+        await refreshStats();
+      } catch (error) {
+        console.error('Error saving session:', error);
+      }
+    }
 
     if (!completed.includes(day)) {
       await markDayCompleted(day);
@@ -640,12 +799,58 @@ function App() {
     setCompletedExercises({ warmup: [], workout: [], cooldown: [] });
     setMidWorkoutRestTaken(false);
     setRestTimer(30);
-  }, [day, completed, curr, completedExercises]);
+  }, [day, completed, curr, completedExercises, onboardingCompleted, userProfile, saveCompleteSession, refreshStats]);
 
-  // Toggle audio
+  // Handle post-workout feedback completion
+  const handlePostWorkoutComplete = useCallback(async (feedbackData) => {
+    await completePostWorkoutFeedback(feedbackData);
+    await finishWorkoutAfterFeedback();
+  }, [completePostWorkoutFeedback, finishWorkoutAfterFeedback]);
+
+  // Handle post-workout feedback skip
+  const handlePostWorkoutSkip = useCallback(async () => {
+    skipPostWorkoutFeedback();
+    await finishWorkoutAfterFeedback();
+  }, [skipPostWorkoutFeedback, finishWorkoutAfterFeedback]);
+
+  // Toggle master audio (mutes everything)
   const toggleAudio = useCallback(() => {
     const newState = audioManager.toggle();
     setAudioEnabled(newState);
+  }, []);
+
+  // Toggle individual audio controls (with database persistence)
+  const toggleVoice = useCallback(async () => {
+    const newState = !voiceEnabled;
+    setVoiceEnabled(newState);
+    audioManager.setVoiceEnabled(newState);
+    await setSetting('voiceEnabled', newState);
+  }, [voiceEnabled]);
+
+  const toggleCountdown = useCallback(async () => {
+    const newState = !countdownEnabled;
+    setCountdownEnabled(newState);
+    audioManager.setCountdownEnabled(newState);
+    await setSetting('countdownEnabled', newState);
+  }, [countdownEnabled]);
+
+  const toggleMusic = useCallback(async () => {
+    const newState = !musicEnabled;
+    setMusicEnabled(newState);
+    audioManager.setMusicEnabled(newState);
+    await setSetting('musicEnabled', newState);
+  }, [musicEnabled]);
+
+  const toggleFullWidthAnimation = useCallback(async () => {
+    const newState = !fullWidthAnimation;
+    setFullWidthAnimation(newState);
+    await setSetting('fullWidthAnimation', newState);
+  }, [fullWidthAnimation]);
+
+  const handleVoiceChange = useCallback(async (voiceName) => {
+    audioManager.setSelectedVoice(voiceName);
+    setSelectedVoice(voiceName);
+    await setSetting('selectedVoice', voiceName);
   }, []);
 
   // Get tip text based on exercise type
@@ -664,8 +869,19 @@ function App() {
     return tips[type] || 'Esegui con controllo';
   };
 
-  // Start workout handler
+  // Start workout handler - now triggers pre-workout assessment first
   const startWorkout = () => {
+    // If onboarding is completed and user has a profile, show pre-workout assessment
+    if (onboardingCompleted && userProfile) {
+      startPreWorkoutAssessment();
+    } else {
+      // Skip assessment if no profile (legacy behavior)
+      beginWorkoutAfterAssessment();
+    }
+  };
+
+  // Called after pre-workout assessment is complete or skipped
+  const beginWorkoutAfterAssessment = () => {
     // Select warmup and cooldown for this day
     const { warmup, cooldown } = selectWarmupCooldown(day);
     setSelectedWarmup(warmup);
@@ -681,10 +897,51 @@ function App() {
     setCompletedExercises({ warmup: [], workout: [], cooldown: [] });
     setMidWorkoutRestTaken(false);
     setRestTimer(30);
+    setPaused(false); // Reset pause state for new workout
     setScreen('workout');
   };
 
-  // Exit workout handler
+  // Handle pre-workout assessment completion
+  const handlePreWorkoutComplete = (assessmentData) => {
+    completePreWorkoutAssessment(assessmentData);
+    beginWorkoutAfterAssessment();
+  };
+
+  // Handle pre-workout assessment skip
+  const handlePreWorkoutSkip = () => {
+    skipPreWorkoutAssessment();
+    beginWorkoutAfterAssessment();
+  };
+
+  // Show exit confirmation during workout
+  const handleExitClick = () => {
+    setPaused(true);
+    setShowExitConfirm(true);
+  };
+
+  // Cancel exit and resume workout
+  const cancelExit = () => {
+    setShowExitConfirm(false);
+    setPaused(false);
+  };
+
+  // Confirm exit workout
+  const confirmExit = () => {
+    setShowExitConfirm(false);
+    setActive(false);
+    audioManager.exitWorkout();
+    setScreen('detail');
+    setElapsedTime(0);
+    elapsedTimeRef.current = 0;
+    setPhase('warmup');
+    setSelectedWarmup(null);
+    setSelectedCooldown(null);
+    setCompletedExercises({ warmup: [], workout: [], cooldown: [] });
+    setMidWorkoutRestTaken(false);
+    setRestTimer(30);
+  };
+
+  // Exit workout handler (legacy, for non-workout screens)
   const exitWorkout = () => {
     setActive(false);
     audioManager.exitWorkout();
@@ -739,12 +996,52 @@ function App() {
     </button>
   );
 
+  // Exit Confirmation Modal component
+  const ExitConfirmModal = () => (
+    <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+      <div className="bg-[var(--surface)] rounded-2xl p-6 max-w-sm w-full animate-slide-up">
+        <div className="text-center mb-6">
+          <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-red-50 flex items-center justify-center">
+            <svg className="w-7 h-7 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+            </svg>
+          </div>
+          <h3 className="text-lg font-semibold mb-2">Vuoi uscire dall'allenamento?</h3>
+          <p className="text-[var(--text-secondary)] text-sm">
+            I progressi di questa sessione non verranno salvati.
+          </p>
+        </div>
+        <div className="flex gap-3">
+          <button
+            onClick={cancelExit}
+            className="flex-1 btn-secondary py-3"
+          >
+            Continua
+          </button>
+          <button
+            onClick={confirmExit}
+            className="flex-1 bg-red-500 text-white py-3 rounded-xl font-medium hover:bg-red-600 transition-colors"
+          >
+            Esci
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+
+  // Profile icon component
+  const ProfileIcon = ({ active }) => (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill={active ? "currentColor" : "none"} stroke="currentColor" strokeWidth={active ? "0" : "1.5"}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+    </svg>
+  );
+
   // Bottom Navigation component
   const BottomNav = () => (
     <div className="fixed bottom-0 left-0 right-0 bg-[var(--surface)]/95 backdrop-blur-sm border-t border-[var(--border)] px-2 py-1 z-50">
       <div className="flex items-center justify-around max-w-sm mx-auto">
         <button
-          onClick={() => { setActiveTab('home'); setScreen('home'); }}
+          onClick={() => { setActiveTab('home'); setScreen('home'); setSelectedDay(null); }}
           className={`flex flex-col items-center py-1 px-4 transition-colors ${activeTab === 'home' ? 'text-[var(--primary)]' : 'text-[var(--text-muted)]'}`}
         >
           <HomeIcon active={activeTab === 'home'} />
@@ -758,15 +1055,83 @@ function App() {
           <span className="text-[10px] mt-0.5">{activeTab === 'exercises' ? 'Esercizi' : ''}</span>
         </button>
         <button
-          onClick={() => { setActiveTab('settings'); setScreen('settings'); }}
+          onClick={() => {
+            setActiveTab('settings');
+            setScreen('settings');
+          }}
           className={`flex flex-col items-center py-1 px-4 transition-colors ${activeTab === 'settings' ? 'text-[var(--primary)]' : 'text-[var(--text-muted)]'}`}
         >
           <SettingsIcon active={activeTab === 'settings'} />
-          <span className="text-[10px] mt-0.5">{activeTab === 'settings' ? 'Altro' : ''}</span>
+          <span className="text-[10px] mt-0.5">
+            {activeTab === 'settings' ? 'Impostazioni' : ''}
+          </span>
         </button>
       </div>
     </div>
   );
+
+  // Onboarding Screen - Takes priority over everything
+  if (showOnboarding && !profileLoading) {
+    return (
+      <OnboardingWizard
+        onComplete={async (profileData) => {
+          await updateUserProfile({ ...profileData, onboardingCompleted: true });
+          setShowOnboarding(false);
+        }}
+      />
+    );
+  }
+
+  // Pre-Workout Assessment Screen
+  if (showPreWorkout) {
+    return (
+      <PreWorkoutAssessment
+        userProfile={userProfile}
+        onComplete={handlePreWorkoutComplete}
+        onSkip={handlePreWorkoutSkip}
+        onClose={() => setShowPreWorkout(false)}
+      />
+    );
+  }
+
+  // Post-Workout Feedback Screen
+  if (showPostWorkout) {
+    return (
+      <PostWorkoutFeedback
+        userProfile={userProfile}
+        preWorkoutData={preWorkoutData}
+        workoutData={{
+          day,
+          title: curr?.title,
+          duration: elapsedTimeRef.current,
+          exerciseDetails: completedExercises
+        }}
+        onComplete={handlePostWorkoutComplete}
+        onSkip={handlePostWorkoutSkip}
+      />
+    );
+  }
+
+  // Profile Screen
+  if (showProfile) {
+    return (
+      <ProfileScreen
+        userProfile={userProfile}
+        trainingStats={trainingStats}
+        allProfiles={allProfiles}
+        activeProfileId={activeProfileId}
+        onClose={() => {
+          setShowProfile(false);
+          setActiveTab('home');
+        }}
+        onResetOnboarding={handleResetOnboarding}
+        onUpdateProfile={updateUserProfile}
+        onSwitchProfile={handleSwitchProfile}
+        onCreateProfile={handleCreateProfile}
+        onDeleteProfile={handleDeleteProfile}
+      />
+    );
+  }
 
   // Loading Screen
   if (screen === 'loading') {
@@ -811,9 +1176,17 @@ function App() {
 
   // Home Screen
   if (screen === 'home') {
-    const nextDay = completed.includes(day) ? Math.min(day + 1, 28) : day;
-    const displayWorkout = workouts.find(w => w.day === nextDay) || curr;
+    // Calculate the next available day to train
+    const nextAvailableDay = completed.length > 0 ? Math.min(Math.max(...completed) + 1, 28) : 1;
+    // Use selectedDay for viewing, or default to next available day
+    const viewingDay = selectedDay || nextAvailableDay;
+    const displayWorkout = workouts.find(w => w.day === viewingDay);
     const progressPercent = (completed.length / 28) * 100;
+
+    // Check if selected day can be started
+    const canStartWorkout = viewingDay === 1 || completed.includes(viewingDay - 1);
+    const isViewingCompleted = completed.includes(viewingDay);
+    const isViewingFuture = viewingDay > nextAvailableDay;
 
     return (
       <div className="min-h-screen bg-[var(--bg)]">
@@ -833,9 +1206,23 @@ function App() {
                   Installa
                 </button>
               )}
-              <div className="w-9 h-9 bg-[var(--primary)] rounded-full flex items-center justify-center">
-                <span className="text-white text-sm font-medium">G</span>
-              </div>
+              <button
+                onClick={() => {
+                  if (onboardingCompleted && userProfile) {
+                    setShowProfile(true);
+                  } else {
+                    setShowOnboarding(true);
+                  }
+                }}
+                className="w-9 h-9 rounded-full flex items-center justify-center overflow-hidden"
+                style={{
+                  background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
+                }}
+              >
+                <span className="text-white text-sm font-bold drop-shadow-sm">
+                  {userProfile?.name?.charAt(0)?.toUpperCase() || 'G'}
+                </span>
+              </button>
             </div>
           </div>
         </div>
@@ -845,14 +1232,19 @@ function App() {
           <div className="flex gap-1.5 items-center max-w-2xl mx-auto pb-1">
             {workouts.map((w) => {
               const isCompleted = completed.includes(w.day);
-              const isCurrent = w.day === nextDay;
-              const isFuture = w.day > nextDay;
+              const isCurrent = w.day === nextAvailableDay;
+              const isFuture = w.day > nextAvailableDay;
+              const isSelected = w.day === viewingDay;
 
               return (
                 <div
                   key={w.day}
-                  onClick={() => !isFuture && setDay(w.day)}
-                  className={`day-card ${
+                  onClick={() => setSelectedDay(w.day)}
+                  className={`day-card cursor-pointer transition-all ${
+                    isSelected
+                      ? 'ring-2 ring-[var(--primary)] ring-offset-2 scale-110 z-10'
+                      : ''
+                  } ${
                     isCompleted
                       ? 'day-card-completed'
                       : isCurrent
@@ -860,7 +1252,13 @@ function App() {
                       : 'day-card-future'
                   }`}
                 >
-                  {!isFuture && <div className="text-[8px] opacity-50 uppercase">D</div>}
+                  {isFuture ? (
+                    <svg width="10" height="10" fill="currentColor" viewBox="0 0 20 20" className="opacity-40">
+                      <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
+                    </svg>
+                  ) : (
+                    <div className="text-[8px] opacity-50 uppercase">D</div>
+                  )}
                   <div className={`font-semibold ${isFuture ? 'text-xs' : isCompleted ? 'text-sm' : 'text-base'}`}>{w.day}</div>
                   {isCompleted && <CheckIcon />}
                 </div>
@@ -895,12 +1293,35 @@ function App() {
         {/* Workout Card */}
         <div className="px-4 max-w-2xl mx-auto animate-slide-up">
           <div className="card overflow-hidden">
-            <div className="relative h-24 bg-[var(--primary)] flex items-center justify-center">
-              <div className="flex items-center gap-3">
-                <span className="text-4xl">{displayWorkout?.image}</span>
-                <span className="text-white/90 text-sm font-medium bg-white/20 px-3 py-0.5 rounded-full">
-                  Giorno {nextDay}
-                </span>
+            <div
+              className="relative h-28 flex items-center justify-center"
+              style={{
+                backgroundImage: 'url(https://cdn.vectorstock.com/i/500p/75/82/yoga-poses-and-exercises-flat-vector-42197582.jpg)',
+                backgroundSize: 'cover',
+                backgroundPosition: 'center'
+              }}
+            >
+              {/* Overlay for better text visibility */}
+              <div className={`absolute inset-0 ${
+                isViewingCompleted ? 'bg-green-500/80' : isViewingFuture ? 'bg-gray-500/80' : 'bg-[var(--primary)]/70'
+              }`} />
+              <div className="relative z-10 flex items-center gap-3">
+                <span className="text-4xl drop-shadow-lg">{displayWorkout?.image}</span>
+                <div className="flex flex-col items-start">
+                  <span className="text-white text-sm font-medium bg-black/30 backdrop-blur-sm px-3 py-0.5 rounded-full">
+                    Giorno {viewingDay}
+                  </span>
+                  {isViewingCompleted && (
+                    <span className="text-white text-xs mt-1 flex items-center gap-1 drop-shadow">
+                      <CheckIcon /> Completato
+                    </span>
+                  )}
+                  {isViewingFuture && (
+                    <span className="text-white text-xs mt-1 flex items-center gap-1 drop-shadow">
+                      🔒 Bloccato
+                    </span>
+                  )}
+                </div>
               </div>
             </div>
             <div className="p-5">
@@ -918,16 +1339,75 @@ function App() {
               </div>
               <button
                 onClick={() => {
-                  setDay(nextDay);
+                  setDay(viewingDay);
                   setScreen('detail');
                 }}
                 className="btn-primary w-full"
               >
-                VAI ALL'ALLENAMENTO
+                {canStartWorkout && !isViewingCompleted ? "VAI ALL'ALLENAMENTO!" : "VEDI DETTAGLIO ALLENAMENTO"}
               </button>
             </div>
           </div>
         </div>
+
+        {/* Bar Chart - Last 7 Workouts */}
+        {workoutHistory.length > 0 && (
+          <div className="px-4 max-w-2xl mx-auto mt-6 animate-fade-in">
+            <h3 className="text-xs font-medium text-[var(--text-muted)] uppercase tracking-wide mb-3">
+              Ultimi 7 allenamenti
+            </h3>
+            <div className="card p-4">
+              {(() => {
+                const last7 = workoutHistory.slice(0, 7).reverse();
+                const maxDuration = Math.max(...last7.map(s => s.duration || 0), 1);
+                const maxMinutes = Math.ceil(maxDuration / 60);
+
+                return (
+                  <div className="space-y-3">
+                    {/* Chart */}
+                    <div className="flex items-end justify-between gap-2 h-32">
+                      {last7.map((session, idx) => {
+                        const minutes = Math.floor((session.duration || 0) / 60);
+                        const heightPercent = maxDuration > 0 ? ((session.duration || 0) / maxDuration) * 100 : 0;
+                        const sessionDate = new Date(session.completedAt);
+                        const dayLabel = sessionDate.toLocaleDateString('it-IT', { weekday: 'short' }).slice(0, 2);
+
+                        return (
+                          <div key={session.id || idx} className="flex-1 flex flex-col items-center gap-1">
+                            <span className="text-xs font-medium text-[var(--text-secondary)]">{minutes}m</span>
+                            <div className="w-full bg-[var(--surface-hover)] rounded-t-lg relative" style={{ height: '80px' }}>
+                              <div
+                                className="absolute bottom-0 w-full bg-[var(--primary)] rounded-t-lg transition-all"
+                                style={{ height: `${Math.max(heightPercent, 5)}%` }}
+                              />
+                            </div>
+                            <span className="text-xs text-[var(--text-muted)] uppercase">{dayLabel}</span>
+                          </div>
+                        );
+                      })}
+                      {/* Fill empty slots if less than 7 */}
+                      {Array.from({ length: Math.max(0, 7 - last7.length) }).map((_, idx) => (
+                        <div key={`empty-${idx}`} className="flex-1 flex flex-col items-center gap-1">
+                          <span className="text-xs font-medium text-transparent">-</span>
+                          <div className="w-full bg-[var(--surface-hover)] rounded-t-lg opacity-30" style={{ height: '80px' }} />
+                          <span className="text-xs text-transparent">--</span>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Summary */}
+                    <div className="flex justify-between items-center pt-2 border-t border-[var(--border)]">
+                      <span className="text-sm text-[var(--text-secondary)]">Media</span>
+                      <span className="text-sm font-medium">
+                        {Math.round(last7.reduce((sum, s) => sum + (s.duration || 0), 0) / last7.length / 60)} min
+                      </span>
+                    </div>
+                  </div>
+                );
+              })()}
+            </div>
+          </div>
+        )}
 
         {/* Workout History Section */}
         {workoutHistory.length > 0 && (
@@ -982,7 +1462,6 @@ function App() {
         )}
 
         <div className="h-14"></div>
-        <AudioToggle />
         <BottomNav />
       </div>
     );
@@ -1048,7 +1527,6 @@ function App() {
         </div>
 
         <div className="h-14"></div>
-        <AudioToggle />
         <BottomNav />
       </div>
     );
@@ -1132,13 +1610,12 @@ function App() {
         </div>
 
         <div className="h-14"></div>
-        <AudioToggle />
         <BottomNav />
       </div>
     );
   }
 
-  // Settings Screen (placeholder)
+  // Settings Screen
   if (screen === 'settings') {
     return (
       <div className="min-h-screen bg-[var(--bg)]">
@@ -1149,13 +1626,178 @@ function App() {
           </div>
         </div>
 
-        <div className="px-4 py-8 max-w-2xl mx-auto text-center">
-          <div className="text-6xl mb-4">🚧</div>
-          <p className="text-[var(--text-secondary)]">Prossimamente...</p>
+        <div className="px-4 py-6 max-w-2xl mx-auto">
+          {/* Profile Section */}
+          <div className="card p-4 mb-4">
+            <h3 className="text-xs font-medium text-[var(--text-muted)] uppercase tracking-wide mb-3">
+              Profilo
+            </h3>
+            {onboardingCompleted && userProfile ? (
+              <button
+                onClick={() => setShowProfile(true)}
+                className="w-full flex items-center justify-between py-3"
+              >
+                <div className="flex items-center gap-3">
+                  <div
+                    className="w-10 h-10 rounded-full flex items-center justify-center"
+                    style={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' }}
+                  >
+                    <span className="text-white font-bold drop-shadow-sm">
+                      {userProfile.name?.charAt(0)?.toUpperCase()}
+                    </span>
+                  </div>
+                  <div className="text-left">
+                    <div className="font-medium">{userProfile.name}</div>
+                    <div className="text-sm text-[var(--text-secondary)]">Visualizza profilo</div>
+                  </div>
+                </div>
+                <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" className="text-[var(--text-muted)]">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
+            ) : (
+              <button
+                onClick={() => setShowOnboarding(true)}
+                className="w-full btn-primary"
+              >
+                Completa il profilo
+              </button>
+            )}
+          </div>
+
+          {/* Audio Section */}
+          <div className="card p-4 mb-4">
+            <h3 className="text-xs font-medium text-[var(--text-muted)] uppercase tracking-wide mb-3">
+              Audio Allenamento
+            </h3>
+
+            {/* Voice Assistant */}
+            <button
+              onClick={toggleVoice}
+              className="w-full flex items-center justify-between py-3 border-b border-[var(--border)]"
+            >
+              <div className="flex items-center gap-3">
+                <span className="text-xl">🗣️</span>
+                <div className="text-left">
+                  <div className="font-medium text-sm">Voce Assistente</div>
+                  <div className="text-xs text-[var(--text-secondary)]">Annuncia esercizi e suggerimenti</div>
+                </div>
+              </div>
+              <div className={`w-11 h-6 rounded-full transition-colors flex items-center ${
+                voiceEnabled ? 'bg-[var(--primary)]' : 'bg-[var(--border)]'
+              }`}>
+                <div className={`w-4 h-4 rounded-full bg-white shadow transition-transform mx-1 ${
+                  voiceEnabled ? 'translate-x-5' : ''
+                }`} />
+              </div>
+            </button>
+
+            {/* Voice Selection */}
+            {voiceEnabled && availableVoices.length > 0 && (
+              <div className="py-3 border-b border-[var(--border)]">
+                <div className="flex items-center gap-3 mb-2">
+                  <span className="text-xl">🎙️</span>
+                  <div className="text-left">
+                    <div className="font-medium text-sm">Scegli Voce</div>
+                    <div className="text-xs text-[var(--text-secondary)]">Seleziona la voce preferita</div>
+                  </div>
+                </div>
+                <select
+                  value={selectedVoice || ''}
+                  onChange={(e) => handleVoiceChange(e.target.value)}
+                  className="w-full mt-2 p-2 text-sm border border-[var(--border)] rounded-lg bg-[var(--surface)] text-[var(--text)]"
+                >
+                  {availableVoices.map((voice) => (
+                    <option key={voice.name} value={voice.name}>
+                      {voice.name} ({voice.lang})
+                    </option>
+                  ))}
+                </select>
+              </div>
+            )}
+
+            {/* Countdown Sounds */}
+            <button
+              onClick={toggleCountdown}
+              className="w-full flex items-center justify-between py-3 border-b border-[var(--border)]"
+            >
+              <div className="flex items-center gap-3">
+                <span className="text-xl">🔔</span>
+                <div className="text-left">
+                  <div className="font-medium text-sm">Suoni Countdown</div>
+                  <div className="text-xs text-[var(--text-secondary)]">Beep negli ultimi 3 secondi</div>
+                </div>
+              </div>
+              <div className={`w-11 h-6 rounded-full transition-colors flex items-center ${
+                countdownEnabled ? 'bg-[var(--primary)]' : 'bg-[var(--border)]'
+              }`}>
+                <div className={`w-4 h-4 rounded-full bg-white shadow transition-transform mx-1 ${
+                  countdownEnabled ? 'translate-x-5' : ''
+                }`} />
+              </div>
+            </button>
+
+            {/* Music */}
+            <button
+              onClick={toggleMusic}
+              className="w-full flex items-center justify-between py-3"
+            >
+              <div className="flex items-center gap-3">
+                <span className="text-xl">🎵</span>
+                <div className="text-left">
+                  <div className="font-medium text-sm">Musica di Sottofondo</div>
+                  <div className="text-xs text-[var(--text-secondary)]">Musica motivazionale durante l'allenamento</div>
+                </div>
+              </div>
+              <div className={`w-11 h-6 rounded-full transition-colors flex items-center ${
+                musicEnabled ? 'bg-[var(--primary)]' : 'bg-[var(--border)]'
+              }`}>
+                <div className={`w-4 h-4 rounded-full bg-white shadow transition-transform mx-1 ${
+                  musicEnabled ? 'translate-x-5' : ''
+                }`} />
+              </div>
+            </button>
+          </div>
+
+          {/* Display Settings */}
+          <div className="card p-4">
+            <h3 className="text-xs font-medium text-[var(--text-muted)] uppercase tracking-wide mb-3">
+              Visualizzazione
+            </h3>
+            <button
+              onClick={toggleFullWidthAnimation}
+              className="w-full flex items-center justify-between py-3"
+            >
+              <div className="flex items-center gap-3">
+                <span className="text-xl">📺</span>
+                <div className="text-left">
+                  <div className="font-medium text-sm">Animazione a schermo intero</div>
+                  <div className="text-xs text-[var(--text-secondary)]">Espandi l'animazione fino ai bordi dello schermo</div>
+                </div>
+              </div>
+              <div className={`w-11 h-6 rounded-full transition-colors flex items-center ${
+                fullWidthAnimation ? 'bg-[var(--primary)]' : 'bg-[var(--border)]'
+              }`}>
+                <div className={`w-4 h-4 rounded-full bg-white shadow transition-transform mx-1 ${
+                  fullWidthAnimation ? 'translate-x-5' : ''
+                }`} />
+              </div>
+            </button>
+          </div>
+
+          {/* App Info */}
+          <div className="card p-4">
+            <h3 className="text-xs font-medium text-[var(--text-muted)] uppercase tracking-wide mb-3">
+              Informazioni
+            </h3>
+            <div className="text-sm text-[var(--text-secondary)]">
+              <p>Good Morning Fitness</p>
+              <p>Versione 1.0.0</p>
+            </div>
+          </div>
         </div>
 
         <div className="h-14"></div>
-        <AudioToggle />
         <BottomNav />
       </div>
     );
@@ -1163,19 +1805,36 @@ function App() {
 
   // Detail Screen
   if (screen === 'detail') {
+    // Check if this day can be started (day 1 or previous day completed)
+    const canStartThisDay = day === 1 || completed.includes(day - 1);
+    const isDayCompleted = completed.includes(day);
+
     return (
       <div className="min-h-screen bg-[var(--bg)]">
         <div className="relative">
           <div className="absolute top-4 left-4 z-10">
             <button
-              onClick={() => setScreen('home')}
+              onClick={() => { setScreen('home'); setSelectedDay(null); }}
               className="w-10 h-10 bg-[var(--surface)] rounded-full flex items-center justify-center border border-[var(--border)]"
             >
               <BackIcon />
             </button>
           </div>
-          <div className="h-48 bg-[var(--primary)] flex items-center justify-center">
-            <span className="text-7xl">{curr?.image}</span>
+          <div className={`h-48 flex items-center justify-center ${
+            isDayCompleted ? 'bg-green-500' : !canStartThisDay ? 'bg-gray-400' : 'bg-[var(--primary)]'
+          }`}>
+            <div className="text-center">
+              <span className="text-7xl block mb-2">{curr?.image}</span>
+              <span className="text-white/90 text-sm font-medium bg-white/20 px-3 py-0.5 rounded-full">
+                Giorno {day}
+              </span>
+              {isDayCompleted && (
+                <span className="text-white/90 text-xs block mt-2">✓ Completato</span>
+              )}
+              {!canStartThisDay && !isDayCompleted && (
+                <span className="text-white/90 text-xs block mt-2">🔒 Completa prima il giorno {day - 1}</span>
+              )}
+            </div>
           </div>
         </div>
 
@@ -1209,9 +1868,51 @@ function App() {
               </div>
             </div>
 
-            <button onClick={startWorkout} className="btn-primary w-full mb-5">
-              ANDIAMO!
-            </button>
+            {/* Show start button only if day can be started and not completed */}
+            {canStartThisDay && !isDayCompleted && (
+              <>
+                <button onClick={startWorkout} className="btn-primary w-full mb-5">
+                  {onboardingCompleted && userProfile ? 'INIZIA CHECK-IN' : 'VAI ALL\'ALLENAMENTO'}
+                </button>
+
+                {onboardingCompleted && userProfile && (
+                  <div className="bg-[var(--primary)]/10 rounded-lg p-3 mb-5 text-sm">
+                    <div className="flex items-center gap-2">
+                      <span className="text-lg">📋</span>
+                      <div>
+                        <p className="font-medium text-[var(--primary)]">Check-in pre-allenamento</p>
+                        <p className="text-[var(--text-secondary)] text-xs">Ti faremo alcune domande per personalizzare il workout</p>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </>
+            )}
+
+            {/* Show repeat button if day is completed */}
+            {isDayCompleted && (
+              <div className="bg-green-50 rounded-lg p-4 mb-5 text-sm">
+                <div className="flex items-center gap-2 text-green-700">
+                  <CheckIcon />
+                  <span className="font-medium">Hai già completato questo allenamento!</span>
+                </div>
+                <button
+                  onClick={startWorkout}
+                  className="btn-secondary w-full mt-3"
+                >
+                  Ripeti allenamento
+                </button>
+              </div>
+            )}
+
+            {/* Show locked message if previous day not completed */}
+            {!canStartThisDay && !isDayCompleted && (
+              <div className="bg-gray-100 rounded-lg p-4 mb-5 text-sm text-center">
+                <span className="text-2xl block mb-2">🔒</span>
+                <p className="text-gray-600 font-medium">Allenamento bloccato</p>
+                <p className="text-gray-500 text-xs mt-1">Completa prima il giorno {day - 1} per sbloccare questo allenamento</p>
+              </div>
+            )}
 
             <h3 className="text-xs font-medium text-[var(--text-muted)] uppercase tracking-wide mb-3">
               Piano di allenamento
@@ -1238,7 +1939,6 @@ function App() {
         </div>
 
         <div className="h-24"></div>
-        <AudioToggle />
       </div>
     );
   }
@@ -1250,34 +1950,35 @@ function App() {
 
     return (
       <div className={`min-h-screen ${prepBgColor} text-white flex flex-col`}>
+        {showExitConfirm && <ExitConfirmModal />}
         <div className="p-4 flex items-center justify-between">
           <div className="flex flex-col">
             <div className="chip chip-dark">{getPhaseLabel()}</div>
-            {phaseCode && <span className="text-[10px] text-white/60 mt-1 ml-1">{phaseCode}</span>}
+            {import.meta.env.DEV && phaseCode && <span className="text-[10px] text-white/60 mt-1 ml-1">{phaseCode}</span>}
           </div>
           <button
-            onClick={exitWorkout}
+            onClick={handleExitClick}
             className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center"
           >
             <CloseIcon />
           </button>
         </div>
 
-        <div className="flex-1 flex flex-col items-center justify-center p-6 animate-fade-in">
-          <p className="text-white/60 uppercase tracking-wider text-xs mb-2">Prossimo</p>
-          <h2 className="text-xl font-semibold text-center mb-6">{ex?.name}</h2>
+        <div className="flex-1 flex flex-col items-center justify-center p-4 animate-fade-in">
+          <p className="text-white/60 uppercase tracking-wider text-xs mb-1">Prossimo</p>
+          <h2 className="text-lg font-semibold text-center mb-3">{ex?.name}</h2>
 
-          <div className="timer-display mb-6">{prepTimer}</div>
+          <div className="text-5xl font-bold mb-4">{prepTimer}</div>
 
-          <div className="mb-6 overflow-hidden rounded-2xl">
+          <div className="mb-5 overflow-hidden rounded-2xl">
             <ExerciseMedia
               src={ex?.gif}
               alt={ex?.name}
-              className="w-36 h-36 rounded-2xl object-cover"
+              className="w-40 h-40 rounded-2xl object-cover"
             />
           </div>
 
-          <p className="text-white/60 text-sm mb-8">Durata: {ex?.duration}s</p>
+          <p className="text-white/60 text-sm mb-5">Durata: {ex?.duration}s</p>
 
           <button
             onClick={() => {
@@ -1300,10 +2001,10 @@ function App() {
   if (screen === 'workout' && phase === 'rest') {
     return (
       <div className="min-h-screen bg-white text-[var(--text)] flex flex-col">
-        <div className="p-4 flex items-center justify-between">
-          <div className="chip chip-light">Pausa</div>
+        {showExitConfirm && <ExitConfirmModal />}
+        <div className="p-4 flex items-center justify-end">
           <button
-            onClick={exitWorkout}
+            onClick={handleExitClick}
             className="w-10 h-10 rounded-full bg-[var(--surface-hover)] flex items-center justify-center border border-[var(--border)]"
           >
             <CloseIcon />
@@ -1350,37 +2051,59 @@ function App() {
     const bgColor = phase === 'warmup' ? 'bg-blue-500' : phase === 'cooldown' ? 'bg-slate-700' : 'bg-workout';
     const phaseCode = getPhaseCode();
 
+    // Calculate total workout progress
+    const totalWarmupExercises = selectedWarmup?.exercises?.length || 0;
+    const totalMainExercises = curr?.exercises?.length || 0;
+    const totalCooldownExercises = selectedCooldown?.exercises?.length || 0;
+    const totalAllExercises = totalWarmupExercises + totalMainExercises + totalCooldownExercises;
+
+    let completedCount = 0;
+    if (phase === 'warmup') {
+      completedCount = exerciseIdx;
+    } else if (phase === 'workout') {
+      completedCount = totalWarmupExercises + exerciseIdx;
+    } else if (phase === 'cooldown') {
+      completedCount = totalWarmupExercises + totalMainExercises + exerciseIdx;
+    }
+    const overallProgress = totalAllExercises > 0 ? (completedCount / totalAllExercises) * 100 : 0;
+
     return (
       <div className={`min-h-screen ${bgColor} text-white flex flex-col`}>
+        {showExitConfirm && <ExitConfirmModal />}
         <div className="p-4 flex items-center justify-between">
           <div className="flex flex-col">
             <div className="chip chip-dark">
               {getPhaseLabel()} {exerciseIdx + 1}/{currentExercises.length}
             </div>
-            {phaseCode && <span className="text-[10px] text-white/60 mt-1 ml-1">{phaseCode}</span>}
+            {import.meta.env.DEV && phaseCode && <span className="text-[10px] text-white/60 mt-1 ml-1">{phaseCode}</span>}
           </div>
           <button
-            onClick={exitWorkout}
+            onClick={handleExitClick}
             className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center"
           >
             <CloseIcon />
           </button>
         </div>
 
-        {/* Elapsed time indicator */}
-        <div className="flex justify-center">
-          <div className="bg-white/10 px-4 py-1 rounded-full text-sm font-medium flex items-center gap-2">
-            <TimerIcon />
-            <span>{formatTime(elapsedTime)}</span>
-          </div>
+        {/* Elapsed time indicator with progress bar - full width */}
+        <div className="relative w-full bg-white/10 py-2.5 text-sm font-medium flex items-center justify-center gap-2 overflow-hidden">
+          {/* Progress bar background */}
+          <div
+            className="absolute left-0 top-0 bottom-0 bg-white/20 transition-all duration-300 ease-out"
+            style={{ width: `${overallProgress}%` }}
+          />
+          <TimerIcon />
+          <span className="relative z-10">{formatTime(elapsedTime)}</span>
+          <span className="relative z-10 text-white/60 text-xs">({Math.round(overallProgress)}%)</span>
         </div>
 
-        <div className="flex-1 flex flex-col items-center justify-center p-4">
-          <div className="relative mb-4 animate-fade-in overflow-hidden rounded-3xl w-fit">
+        <div className="flex-1 flex flex-col justify-center items-center p-4">
+          {/* Exercise image - full width when setting enabled */}
+          <div className={`relative mb-4 animate-fade-in ${fullWidthAnimation ? 'w-screen -mx-4 bg-white' : 'overflow-hidden rounded-3xl w-fit'}`}>
             <ExerciseMedia
               src={ex?.gif}
               alt={ex?.name}
-              className="max-h-72 rounded-3xl"
+              className={fullWidthAnimation ? 'w-full h-auto max-h-80 object-contain' : 'max-h-72 rounded-3xl object-contain'}
               style={{
                 filter: paused ? 'grayscale(100%)' : 'none',
                 opacity: paused ? 0.4 : 1,
@@ -1450,7 +2173,7 @@ function App() {
                 <ExerciseMedia
                   src={next.gif}
                   alt={next.name}
-                  className="w-10 h-10 rounded-xl object-cover"
+                  className="w-14 h-10 rounded-md object-cover"
                 />
                 <div>
                   <div className="font-medium text-sm">{next.name}</div>
@@ -1484,7 +2207,7 @@ function App() {
           <h1 className="text-2xl font-bold mb-1">Fantastico!</h1>
           <p className="text-lg text-white/80 mb-8">{curr?.title}</p>
 
-          <div className="flex gap-3 justify-center mb-8">
+          <div className="flex gap-3 justify-center mb-8 flex-wrap">
             <div className="stat-card">
               <div className="text-2xl font-bold">{curr?.calories}</div>
               <div className="text-xs text-white/60">kcal</div>
@@ -1497,13 +2220,19 @@ function App() {
               <div className="text-2xl font-bold">{curr?.exercises?.length}</div>
               <div className="text-xs text-white/60">esercizi</div>
             </div>
+            {readinessScore !== null && (
+              <div className="stat-card">
+                <div className="text-2xl font-bold">{readinessScore}</div>
+                <div className="text-xs text-white/60">readiness</div>
+              </div>
+            )}
           </div>
 
           <button
             onClick={handleComplete}
             className="bg-white text-blue-600 px-10 py-3 rounded-full font-semibold"
           >
-            Continua
+            {onboardingCompleted && userProfile ? 'Dai il tuo feedback' : 'Continua'}
           </button>
         </div>
       </div>
@@ -1652,6 +2381,15 @@ function App() {
   }
 
   return null;
+}
+
+// Main App component wrapped with TrainingProvider
+function App() {
+  return (
+    <TrainingProvider>
+      <AppContent />
+    </TrainingProvider>
+  );
 }
 
 export default App;

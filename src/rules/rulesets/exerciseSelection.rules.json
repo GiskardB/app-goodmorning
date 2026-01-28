@@ -1,0 +1,160 @@
+{
+  "name": "exerciseSelection",
+  "description": "Rules for recommending or excluding exercises",
+  "version": "1.0.0",
+  "rules": [
+    {
+      "name": "exclude-back-exercises",
+      "conditions": {
+        "any": [
+          {
+            "fact": "hasBackProblems",
+            "operator": "equal",
+            "value": true
+          },
+          {
+            "fact": "assessment",
+            "path": "$.domsAreas",
+            "operator": "containsAny",
+            "value": ["back"]
+          }
+        ]
+      },
+      "event": {
+        "type": "exclude_exercise",
+        "params": {
+          "exercises": ["deadlift", "bent_over_row", "good_morning", "hyperextension"],
+          "reason": "Problemi o dolore alla schiena",
+          "alternative": "Esercizi a basso impatto per la schiena",
+          "priority": 9
+        }
+      },
+      "priority": 9
+    },
+    {
+      "name": "exclude-knee-exercises",
+      "conditions": {
+        "any": [
+          {
+            "fact": "hasKneeProblems",
+            "operator": "equal",
+            "value": true
+          },
+          {
+            "fact": "assessment",
+            "path": "$.domsAreas",
+            "operator": "containsAny",
+            "value": ["quads", "hamstrings"]
+          }
+        ]
+      },
+      "event": {
+        "type": "exclude_exercise",
+        "params": {
+          "exercises": ["squat", "lunge", "jump_squat", "box_jump"],
+          "reason": "Problemi o dolore alle ginocchia/gambe",
+          "alternative": "Esercizi senza carico sulle ginocchia",
+          "priority": 9
+        }
+      },
+      "priority": 9
+    },
+    {
+      "name": "exclude-shoulder-exercises",
+      "conditions": {
+        "any": [
+          {
+            "fact": "hasShoulderProblems",
+            "operator": "equal",
+            "value": true
+          },
+          {
+            "fact": "assessment",
+            "path": "$.domsAreas",
+            "operator": "containsAny",
+            "value": ["shoulders"]
+          }
+        ]
+      },
+      "event": {
+        "type": "exclude_exercise",
+        "params": {
+          "exercises": ["overhead_press", "lateral_raise", "pike_pushup", "handstand"],
+          "reason": "Problemi o dolore alle spalle",
+          "alternative": "Esercizi che non sovraccaricano le spalle",
+          "priority": 9
+        }
+      },
+      "priority": 9
+    },
+    {
+      "name": "recommend-mobility-for-stress",
+      "conditions": {
+        "all": [
+          {
+            "fact": "assessment",
+            "path": "$.stress",
+            "operator": "greaterThanInclusive",
+            "value": 4
+          }
+        ]
+      },
+      "event": {
+        "type": "recommend_exercise",
+        "params": {
+          "category": "mobility",
+          "exercises": ["stretching", "yoga_flow", "breathing_exercises"],
+          "reason": "Alto livello di stress rilevato",
+          "priority": 7
+        }
+      },
+      "priority": 7
+    },
+    {
+      "name": "recommend-low-impact-for-doms",
+      "conditions": {
+        "all": [
+          {
+            "fact": "assessment",
+            "path": "$.doms",
+            "operator": "greaterThanInclusive",
+            "value": 3
+          }
+        ]
+      },
+      "event": {
+        "type": "recommend_exercise",
+        "params": {
+          "category": "recovery",
+          "exercises": ["light_cardio", "stretching", "foam_rolling"],
+          "reason": "DOMS significativo - recupero attivo consigliato",
+          "priority": 8
+        }
+      },
+      "priority": 8
+    },
+    {
+      "name": "modify-for-low-energy",
+      "conditions": {
+        "all": [
+          {
+            "fact": "assessment",
+            "path": "$.energy",
+            "operator": "lessThanInclusive",
+            "value": 2
+          }
+        ]
+      },
+      "event": {
+        "type": "modify_exercise",
+        "params": {
+          "modification": "reduce_sets",
+          "factor": 0.7,
+          "reason": "Energia bassa - volume ridotto",
+          "priority": 8
+        }
+      },
+      "priority": 8
+    }
+  ]
+}

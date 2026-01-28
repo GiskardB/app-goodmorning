@@ -25,7 +25,7 @@
     "description": "Posizione prona sui gomiti, corpo in linea retta dalla testa ai piedi. Attiva il core e mantieni i glutei contratti per tutta la durata.",
     "muscles": "Core, Addominali, Spalle",
     "type": "plank",
-    "gif": "assets/3665.gif"
+    "gif": "https://app.fitnessai.com/exercises/04631201-Front-Plank-m-waist.mp4"
   },
   "plank_side_left": {
     "name": "Plank laterale (sinistra)",
