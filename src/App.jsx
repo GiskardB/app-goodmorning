@@ -1,4 +1,8 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
+
+// Build info
+const APP_VERSION = '1.0.0';
+const BUILD_DATE = new Date().toLocaleDateString('it-IT', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
 import {
   initDB,
   getCompletedDays,
@@ -853,7 +857,7 @@ function AppContent() {
     await setSetting('selectedVoice', voiceName);
   }, []);
 
-  // Get tip text based on exercise type
+  // Get tip text based on exercise type - returns null if no specific tip
   const getTipText = (type) => {
     const tips = {
       plank: 'Mantieni il corpo in linea retta',
@@ -866,7 +870,7 @@ function AppContent() {
       warmup: 'Preparati al meglio',
       cooldown: 'Rilassati e respira'
     };
-    return tips[type] || 'Esegui con controllo';
+    return tips[type] || null;
   };
 
   // Start workout handler - now triggers pre-workout assessment first
@@ -1792,7 +1796,8 @@ function AppContent() {
             </h3>
             <div className="text-sm text-[var(--text-secondary)]">
               <p>Good Morning Fitness</p>
-              <p>Versione 1.0.0</p>
+              <p>Versione {APP_VERSION}</p>
+              <p className="text-xs mt-1">Build: {BUILD_DATE}</p>
             </div>
           </div>
         </div>
@@ -1820,11 +1825,19 @@ function AppContent() {
               <BackIcon />
             </button>
           </div>
-          <div className={`h-48 flex items-center justify-center ${
-            isDayCompleted ? 'bg-green-500' : !canStartThisDay ? 'bg-gray-400' : 'bg-[var(--primary)]'
-          }`}>
-            <div className="text-center">
-              <span className="text-7xl block mb-2">{curr?.image}</span>
+          <div
+            className="h-48 flex items-center justify-center relative"
+            style={{
+              backgroundImage: 'url(https://www.shutterstock.com/image-vector/workout-men-set-doing-fitness-260nw-1769134532.jpg)',
+              backgroundSize: 'cover',
+              backgroundPosition: 'center'
+            }}
+          >
+            <div className={`absolute inset-0 ${
+              isDayCompleted ? 'bg-green-500/80' : !canStartThisDay ? 'bg-gray-500/80' : 'bg-[var(--primary)]/70'
+            }`} />
+            <div className="text-center relative z-10">
+              <span className="text-7xl block mb-2 drop-shadow-lg">{curr?.image}</span>
               <span className="text-white/90 text-sm font-medium bg-white/20 px-3 py-0.5 rounded-full">
                 Giorno {day}
               </span>
@@ -1966,7 +1979,7 @@ function AppContent() {
 
         <div className="flex-1 flex flex-col items-center justify-center p-3 animate-fade-in min-h-0">
           <p className="text-white/60 uppercase tracking-wider text-xs mb-1">Prossimo</p>
-          <h2 className="text-base font-semibold text-center mb-2">{ex?.name}</h2>
+          <h2 className="text-2xl font-bold text-center mb-2">{ex?.name}</h2>
 
           <div className="text-4xl font-bold mb-3">{prepTimer}</div>
 
@@ -2097,7 +2110,7 @@ function AppContent() {
           <span className="relative z-10 text-white/60 text-xs">({Math.round(overallProgress)}%)</span>
         </div>
 
-        <div className="flex-1 flex flex-col justify-center items-center p-3 min-h-0">
+        <div className="flex-1 flex flex-col justify-start items-center p-3 pt-4 min-h-0">
           {/* Exercise image - full width when setting enabled */}
           <div className={`relative mb-2 animate-fade-in flex-shrink ${fullWidthAnimation ? 'w-screen -mx-3 bg-white' : 'overflow-hidden rounded-2xl w-fit'}`}>
             <ExerciseMedia
@@ -2129,18 +2142,20 @@ function AppContent() {
             <div className="progress-bar-fill" style={{ width: `${progress}%` }} />
           </div>
 
-          {/* Tip */}
-          <div className="chip chip-info mb-2 text-xs">
-            {getTipText(ex?.type || phase)}
-          </div>
+          {/* Tip - only show if there's a specific tip */}
+          {getTipText(ex?.type || phase) && (
+            <div className="bg-white/15 text-white/90 px-3 py-1 rounded-full text-xs mb-1">
+              {getTipText(ex?.type || phase)}
+            </div>
+          )}
 
           <h2 className="text-base font-semibold text-center mb-3">{ex?.name}</h2>
 
-          {/* Controls */}
-          <div className="flex gap-3 flex-shrink-0">
+          {/* Controls - responsive size based on screen height */}
+          <div className="flex gap-2 flex-shrink-0">
             <button
               onClick={() => setPaused(!paused)}
-              className="btn-secondary flex items-center gap-2 py-2 px-4 text-sm"
+              className="workout-btn workout-btn-secondary"
             >
               {paused ? <PlayIcon /> : <PauseIcon />}
               {paused ? 'Riprendi' : 'Pausa'}
@@ -2157,7 +2172,7 @@ function AppContent() {
                     moveToNextPhase();
                   }
                 }}
-                className="btn-flat flex items-center gap-2 py-2 px-4 text-sm"
+                className="workout-btn workout-btn-flat"
               >
                 <SkipIcon />
                 Salta
@@ -2169,18 +2184,15 @@ function AppContent() {
         {/* Next exercise preview - anchored at bottom */}
         <div className="flex-shrink-0 px-3 pb-3">
           {next && (
-            <div className="bg-white/10 rounded-xl p-3 w-full">
-              <p className="text-xs text-white/50 mb-1">Prossimo:</p>
-              <div className="flex items-center gap-3">
-                <ExerciseMedia
-                  src={next.gif}
-                  alt={next.name}
-                  className="w-12 h-9 rounded-md object-cover"
-                />
-                <div>
-                  <div className="font-medium text-sm">{next.name}</div>
-                  <div className="text-xs text-white/50">{next.duration}s</div>
-                </div>
+            <div className="next-exercise-bar bg-white/10 w-full flex items-center">
+              <ExerciseMedia
+                src={next.gif}
+                alt={next.name}
+                className="next-thumbnail object-cover flex-shrink-0"
+              />
+              <div className="flex-1 min-w-0">
+                <span className="next-label text-white/50">Prossimo:</span>
+                <div className="next-name font-medium truncate">{next.name}</div>
               </div>
             </div>
           )}
