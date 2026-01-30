@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catalogo Esercizi - Good Morning Fitness</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+      background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 100%);
+      min-height: 100vh;
+      color: #2d3748;
+    }
+
+    .header {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(10px);
+      padding: 20px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .header h1 {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 20px;
+      background: linear-gradient(90deg, #0077b6, #7b2cbf);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .stats {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .stat {
+      text-align: center;
+      padding: 10px 20px;
+      background: rgba(0, 119, 182, 0.08);
+      border-radius: 10px;
+      border: 1px solid rgba(0, 119, 182, 0.1);
+    }
+
+    .stat-number {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: #0077b6;
+    }
+
+    .stat-label {
+      font-size: 0.9rem;
+      color: #64748b;
+    }
+
+    .filters {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .search-box {
+      padding: 12px 20px;
+      border: 1px solid #d1d5db;
+      border-radius: 25px;
+      background: #fff;
+      color: #2d3748;
+      font-size: 1rem;
+      width: 300px;
+      outline: none;
+      transition: all 0.3s;
+    }
+
+    .search-box:focus {
+      background: #fff;
+      border-color: #0077b6;
+      box-shadow: 0 0 0 3px rgba(0, 119, 182, 0.15);
+    }
+
+    .search-box::placeholder {
+      color: #94a3b8;
+    }
+
+    .filter-select {
+      padding: 12px 20px;
+      border: 1px solid #d1d5db;
+      border-radius: 25px;
+      background: #fff;
+      color: #2d3748;
+      font-size: 1rem;
+      outline: none;
+      cursor: pointer;
+    }
+
+    .filter-select option {
+      background: #fff;
+      color: #2d3748;
+    }
+
+    .container {
+      max-width: 1600px;
+      margin: 0 auto;
+      padding: 30px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 25px;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 20px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+      border-color: #0077b6;
+    }
+
+    .card-image {
+      width: 100%;
+      height: 220px;
+      object-fit: contain;
+      background: #f8fafc;
+      padding: 10px;
+    }
+
+    .card-content {
+      padding: 20px;
+    }
+
+    .card-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: #1e293b;
+    }
+
+    .card-type {
+      display: inline-block;
+      padding: 5px 12px;
+      border-radius: 15px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .type-abs { background: linear-gradient(135deg, #ff6b6b, #ee5a24); }
+    .type-obliques { background: linear-gradient(135deg, #ff9f43, #ee5a24); }
+    .type-core { background: linear-gradient(135deg, #feca57, #ff9f43); }
+    .type-chest { background: linear-gradient(135deg, #54a0ff, #2e86de); }
+    .type-triceps { background: linear-gradient(135deg, #5f27cd, #341f97); }
+    .type-biceps { background: linear-gradient(135deg, #00d2d3, #01a3a4); }
+    .type-shoulders { background: linear-gradient(135deg, #48dbfb, #0abde3); }
+    .type-back { background: linear-gradient(135deg, #1dd1a1, #10ac84); }
+    .type-glutes { background: linear-gradient(135deg, #ff9ff3, #f368e0); }
+    .type-quadriceps { background: linear-gradient(135deg, #ff6b6b, #c0392b); }
+    .type-hamstrings { background: linear-gradient(135deg, #e17055, #d63031); }
+    .type-calves { background: linear-gradient(135deg, #fdcb6e, #f39c12); }
+    .type-adductors { background: linear-gradient(135deg, #a29bfe, #6c5ce7); }
+    .type-hip_flexors { background: linear-gradient(135deg, #fd79a8, #e84393); }
+    .type-flexibility { background: linear-gradient(135deg, #81ecec, #00cec9); }
+    .type-mobility { background: linear-gradient(135deg, #74b9ff, #0984e3); }
+    .type-cardio { background: linear-gradient(135deg, #e74c3c, #c0392b); }
+    .type-balance { background: linear-gradient(135deg, #9b59b6, #8e44ad); }
+    .type-recovery { background: linear-gradient(135deg, #2ecc71, #27ae60); }
+
+    .card-description {
+      font-size: 0.9rem;
+      color: #64748b;
+      line-height: 1.5;
+      margin-bottom: 15px;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .card-muscles {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .muscle-tag {
+      padding: 4px 10px;
+      background: #f1f5f9;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      color: #475569;
+      border: 1px solid #e2e8f0;
+    }
+
+    .card-actions {
+      margin-top: 15px;
+      display: flex;
+      gap: 10px;
+    }
+
+    .copy-btn {
+      padding: 8px 16px;
+      border: 1px solid #0077b6;
+      border-radius: 20px;
+      background: #fff;
+      color: #0077b6;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .copy-btn:hover {
+      background: #0077b6;
+      color: #fff;
+      transform: scale(1.02);
+      box-shadow: 0 4px 12px rgba(0, 119, 182, 0.25);
+    }
+
+    .copy-btn:active {
+      transform: scale(0.98);
+    }
+
+    .copy-btn.copied {
+      background: #10b981;
+      border-color: #10b981;
+      color: #fff;
+    }
+
+    .copy-btn svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    .no-results {
+      text-align: center;
+      padding: 60px 20px;
+      color: #64748b;
+    }
+
+    .no-results h2 {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+      color: #475569;
+    }
+
+    @media (max-width: 768px) {
+      .header h1 {
+        font-size: 1.5rem;
+      }
+
+      .search-box {
+        width: 100%;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .stats {
+        gap: 15px;
+      }
+
+      .stat {
+        padding: 8px 15px;
+      }
+
+      .stat-number {
+        font-size: 1.4rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>Catalogo Esercizi - Good Morning Fitness</h1>
+
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-number" id="totalCount">0</div>
+        <div class="stat-label">Esercizi Totali</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number" id="filteredCount">0</div>
+        <div class="stat-label">Visualizzati</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number" id="typeCount">0</div>
+        <div class="stat-label">Categorie</div>
+      </div>
+    </div>
+
+    <div class="filters">
+      <input type="text" class="search-box" id="searchInput" placeholder="Cerca esercizio...">
+      <select class="filter-select" id="typeFilter">
+        <option value="">Tutte le categorie</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="grid" id="exerciseGrid"></div>
+    <div class="no-results" id="noResults" style="display: none;">
+      <h2>Nessun esercizio trovato</h2>
+      <p>Prova a modificare i filtri di ricerca</p>
+    </div>
+  </div>
+
+  <script>
+    let exercises = {};
+    let allTypes = new Set();
+
+    const typeLabels = {
+      'abs': 'Addominali',
+      'obliques': 'Obliqui',
+      'core': 'Core',
+      'chest': 'Petto',
+      'triceps': 'Tricipiti',
+      'biceps': 'Bicipiti',
+      'shoulders': 'Spalle',
+      'back': 'Schiena',
+      'glutes': 'Glutei',
+      'quadriceps': 'Quadricipiti',
+      'hamstrings': 'Femorali',
+      'calves': 'Polpacci',
+      'adductors': 'Adduttori',
+      'hip_flexors': 'Flessori Anca',
+      'flexibility': 'Flessibilita',
+      'mobility': 'Mobilita',
+      'cardio': 'Cardio',
+      'balance': 'Equilibrio',
+      'recovery': 'Recupero'
+    };
+
+    async function loadExercises() {
+      try {
+        const response = await fetch('all_exercises.json');
+        exercises = await response.json();
+
+        // Collect all types
+        Object.values(exercises).forEach(ex => {
+          allTypes.add(ex.type);
+        });
+
+        // Populate type filter
+        const typeFilter = document.getElementById('typeFilter');
+        [...allTypes].sort().forEach(type => {
+          const option = document.createElement('option');
+          option.value = type;
+          option.textContent = typeLabels[type] || type;
+          typeFilter.appendChild(option);
+        });
+
+        // Update stats
+        document.getElementById('totalCount').textContent = Object.keys(exercises).length;
+        document.getElementById('typeCount').textContent = allTypes.size;
+
+        renderExercises();
+      } catch (error) {
+        console.error('Errore nel caricamento:', error);
+      }
+    }
+
+    function renderExercises() {
+      const grid = document.getElementById('exerciseGrid');
+      const noResults = document.getElementById('noResults');
+      const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+      const typeFilter = document.getElementById('typeFilter').value;
+
+      grid.innerHTML = '';
+      let count = 0;
+
+      Object.entries(exercises).forEach(([key, exercise]) => {
+        // Apply filters
+        const matchesSearch =
+          exercise.name.toLowerCase().includes(searchTerm) ||
+          exercise.description.toLowerCase().includes(searchTerm) ||
+          exercise.muscles.toLowerCase().includes(searchTerm);
+
+        const matchesType = !typeFilter || exercise.type === typeFilter;
+
+        if (matchesSearch && matchesType) {
+          count++;
+          const card = createCard(key, exercise);
+          grid.appendChild(card);
+        }
+      });
+
+      document.getElementById('filteredCount').textContent = count;
+      noResults.style.display = count === 0 ? 'block' : 'none';
+    }
+
+    function createCard(key, exercise) {
+      const card = document.createElement('div');
+      card.className = 'card';
+
+      const muscles = exercise.muscles.split(',').map(m => m.trim());
+      const musclesTags = muscles.map(m => `<span class="muscle-tag">${m}</span>`).join('');
+
+      card.innerHTML = `
+        <img class="card-image" src="${exercise.gif}" alt="${exercise.name}" loading="lazy">
+        <div class="card-content">
+          <span class="card-type type-${exercise.type}">${typeLabels[exercise.type] || exercise.type}</span>
+          <h3 class="card-title">${exercise.name}</h3>
+          <p class="card-description">${exercise.description}</p>
+          <div class="card-muscles">${musclesTags}</div>
+          <div class="card-actions">
+            <button class="copy-btn" onclick="copyGifName('${exercise.gif}', this)">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+              </svg>
+              Copia nome GIF
+            </button>
+          </div>
+        </div>
+      `;
+
+      return card;
+    }
+
+    function copyGifName(gifName, button) {
+      const fullPath = 'assets/' + gifName;
+      navigator.clipboard.writeText(fullPath).then(() => {
+        const originalText = button.innerHTML;
+        button.classList.add('copied');
+        button.innerHTML = `
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+          Copiato!
+        `;
+        setTimeout(() => {
+          button.classList.remove('copied');
+          button.innerHTML = originalText;
+        }, 1500);
+      }).catch(err => {
+        console.error('Errore nella copia:', err);
+        alert('Errore nella copia: ' + fullPath);
+      });
+    }
+
+    // Event listeners
+    document.getElementById('searchInput').addEventListener('input', renderExercises);
+    document.getElementById('typeFilter').addEventListener('change', renderExercises);
+
+    // Load exercises on page load
+    loadExercises();
+  </script>
+</body>
+</html>

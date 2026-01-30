@@ -1,0 +1,1208 @@
+{
+  "days": [
+    {
+      "day": 1,
+      "title": "Tonificazione Total Body",
+      "image": "🏋️",
+      "calories": 68,
+      "duration": 15,
+      "exercises": [
+        {
+          "exercise_id": "push_up_knees",
+          "duration": 40
+        },
+        {
+          "exercise_id": "bird_dog",
+          "duration": 40
+        },
+        {
+          "exercise_id": "plank",
+          "duration": 40
+        },
+        {
+          "exercise_id": "dead_bug",
+          "duration": 30
+        },
+        {
+          "exercise_id": "glute_bridge",
+          "duration": 40
+        },
+        {
+          "exercise_id": "heel_touches",
+          "duration": 40
+        },
+        {
+          "exercise_id": "bodyweight_squat",
+          "duration": 40
+        },
+        {
+          "exercise_id": "shadow_boxing",
+          "duration": 40
+        },
+        {
+          "exercise_id": "burpee_walkout",
+          "duration": 40
+        }
+      ]
+    },
+    {
+      "day": 2,
+      "title": "Allenamento definizione braccia",
+      "image": "🏋️",
+      "calories": 66,
+      "duration": 15,
+      "exercises": [
+        {
+          "exercise_id": "push_up_knees",
+          "duration": 30
+        },
+        {
+          "exercise_id": "mountain_climber",
+          "duration": 30
+        },
+        {
+          "exercise_id": "plank",
+          "duration": 30
+        },
+        {
+          "exercise_id": "bird_dog",
+          "duration": 30
+        },
+        {
+          "exercise_id": "superman",
+          "duration": 30
+        },
+        {
+          "exercise_id": "sit_up",
+          "duration": 30
+        },
+        {
+          "exercise_id": "heel_touches",
+          "duration": 30
+        },
+        {
+          "exercise_id": "leg_raises",
+          "duration": 30
+        },
+        {
+          "exercise_id": "plank_side_left",
+          "duration": 30
+        },
+        {
+          "exercise_id": "plank_side_right",
+          "duration": 30
+        }
+      ]
+    },
+    {
+      "day": 3,
+      "title": "Core d'Acciaio",
+      "image": "🏋️",
+      "calories": 64,
+      "duration": 15,
+      "exercises": [
+        {
+          "exercise_id": "push_up_archer_left",
+          "duration": 30
+        },
+        {
+          "exercise_id": "plank_airplane",
+          "duration": 30
+        },
+        {
+          "exercise_id": "plank_with_fist",
+          "duration": 30
+        },
+        {
+          "exercise_id": "prayer_pulse",
+          "duration": 30
+        },
+        {
+          "exercise_id": "superman",
+          "duration": 30
+        },
+        {
+          "exercise_id": "heel_touches",
+          "duration": 30
+        },
+        {
+          "exercise_id": "leg_raises",
+          "duration": 30
+        },
+        {
+          "exercise_id": "dead_bug",
+          "duration": 30
+        },
+        {
+          "exercise_id": "sit_up",
+          "duration": 30
+        }
+      ]
+    },
+    {
+      "day": 4,
+      "title": "Allenamento a corpo libero",
+      "image": "🏋️",
+      "calories": 62,
+      "duration": 15,
+      "exercises": [
+        {
+          "exercise_id": "squat_sumo",
+          "duration": 45
+        },
+        {
+          "exercise_id": "high_knees",
+          "duration": 45
+        },
+        {
+          "exercise_id": "bodyweight_squat",
+          "duration": 45
+        },
+        {
+          "exercise_id": "push_up_knees",
+          "duration": 30
+        },
+        {
+          "exercise_id": "ankle_touch",
+          "duration": 45
+        },
+        {
+          "exercise_id": "leg_raises",
+          "duration": 40
+        },
+        {
+          "exercise_id": "dead_bug",
+          "duration": 40
+        }
+      ]
+    },
+    {
+      "day": 5,
+      "title": "Tonifica la parte inferiore del corpo",
+      "image": "🏋️",
+      "calories": 56,
+      "duration": 15,
+      "exercises": [
+        {
+          "exercise_id": "squat_malasana",
+          "duration": 45
+        },
+        {
+          "exercise_id": "ankle_touch",
+          "duration": 45
+        },
+        {
+          "exercise_id": "squat_malasana",
+          "duration": 45
+        },
+        {
+          "exercise_id": "ankle_touch",
+          "duration": 45
+        },
+        {
+          "exercise_id": "glute_bridge",
+          "duration": 30
+        },
+        {
+          "exercise_id": "dead_bug",
+          "duration": 30
+        },
+        {
+          "exercise_id": "glute_bridge_isometric",
+          "duration": 30
+        },
+        {
+          "exercise_id": "sit_up",
+          "duration": 30
+        }
+      ]
+    },
+    {
+      "day": 6,
+      "title": "Allenamento Glutei Fit",
+      "image": "🏋️",
+      "calories": 62,
+      "duration": 15,
+      "exercises": [
+        {
+          "exercise_id": "bodyweight_squat",
+          "duration": 40
+        },
+        {
+          "exercise_id": "side_crunch_standing_left",
+          "duration": 40
+        },
+        {
+          "exercise_id": "side_crunch_standing_right",
+          "duration": 40
+        },
+        {
+          "exercise_id": "bird_dog_knee_elbow",
+          "duration": 30
+        },
+        {
+          "exercise_id": "bird_dog_knee_elbow",
+          "duration": 30
+        },
+        {
+          "exercise_id": "donkey_kicks_left",
+          "duration": 30
+        },
+        {
+          "exercise_id": "donkey_kicks_right",
+          "duration": 30
+        },
+        {
+          "exercise_id": "glute_bridge",
+          "duration": 40
+        },
+        {
+          "exercise_id": "glute_bridge_isometric",
+          "duration": 40
+        }
+      ]
+    },
+    {
+      "day": 7,
+      "title": "Allenamento Pancia Piatta",
+      "image": "🏋️",
+      "calories": 69,
+      "duration": 15,
+      "exercises": [
+        {
+          "exercise_id": "burpee_walkout",
+          "duration": 25
+        },
+        {
+          "exercise_id": "shadow_boxing",
+          "duration": 25
+        },
+        {
+          "exercise_id": "plank",
+          "duration": 25
+        },
+        {
+          "exercise_id": "heel_touches",
+          "duration": 25
+        },
+        {
+          "exercise_id": "leg_raises",
+          "duration": 25
+        },
+        {
+          "exercise_id": "sit_up",
+          "duration": 30
+        },
+        {
+          "exercise_id": "dead_bug",
+          "duration": 30
+        },
+        {
+          "exercise_id": "glute_bridge",
+          "duration": 30
+        },
+        {
+          "exercise_id": "sit_up",
+          "duration": 30
+        },
+        {
+          "exercise_id": "dead_bug",
+          "duration": 30
+        },
+        {
+          "exercise_id": "glute_bridge",
+          "duration": 30
+        }
+      ]
+    },
+    {
+      "day": 8,
+      "title": "Gambe in Fiamme",
+      "image": "🏋️",
+      "calories": 61,
+      "duration": 15,
+      "exercises": [
+        {
+          "exercise_id": "bodyweight_squat",
+          "duration": 45
+        },
+        {
+          "exercise_id": "burpee_walkout",
+          "duration": 45
+        },
+        {
+          "exercise_id": "butt_kicks",
+          "duration": 45
+        },
+        {
+          "exercise_id": "leg_raises",
+          "duration": 30
+        },
+        {
+          "exercise_id": "dead_bug",
+          "duration": 30
+        },
+        {
+          "exercise_id": "bird_dog",
+          "duration": 45
+        },
+        {
+          "exercise_id": "plank",
+          "duration": 45
+        },
+        {
+          "exercise_id": "ankle_touch",
+          "duration": 45
+        }
+      ]
+    },
+    {
+      "day": 9,
+      "title": "Potenziamento della parte superiore del corpo",
+      "image": "🏋️",
+      "calories": 63,
+      "duration": 15,
+      "exercises": [
+        {
+          "exercise_id": "burpee_walkout",
+          "duration": 45
+        },
+        {
+          "exercise_id": "shadow_boxing",
+          "duration": 45
+        },
+        {
+          "exercise_id": "mountain_climber",
+          "duration": 45
+        },
+        {
+          "exercise_id": "ankle_touch",
+          "duration": 45
+        },
+        {
+          "exercise_id": "pseudo_push_up_knees",
+          "duration": 45
+        },
+        {
+          "exercise_id": "plank",
+          "duration": 30
+        },
+        {
+          "exercise_id": "glute_bridge",
+          "duration": 30
+        },
+        {
+          "exercise_id": "sit_up",
+          "duration": 30
+        }
+      ]
+    },
+    {
+      "day": 10,
+      "title": "Scolpisci le Gambe",
+      "image": "🏋️",
+      "calories": 61,
+      "duration": 15,
+      "exercises": [
+        {
+          "exercise_id": "bodyweight_squat",
+          "duration": 45
+        },
+        {
+          "exercise_id": "burpee_walkout",
+          "duration": 45
+        },
+        {
+          "exercise_id": "side_crunch_standing_left",
+          "duration": 45
+        },
+        {
+          "exercise_id": "side_crunch_standing_right",
+          "duration": 45
+        },
+        {
+          "exercise_id": "ankle_touch",
+          "duration": 45
+        },
+        {
+          "exercise_id": "donkey_kicks_left",
+          "duration": 45
+        },
+        {
+          "exercise_id": "donkey_kicks_right",
+          "duration": 45
+        },
+        {
+          "exercise_id": "plank",
+          "duration": 45
+        }
+      ]
+    },
+    {
+      "day": 11,
+      "title": "Attivazione della forza interiore",
+      "image": "🏋️",
+      "calories": 68,
+      "duration": 15,
+      "exercises": [
+        {
+          "exercise_id": "squat_sumo",
+          "duration": 45
+        },
+        {
+          "exercise_id": "shadow_boxing",
+          "duration": 45
+        },
+        {
+          "exercise_id": "plank",
+          "duration": 45
+        },
+        {
+          "exercise_id": "glute_bridge",
+          "duration": 45
+        },
+        {
+          "exercise_id": "heel_touches",
+          "duration": 45
+        },
+        {
+          "exercise_id": "leg_raises",
+          "duration": 45
+        },
+        {
+          "exercise_id": "push_up_knees",
+          "duration": 45
+        },
+        {
+          "exercise_id": "bird_dog",
+          "duration": 45
+        }
+      ]
+    },
+    {
+      "day": 12,
+      "title": "Allenamento addominale intenso",
+      "image": "🏋️",
+      "calories": 64,
+      "duration": 15,
+      "exercises": [
+        {
+          "exercise_id": "push_up_knees",
+          "duration": 45
+        },
+        {
+          "exercise_id": "bird_dog",
+          "duration": 45
+        },
+        {
+          "exercise_id": "mountain_climber",
+          "duration": 45
+        },
+        {
+          "exercise_id": "leg_raises",
+          "duration": 45
+        },
+        {
+          "exercise_id": "windshield_wipers",
+          "duration": 45
+        },
+        {
+          "exercise_id": "heel_touches",
+          "duration": 45
+        },
+        {
+          "exercise_id": "glute_bridge_march",
+          "duration": 45
+        },
+        {
+          "exercise_id": "dead_bug",
+          "duration": 45
+        }
+      ]
+    },
+    {
+      "day": 13,
+      "title": "Potere delle flessioni",
+      "image": "🏋️",
+      "calories": 65,
+      "duration": 15,
+      "exercises": [
+        {
+          "exercise_id": "shadow_boxing",
+          "duration": 45
+        },
+        {
+          "exercise_id": "bodyweight_squat",
+          "duration": 45
+        },
+        {
+          "exercise_id": "dead_bug",
+          "duration": 30
+        },
+        {
+          "exercise_id": "glute_bridge",
+          "duration": 30
+        },
+        {
+          "exercise_id": "leg_raises",
+          "duration": 30
+        },
+        {
+          "exercise_id": "push_up_knees_downdog",
+          "duration": 45
+        },
+        {
+          "exercise_id": "bird_dog",
+          "duration": 45
+        },
+        {
+          "exercise_id": "push_up_archer_left",
+          "duration": 45
+        }
+      ]
+    },
+    {
+      "day": 14,
+      "title": "Corpo forte e snello",
+      "image": "🏋️",
+      "calories": 67,
+      "duration": 15,
+      "exercises": [
+        {
+          "exercise_id": "bodyweight_squat",
+          "duration": 45
+        },
+        {
+          "exercise_id": "burpee_walkout",
+          "duration": 45
+        },
+        {
+          "exercise_id": "high_knees",
+          "duration": 45
+        },
+        {
+          "exercise_id": "push_up_knees",
+          "duration": 45
+        },
+        {
+          "exercise_id": "plank",
+          "duration": 45
+        },
+        {
+          "exercise_id": "sit_up_reach_toes",
+          "duration": 45
+        },
+        {
+          "exercise_id": "leg_raises",
+          "duration": 45
+        },
+        {
+          "exercise_id": "dead_bug",
+          "duration": 45
+        }
+      ]
+    },
+    {
+      "day": 15,
+      "title": "Modalità Toro attivata",
+      "image": "🏋️",
+      "calories": 68,
+      "duration": 15,
+      "exercises": [
+        {
+          "exercise_id": "burpee_walkout",
+          "duration": 45
+        },
+        {
+          "exercise_id": "push_up_knees_downdog",
+          "duration": 45
+        },
+        {
+          "exercise_id": "bird_dog",
+          "duration": 45
+        },
+        {
+          "exercise_id": "glute_bridge",
+          "duration": 45
+        },
+        {
+          "exercise_id": "dead_bug",
+          "duration": 45
+        },
+        {
+          "exercise_id": "leg_raises",
+          "duration": 45
+        },
+        {
+          "exercise_id": "sit_up",
+          "duration": 45
+        }
+      ]
+    },
+    {
+      "day": 16,
+      "title": "Fai Crescere le Gambe",
+      "image": "🏋️",
+      "calories": 67,
+      "duration": 15,
+      "exercises": [
+        {
+          "exercise_id": "bodyweight_squat",
+          "duration": 45
+        },
+        {
+          "exercise_id": "high_knees",
+          "duration": 45
+        },
+        {
+          "exercise_id": "push_up_knees",
+          "duration": 30
+        },
+        {
+          "exercise_id": "donkey_kicks_left",
+          "duration": 30
+        },
+        {
+          "exercise_id": "donkey_kicks_right",
+          "duration": 30
+        },
+        {
+          "exercise_id": "plank",
+          "duration": 30
+        },
+        {
+          "exercise_id": "dead_bug",
+          "duration": 45
+        },
+        {
+          "exercise_id": "glute_bridge",
+          "duration": 45
+        },
+        {
+          "exercise_id": "glute_bridge_isometric",
+          "duration": 45
+        }
+      ]
+    },
+    {
+      "day": 17,
+      "title": "Sessione per pettorali più grandi",
+      "image": "🏋️",
+      "calories": 69,
+      "duration": 15,
+      "exercises": [
+        {
+          "exercise_id": "push_up_knees",
+          "duration": 45
+        },
+        {
+          "exercise_id": "bird_dog",
+          "duration": 45
+        },
+        {
+          "exercise_id": "push_up_archer_left",
+          "duration": 45
+        },
+        {
+          "exercise_id": "plank",
+          "duration": 45
+        },
+        {
+          "exercise_id": "superman",
+          "duration": 45
+        },
+        {
+          "exercise_id": "dead_bug",
+          "duration": 45
+        },
+        {
+          "exercise_id": "leg_raises",
+          "duration": 45
+        },
+        {
+          "exercise_id": "sit_up",
+          "duration": 45
+        }
+      ]
+    },
+    {
+      "day": 18,
+      "title": "Torsione e rafforzamento del core",
+      "image": "🏋️",
+      "calories": 66,
+      "duration": 15,
+      "exercises": [
+        {
+          "exercise_id": "bodyweight_squat",
+          "duration": 45
+        },
+        {
+          "exercise_id": "high_knees",
+          "duration": 45
+        },
+        {
+          "exercise_id": "burpee_walkout",
+          "duration": 45
+        },
+        {
+          "exercise_id": "leg_raises",
+          "duration": 45
+        },
+        {
+          "exercise_id": "dead_bug",
+          "duration": 45
+        },
+        {
+          "exercise_id": "sit_up",
+          "duration": 30
+        },
+        {
+          "exercise_id": "bird_dog",
+          "duration": 30
+        },
+        {
+          "exercise_id": "plank",
+          "duration": 30
+        }
+      ]
+    },
+    {
+      "day": 19,
+      "title": "Tartaruga da urlo",
+      "image": "🏋️",
+      "calories": 68,
+      "duration": 15,
+      "exercises": [
+        {
+          "exercise_id": "burpee",
+          "duration": 45
+        },
+        {
+          "exercise_id": "side_crunch_standing_left",
+          "duration": 45
+        },
+        {
+          "exercise_id": "side_crunch_standing_right",
+          "duration": 45
+        },
+        {
+          "exercise_id": "plank",
+          "duration": 30
+        },
+        {
+          "exercise_id": "bird_dog",
+          "duration": 40
+        },
+        {
+          "exercise_id": "leg_raises",
+          "duration": 40
+        },
+        {
+          "exercise_id": "dead_bug",
+          "duration": 40
+        },
+        {
+          "exercise_id": "sit_up",
+          "duration": 40
+        }
+      ]
+    },
+    {
+      "day": 20,
+      "title": "Scarica di energia per tutto il corpo",
+      "image": "🏋️",
+      "calories": 66,
+      "duration": 15,
+      "exercises": [
+        {
+          "exercise_id": "high_knees",
+          "duration": 45
+        },
+        {
+          "exercise_id": "squat_prisoner",
+          "duration": 45
+        },
+        {
+          "exercise_id": "shadow_boxing",
+          "duration": 45
+        },
+        {
+          "exercise_id": "ankle_touch",
+          "duration": 45
+        },
+        {
+          "exercise_id": "push_up_knees",
+          "duration": 45
+        },
+        {
+          "exercise_id": "glute_bridge",
+          "duration": 45
+        },
+        {
+          "exercise_id": "glute_bridge_isometric",
+          "duration": 45
+        },
+        {
+          "exercise_id": "leg_raises",
+          "duration": 45
+        }
+      ]
+    },
+    {
+      "day": 21,
+      "title": "Allenamento completo da titano",
+      "image": "🏋️",
+      "calories": 68,
+      "duration": 15,
+      "exercises": [
+        {
+          "exercise_id": "bodyweight_squat",
+          "duration": 45
+        },
+        {
+          "exercise_id": "shadow_boxing",
+          "duration": 45
+        },
+        {
+          "exercise_id": "bird_dog",
+          "duration": 45
+        },
+        {
+          "exercise_id": "push_up_knees",
+          "duration": 45
+        },
+        {
+          "exercise_id": "plank",
+          "duration": 45
+        },
+        {
+          "exercise_id": "leg_raises",
+          "duration": 40
+        },
+        {
+          "exercise_id": "glute_bridge",
+          "duration": 45
+        },
+        {
+          "exercise_id": "glute_bridge_isometric",
+          "duration": 45
+        }
+      ]
+    },
+    {
+      "day": 22,
+      "title": "Parte superiore del corpo definita",
+      "image": "🏋️",
+      "calories": 66,
+      "duration": 15,
+      "exercises": [
+        {
+          "exercise_id": "shadow_boxing",
+          "duration": 45
+        },
+        {
+          "exercise_id": "burpee_walkout",
+          "duration": 45
+        },
+        {
+          "exercise_id": "push_up_knees",
+          "duration": 45
+        },
+        {
+          "exercise_id": "plank",
+          "duration": 45
+        },
+        {
+          "exercise_id": "push_up_knees_downdog",
+          "duration": 45
+        },
+        {
+          "exercise_id": "heel_touches",
+          "duration": 45
+        },
+        {
+          "exercise_id": "leg_raises",
+          "duration": 45
+        },
+        {
+          "exercise_id": "glute_bridge_march",
+          "duration": 45
+        }
+      ]
+    },
+    {
+      "day": 23,
+      "title": "Aumento di massa muscolare e resistenza",
+      "image": "🏋️",
+      "calories": 68,
+      "duration": 15,
+      "exercises": [
+        {
+          "exercise_id": "burpee_walkout",
+          "duration": 40
+        },
+        {
+          "exercise_id": "shadow_boxing",
+          "duration": 30
+        },
+        {
+          "exercise_id": "wood_chops_left",
+          "duration": 30
+        },
+        {
+          "exercise_id": "wood_chops_right",
+          "duration": 30
+        },
+        {
+          "exercise_id": "dead_bug",
+          "duration": 40
+        },
+        {
+          "exercise_id": "leg_raises",
+          "duration": 40
+        },
+        {
+          "exercise_id": "dead_bug",
+          "duration": 40
+        },
+        {
+          "exercise_id": "leg_raises",
+          "duration": 40
+        },
+        {
+          "exercise_id": "push_up_knees",
+          "duration": 40
+        },
+        {
+          "exercise_id": "plank",
+          "duration": 40
+        }
+      ]
+    },
+    {
+      "day": 24,
+      "title": "Gambe da urlo",
+      "image": "🏋️",
+      "calories": 68,
+      "duration": 15,
+      "exercises": [
+        {
+          "exercise_id": "bodyweight_squat",
+          "duration": 45
+        },
+        {
+          "exercise_id": "backward_lunges_left",
+          "duration": 45
+        },
+        {
+          "exercise_id": "backward_lunges_right",
+          "duration": 45
+        },
+        {
+          "exercise_id": "plank",
+          "duration": 30
+        },
+        {
+          "exercise_id": "donkey_kicks_left",
+          "duration": 30
+        },
+        {
+          "exercise_id": "donkey_kicks_right",
+          "duration": 30
+        },
+        {
+          "exercise_id": "bird_dog_knee_elbow",
+          "duration": 30
+        },
+        {
+          "exercise_id": "bird_dog_knee_elbow",
+          "duration": 30
+        },
+        {
+          "exercise_id": "glute_bridge",
+          "duration": 30
+        },
+        {
+          "exercise_id": "glute_bridge_isometric",
+          "duration": 30
+        }
+      ]
+    },
+    {
+      "day": 25,
+      "title": "Serie per pettorali più grandi e schiena più larga",
+      "image": "🏋️",
+      "calories": 69,
+      "duration": 15,
+      "exercises": [
+        {
+          "exercise_id": "chest_opener_rotation",
+          "duration": 45
+        },
+        {
+          "exercise_id": "squat_to_walkout",
+          "duration": 45
+        },
+        {
+          "exercise_id": "pseudo_push_up_knees",
+          "duration": 40
+        },
+        {
+          "exercise_id": "plank",
+          "duration": 30
+        },
+        {
+          "exercise_id": "push_up_wide_arm",
+          "duration": 40
+        },
+        {
+          "exercise_id": "sit_up",
+          "duration": 45
+        },
+        {
+          "exercise_id": "glute_bridge",
+          "duration": 45
+        },
+        {
+          "exercise_id": "leg_raises",
+          "duration": 45
+        }
+      ]
+    },
+    {
+      "day": 26,
+      "title": "Sequenza per un fisico d'acciaio",
+      "image": "🏋️",
+      "calories": 66,
+      "duration": 15,
+      "exercises": [
+        {
+          "exercise_id": "side_step_squats",
+          "duration": 45
+        },
+        {
+          "exercise_id": "burpee_walkout",
+          "duration": 45
+        },
+        {
+          "exercise_id": "shadow_boxing",
+          "duration": 45
+        },
+        {
+          "exercise_id": "push_up_knees",
+          "duration": 45
+        },
+        {
+          "exercise_id": "ankle_touch",
+          "duration": 45
+        },
+        {
+          "exercise_id": "dead_bug",
+          "duration": 45
+        },
+        {
+          "exercise_id": "sit_up",
+          "duration": 45
+        },
+        {
+          "exercise_id": "leg_lifts_scissor",
+          "duration": 45
+        }
+      ]
+    },
+    {
+      "day": 27,
+      "title": "Potenziamento della parte superiore del corpo",
+      "image": "🏋️",
+      "calories": 67,
+      "duration": 15,
+      "exercises": [
+        {
+          "exercise_id": "bodyweight_squat",
+          "duration": 45
+        },
+        {
+          "exercise_id": "burpee_walkout",
+          "duration": 45
+        },
+        {
+          "exercise_id": "shadow_boxing",
+          "duration": 45
+        },
+        {
+          "exercise_id": "wood_chops_left",
+          "duration": 45
+        },
+        {
+          "exercise_id": "wood_chops_right",
+          "duration": 45
+        },
+        {
+          "exercise_id": "plank",
+          "duration": 30
+        },
+        {
+          "exercise_id": "push_up_knees",
+          "duration": 30
+        },
+        {
+          "exercise_id": "glute_bridge",
+          "duration": 30
+        },
+        {
+          "exercise_id": "leg_raises",
+          "duration": 30
+        }
+      ]
+    },
+    {
+      "day": 28,
+      "title": "Arti inferiori d'acciaio",
+      "image": "🏋️",
+      "calories": 63,
+      "duration": 15,
+      "exercises": [
+        {
+          "exercise_id": "shadow_boxing",
+          "duration": 45
+        },
+        {
+          "exercise_id": "burpee_walkout",
+          "duration": 45
+        },
+        {
+          "exercise_id": "bodyweight_squat",
+          "duration": 30
+        },
+        {
+          "exercise_id": "wood_chops_left",
+          "duration": 30
+        },
+        {
+          "exercise_id": "wood_chops_right",
+          "duration": 30
+        },
+        {
+          "exercise_id": "bird_dog",
+          "duration": 30
+        },
+        {
+          "exercise_id": "donkey_kicks_left",
+          "duration": 30
+        },
+        {
+          "exercise_id": "donkey_kicks_right",
+          "duration": 30
+        },
+        {
+          "exercise_id": "glute_bridge_march",
+          "duration": 30
+        },
+        {
+          "exercise_id": "glute_bridge_isometric",
+          "duration": 30
+        }
+      ]
+    }
+  ]
+}

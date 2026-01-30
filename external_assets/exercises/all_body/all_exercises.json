@@ -1,0 +1,863 @@
+{
+  "archer_push_up": {
+    "name": "Archer Push-up",
+    "description": "Parti in posizione di plank con le mani più larghe delle spalle. Scendi piegando un braccio mentre l'altro si estende lateralmente, spostando il peso sul lato che lavora. Spingi per tornare su e alterna i lati. Questo esercizio unilaterale sviluppa forza asimmetrica nel petto e prepara al push-up a un braccio.",
+    "muscles": "Petto, Tricipiti, Spalle, Core",
+    "type": "chest",
+    "gif": "archer_push_up.gif"
+  },
+  "asian_squat": {
+    "name": "Asian Squat",
+    "description": "Accovacciati completamente mantenendo i talloni a terra e le ginocchia aperte verso l'esterno. Mantieni la schiena dritta e il petto sollevato. Questa posizione migliora la mobilità delle anche e delle caviglie, ed è ottima per il recupero attivo tra gli esercizi.",
+    "muscles": "Quadricipiti, Glutei, Polpacci, Anche",
+    "type": "mobility",
+    "gif": "asian_squat.gif"
+  },
+  "basic_crunch": {
+    "name": "Crunch Base",
+    "description": "Sdraiati supino con le ginocchia piegate e i piedi a terra. Posiziona le mani dietro la testa senza tirare il collo. Contrai gli addominali sollevando le spalle di circa 30 gradi dal pavimento. Espira durante la salita e inspira tornando giù. Mantieni la zona lombare sempre a contatto con il pavimento.",
+    "muscles": "Retto addominale, Obliqui",
+    "type": "abs",
+    "gif": "basic_crunch.gif"
+  },
+  "bear_crawl": {
+    "name": "Bear Crawl",
+    "description": "Mettiti a quattro zampe con le ginocchia sollevate di pochi centimetri da terra. Avanza muovendo contemporaneamente la mano destra e il piede sinistro, poi la mano sinistra e il piede destro. Mantieni il core contratto e la schiena piatta durante tutto il movimento. Eccellente per coordinazione e stabilità.",
+    "muscles": "Core, Spalle, Quadricipiti, Tricipiti",
+    "type": "core",
+    "gif": "bear_crawl.gif"
+  },
+  "bench_quad_stretch": {
+    "name": "Stretching Quadricipiti su Panca",
+    "description": "Siediti sul bordo di una panca e porta un piede indietro, appoggiando il dorso del piede sulla panca dietro di te. Inclina leggermente il bacino in avanti per intensificare l'allungamento della parte anteriore della coscia. Mantieni la posizione per 30-60 secondi per lato.",
+    "muscles": "Quadricipiti, Flessori dell'anca",
+    "type": "flexibility",
+    "gif": "bench_quad_stretch.gif"
+  },
+  "bench_side_plank": {
+    "name": "Side Plank su Panca",
+    "description": "Posizionati in plank laterale con i piedi elevati su una panca. Sostieni il corpo sull'avambraccio mantenendo il corpo perfettamente allineato dalla testa ai piedi. Questa variante aumenta l'intensità rispetto al side plank classico, sfidando maggiormente gli obliqui e la stabilità del core.",
+    "muscles": "Obliqui, Core, Spalle, Glutei",
+    "type": "obliques",
+    "gif": "bench_side_plank.gif"
+  },
+  "bicycle_crunch": {
+    "name": "Bicycle Crunch",
+    "description": "Sdraiati supino con le mani dietro la testa e le gambe sollevate. Porta il gomito destro verso il ginocchio sinistro mentre estendi la gamba destra, poi alterna in un movimento fluido di pedalata. Ruota il busto ad ogni ripetizione per coinvolgere completamente gli obliqui. Non tirare il collo con le mani.",
+    "muscles": "Retto addominale, Obliqui, Flessori dell'anca",
+    "type": "abs",
+    "gif": "bicycle_crunch.gif"
+  },
+  "bird_dog": {
+    "name": "Bird Dog",
+    "description": "Parti a quattro zampe con le mani sotto le spalle e le ginocchia sotto i fianchi. Estendi simultaneamente il braccio destro in avanti e la gamba sinistra indietro, mantenendo la schiena piatta e il core contratto. Torna alla posizione iniziale e alterna. Ottimo per la stabilità del core e la coordinazione.",
+    "muscles": "Core, Glutei, Spalle, Erettori spinali",
+    "type": "core",
+    "gif": "bird_dog.gif"
+  },
+  "bird_dog_extended": {
+    "name": "Bird Dog Esteso",
+    "description": "Esegui il bird dog classico ma mantieni la posizione estesa per 3-5 secondi prima di alternare. Concentrati sul mantenere il corpo perfettamente allineato senza rotazioni del bacino. Questa variante aumenta il tempo sotto tensione e migliora ulteriormente la stabilità del core.",
+    "muscles": "Core, Glutei, Erettori spinali, Spalle",
+    "type": "core",
+    "gif": "bird_dog_extended.gif"
+  },
+  "bodyweight_squat": {
+    "name": "Squat a Corpo Libero",
+    "description": "In piedi con i piedi alla larghezza delle spalle e le punte leggermente ruotate verso l'esterno. Scendi piegando le ginocchia e spingendo i fianchi indietro come per sederti su una sedia. Mantieni il petto sollevato e le ginocchia in linea con le punte dei piedi. Scendi fino a quando le cosce sono parallele al pavimento, poi spingi per tornare su.",
+    "muscles": "Quadricipiti, Glutei, Femorali, Core",
+    "type": "quadriceps",
+    "gif": "bodyweight_squat.gif"
+  },
+  "boxing_stance": {
+    "name": "Posizione di Guardia Boxe",
+    "description": "Posizionati con i piedi alla larghezza delle spalle, un piede leggermente avanti. Piega le ginocchia, tieni le mani alzate a protezione del viso e il mento abbassato. Sposta il peso ritmicamente da un piede all'altro mantenendo la posizione di guardia. Ottimo per riscaldamento e condizionamento cardiovascolare.",
+    "muscles": "Gambe, Core, Spalle, Cardio",
+    "type": "cardio",
+    "gif": "boxing_stance.gif"
+  },
+  "butterfly_stretch": {
+    "name": "Stretching Farfalla",
+    "description": "Siediti a terra con le piante dei piedi unite e le ginocchia aperte verso l'esterno. Afferra le caviglie e usa i gomiti per premere delicatamente le ginocchia verso il basso. Mantieni la schiena dritta e inclina leggermente il busto in avanti per intensificare l'allungamento degli adduttori.",
+    "muscles": "Adduttori, Flessori dell'anca, Inguine",
+    "type": "flexibility",
+    "gif": "butterfly_stretch.gif"
+  },
+  "calf_raise": {
+    "name": "Calf Raise",
+    "description": "In piedi con i piedi alla larghezza delle anche. Solleva lentamente i talloni da terra spingendo sulle punte dei piedi e contraendo i polpacci al massimo. Mantieni la posizione per un secondo in alto, poi abbassati controllando il movimento. Per maggiore intensità, esegui su un gradino per aumentare il range di movimento.",
+    "muscles": "Gastrocnemio, Soleo",
+    "type": "calves",
+    "gif": "calf_raise.gif"
+  },
+  "calf_raise_back": {
+    "name": "Calf Raise (Vista Posteriore)",
+    "description": "Stesso movimento del calf raise classico, visto da dietro per evidenziare il lavoro del gastrocnemio. Solleva i talloni contraendo i polpacci, mantieni un secondo in alto e scendi lentamente. Esegui il movimento in modo controllato per massimizzare l'attivazione muscolare.",
+    "muscles": "Gastrocnemio, Soleo",
+    "type": "calves",
+    "gif": "calf_raise_back.gif"
+  },
+  "chest_stretch": {
+    "name": "Stretching Pettorali in Piedi",
+    "description": "In piedi, intreccia le mani dietro la schiena. Solleva le braccia allontanandole dal corpo mentre spingi il petto in avanti e le scapole insieme. Mantieni la posizione per 20-30 secondi respirando profondamente. Ottimo per contrastare la postura chiusa e aprire il torace.",
+    "muscles": "Pettorali, Deltoidi anteriori, Bicipiti",
+    "type": "flexibility",
+    "gif": "chest_stretch.gif"
+  },
+  "child_pose": {
+    "name": "Posizione del Bambino",
+    "description": "Inginocchiati e siediti sui talloni, poi piegati in avanti allungando le braccia davanti a te con i palmi a terra. Appoggia la fronte al pavimento e rilassa completamente la schiena. Respira profondamente lasciando che la schiena si allunghi ad ogni espirazione. Ideale per il recupero e il rilassamento.",
+    "muscles": "Dorsali, Erettori spinali, Spalle, Anche",
+    "type": "flexibility",
+    "gif": "child_pose.gif"
+  },
+  "close_grip_push_up": {
+    "name": "Push-up Presa Stretta",
+    "description": "Posizionati in plank con le mani vicine, quasi a toccarsi sotto il petto. Scendi mantenendo i gomiti stretti al corpo, poi spingi per tornare su. Questa variante sposta il lavoro principalmente sui tricipiti rispetto al push-up classico. Mantieni il core contratto durante tutto il movimento.",
+    "muscles": "Tricipiti, Petto, Spalle",
+    "type": "triceps",
+    "gif": "close_grip_push_up.gif"
+  },
+  "cobra_stretch": {
+    "name": "Stretching Cobra",
+    "description": "Sdraiati prono con le mani sotto le spalle. Spingi il busto verso l'alto estendendo le braccia mentre mantieni il bacino a terra. Guarda in avanti o leggermente verso l'alto, aprendo il petto. Questo stretching allunga i flessori dell'anca e gli addominali, e migliora la mobilità della colonna.",
+    "muscles": "Flessori dell'anca, Addominali, Petto",
+    "type": "flexibility",
+    "gif": "cobra_stretch.gif"
+  },
+  "corpse_pose": {
+    "name": "Savasana (Posizione del Cadavere)",
+    "description": "Sdraiati supino con le braccia lungo i fianchi, i palmi rivolti verso l'alto e le gambe leggermente divaricate. Chiudi gli occhi e rilassa completamente ogni muscolo del corpo. Concentrati sul respiro lento e profondo. Questa posizione è fondamentale per il recupero e la riduzione dello stress post-allenamento.",
+    "muscles": "Rilassamento totale",
+    "type": "recovery",
+    "gif": "corpse_pose.gif"
+  },
+  "crunch": {
+    "name": "Crunch",
+    "description": "Sdraiati supino con le ginocchia piegate e i piedi a terra. Posiziona le mani dietro la testa o incrociate sul petto. Contrai gli addominali sollevando le spalle dal pavimento, mantenendo la zona lombare a terra. Espira salendo, inspira scendendo. Evita di tirare il collo con le mani.",
+    "muscles": "Retto addominale",
+    "type": "abs",
+    "gif": "crunch.gif"
+  },
+  "crunch_arms_crossed": {
+    "name": "Crunch con Braccia Incrociate",
+    "description": "Sdraiati supino con le ginocchia piegate e le braccia incrociate sul petto. Contrai gli addominali sollevando le spalle dal pavimento. Questa variante elimina la tentazione di tirare il collo e permette di concentrarsi esclusivamente sulla contrazione addominale.",
+    "muscles": "Retto addominale, Obliqui",
+    "type": "abs",
+    "gif": "crunch_arms_crossed.gif"
+  },
+  "crunch_hip_flexor": {
+    "name": "Crunch con Flessori dell'Anca",
+    "description": "Sdraiati supino con le gambe sollevate e le ginocchia piegate a 90 gradi. Esegui un crunch portando le spalle verso le ginocchia mentre mantieni le gambe ferme. Questa variante attiva contemporaneamente addominali superiori e flessori dell'anca.",
+    "muscles": "Retto addominale, Flessori dell'anca",
+    "type": "abs",
+    "gif": "crunch_hip_flexor.gif"
+  },
+  "crunch_rotation": {
+    "name": "Crunch con Rotazione",
+    "description": "Sdraiati supino con le ginocchia piegate. Esegui un crunch aggiungendo una rotazione del busto, portando la spalla verso il ginocchio opposto. Alterna i lati ad ogni ripetizione. La rotazione coinvolge maggiormente gli obliqui rispetto al crunch classico.",
+    "muscles": "Retto addominale, Obliqui",
+    "type": "abs",
+    "gif": "crunch_rotation.gif"
+  },
+  "dead_bug": {
+    "name": "Dead Bug",
+    "description": "Sdraiati supino con le braccia tese verso il soffitto e le gambe sollevate con ginocchia piegate a 90 gradi. Estendi lentamente il braccio destro dietro la testa e la gamba sinistra in avanti, mantenendo la schiena premuta a terra. Torna e alterna. Fondamentale per la stabilità del core.",
+    "muscles": "Retto addominale, Trasverso, Flessori dell'anca",
+    "type": "abs",
+    "gif": "dead_bug.gif"
+  },
+  "dead_bug_basic": {
+    "name": "Dead Bug Base",
+    "description": "Variante semplificata del dead bug. Sdraiati supino con braccia tese verso il soffitto e gambe sollevate. Abbassa lentamente un braccio e la gamba opposta mantenendo la zona lombare a terra. Ideale per principianti che devono imparare il controllo del core.",
+    "muscles": "Retto addominale, Core profondo",
+    "type": "abs",
+    "gif": "dead_bug_basic.gif"
+  },
+  "deep_squat": {
+    "name": "Squat Profondo",
+    "description": "Esegui uno squat scendendo oltre il parallelo, portando i fianchi più in basso delle ginocchia. Mantieni i talloni a terra, il petto sollevato e la schiena neutra. Questa profondità richiede buona mobilità di anche e caviglie ma offre maggiore attivazione di glutei e femorali.",
+    "muscles": "Quadricipiti, Glutei, Femorali",
+    "type": "quadriceps",
+    "gif": "deep_squat.gif"
+  },
+  "deep_squat_full": {
+    "name": "Squat Profondo Completo",
+    "description": "Squat eseguito con il massimo range di movimento possibile. Scendi fino a quando i glutei quasi toccano i talloni, mantenendo la schiena dritta e i talloni a terra. Richiede eccellente mobilità e flessibilità. Attiva completamente tutta la muscolatura delle gambe.",
+    "muscles": "Quadricipiti, Glutei, Femorali, Polpacci",
+    "type": "quadriceps",
+    "gif": "deep_squat_full.gif"
+  },
+  "deep_squat_position": {
+    "name": "Posizione Squat Profondo",
+    "description": "Mantieni la posizione di squat profondo come stretching attivo. Questa posizione statica migliora la mobilità delle anche e delle caviglie. Puoi usare le braccia per premere le ginocchia verso l'esterno e approfondire l'allungamento.",
+    "muscles": "Quadricipiti, Glutei, Anche, Caviglie",
+    "type": "mobility",
+    "gif": "deep_squat_position.gif"
+  },
+  "diamond_push_up": {
+    "name": "Diamond Push-up",
+    "description": "Posizionati in plank con le mani vicine a formare un diamante (indici e pollici che si toccano) sotto il petto. Scendi piegando i gomiti verso l'esterno, poi spingi per tornare su. Questa variante enfatizza fortemente il lavoro sui tricipiti.",
+    "muscles": "Tricipiti, Petto, Spalle",
+    "type": "triceps",
+    "gif": "diamond_push_up.gif"
+  },
+  "downward_dog": {
+    "name": "Cane a Testa in Giù",
+    "description": "Parti a quattro zampe, poi solleva i fianchi verso l'alto formando una V invertita con il corpo. Spingi i talloni verso terra e le mani nel pavimento. Allunga la colonna vertebrale e rilassa la testa tra le braccia. Stretching completo per femorali, polpacci, spalle e schiena.",
+    "muscles": "Femorali, Polpacci, Spalle, Dorsali",
+    "type": "flexibility",
+    "gif": "downward_dog.gif"
+  },
+  "dumbbell_bicep_curl": {
+    "name": "Curl Bicipiti con Manubrio",
+    "description": "In piedi con un manubrio in ogni mano, braccia lungo i fianchi e palmi rivolti in avanti. Fletti i gomiti portando i pesi verso le spalle senza muovere la parte superiore delle braccia. Contrai i bicipiti in alto, poi abbassa controllando il movimento.",
+    "muscles": "Bicipiti, Avambracci",
+    "type": "biceps",
+    "gif": "dumbbell_bicep_curl.gif"
+  },
+  "flutter_kicks": {
+    "name": "Flutter Kicks",
+    "description": "Sdraiati supino con le mani sotto i glutei per supporto lombare. Solleva le gambe di pochi centimetri da terra e alterna piccoli calci veloci su e giù senza piegare le ginocchia. Mantieni la zona lombare premuta a terra e gli addominali contratti durante tutto l'esercizio.",
+    "muscles": "Addominali bassi, Flessori dell'anca",
+    "type": "abs",
+    "gif": "flutter_kicks.gif"
+  },
+  "foam_roller_glutes": {
+    "name": "Foam Roller Glutei",
+    "description": "Siediti sul foam roller con il peso su un gluteo. Incrocia la caviglia del lato che lavori sul ginocchio opposto. Rotola lentamente avanti e indietro sulla zona del gluteo, fermandoti sui punti di tensione per 20-30 secondi. Ottimo per rilasciare le tensioni muscolari.",
+    "muscles": "Glutei, Piriforme",
+    "type": "recovery",
+    "gif": "foam_roller_glutes.gif"
+  },
+  "forearm_plank": {
+    "name": "Plank sugli Avambracci",
+    "description": "Posizionati prono sostenendoti sugli avambracci e sulle punte dei piedi. Mantieni il corpo in linea retta dalla testa ai talloni, contraendo core e glutei. Evita di sollevare o abbassare i fianchi. Respira normalmente mantenendo la posizione per il tempo prestabilito.",
+    "muscles": "Core, Retto addominale, Spalle, Glutei",
+    "type": "core",
+    "gif": "forearm_plank.gif"
+  },
+  "forearm_plank_hold": {
+    "name": "Plank sugli Avambracci (Tenuta)",
+    "description": "Mantieni la posizione di plank sugli avambracci concentrandoti sulla perfetta forma. Contrai attivamente gli addominali come se volessi portare l'ombelico verso la colonna. Questa tenuta isometrica costruisce resistenza e forza nel core.",
+    "muscles": "Core, Retto addominale, Spalle",
+    "type": "core",
+    "gif": "forearm_plank_hold.gif"
+  },
+  "forearm_stretch": {
+    "name": "Stretching Avambracci",
+    "description": "Estendi un braccio in avanti con il palmo rivolto verso l'alto. Con l'altra mano, tira delicatamente le dita verso il basso per allungare la parte interna dell'avambraccio. Poi inverti con il palmo verso il basso per allungare la parte esterna. Utile per chi usa molto tastiera e mouse.",
+    "muscles": "Flessori ed estensori dell'avambraccio",
+    "type": "flexibility",
+    "gif": "forearm_stretch.gif"
+  },
+  "forward_lunge": {
+    "name": "Affondo in Avanti",
+    "description": "In piedi, fai un passo lungo in avanti. Scendi piegando entrambe le ginocchia a 90 gradi: il ginocchio anteriore sopra la caviglia, quello posteriore quasi a toccare terra. Spingi con il piede anteriore per tornare alla posizione di partenza. Alterna le gambe.",
+    "muscles": "Quadricipiti, Glutei, Femorali",
+    "type": "quadriceps",
+    "gif": "forward_lunge.gif"
+  },
+  "frog_stretch": {
+    "name": "Stretching Rana",
+    "description": "Mettiti a quattro zampe e allarga gradualmente le ginocchia verso l'esterno, mantenendo i piedi in linea con le ginocchia. Abbassa lentamente i fianchi verso terra sentendo l'allungamento negli adduttori. Mantieni la schiena dritta e respira profondamente nella posizione.",
+    "muscles": "Adduttori, Anche, Inguine",
+    "type": "flexibility",
+    "gif": "frog_stretch.gif"
+  },
+  "full_body_plank": {
+    "name": "Plank Completo",
+    "description": "Plank alto con attivazione consapevole di tutto il corpo: spingi le mani nel pavimento, contrai i quadricipiti, stringi i glutei e attiva il core. Questa attivazione totale trasforma un semplice plank in un esercizio completo per tutto il corpo.",
+    "muscles": "Core, Petto, Spalle, Glutei, Quadricipiti",
+    "type": "core",
+    "gif": "full_body_plank.gif"
+  },
+  "glute_bridge": {
+    "name": "Ponte Glutei",
+    "description": "Sdraiati supino con le ginocchia piegate e i piedi a terra vicino ai glutei. Spingi attraverso i talloni sollevando i fianchi fino a formare una linea retta dalle ginocchia alle spalle. Contrai i glutei in alto, mantieni un secondo, poi scendi controllando.",
+    "muscles": "Glutei, Femorali, Core",
+    "type": "glutes",
+    "gif": "glute_bridge.gif"
+  },
+  "goblet_squat_position": {
+    "name": "Squat Goblet",
+    "description": "Esegui uno squat tenendo le mani unite davanti al petto come se reggessi un calice. Questa posizione delle braccia aiuta a mantenere il busto eretto e migliora l'equilibrio. Scendi profondo mantenendo il peso sui talloni.",
+    "muscles": "Quadricipiti, Glutei, Core",
+    "type": "quadriceps",
+    "gif": "goblet_squat_position.gif"
+  },
+  "handstand": {
+    "name": "Verticale",
+    "description": "Posizione di equilibrio sulle mani con il corpo completamente dritto e verticale. Richiede forza significativa nelle spalle, controllo del core e capacità di bilanciamento. Inizia praticando contro un muro prima di tentare la versione libera.",
+    "muscles": "Spalle, Tricipiti, Core, Trapezio",
+    "type": "shoulders",
+    "gif": "handstand.gif"
+  },
+  "high_knees": {
+    "name": "Ginocchia Alte",
+    "description": "Corri sul posto portando le ginocchia il più in alto possibile, almeno all'altezza dei fianchi. Muovi le braccia in coordinazione con le gambe. Mantieni un ritmo sostenuto per aumentare la frequenza cardiaca. Ottimo per riscaldamento e condizionamento cardiovascolare.",
+    "muscles": "Quadricipiti, Flessori dell'anca, Polpacci, Cardio",
+    "type": "cardio",
+    "gif": "high_knees.gif"
+  },
+  "high_plank": {
+    "name": "Plank Alto",
+    "description": "Posizione di partenza del push-up: mani sotto le spalle, braccia tese, corpo in linea retta dalla testa ai talloni. Contrai il core e i glutei, evitando di far cedere i fianchi. Questa posizione base è fondamentale per molti esercizi a corpo libero.",
+    "muscles": "Core, Spalle, Tricipiti, Glutei",
+    "type": "core",
+    "gif": "high_plank.gif"
+  },
+  "high_plank_hold": {
+    "name": "Plank Alto (Tenuta)",
+    "description": "Mantieni la posizione di plank alto per il tempo prestabilito concentrandoti sulla perfetta forma. Spingi attivamente le mani nel pavimento e contrai tutti i muscoli del core. Respira normalmente senza trattenere il fiato.",
+    "muscles": "Core, Spalle, Glutei",
+    "type": "core",
+    "gif": "high_plank_hold.gif"
+  },
+  "hip_bridge": {
+    "name": "Bridge",
+    "description": "Sdraiati supino con le ginocchia piegate. Solleva i fianchi contraendo i glutei fino a formare una linea retta dalle spalle alle ginocchia. Evita di inarcare eccessivamente la schiena. Mantieni la posizione per un secondo in alto, poi scendi lentamente.",
+    "muscles": "Glutei, Femorali, Core",
+    "type": "glutes",
+    "gif": "hip_bridge.gif"
+  },
+  "hip_bridge_hold": {
+    "name": "Bridge (Tenuta)",
+    "description": "Esegui un bridge e mantieni la posizione in alto per il tempo prestabilito. Concentrati sulla contrazione continua dei glutei e sulla stabilità del core. Questa tenuta isometrica aumenta il tempo sotto tensione per i glutei.",
+    "muscles": "Glutei, Femorali, Core",
+    "type": "glutes",
+    "gif": "hip_bridge_hold.gif"
+  },
+  "hollow_body_hold": {
+    "name": "Hollow Body Hold",
+    "description": "Sdraiati supino e solleva le spalle e le gambe da terra, formando una leggera curva a banana con il corpo. Estendi le braccia oltre la testa. La zona lombare deve rimanere premuta a terra. Posizione fondamentale della ginnastica per la forza del core.",
+    "muscles": "Retto addominale, Flessori dell'anca, Core profondo",
+    "type": "abs",
+    "gif": "hollow_body_hold.gif"
+  },
+  "knee_push_up": {
+    "name": "Push-up sulle Ginocchia",
+    "description": "Variante facilitata del push-up. Posizionati con le mani sotto le spalle e le ginocchia a terra (invece dei piedi). Scendi piegando i gomiti fino a portare il petto vicino al pavimento, poi spingi per tornare su. Ideale per principianti o per continuare dopo l'affaticamento.",
+    "muscles": "Petto, Tricipiti, Spalle",
+    "type": "chest",
+    "gif": "knee_push_up.gif"
+  },
+  "knee_push_up_chest": {
+    "name": "Push-up sulle Ginocchia (Focus Petto)",
+    "description": "Push-up sulle ginocchia con le mani posizionate leggermente più larghe delle spalle per enfatizzare il lavoro sui pettorali. Scendi lentamente controllando il movimento, poi spingi esplosivamente. Ottimo per costruire la forza necessaria per i push-up completi.",
+    "muscles": "Petto, Tricipiti, Spalle",
+    "type": "chest",
+    "gif": "knee_push_up_chest.gif"
+  },
+  "knee_to_chest_stretch": {
+    "name": "Ginocchio al Petto",
+    "description": "Sdraiati supino e porta un ginocchio verso il petto, tenendolo con entrambe le mani. Mantieni l'altra gamba distesa o piegata a terra. Senti l'allungamento nel gluteo e nella parte bassa della schiena. Mantieni 20-30 secondi per lato.",
+    "muscles": "Glutei, Lombari, Flessori dell'anca",
+    "type": "flexibility",
+    "gif": "knee_to_chest_stretch.gif"
+  },
+  "kneeling_lunge": {
+    "name": "Affondo in Ginocchio",
+    "description": "Parti in ginocchio, poi porta un piede avanti in posizione di affondo. Il ginocchio posteriore rimane a terra. Spingi i fianchi in avanti per allungare i flessori dell'anca della gamba posteriore. Ottimo stretching e esercizio di forza combinati.",
+    "muscles": "Quadricipiti, Flessori dell'anca, Glutei",
+    "type": "quadriceps",
+    "gif": "kneeling_lunge.gif"
+  },
+  "l_sit": {
+    "name": "L-Sit",
+    "description": "Siediti a terra con le gambe distese. Posiziona le mani ai lati dei fianchi e spingi per sollevare tutto il corpo da terra, mantenendo le gambe tese davanti a te parallele al pavimento. Richiede forza notevole in tricipiti, core e flessori dell'anca.",
+    "muscles": "Tricipiti, Addominali, Flessori dell'anca",
+    "type": "triceps",
+    "gif": "l_sit.gif"
+  },
+  "lateral_lunge": {
+    "name": "Affondo Laterale",
+    "description": "In piedi con i piedi uniti, fai un grande passo laterale. Piega il ginocchio della gamba che si muove mantenendo l'altra gamba tesa. Scendi fino a quando la coscia è parallela al pavimento, poi spingi per tornare. Coinvolge particolarmente gli adduttori.",
+    "muscles": "Adduttori, Quadricipiti, Glutei",
+    "type": "adductors",
+    "gif": "lateral_lunge.gif"
+  },
+  "low_push_up_hold": {
+    "name": "Push-up Tenuta Bassa",
+    "description": "Scendi nella posizione bassa del push-up e mantieni con il petto a pochi centimetri dal pavimento. Tieni i gomiti vicini al corpo e il core contratto. Questa tenuta isometrica costruisce forza e resistenza nei pettorali e nei tricipiti.",
+    "muscles": "Petto, Tricipiti, Core",
+    "type": "chest",
+    "gif": "low_push_up_hold.gif"
+  },
+  "lying_chest_stretch": {
+    "name": "Stretching Pettorali a Terra",
+    "description": "Sdraiati su un fianco con il braccio superiore aperto a 90 gradi. Ruota il busto verso l'alto mantenendo il braccio a terra, sentendo l'allungamento nel pettorale. Respira profondamente e mantieni 30 secondi per lato.",
+    "muscles": "Pettorali, Spalle, Bicipiti",
+    "type": "flexibility",
+    "gif": "lying_chest_stretch.gif"
+  },
+  "lying_knee_raise": {
+    "name": "Sollevamento Ginocchia da Supino",
+    "description": "Sdraiati supino con le braccia lungo i fianchi. Solleva le ginocchia verso il petto mantenendo gli addominali contratti e la zona lombare a terra. Abbassa le gambe lentamente senza toccare terra e ripeti. Lavora principalmente sugli addominali bassi.",
+    "muscles": "Addominali bassi, Flessori dell'anca",
+    "type": "abs",
+    "gif": "lying_knee_raise.gif"
+  },
+  "lying_leg_twist": {
+    "name": "Torsione Gambe a Terra",
+    "description": "Sdraiati supino con le braccia aperte a croce e le gambe sollevate. Ruota le gambe unite da un lato all'altro mantenendo le spalle a terra. Questo movimento rotazionale allunga gli obliqui e migliora la mobilità della colonna.",
+    "muscles": "Obliqui, Erettori spinali, Flessibilità",
+    "type": "obliques",
+    "gif": "lying_leg_twist.gif"
+  },
+  "lying_quad_stretch": {
+    "name": "Stretching Quadricipiti a Terra",
+    "description": "Sdraiati su un fianco e afferra la caviglia della gamba superiore, tirando il tallone verso il gluteo. Spingi leggermente il fianco in avanti per intensificare l'allungamento. Mantieni 30 secondi per lato.",
+    "muscles": "Quadricipiti, Flessori dell'anca",
+    "type": "flexibility",
+    "gif": "lying_quad_stretch.gif"
+  },
+  "lying_spinal_stretch": {
+    "name": "Stretching Spinale a Terra",
+    "description": "Sdraiati supino e porta una gamba piegata oltre il corpo verso il lato opposto, mantenendo le spalle a terra. Guarda nella direzione opposta alla gamba. Questa torsione allunga i muscoli della schiena e migliora la mobilità spinale.",
+    "muscles": "Erettori spinali, Obliqui, Dorsali",
+    "type": "flexibility",
+    "gif": "lying_spinal_stretch.gif"
+  },
+  "lying_spinal_twist": {
+    "name": "Torsione Spinale a Terra",
+    "description": "Sdraiati supino con le braccia aperte. Porta un ginocchio piegato oltre il corpo verso il lato opposto mentre giri la testa nella direzione opposta. Mantieni entrambe le spalle a terra. Rilassa nella posizione respirando profondamente.",
+    "muscles": "Obliqui, Erettori spinali, Glutei",
+    "type": "flexibility",
+    "gif": "lying_spinal_twist.gif"
+  },
+  "marching_in_place": {
+    "name": "Marcia sul Posto",
+    "description": "Marcia sul posto sollevando le ginocchia in modo alternato. Muovi le braccia in coordinazione con le gambe. Mantieni un ritmo costante e il core attivo. Ottimo esercizio di riscaldamento a basso impatto per attivare la circolazione.",
+    "muscles": "Quadricipiti, Flessori dell'anca, Polpacci",
+    "type": "cardio",
+    "gif": "marching_in_place.gif"
+  },
+  "neck_stretch": {
+    "name": "Stretching Collo",
+    "description": "In piedi o seduto, inclina delicatamente la testa di lato portando l'orecchio verso la spalla. Puoi usare la mano per applicare una leggera pressione. Mantieni 20-30 secondi per lato. Aiuta a rilasciare la tensione accumulata nel collo e nel trapezio.",
+    "muscles": "Trapezio, Muscoli del collo",
+    "type": "flexibility",
+    "gif": "neck_stretch.gif"
+  },
+  "oblique_crunch": {
+    "name": "Crunch Obliquo",
+    "description": "Sdraiati supino con le ginocchia piegate. Solleva le spalle ruotando il busto per portare il gomito verso il ginocchio opposto. Alterna i lati in modo controllato. La rotazione coinvolge gli obliqui più del crunch tradizionale.",
+    "muscles": "Obliqui, Retto addominale",
+    "type": "obliques",
+    "gif": "oblique_crunch.gif"
+  },
+  "oblique_floor_crunch": {
+    "name": "Crunch Obliquo a Terra",
+    "description": "Sdraiati sul fianco con le gambe leggermente piegate. Solleva il busto lateralmente contraendo gli obliqui del fianco superiore. Mantieni il movimento controllato e concentrati sulla contrazione muscolare. Esegui tutte le ripetizioni su un lato prima di cambiare.",
+    "muscles": "Obliqui, Retto addominale",
+    "type": "obliques",
+    "gif": "oblique_floor_crunch.gif"
+  },
+  "pike_push_up_position": {
+    "name": "Pike Push-up",
+    "description": "Posizionati a V invertita con i fianchi sollevati e le mani più avanti delle spalle. Scendi piegando i gomiti e portando la testa verso il pavimento, poi spingi per tornare su. Questo esercizio enfatizza le spalle ed è propedeutico per i push-up verticali.",
+    "muscles": "Spalle, Tricipiti, Core",
+    "type": "shoulders",
+    "gif": "pike_push_up_position.gif"
+  },
+  "piriformis_stretch": {
+    "name": "Stretching Piriforme",
+    "description": "Sdraiati supino e incrocia una caviglia sul ginocchio opposto. Afferra la coscia della gamba a terra e tirala verso il petto. Sentirai l'allungamento profondo nel gluteo della gamba incrociata. Essenziale per prevenire la sindrome del piriforme e la sciatalgia.",
+    "muscles": "Piriforme, Glutei, Rotatori esterni dell'anca",
+    "type": "flexibility",
+    "gif": "piriformis_stretch.gif"
+  },
+  "pistol_squat": {
+    "name": "Pistol Squat",
+    "description": "Squat su una gamba sola con l'altra gamba tesa davanti a te. Scendi controllando il movimento fino a quando il gluteo quasi tocca il tallone, poi risali senza appoggiare l'altra gamba. Esercizio avanzato che richiede forza, equilibrio e mobilità eccezionali.",
+    "muscles": "Quadricipiti, Glutei, Core, Equilibrio",
+    "type": "quadriceps",
+    "gif": "pistol_squat.gif"
+  },
+  "planche_lean": {
+    "name": "Planche Lean",
+    "description": "Dalla posizione di plank alto, inclina il corpo in avanti spostando le spalle oltre le mani. Mantieni il corpo rigido e i gomiti bloccati. Questo esercizio propedeutico costruisce la forza nelle spalle necessaria per la planche completa.",
+    "muscles": "Spalle, Petto, Core, Tricipiti",
+    "type": "shoulders",
+    "gif": "planche_lean.gif"
+  },
+  "plank_hold": {
+    "name": "Plank (Tenuta)",
+    "description": "Mantieni la posizione di plank sugli avambracci con il corpo perfettamente allineato. Contrai attivamente addominali, glutei e quadricipiti. Respira normalmente e mantieni lo sguardo verso il pavimento per mantenere la colonna neutra.",
+    "muscles": "Core, Retto addominale, Spalle",
+    "type": "core",
+    "gif": "plank_hold.gif"
+  },
+  "plank_shoulder_tap": {
+    "name": "Plank con Tocco Spalla",
+    "description": "In posizione di plank alto, solleva una mano e tocca la spalla opposta. Torna e alterna. La sfida è mantenere il corpo stabile senza ruotare i fianchi durante il movimento. Ottimo per core anti-rotazione e stabilità.",
+    "muscles": "Core, Spalle, Tricipiti, Obliqui",
+    "type": "core",
+    "gif": "plank_shoulder_tap.gif"
+  },
+  "prone_y_raise": {
+    "name": "Y Raise Prono",
+    "description": "Sdraiati prono con le braccia tese oltre la testa formando una Y. Solleva le braccia da terra contraendo i muscoli della parte alta della schiena e delle spalle. Mantieni un secondo in alto, poi abbassa. Ottimo per la postura e la salute delle spalle.",
+    "muscles": "Trapezio, Romboidi, Deltoidi posteriori",
+    "type": "back",
+    "gif": "prone_y_raise.gif"
+  },
+  "push_up": {
+    "name": "Push-up",
+    "description": "Parti in plank alto con le mani sotto le spalle. Scendi piegando i gomiti (circa 45 gradi dal corpo) fino a portare il petto a pochi centimetri dal pavimento. Spingi esplosivamente per tornare alla posizione di partenza. Mantieni il corpo rigido durante tutto il movimento.",
+    "muscles": "Petto, Tricipiti, Spalle, Core",
+    "type": "chest",
+    "gif": "push_up.gif"
+  },
+  "push_up_full": {
+    "name": "Push-up Completo",
+    "description": "Push-up eseguito con range di movimento completo. Scendi fino a quando il petto quasi tocca il pavimento e spingi fino a estendere completamente le braccia. Questa esecuzione completa massimizza l'attivazione muscolare e lo sviluppo della forza.",
+    "muscles": "Petto, Tricipiti, Spalle, Core",
+    "type": "chest",
+    "gif": "push_up_full.gif"
+  },
+  "push_up_hold": {
+    "name": "Push-up Tenuta Alta",
+    "description": "Mantieni la posizione alta del push-up con le braccia completamente estese. Questa tenuta isometrica costruisce resistenza nelle spalle e nel core, e migliora la stabilità della posizione di plank.",
+    "muscles": "Petto, Spalle, Core, Tricipiti",
+    "type": "chest",
+    "gif": "push_up_hold.gif"
+  },
+  "quadruped_position": {
+    "name": "Posizione Quadrupede",
+    "description": "Posizione base a quattro zampe con le mani sotto le spalle e le ginocchia sotto i fianchi. Mantieni la schiena piatta e il core attivo. Da questa posizione partono molti esercizi come bird dog, cat-cow e bear crawl. Fondamentale per la stabilità del core.",
+    "muscles": "Core, Spalle, Anche",
+    "type": "core",
+    "gif": "quadruped_position.gif"
+  },
+  "reverse_crunch": {
+    "name": "Reverse Crunch",
+    "description": "Sdraiati supino con le braccia lungo i fianchi. Solleva le gambe piegate e portale verso il petto sollevando i fianchi dal pavimento. Contrai gli addominali bassi per eseguire il movimento, non usare lo slancio. Abbassa lentamente e ripeti.",
+    "muscles": "Addominali bassi, Flessori dell'anca",
+    "type": "abs",
+    "gif": "reverse_crunch.gif"
+  },
+  "reverse_plank": {
+    "name": "Plank Inverso",
+    "description": "Siediti con le gambe distese e le mani dietro i fianchi. Solleva il corpo formando una linea retta dalle spalle ai talloni, guardando verso il soffitto. Questa posizione lavora sul core posteriore, i glutei e apre i flessori dell'anca e il petto.",
+    "muscles": "Glutei, Femorali, Tricipiti, Core",
+    "type": "glutes",
+    "gif": "reverse_plank.gif"
+  },
+  "reverse_plank_bridge": {
+    "name": "Ponte Plank Inverso",
+    "description": "Variante del plank inverso con le ginocchia piegate. Solleva i fianchi formando un tavolo con il corpo. Contrai i glutei e mantieni il core attivo. Più accessibile del plank inverso completo ma altrettanto efficace per glutei e tricipiti.",
+    "muscles": "Glutei, Tricipiti, Core, Spalle",
+    "type": "glutes",
+    "gif": "reverse_plank_bridge.gif"
+  },
+  "reverse_table_top": {
+    "name": "Tavolo Inverso",
+    "description": "Siediti con le mani dietro i fianchi e i piedi a terra. Solleva i fianchi fino a formare un tavolo con il corpo, con le cosce parallele al pavimento. Contrai glutei e tricipiti, mantieni il collo neutro. Ottimo per aprire petto e spalle.",
+    "muscles": "Tricipiti, Glutei, Spalle, Core",
+    "type": "triceps",
+    "gif": "reverse_table_top.gif"
+  },
+  "running_in_place": {
+    "name": "Corsa sul Posto",
+    "description": "Corri sul posto con un ritmo sostenuto, sollevando le ginocchia e muovendo le braccia in coordinazione. Ottimo esercizio cardiovascolare che può essere fatto ovunque. Aumenta gradualmente l'intensità per un riscaldamento efficace.",
+    "muscles": "Quadricipiti, Polpacci, Core, Cardio",
+    "type": "cardio",
+    "gif": "running_in_place.gif"
+  },
+  "running_sprint": {
+    "name": "Sprint",
+    "description": "Corsa alla massima velocità possibile. Richiede esplosività e coordinazione totale del corpo. Le braccia si muovono vigorosamente in opposizione alle gambe. Lo sprint è uno degli esercizi più efficaci per condizionamento e potenza.",
+    "muscles": "Quadricipiti, Femorali, Glutei, Polpacci, Core",
+    "type": "cardio",
+    "gif": "running_sprint.gif"
+  },
+  "scissor_kicks": {
+    "name": "Scissor Kicks",
+    "description": "Sdraiati supino con le gambe sollevate di pochi centimetri da terra. Incrocia le gambe alternativamente come forbici, mantenendo le gambe tese e gli addominali contratti. La zona lombare deve rimanere premuta a terra.",
+    "muscles": "Addominali bassi, Flessori dell'anca, Adduttori",
+    "type": "abs",
+    "gif": "scissor_kicks.gif"
+  },
+  "seated_tibialis_stretch": {
+    "name": "Stretching Tibiale Seduto",
+    "description": "Siediti con le gambe distese. Punta le dita dei piedi verso di te, poi allontanale. Questo movimento allunga e rafforza il tibiale anteriore. Utile per prevenire la periostite tibiale e migliorare la mobilità della caviglia.",
+    "muscles": "Tibiale anteriore, Caviglia",
+    "type": "flexibility",
+    "gif": "seated_tibialis_stretch.gif"
+  },
+  "side_bicycle_crunch": {
+    "name": "Bicycle Crunch Laterale",
+    "description": "Sdraiati sul fianco ed esegui un movimento di pedalata portando il ginocchio verso il gomito superiore. Concentrati sulla contrazione degli obliqui. Completa tutte le ripetizioni su un lato prima di cambiare.",
+    "muscles": "Obliqui, Addominali",
+    "type": "obliques",
+    "gif": "side_bicycle_crunch.gif"
+  },
+  "side_crow_pose": {
+    "name": "Corvo Laterale",
+    "description": "Posizione yoga avanzata di equilibrio sulle braccia. Accovacciati, posiziona le mani a terra e appoggia i fianchi sul gomito piegato mentre sollevi i piedi da terra. Richiede forza significativa nelle braccia, nel core e notevole equilibrio.",
+    "muscles": "Core, Braccia, Spalle, Equilibrio",
+    "type": "core",
+    "gif": "side_crow_pose.gif"
+  },
+  "side_crunch": {
+    "name": "Crunch Laterale",
+    "description": "Sdraiati sul fianco con le gambe leggermente piegate. Solleva il busto lateralmente contraendo gli obliqui. Mantieni il movimento controllato, evitando di usare lo slancio. Concentrati sulla contrazione muscolare ad ogni ripetizione.",
+    "muscles": "Obliqui",
+    "type": "obliques",
+    "gif": "side_crunch.gif"
+  },
+  "side_lying_crunch": {
+    "name": "Crunch Laterale Sdraiato",
+    "description": "Sdraiati sul fianco con la mano dietro la testa. Solleva contemporaneamente il busto e le gambe contraendo gli obliqui. Questa variante coinvolge sia la parte superiore che inferiore degli obliqui.",
+    "muscles": "Obliqui, Addominali",
+    "type": "obliques",
+    "gif": "side_lying_crunch.gif"
+  },
+  "side_oblique_crunch": {
+    "name": "Crunch Obliqui Laterale",
+    "description": "Sdraiati sul fianco con le gambe sovrapposte. Porta la mano dietro la testa e solleva il busto contraendo gli obliqui. Esegui tutte le ripetizioni su un lato prima di cambiare. Focus sulla qualità della contrazione.",
+    "muscles": "Obliqui, Addominali",
+    "type": "obliques",
+    "gif": "side_oblique_crunch.gif"
+  },
+  "side_plank": {
+    "name": "Side Plank",
+    "description": "Posizionati sul fianco sostenendoti sull'avambraccio con il gomito sotto la spalla. Solleva i fianchi formando una linea retta dalla testa ai piedi. Contrai gli obliqui e mantieni la posizione. Fondamentale per la stabilità laterale del core.",
+    "muscles": "Obliqui, Core, Spalle, Glutei",
+    "type": "obliques",
+    "gif": "side_plank.gif"
+  },
+  "side_plank_leg_raise": {
+    "name": "Side Plank con Sollevamento Gamba",
+    "description": "Dalla posizione di side plank, solleva la gamba superiore mantenendo il corpo stabile. Questa variante aggiunge lavoro per gli abduttori e aumenta la sfida per l'equilibrio e la stabilità del core.",
+    "muscles": "Obliqui, Abduttori, Glutei, Core",
+    "type": "obliques",
+    "gif": "side_plank_leg_raise.gif"
+  },
+  "side_plank_obliques": {
+    "name": "Side Plank Focus Obliqui",
+    "description": "Side plank con particolare enfasi sulla contrazione degli obliqui. Mantieni i fianchi alti e spingi attivamente verso il soffitto. Questa attivazione consapevole aumenta l'efficacia dell'esercizio per la definizione del girovita.",
+    "muscles": "Obliqui, Core, Spalle",
+    "type": "obliques",
+    "gif": "side_plank_obliques.gif"
+  },
+  "single_leg_calf_raise": {
+    "name": "Calf Raise su Una Gamba",
+    "description": "Esegui il calf raise su una gamba sola, tenendoti a un supporto per l'equilibrio se necessario. Solleva il tallone contraendo il polpaccio, mantieni un secondo in alto, poi scendi lentamente. Raddoppia l'intensità rispetto alla versione bilaterale.",
+    "muscles": "Gastrocnemio, Soleo",
+    "type": "calves",
+    "gif": "single_leg_calf_raise.gif"
+  },
+  "single_leg_stand": {
+    "name": "Equilibrio su Una Gamba",
+    "description": "Stai in piedi su una gamba sola mantenendo l'equilibrio. Puoi tenere la gamba sollevata piegata o tesa. Questo esercizio migliora la propriocezione, la stabilità della caviglia e attiva i muscoli stabilizzatori. Chiudi gli occhi per aumentare la difficoltà.",
+    "muscles": "Stabilizzatori caviglia, Core, Glutei",
+    "type": "balance",
+    "gif": "single_leg_stand.gif"
+  },
+  "sphinx_push_up": {
+    "name": "Sphinx Push-up",
+    "description": "Parti dalla posizione della sfinge (prono sugli avambracci). Spingi il corpo verso l'alto usando i tricipiti fino a estendere le braccia, poi torna alla posizione di partenza. Variante che enfatizza fortemente il lavoro dei tricipiti.",
+    "muscles": "Tricipiti, Core, Spalle",
+    "type": "triceps",
+    "gif": "sphinx_push_up.gif"
+  },
+  "spiderman_crawl": {
+    "name": "Spiderman Crawl",
+    "description": "Dalla posizione di plank basso, porta un ginocchio verso il gomito dello stesso lato mentre avanzi con la mano opposta. Alterna i lati in un movimento fluido di strisciata. Eccellente per mobilità dell'anca, core e coordinazione.",
+    "muscles": "Core, Flessori dell'anca, Obliqui, Petto",
+    "type": "core",
+    "gif": "spiderman_crawl.gif"
+  },
+  "spiderman_plank": {
+    "name": "Spiderman Plank",
+    "description": "Dalla posizione di plank, porta un ginocchio verso il gomito dello stesso lato, poi torna e alterna. Questo movimento aggiunge mobilità dell'anca e lavoro sugli obliqui al classico plank. Mantieni i fianchi bassi durante tutto il movimento.",
+    "muscles": "Core, Obliqui, Flessori dell'anca, Spalle",
+    "type": "core",
+    "gif": "spiderman_plank.gif"
+  },
+  "squat_jump_prep": {
+    "name": "Preparazione Squat Jump",
+    "description": "Posizione di preparazione per lo squat jump con le braccia indietro e le gambe piegate. Da qui esplodi verso l'alto saltando e atterrando morbidamente tornando nella stessa posizione. Sviluppa potenza esplosiva nelle gambe.",
+    "muscles": "Quadricipiti, Glutei, Polpacci",
+    "type": "quadriceps",
+    "gif": "squat_jump_prep.gif"
+  },
+  "stability_ball_hip_flexor": {
+    "name": "Flessori Anca su Palla Fitness",
+    "description": "Inginocchiati con gli stinchi appoggiati su una palla fitness. Mantieni l'equilibrio e contrai il core mentre la palla tende a muoversi. Questo esercizio sfida la stabilità del core e attiva i flessori dell'anca in modo funzionale.",
+    "muscles": "Flessori dell'anca, Core, Addominali",
+    "type": "core",
+    "gif": "stability_ball_hip_flexor.gif"
+  },
+  "standard_push_up": {
+    "name": "Push-up Standard",
+    "description": "Il push-up nella sua forma classica. Mani alla larghezza delle spalle, corpo in linea retta, movimento completo su e giù. Esercizio fondamentale per la forza della parte superiore del corpo che non richiede attrezzatura.",
+    "muscles": "Petto, Tricipiti, Spalle, Core",
+    "type": "chest",
+    "gif": "standard_push_up.gif"
+  },
+  "standing_calf_raise": {
+    "name": "Calf Raise in Piedi",
+    "description": "In piedi con i piedi paralleli, solleva i talloni da terra salendo sulle punte. Contrai i polpacci al massimo in alto, mantieni un secondo, poi scendi lentamente. Puoi tenerti a un supporto per l'equilibrio o farlo libero per maggiore sfida.",
+    "muscles": "Gastrocnemio, Soleo",
+    "type": "calves",
+    "gif": "standing_calf_raise.gif"
+  },
+  "standing_forward_fold": {
+    "name": "Piegamento in Avanti",
+    "description": "In piedi, piegati in avanti dai fianchi mantenendo le gambe tese o leggermente piegate. Lascia pendere le braccia verso il pavimento cercando di toccare le punte dei piedi. Rilassa la testa e il collo. Allungamento completo per femorali e schiena.",
+    "muscles": "Femorali, Polpacci, Erettori spinali",
+    "type": "flexibility",
+    "gif": "standing_forward_fold.gif"
+  },
+  "standing_high_knee": {
+    "name": "Ginocchio Alto in Piedi",
+    "description": "In piedi, solleva un ginocchio il più in alto possibile verso il petto, poi cambia gamba. Puoi eseguirlo lentamente come esercizio di equilibrio o velocemente come cardio. Attiva i flessori dell'anca e migliora la coordinazione.",
+    "muscles": "Flessori dell'anca, Quadricipiti, Core",
+    "type": "cardio",
+    "gif": "standing_high_knee.gif"
+  },
+  "standing_knee_raise": {
+    "name": "Sollevamento Ginocchio in Piedi",
+    "description": "In piedi su una gamba, solleva l'altro ginocchio verso il petto. Mantieni la posizione per alcuni secondi per sfidare l'equilibrio, oppure alterna ritmicamente. Ottimo per flessori dell'anca e stabilità su una gamba.",
+    "muscles": "Flessori dell'anca, Quadricipiti, Core",
+    "type": "hip_flexors",
+    "gif": "standing_knee_raise.gif"
+  },
+  "standing_leg_raise": {
+    "name": "Sollevamento Gamba in Piedi",
+    "description": "In piedi su una gamba, solleva l'altra gamba tesa davanti a te. Mantieni l'equilibrio e il core contratto. Puoi anche sollevare la gamba lateralmente o posteriormente per lavorare diversi muscoli. Sviluppa equilibrio e forza nelle gambe.",
+    "muscles": "Flessori dell'anca, Quadricipiti, Core, Equilibrio",
+    "type": "balance",
+    "gif": "standing_leg_raise.gif"
+  },
+  "standing_neck_stretch": {
+    "name": "Stretching Collo in Piedi",
+    "description": "In piedi con postura eretta, inclina la testa di lato portando l'orecchio verso la spalla. Puoi usare la mano per applicare una leggera pressione. Poi inclina in avanti e indietro. Allevia la tensione cervicale da posture prolungate.",
+    "muscles": "Trapezio superiore, Muscoli del collo",
+    "type": "flexibility",
+    "gif": "standing_neck_stretch.gif"
+  },
+  "standing_overhead_reach": {
+    "name": "Allungamento Braccia Sopra la Testa",
+    "description": "In piedi, solleva le braccia sopra la testa intrecciando le dita e ruotando i palmi verso il soffitto. Allungati verso l'alto sentendo l'estensione in tutto il corpo. Ottimo per aprire le spalle e allungare i fianchi.",
+    "muscles": "Spalle, Dorsali, Addominali, Full body",
+    "type": "flexibility",
+    "gif": "standing_overhead_reach.gif"
+  },
+  "standing_prayer_stretch": {
+    "name": "Stretching Preghiera in Piedi",
+    "description": "In piedi con le mani unite davanti al petto in posizione di preghiera. Spingi i palmi insieme attivando i pettorali, poi solleva le mani sopra la testa mantenendole unite. Allungamento per spalle, petto e braccia.",
+    "muscles": "Spalle, Petto, Braccia",
+    "type": "flexibility",
+    "gif": "standing_prayer_stretch.gif"
+  },
+  "static_lunge": {
+    "name": "Affondo Statico",
+    "description": "Posizionati in affondo con una gamba avanti e una indietro. Mantieni la posizione con entrambe le ginocchia piegate a 90 gradi. Questa tenuta isometrica costruisce resistenza e forza nelle gambe senza il movimento dinamico.",
+    "muscles": "Quadricipiti, Glutei, Femorali",
+    "type": "quadriceps",
+    "gif": "static_lunge.gif"
+  },
+  "static_lunge_hold": {
+    "name": "Affondo Statico (Tenuta)",
+    "description": "Mantieni la posizione di affondo per un tempo prolungato. Il ginocchio anteriore sopra la caviglia, quello posteriore quasi a terra. Questa tenuta sviluppa resistenza muscolare e stabilità nelle gambe e nel core.",
+    "muscles": "Quadricipiti, Glutei, Flessori dell'anca",
+    "type": "quadriceps",
+    "gif": "static_lunge_hold.gif"
+  },
+  "sumo_squat": {
+    "name": "Sumo Squat",
+    "description": "Squat con i piedi molto più larghi delle spalle e le punte ruotate verso l'esterno di 45 gradi. Scendi mantenendo le ginocchia in linea con le punte dei piedi. Questa variante enfatizza il lavoro sugli adduttori e i glutei.",
+    "muscles": "Adduttori, Glutei, Quadricipiti",
+    "type": "adductors",
+    "gif": "sumo_squat.gif"
+  },
+  "sumo_squat_deep": {
+    "name": "Sumo Squat Profondo",
+    "description": "Sumo squat eseguito con il massimo range di movimento. Scendi il più possibile mantenendo la schiena dritta e i talloni a terra. Questa profondità aumenta l'attivazione degli adduttori e migliora la mobilità delle anche.",
+    "muscles": "Adduttori, Glutei, Quadricipiti, Anche",
+    "type": "adductors",
+    "gif": "sumo_squat_deep.gif"
+  },
+  "superman": {
+    "name": "Superman",
+    "description": "Sdraiati prono con le braccia tese oltre la testa. Solleva contemporaneamente braccia e gambe da terra contraendo glutei e muscoli della schiena. Mantieni un secondo in alto, poi abbassa. Esercizio fondamentale per la catena posteriore.",
+    "muscles": "Erettori spinali, Glutei, Femorali, Spalle",
+    "type": "back",
+    "gif": "superman.gif"
+  },
+  "swimming_exercise": {
+    "name": "Swimming",
+    "description": "Sdraiati prono con braccia e gambe tese. Solleva braccia e gambe da terra e alterna il movimento come se nuotassi: braccio destro e gamba sinistra su, poi viceversa. Movimento fluido e continuo che rafforza tutta la catena posteriore.",
+    "muscles": "Erettori spinali, Glutei, Spalle, Femorali",
+    "type": "back",
+    "gif": "swimming_exercise.gif"
+  },
+  "toe_touch_crunch": {
+    "name": "Crunch Tocca Punte",
+    "description": "Sdraiati supino con le gambe verticali verso il soffitto. Solleva le spalle cercando di toccare le punte dei piedi con le mani. Mantieni le gambe ferme e concentrati sulla contrazione addominale. Variante intensa del crunch classico.",
+    "muscles": "Retto addominale, Obliqui",
+    "type": "abs",
+    "gif": "toe_touch_crunch.gif"
+  },
+  "tricep_push_up": {
+    "name": "Push-up Tricipiti",
+    "description": "Push-up con i gomiti stretti al corpo invece che a 45 gradi. Questa variante sposta il lavoro dai pettorali ai tricipiti. Mantieni i gomiti vicini al busto durante tutta la discesa e la salita.",
+    "muscles": "Tricipiti, Petto, Spalle",
+    "type": "triceps",
+    "gif": "tricep_push_up.gif"
+  },
+  "tricep_stretch": {
+    "name": "Stretching Tricipiti",
+    "description": "Porta un braccio sopra la testa e piega il gomito, lasciando cadere la mano dietro la schiena. Con l'altra mano, premi delicatamente sul gomito per approfondire l'allungamento. Mantieni 20-30 secondi per braccio.",
+    "muscles": "Tricipiti, Spalle",
+    "type": "flexibility",
+    "gif": "tricep_stretch.gif"
+  },
+  "v_up": {
+    "name": "V-Up",
+    "description": "Sdraiati supino con braccia e gambe tese. Solleva simultaneamente busto e gambe cercando di toccare le punte dei piedi con le mani, formando una V con il corpo. Esercizio avanzato che richiede forza addominale e flessibilità.",
+    "muscles": "Retto addominale, Flessori dell'anca",
+    "type": "abs",
+    "gif": "v_up.gif"
+  },
+  "walking_lunge": {
+    "name": "Affondo in Camminata",
+    "description": "Esegui affondi alternati avanzando nello spazio. Fai un passo lungo, scendi in affondo, poi spingi per portare il piede posteriore avanti nel prossimo affondo. Mantieni il busto eretto e il core contratto durante tutto il movimento.",
+    "muscles": "Quadricipiti, Glutei, Femorali",
+    "type": "quadriceps",
+    "gif": "walking_lunge.gif"
+  },
+  "wall_assisted_squat": {
+    "name": "Squat Assistito al Muro",
+    "description": "Esegui uno squat tenendoti a un muro o a una superficie per supporto e equilibrio. Questa variante aiuta a imparare la forma corretta e permette di eseguire squat più profondi in sicurezza. Ideale per principianti o riabilitazione.",
+    "muscles": "Quadricipiti, Glutei, Mobilità",
+    "type": "quadriceps",
+    "gif": "wall_assisted_squat.gif"
+  },
+  "wall_knee_drive": {
+    "name": "Ginocchio al Muro",
+    "description": "Appoggia le mani a un muro e alterna il sollevamento delle ginocchia verso il petto in modo esplosivo, come se corressi sul posto. Ottimo esercizio cardiovascolare e per i flessori dell'anca che richiede poco spazio.",
+    "muscles": "Flessori dell'anca, Quadricipiti, Polpacci, Cardio",
+    "type": "cardio",
+    "gif": "wall_knee_drive.gif"
+  },
+  "wall_sit": {
+    "name": "Wall Sit",
+    "description": "Appoggia la schiena al muro e scendi fino ad avere le cosce parallele al pavimento, con le ginocchia a 90 gradi. Mantieni la posizione per il tempo prestabilito. Esercizio isometrico intenso per i quadricipiti.",
+    "muscles": "Quadricipiti, Glutei, Core",
+    "type": "quadriceps",
+    "gif": "wall_sit.gif"
+  },
+  "wide_push_up": {
+    "name": "Push-up Presa Larga",
+    "description": "Push-up con le mani posizionate più larghe delle spalle. Questa variante sposta l'enfasi sui pettorali esterni e riduce il coinvolgimento dei tricipiti. Scendi controllando il movimento, poi spingi esplosivamente.",
+    "muscles": "Petto, Spalle, Tricipiti",
+    "type": "chest",
+    "gif": "wide_push_up.gif"
+  }
+}

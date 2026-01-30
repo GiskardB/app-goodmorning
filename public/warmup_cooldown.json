@@ -5,12 +5,30 @@
       "focus": "full_body",
       "total_duration": 180,
       "exercises": [
-        {"exercise_id": "march_in_place", "duration": 30},
-        {"exercise_id": "arm_circles", "duration": 30},
-        {"exercise_id": "bodyweight_squat", "duration": 30},
-        {"exercise_id": "jumping_jacks", "duration": 30},
-        {"exercise_id": "hip_circles", "duration": 30},
-        {"exercise_id": "torso_rotation_standing", "duration": 30}
+        {
+          "exercise_id": "march_in_place",
+          "duration": 30
+        },
+        {
+          "exercise_id": "arm_circles",
+          "duration": 30
+        },
+        {
+          "exercise_id": "bodyweight_squat",
+          "duration": 30
+        },
+        {
+          "exercise_id": "jumping_jacks",
+          "duration": 30
+        },
+        {
+          "exercise_id": "hip_circles",
+          "duration": 30
+        },
+        {
+          "exercise_id": "torso_rotation_standing",
+          "duration": 30
+        }
       ]
     },
     {
@@ -18,12 +36,30 @@
       "focus": "full_body",
       "total_duration": 180,
       "exercises": [
-        {"exercise_id": "high_knees", "duration": 30},
-        {"exercise_id": "arm_circles", "duration": 30},
-        {"exercise_id": "hip_circles", "duration": 30},
-        {"exercise_id": "bodyweight_squat", "duration": 30},
-        {"exercise_id": "torso_rotation_standing", "duration": 30},
-        {"exercise_id": "jumping_jacks", "duration": 30}
+        {
+          "exercise_id": "high_knees",
+          "duration": 30
+        },
+        {
+          "exercise_id": "arm_circles",
+          "duration": 30
+        },
+        {
+          "exercise_id": "hip_circles",
+          "duration": 30
+        },
+        {
+          "exercise_id": "bodyweight_squat",
+          "duration": 30
+        },
+        {
+          "exercise_id": "torso_rotation_standing",
+          "duration": 30
+        },
+        {
+          "exercise_id": "jumping_jacks",
+          "duration": 30
+        }
       ]
     },
     {
@@ -31,11 +67,26 @@
       "focus": "full_body",
       "total_duration": 180,
       "exercises": [
-        {"exercise_id": "march_in_place", "duration": 40},
-        {"exercise_id": "jumping_jacks", "duration": 35},
-        {"exercise_id": "hip_circles", "duration": 35},
-        {"exercise_id": "arm_circles", "duration": 35},
-        {"exercise_id": "bodyweight_squat", "duration": 35}
+        {
+          "exercise_id": "march_in_place",
+          "duration": 40
+        },
+        {
+          "exercise_id": "jumping_jacks",
+          "duration": 35
+        },
+        {
+          "exercise_id": "hip_circles",
+          "duration": 35
+        },
+        {
+          "exercise_id": "arm_circles",
+          "duration": 35
+        },
+        {
+          "exercise_id": "bodyweight_squat",
+          "duration": 35
+        }
       ]
     },
     {
@@ -43,11 +94,26 @@
       "focus": "full_body",
       "total_duration": 180,
       "exercises": [
-        {"exercise_id": "high_knees", "duration": 35},
-        {"exercise_id": "bodyweight_squat", "duration": 35},
-        {"exercise_id": "arm_circles", "duration": 35},
-        {"exercise_id": "torso_rotation_standing", "duration": 40},
-        {"exercise_id": "jumping_jacks", "duration": 35}
+        {
+          "exercise_id": "high_knees",
+          "duration": 35
+        },
+        {
+          "exercise_id": "bodyweight_squat",
+          "duration": 35
+        },
+        {
+          "exercise_id": "arm_circles",
+          "duration": 35
+        },
+        {
+          "exercise_id": "torso_rotation_standing",
+          "duration": 40
+        },
+        {
+          "exercise_id": "jumping_jacks",
+          "duration": 35
+        }
       ]
     },
     {
@@ -55,11 +121,26 @@
       "focus": "upper_body",
       "total_duration": 180,
       "exercises": [
-        {"exercise_id": "march_in_place", "duration": 30},
-        {"exercise_id": "arm_circles", "duration": 40},
-        {"exercise_id": "torso_rotation_standing", "duration": 40},
-        {"exercise_id": "chest_opener_rotation", "duration": 35},
-        {"exercise_id": "shoulder_stretch", "duration": 35}
+        {
+          "exercise_id": "march_in_place",
+          "duration": 30
+        },
+        {
+          "exercise_id": "arm_circles",
+          "duration": 40
+        },
+        {
+          "exercise_id": "torso_rotation_standing",
+          "duration": 40
+        },
+        {
+          "exercise_id": "chest_opener_rotation",
+          "duration": 35
+        },
+        {
+          "exercise_id": "shoulder_stretch",
+          "duration": 35
+        }
       ]
     },
     {
@@ -67,11 +148,26 @@
       "focus": "upper_body",
       "total_duration": 180,
       "exercises": [
-        {"exercise_id": "jumping_jacks", "duration": 30},
-        {"exercise_id": "arm_circles", "duration": 40},
-        {"exercise_id": "chest_opener_rotation", "duration": 40},
-        {"exercise_id": "push_up_knees", "duration": 35},
-        {"exercise_id": "torso_rotation_standing", "duration": 35}
+        {
+          "exercise_id": "jumping_jacks",
+          "duration": 30
+        },
+        {
+          "exercise_id": "arm_circles",
+          "duration": 40
+        },
+        {
+          "exercise_id": "chest_opener_rotation",
+          "duration": 40
+        },
+        {
+          "exercise_id": "push_up_knees",
+          "duration": 35
+        },
+        {
+          "exercise_id": "torso_rotation_standing",
+          "duration": 35
+        }
       ]
     },
     {
@@ -79,11 +175,26 @@
       "focus": "upper_body",
       "total_duration": 180,
       "exercises": [
-        {"exercise_id": "march_in_place", "duration": 35},
-        {"exercise_id": "arm_circles", "duration": 40},
-        {"exercise_id": "shoulder_stretch", "duration": 35},
-        {"exercise_id": "chest_stretch", "duration": 35},
-        {"exercise_id": "torso_rotation_standing", "duration": 35}
+        {
+          "exercise_id": "march_in_place",
+          "duration": 35
+        },
+        {
+          "exercise_id": "arm_circles",
+          "duration": 40
+        },
+        {
+          "exercise_id": "shoulder_stretch",
+          "duration": 35
+        },
+        {
+          "exercise_id": "chest_stretch",
+          "duration": 35
+        },
+        {
+          "exercise_id": "torso_rotation_standing",
+          "duration": 35
+        }
       ]
     },
     {
@@ -91,11 +202,26 @@
       "focus": "upper_body",
       "total_duration": 180,
       "exercises": [
-        {"exercise_id": "high_knees", "duration": 30},
-        {"exercise_id": "arm_circles", "duration": 40},
-        {"exercise_id": "chest_opener_rotation", "duration": 35},
-        {"exercise_id": "plank", "duration": 30},
-        {"exercise_id": "shoulder_stretch", "duration": 45}
+        {
+          "exercise_id": "high_knees",
+          "duration": 30
+        },
+        {
+          "exercise_id": "arm_circles",
+          "duration": 40
+        },
+        {
+          "exercise_id": "chest_opener_rotation",
+          "duration": 35
+        },
+        {
+          "exercise_id": "plank",
+          "duration": 30
+        },
+        {
+          "exercise_id": "shoulder_stretch",
+          "duration": 45
+        }
       ]
     },
     {
@@ -103,12 +229,30 @@
       "focus": "lower_body",
       "total_duration": 180,
       "exercises": [
-        {"exercise_id": "march_in_place", "duration": 30},
-        {"exercise_id": "bodyweight_squat", "duration": 40},
-        {"exercise_id": "lunge_reverse", "duration": 40},
-        {"exercise_id": "hip_circles", "duration": 30},
-        {"exercise_id": "calf_raise_left", "duration": 20},
-        {"exercise_id": "calf_raise_right", "duration": 20}
+        {
+          "exercise_id": "march_in_place",
+          "duration": 30
+        },
+        {
+          "exercise_id": "bodyweight_squat",
+          "duration": 40
+        },
+        {
+          "exercise_id": "lunge_reverse",
+          "duration": 40
+        },
+        {
+          "exercise_id": "hip_circles",
+          "duration": 30
+        },
+        {
+          "exercise_id": "calf_raise_left",
+          "duration": 20
+        },
+        {
+          "exercise_id": "calf_raise_right",
+          "duration": 20
+        }
       ]
     },
     {
@@ -116,12 +260,30 @@
       "focus": "lower_body",
       "total_duration": 180,
       "exercises": [
-        {"exercise_id": "high_knees", "duration": 30},
-        {"exercise_id": "hip_circles", "duration": 30},
-        {"exercise_id": "bodyweight_squat", "duration": 40},
-        {"exercise_id": "lunge_static_left", "duration": 30},
-        {"exercise_id": "lunge_static_right", "duration": 30},
-        {"exercise_id": "glute_bridge", "duration": 20}
+        {
+          "exercise_id": "high_knees",
+          "duration": 30
+        },
+        {
+          "exercise_id": "hip_circles",
+          "duration": 30
+        },
+        {
+          "exercise_id": "bodyweight_squat",
+          "duration": 40
+        },
+        {
+          "exercise_id": "lunge_static_left",
+          "duration": 30
+        },
+        {
+          "exercise_id": "lunge_static_right",
+          "duration": 30
+        },
+        {
+          "exercise_id": "glute_bridge",
+          "duration": 20
+        }
       ]
     },
     {
@@ -129,11 +291,26 @@
       "focus": "lower_body",
       "total_duration": 180,
       "exercises": [
-        {"exercise_id": "march_in_place", "duration": 35},
-        {"exercise_id": "squat_sumo", "duration": 40},
-        {"exercise_id": "hip_circles", "duration": 35},
-        {"exercise_id": "bodyweight_squat", "duration": 40},
-        {"exercise_id": "calf_stretch", "duration": 30}
+        {
+          "exercise_id": "march_in_place",
+          "duration": 35
+        },
+        {
+          "exercise_id": "squat_sumo",
+          "duration": 40
+        },
+        {
+          "exercise_id": "hip_circles",
+          "duration": 35
+        },
+        {
+          "exercise_id": "bodyweight_squat",
+          "duration": 40
+        },
+        {
+          "exercise_id": "calf_stretch",
+          "duration": 30
+        }
       ]
     },
     {
@@ -141,11 +318,26 @@
       "focus": "lower_body",
       "total_duration": 180,
       "exercises": [
-        {"exercise_id": "jumping_jacks", "duration": 30},
-        {"exercise_id": "bodyweight_squat", "duration": 40},
-        {"exercise_id": "lunge_reverse", "duration": 35},
-        {"exercise_id": "hip_circles", "duration": 40},
-        {"exercise_id": "glute_bridge", "duration": 35}
+        {
+          "exercise_id": "jumping_jacks",
+          "duration": 30
+        },
+        {
+          "exercise_id": "bodyweight_squat",
+          "duration": 40
+        },
+        {
+          "exercise_id": "lunge_reverse",
+          "duration": 35
+        },
+        {
+          "exercise_id": "hip_circles",
+          "duration": 40
+        },
+        {
+          "exercise_id": "glute_bridge",
+          "duration": 35
+        }
       ]
     },
     {
@@ -153,11 +345,26 @@
       "focus": "core",
       "total_duration": 180,
       "exercises": [
-        {"exercise_id": "march_in_place", "duration": 30},
-        {"exercise_id": "torso_rotation_standing", "duration": 40},
-        {"exercise_id": "hip_circles", "duration": 30},
-        {"exercise_id": "bird_dog", "duration": 40},
-        {"exercise_id": "plank", "duration": 40}
+        {
+          "exercise_id": "march_in_place",
+          "duration": 30
+        },
+        {
+          "exercise_id": "torso_rotation_standing",
+          "duration": 40
+        },
+        {
+          "exercise_id": "hip_circles",
+          "duration": 30
+        },
+        {
+          "exercise_id": "bird_dog",
+          "duration": 40
+        },
+        {
+          "exercise_id": "plank",
+          "duration": 40
+        }
       ]
     },
     {
@@ -165,11 +372,26 @@
       "focus": "core",
       "total_duration": 180,
       "exercises": [
-        {"exercise_id": "jumping_jacks", "duration": 30},
-        {"exercise_id": "torso_rotation_standing", "duration": 40},
-        {"exercise_id": "bird_dog", "duration": 40},
-        {"exercise_id": "dead_bug", "duration": 35},
-        {"exercise_id": "plank", "duration": 35}
+        {
+          "exercise_id": "jumping_jacks",
+          "duration": 30
+        },
+        {
+          "exercise_id": "torso_rotation_standing",
+          "duration": 40
+        },
+        {
+          "exercise_id": "bird_dog",
+          "duration": 40
+        },
+        {
+          "exercise_id": "dead_bug",
+          "duration": 35
+        },
+        {
+          "exercise_id": "plank",
+          "duration": 35
+        }
       ]
     },
     {
@@ -177,11 +399,26 @@
       "focus": "core",
       "total_duration": 180,
       "exercises": [
-        {"exercise_id": "high_knees", "duration": 30},
-        {"exercise_id": "hip_circles", "duration": 30},
-        {"exercise_id": "torso_rotation_standing", "duration": 40},
-        {"exercise_id": "plank", "duration": 40},
-        {"exercise_id": "bird_dog", "duration": 40}
+        {
+          "exercise_id": "high_knees",
+          "duration": 30
+        },
+        {
+          "exercise_id": "hip_circles",
+          "duration": 30
+        },
+        {
+          "exercise_id": "torso_rotation_standing",
+          "duration": 40
+        },
+        {
+          "exercise_id": "plank",
+          "duration": 40
+        },
+        {
+          "exercise_id": "bird_dog",
+          "duration": 40
+        }
       ]
     },
     {
@@ -189,11 +426,26 @@
       "focus": "core",
       "total_duration": 180,
       "exercises": [
-        {"exercise_id": "march_in_place", "duration": 35},
-        {"exercise_id": "torso_rotation_standing", "duration": 40},
-        {"exercise_id": "plank", "duration": 40},
-        {"exercise_id": "side_crunch_standing_left", "duration": 30},
-        {"exercise_id": "side_crunch_standing_right", "duration": 35}
+        {
+          "exercise_id": "march_in_place",
+          "duration": 35
+        },
+        {
+          "exercise_id": "torso_rotation_standing",
+          "duration": 40
+        },
+        {
+          "exercise_id": "plank",
+          "duration": 40
+        },
+        {
+          "exercise_id": "side_crunch_standing_left",
+          "duration": 30
+        },
+        {
+          "exercise_id": "side_crunch_standing_right",
+          "duration": 35
+        }
       ]
     },
     {
@@ -201,11 +453,26 @@
       "focus": "cardio",
       "total_duration": 180,
       "exercises": [
-        {"exercise_id": "march_in_place", "duration": 30},
-        {"exercise_id": "jumping_jacks", "duration": 40},
-        {"exercise_id": "high_knees", "duration": 40},
-        {"exercise_id": "bodyweight_squat", "duration": 35},
-        {"exercise_id": "arm_circles", "duration": 35}
+        {
+          "exercise_id": "march_in_place",
+          "duration": 30
+        },
+        {
+          "exercise_id": "jumping_jacks",
+          "duration": 40
+        },
+        {
+          "exercise_id": "high_knees",
+          "duration": 40
+        },
+        {
+          "exercise_id": "bodyweight_squat",
+          "duration": 35
+        },
+        {
+          "exercise_id": "arm_circles",
+          "duration": 35
+        }
       ]
     },
     {
@@ -213,11 +480,26 @@
       "focus": "cardio",
       "total_duration": 180,
       "exercises": [
-        {"exercise_id": "high_knees", "duration": 40},
-        {"exercise_id": "jumping_jacks", "duration": 40},
-        {"exercise_id": "hip_circles", "duration": 30},
-        {"exercise_id": "arm_circles", "duration": 35},
-        {"exercise_id": "bodyweight_squat", "duration": 35}
+        {
+          "exercise_id": "high_knees",
+          "duration": 40
+        },
+        {
+          "exercise_id": "jumping_jacks",
+          "duration": 40
+        },
+        {
+          "exercise_id": "hip_circles",
+          "duration": 30
+        },
+        {
+          "exercise_id": "arm_circles",
+          "duration": 35
+        },
+        {
+          "exercise_id": "bodyweight_squat",
+          "duration": 35
+        }
       ]
     },
     {
@@ -225,11 +507,26 @@
       "focus": "cardio",
       "total_duration": 180,
       "exercises": [
-        {"exercise_id": "march_in_place", "duration": 35},
-        {"exercise_id": "jumping_jacks", "duration": 40},
-        {"exercise_id": "high_knees", "duration": 40},
-        {"exercise_id": "hip_circles", "duration": 30},
-        {"exercise_id": "torso_rotation_standing", "duration": 35}
+        {
+          "exercise_id": "march_in_place",
+          "duration": 35
+        },
+        {
+          "exercise_id": "jumping_jacks",
+          "duration": 40
+        },
+        {
+          "exercise_id": "high_knees",
+          "duration": 40
+        },
+        {
+          "exercise_id": "hip_circles",
+          "duration": 30
+        },
+        {
+          "exercise_id": "torso_rotation_standing",
+          "duration": 35
+        }
       ]
     },
     {
@@ -237,11 +534,806 @@
       "focus": "cardio",
       "total_duration": 180,
       "exercises": [
-        {"exercise_id": "jumping_jacks", "duration": 45},
-        {"exercise_id": "high_knees", "duration": 45},
-        {"exercise_id": "bodyweight_squat", "duration": 30},
-        {"exercise_id": "arm_circles", "duration": 30},
-        {"exercise_id": "hip_circles", "duration": 30}
+        {
+          "exercise_id": "jumping_jacks",
+          "duration": 45
+        },
+        {
+          "exercise_id": "high_knees",
+          "duration": 45
+        },
+        {
+          "exercise_id": "bodyweight_squat",
+          "duration": 30
+        },
+        {
+          "exercise_id": "arm_circles",
+          "duration": 30
+        },
+        {
+          "exercise_id": "hip_circles",
+          "duration": 30
+        }
+      ]
+    },
+    {
+      "id": "WU_P2_01",
+      "focus": "full_body",
+      "total_duration": 180,
+      "exercises": [
+        {
+          "exercise_id": "dynamic_side_bends",
+          "duration": 30
+        },
+        {
+          "exercise_id": "elbow_rotations",
+          "duration": 30
+        },
+        {
+          "exercise_id": "cross_body_shoulder_stretch",
+          "duration": 30
+        },
+        {
+          "exercise_id": "roll_down",
+          "duration": 30
+        },
+        {
+          "exercise_id": "hip_rotation_standing_left",
+          "duration": 30
+        },
+        {
+          "exercise_id": "hip_rotation_standing_right",
+          "duration": 30
+        }
+      ]
+    },
+    {
+      "id": "WU_P2_02",
+      "focus": "arms_chest",
+      "total_duration": 150,
+      "exercises": [
+        {
+          "exercise_id": "wrist_warmup",
+          "duration": 30
+        },
+        {
+          "exercise_id": "dynamic_side_bends",
+          "duration": 30
+        },
+        {
+          "exercise_id": "chest_opener_rotation",
+          "duration": 30
+        },
+        {
+          "exercise_id": "hip_rotation_standing",
+          "duration": 30
+        },
+        {
+          "exercise_id": "lunge_side_to_side_deep",
+          "duration": 30
+        }
+      ]
+    },
+    {
+      "id": "WU_P2_03",
+      "focus": "chest",
+      "total_duration": 210,
+      "exercises": [
+        {
+          "exercise_id": "chest_opener_rotation",
+          "duration": 30
+        },
+        {
+          "exercise_id": "cross_body_shoulder_stretch",
+          "duration": 30
+        },
+        {
+          "exercise_id": "cross_body_shoulder_stretch",
+          "duration": 30
+        },
+        {
+          "exercise_id": "elbow_rotations",
+          "duration": 30
+        },
+        {
+          "exercise_id": "dynamic_side_bends",
+          "duration": 30
+        },
+        {
+          "exercise_id": "calf_hamstring_active_stretch",
+          "duration": 30
+        },
+        {
+          "exercise_id": "squat_malasana",
+          "duration": 30
+        }
+      ]
+    },
+    {
+      "id": "WU_P2_04",
+      "focus": "full_body",
+      "total_duration": 180,
+      "exercises": [
+        {
+          "exercise_id": "lat_stretch_overhead_standing",
+          "duration": 30
+        },
+        {
+          "exercise_id": "dynamic_side_bends",
+          "duration": 30
+        },
+        {
+          "exercise_id": "cross_body_shoulder_stretch",
+          "duration": 30
+        },
+        {
+          "exercise_id": "roll_down",
+          "duration": 30
+        },
+        {
+          "exercise_id": "hip_rotation_standing_left",
+          "duration": 30
+        },
+        {
+          "exercise_id": "hip_rotation_standing_right",
+          "duration": 30
+        }
+      ]
+    },
+    {
+      "id": "WU_P2_05",
+      "focus": "glutes_belly",
+      "total_duration": 150,
+      "exercises": [
+        {
+          "exercise_id": "cross_body_shoulder_stretch",
+          "duration": 30
+        },
+        {
+          "exercise_id": "elbow_rotations",
+          "duration": 30
+        },
+        {
+          "exercise_id": "dynamic_side_bends",
+          "duration": 30
+        },
+        {
+          "exercise_id": "chest_opener_rotation",
+          "duration": 30
+        },
+        {
+          "exercise_id": "lunge_side_to_side_deep",
+          "duration": 30
+        }
+      ]
+    },
+    {
+      "id": "WU_P2_06",
+      "focus": "glutes",
+      "total_duration": 180,
+      "exercises": [
+        {
+          "exercise_id": "chest_opener_rotation",
+          "duration": 30
+        },
+        {
+          "exercise_id": "elbow_rotations",
+          "duration": 30
+        },
+        {
+          "exercise_id": "hip_flexor_stretch",
+          "duration": 30
+        },
+        {
+          "exercise_id": "lunge_leg_rolls_full",
+          "duration": 30
+        },
+        {
+          "exercise_id": "lunge_thoracic_rotation_left",
+          "duration": 30
+        },
+        {
+          "exercise_id": "lunge_thoracic_rotation_right",
+          "duration": 30
+        }
+      ]
+    },
+    {
+      "id": "WU_P2_07",
+      "focus": "belly",
+      "total_duration": 180,
+      "exercises": [
+        {
+          "exercise_id": "dynamic_side_bends",
+          "duration": 30
+        },
+        {
+          "exercise_id": "chest_opener_rotation",
+          "duration": 30
+        },
+        {
+          "exercise_id": "elbow_rotations",
+          "duration": 30
+        },
+        {
+          "exercise_id": "hip_rotation_standing",
+          "duration": 30
+        },
+        {
+          "exercise_id": "calf_hamstring_active_stretch",
+          "duration": 30
+        },
+        {
+          "exercise_id": "lunge_side_to_side_deep",
+          "duration": 30
+        }
+      ]
+    },
+    {
+      "id": "WU_P2_08",
+      "focus": "legs_belly",
+      "total_duration": 150,
+      "exercises": [
+        {
+          "exercise_id": "chest_opener_rotation",
+          "duration": 30
+        },
+        {
+          "exercise_id": "calf_hamstring_active_stretch",
+          "duration": 30
+        },
+        {
+          "exercise_id": "hip_flexor_stretch",
+          "duration": 30
+        },
+        {
+          "exercise_id": "hip_rotation_standing_left",
+          "duration": 30
+        },
+        {
+          "exercise_id": "hip_rotation_standing_right",
+          "duration": 30
+        }
+      ]
+    },
+    {
+      "id": "WU_P2_09",
+      "focus": "arms_belly",
+      "total_duration": 150,
+      "exercises": [
+        {
+          "exercise_id": "chest_opener_rotation",
+          "duration": 30
+        },
+        {
+          "exercise_id": "wrist_warmup",
+          "duration": 30
+        },
+        {
+          "exercise_id": "dynamic_side_bends",
+          "duration": 30
+        },
+        {
+          "exercise_id": "hip_rotation_standing",
+          "duration": 30
+        },
+        {
+          "exercise_id": "calf_hamstring_active_stretch",
+          "duration": 30
+        }
+      ]
+    },
+    {
+      "id": "WU_P2_10",
+      "focus": "legs",
+      "total_duration": 160,
+      "exercises": [
+        {
+          "exercise_id": "wrist_warmup",
+          "duration": 30
+        },
+        {
+          "exercise_id": "calf_hamstring_active_stretch",
+          "duration": 30
+        },
+        {
+          "exercise_id": "hip_flexor_stretch",
+          "duration": 40
+        },
+        {
+          "exercise_id": "hip_rotation_standing_left",
+          "duration": 30
+        },
+        {
+          "exercise_id": "hip_rotation_standing_right",
+          "duration": 30
+        }
+      ]
+    },
+    {
+      "id": "WU_P2_11",
+      "focus": "full_body",
+      "total_duration": 150,
+      "exercises": [
+        {
+          "exercise_id": "cross_body_shoulder_stretch",
+          "duration": 30
+        },
+        {
+          "exercise_id": "elbow_rotations",
+          "duration": 30
+        },
+        {
+          "exercise_id": "dynamic_side_bends",
+          "duration": 30
+        },
+        {
+          "exercise_id": "roll_down",
+          "duration": 30
+        },
+        {
+          "exercise_id": "hip_rotation_standing",
+          "duration": 30
+        }
+      ]
+    },
+    {
+      "id": "WU_P2_12",
+      "focus": "back_belly",
+      "total_duration": 150,
+      "exercises": [
+        {
+          "exercise_id": "chest_opener_rotation",
+          "duration": 30
+        },
+        {
+          "exercise_id": "wrist_warmup",
+          "duration": 30
+        },
+        {
+          "exercise_id": "dynamic_side_bends",
+          "duration": 30
+        },
+        {
+          "exercise_id": "hip_rotation_standing",
+          "duration": 30
+        },
+        {
+          "exercise_id": "calf_hamstring_active_stretch",
+          "duration": 30
+        }
+      ]
+    },
+    {
+      "id": "WU_P2_13",
+      "focus": "arms_belly",
+      "total_duration": 150,
+      "exercises": [
+        {
+          "exercise_id": "side_stretch_left",
+          "duration": 30
+        },
+        {
+          "exercise_id": "side_stretch_right",
+          "duration": 30
+        },
+        {
+          "exercise_id": "lat_stretch_overhead_standing",
+          "duration": 30
+        },
+        {
+          "exercise_id": "elbow_rotations",
+          "duration": 30
+        },
+        {
+          "exercise_id": "dynamic_side_bends",
+          "duration": 30
+        }
+      ]
+    },
+    {
+      "id": "WU_P2_14",
+      "focus": "full_body",
+      "total_duration": 150,
+      "exercises": [
+        {
+          "exercise_id": "elbow_rotations",
+          "duration": 30
+        },
+        {
+          "exercise_id": "hamstring_pendulum_stretch",
+          "duration": 30
+        },
+        {
+          "exercise_id": "hip_rotation_standing_left",
+          "duration": 30
+        },
+        {
+          "exercise_id": "hip_rotation_standing_right",
+          "duration": 30
+        },
+        {
+          "exercise_id": "lunge_side_to_side_deep",
+          "duration": 30
+        }
+      ]
+    },
+    {
+      "id": "WU_P2_15",
+      "focus": "glutes",
+      "total_duration": 150,
+      "exercises": [
+        {
+          "exercise_id": "chest_opener_rotation",
+          "duration": 30
+        },
+        {
+          "exercise_id": "lunge_leg_rolls_full",
+          "duration": 30
+        },
+        {
+          "exercise_id": "dynamic_side_bends",
+          "duration": 30
+        },
+        {
+          "exercise_id": "hip_rotation_standing",
+          "duration": 30
+        },
+        {
+          "exercise_id": "calf_hamstring_active_stretch",
+          "duration": 30
+        }
+      ]
+    },
+    {
+      "id": "WU_P2_16",
+      "focus": "legs_glutes",
+      "total_duration": 150,
+      "exercises": [
+        {
+          "exercise_id": "lat_stretch_overhead_standing",
+          "duration": 30
+        },
+        {
+          "exercise_id": "cross_body_shoulder_stretch",
+          "duration": 30
+        },
+        {
+          "exercise_id": "dynamic_side_bends",
+          "duration": 30
+        },
+        {
+          "exercise_id": "lunge_side_to_side_deep",
+          "duration": 30
+        },
+        {
+          "exercise_id": "hip_rotation_standing",
+          "duration": 30
+        }
+      ]
+    },
+    {
+      "id": "WU_P2_17",
+      "focus": "belly_chest",
+      "total_duration": 150,
+      "exercises": [
+        {
+          "exercise_id": "chest_opener_rotation",
+          "duration": 30
+        },
+        {
+          "exercise_id": "wrist_warmup",
+          "duration": 30
+        },
+        {
+          "exercise_id": "dynamic_side_bends",
+          "duration": 30
+        },
+        {
+          "exercise_id": "hip_rotation_standing",
+          "duration": 30
+        },
+        {
+          "exercise_id": "calf_hamstring_active_stretch",
+          "duration": 30
+        }
+      ]
+    },
+    {
+      "id": "WU_P2_18",
+      "focus": "belly",
+      "total_duration": 150,
+      "exercises": [
+        {
+          "exercise_id": "cross_body_shoulder_stretch",
+          "duration": 30
+        },
+        {
+          "exercise_id": "elbow_rotations",
+          "duration": 30
+        },
+        {
+          "exercise_id": "dynamic_side_bends",
+          "duration": 30
+        },
+        {
+          "exercise_id": "roll_down",
+          "duration": 30
+        },
+        {
+          "exercise_id": "hip_rotation_standing",
+          "duration": 30
+        }
+      ]
+    },
+    {
+      "id": "WU_P2_19",
+      "focus": "chest_belly",
+      "total_duration": 150,
+      "exercises": [
+        {
+          "exercise_id": "wrist_warmup",
+          "duration": 30
+        },
+        {
+          "exercise_id": "elbow_rotations",
+          "duration": 30
+        },
+        {
+          "exercise_id": "hip_rotation_standing_left",
+          "duration": 30
+        },
+        {
+          "exercise_id": "hip_rotation_standing_right",
+          "duration": 30
+        },
+        {
+          "exercise_id": "calf_hamstring_active_stretch",
+          "duration": 30
+        }
+      ]
+    },
+    {
+      "id": "WU_P2_20",
+      "focus": "belly_back",
+      "total_duration": 150,
+      "exercises": [
+        {
+          "exercise_id": "cross_body_shoulder_stretch",
+          "duration": 30
+        },
+        {
+          "exercise_id": "elbow_rotations",
+          "duration": 30
+        },
+        {
+          "exercise_id": "dynamic_side_bends",
+          "duration": 30
+        },
+        {
+          "exercise_id": "roll_down",
+          "duration": 30
+        },
+        {
+          "exercise_id": "hip_rotation_standing",
+          "duration": 30
+        }
+      ]
+    },
+    {
+      "id": "WU_P2_21",
+      "focus": "full_body",
+      "total_duration": 150,
+      "exercises": [
+        {
+          "exercise_id": "cross_body_shoulder_stretch",
+          "duration": 30
+        },
+        {
+          "exercise_id": "roll_down",
+          "duration": 30
+        },
+        {
+          "exercise_id": "dynamic_side_bends",
+          "duration": 30
+        },
+        {
+          "exercise_id": "hamstring_pendulum_stretch",
+          "duration": 30
+        },
+        {
+          "exercise_id": "hip_rotation_standing",
+          "duration": 30
+        }
+      ]
+    },
+    {
+      "id": "WU_P2_22",
+      "focus": "arms_belly",
+      "total_duration": 150,
+      "exercises": [
+        {
+          "exercise_id": "chest_opener_rotation",
+          "duration": 30
+        },
+        {
+          "exercise_id": "wrist_warmup",
+          "duration": 30
+        },
+        {
+          "exercise_id": "dynamic_side_bends",
+          "duration": 30
+        },
+        {
+          "exercise_id": "hip_rotation_standing",
+          "duration": 30
+        },
+        {
+          "exercise_id": "lunge_side_to_side",
+          "duration": 30
+        }
+      ]
+    },
+    {
+      "id": "WU_P2_23",
+      "focus": "full_body",
+      "total_duration": 150,
+      "exercises": [
+        {
+          "exercise_id": "hip_mobility_9090",
+          "duration": 30
+        },
+        {
+          "exercise_id": "elbow_rotations",
+          "duration": 30
+        },
+        {
+          "exercise_id": "wrist_warmup",
+          "duration": 30
+        },
+        {
+          "exercise_id": "lunge_thoracic_rotation_right",
+          "duration": 30
+        },
+        {
+          "exercise_id": "lunge_thoracic_rotation_left",
+          "duration": 30
+        }
+      ]
+    },
+    {
+      "id": "WU_P2_24",
+      "focus": "glutes_legs",
+      "total_duration": 150,
+      "exercises": [
+        {
+          "exercise_id": "elbow_rotations",
+          "duration": 30
+        },
+        {
+          "exercise_id": "dynamic_side_bends",
+          "duration": 30
+        },
+        {
+          "exercise_id": "roll_down",
+          "duration": 30
+        },
+        {
+          "exercise_id": "hip_rotation_standing",
+          "duration": 30
+        },
+        {
+          "exercise_id": "lunge_side_to_side_deep",
+          "duration": 30
+        }
+      ]
+    },
+    {
+      "id": "WU_P2_25",
+      "focus": "chest_back",
+      "total_duration": 150,
+      "exercises": [
+        {
+          "exercise_id": "chest_opener_rotation",
+          "duration": 30
+        },
+        {
+          "exercise_id": "wrist_warmup",
+          "duration": 30
+        },
+        {
+          "exercise_id": "dynamic_side_bends",
+          "duration": 30
+        },
+        {
+          "exercise_id": "hip_rotation_standing",
+          "duration": 30
+        },
+        {
+          "exercise_id": "calf_hamstring_active_stretch",
+          "duration": 30
+        }
+      ]
+    },
+    {
+      "id": "WU_P2_26",
+      "focus": "full_body",
+      "total_duration": 150,
+      "exercises": [
+        {
+          "exercise_id": "wrist_warmup",
+          "duration": 30
+        },
+        {
+          "exercise_id": "dynamic_side_bends",
+          "duration": 30
+        },
+        {
+          "exercise_id": "hip_rotation_standing",
+          "duration": 30
+        },
+        {
+          "exercise_id": "hip_flexor_stretch",
+          "duration": 30
+        },
+        {
+          "exercise_id": "lunge_side_to_side",
+          "duration": 30
+        }
+      ]
+    },
+    {
+      "id": "WU_P2_27",
+      "focus": "belly_arms",
+      "total_duration": 150,
+      "exercises": [
+        {
+          "exercise_id": "cross_body_shoulder_stretch",
+          "duration": 30
+        },
+        {
+          "exercise_id": "elbow_rotations",
+          "duration": 30
+        },
+        {
+          "exercise_id": "dynamic_side_bends",
+          "duration": 30
+        },
+        {
+          "exercise_id": "wrist_warmup",
+          "duration": 30
+        },
+        {
+          "exercise_id": "hip_rotation_standing",
+          "duration": 30
+        }
+      ]
+    },
+    {
+      "id": "WU_P2_28",
+      "focus": "legs_glutes",
+      "total_duration": 150,
+      "exercises": [
+        {
+          "exercise_id": "elbow_rotations",
+          "duration": 30
+        },
+        {
+          "exercise_id": "hip_flexor_stretch",
+          "duration": 30
+        },
+        {
+          "exercise_id": "hip_rotation_standing_left",
+          "duration": 30
+        },
+        {
+          "exercise_id": "hip_rotation_standing_right",
+          "duration": 30
+        },
+        {
+          "exercise_id": "lunge_side_to_side_deep",
+          "duration": 30
+        }
       ]
     }
   ],
@@ -251,11 +1343,26 @@
       "focus": "full_body",
       "total_duration": 180,
       "exercises": [
-        {"exercise_id": "breathing_standing", "duration": 40},
-        {"exercise_id": "hamstring_stretch", "duration": 40},
-        {"exercise_id": "glute_stretch", "duration": 40},
-        {"exercise_id": "chest_stretch", "duration": 30},
-        {"exercise_id": "shoulder_stretch", "duration": 30}
+        {
+          "exercise_id": "breathing_standing",
+          "duration": 40
+        },
+        {
+          "exercise_id": "hamstring_stretch",
+          "duration": 40
+        },
+        {
+          "exercise_id": "glute_stretch",
+          "duration": 40
+        },
+        {
+          "exercise_id": "chest_stretch",
+          "duration": 30
+        },
+        {
+          "exercise_id": "shoulder_stretch",
+          "duration": 30
+        }
       ]
     },
     {
@@ -263,11 +1370,26 @@
       "focus": "full_body",
       "total_duration": 180,
       "exercises": [
-        {"exercise_id": "breathing_standing", "duration": 40},
-        {"exercise_id": "quad_stretch", "duration": 35},
-        {"exercise_id": "hamstring_stretch", "duration": 35},
-        {"exercise_id": "chest_stretch", "duration": 35},
-        {"exercise_id": "child_pose", "duration": 35}
+        {
+          "exercise_id": "breathing_standing",
+          "duration": 40
+        },
+        {
+          "exercise_id": "quad_stretch",
+          "duration": 35
+        },
+        {
+          "exercise_id": "hamstring_stretch",
+          "duration": 35
+        },
+        {
+          "exercise_id": "chest_stretch",
+          "duration": 35
+        },
+        {
+          "exercise_id": "child_pose",
+          "duration": 35
+        }
       ]
     },
     {
@@ -275,11 +1397,26 @@
       "focus": "full_body",
       "total_duration": 180,
       "exercises": [
-        {"exercise_id": "breathing_standing", "duration": 35},
-        {"exercise_id": "glute_stretch", "duration": 40},
-        {"exercise_id": "hamstring_stretch", "duration": 35},
-        {"exercise_id": "shoulder_stretch", "duration": 35},
-        {"exercise_id": "cobra_stretch", "duration": 35}
+        {
+          "exercise_id": "breathing_standing",
+          "duration": 35
+        },
+        {
+          "exercise_id": "glute_stretch",
+          "duration": 40
+        },
+        {
+          "exercise_id": "hamstring_stretch",
+          "duration": 35
+        },
+        {
+          "exercise_id": "shoulder_stretch",
+          "duration": 35
+        },
+        {
+          "exercise_id": "cobra_stretch",
+          "duration": 35
+        }
       ]
     },
     {
@@ -287,11 +1424,26 @@
       "focus": "full_body",
       "total_duration": 180,
       "exercises": [
-        {"exercise_id": "breathing_standing", "duration": 40},
-        {"exercise_id": "quad_stretch", "duration": 35},
-        {"exercise_id": "calf_stretch", "duration": 35},
-        {"exercise_id": "chest_stretch", "duration": 35},
-        {"exercise_id": "child_pose", "duration": 35}
+        {
+          "exercise_id": "breathing_standing",
+          "duration": 40
+        },
+        {
+          "exercise_id": "quad_stretch",
+          "duration": 35
+        },
+        {
+          "exercise_id": "calf_stretch",
+          "duration": 35
+        },
+        {
+          "exercise_id": "chest_stretch",
+          "duration": 35
+        },
+        {
+          "exercise_id": "child_pose",
+          "duration": 35
+        }
       ]
     },
     {
@@ -299,11 +1451,26 @@
       "focus": "upper_body",
       "total_duration": 180,
       "exercises": [
-        {"exercise_id": "breathing_standing", "duration": 40},
-        {"exercise_id": "chest_stretch", "duration": 45},
-        {"exercise_id": "shoulder_stretch", "duration": 45},
-        {"exercise_id": "cobra_stretch", "duration": 30},
-        {"exercise_id": "child_pose", "duration": 20}
+        {
+          "exercise_id": "breathing_standing",
+          "duration": 40
+        },
+        {
+          "exercise_id": "chest_stretch",
+          "duration": 45
+        },
+        {
+          "exercise_id": "shoulder_stretch",
+          "duration": 45
+        },
+        {
+          "exercise_id": "cobra_stretch",
+          "duration": 30
+        },
+        {
+          "exercise_id": "child_pose",
+          "duration": 20
+        }
       ]
     },
     {
@@ -311,11 +1478,26 @@
       "focus": "upper_body",
       "total_duration": 180,
       "exercises": [
-        {"exercise_id": "breathing_standing", "duration": 35},
-        {"exercise_id": "shoulder_stretch", "duration": 45},
-        {"exercise_id": "chest_stretch", "duration": 45},
-        {"exercise_id": "cobra_stretch", "duration": 35},
-        {"exercise_id": "torso_rotation_standing", "duration": 20}
+        {
+          "exercise_id": "breathing_standing",
+          "duration": 35
+        },
+        {
+          "exercise_id": "shoulder_stretch",
+          "duration": 45
+        },
+        {
+          "exercise_id": "chest_stretch",
+          "duration": 45
+        },
+        {
+          "exercise_id": "cobra_stretch",
+          "duration": 35
+        },
+        {
+          "exercise_id": "torso_rotation_standing",
+          "duration": 20
+        }
       ]
     },
     {
@@ -323,11 +1505,26 @@
       "focus": "upper_body",
       "total_duration": 180,
       "exercises": [
-        {"exercise_id": "breathing_standing", "duration": 40},
-        {"exercise_id": "chest_opener_rotation", "duration": 40},
-        {"exercise_id": "shoulder_stretch", "duration": 40},
-        {"exercise_id": "child_pose", "duration": 30},
-        {"exercise_id": "cobra_stretch", "duration": 30}
+        {
+          "exercise_id": "breathing_standing",
+          "duration": 40
+        },
+        {
+          "exercise_id": "chest_opener_rotation",
+          "duration": 40
+        },
+        {
+          "exercise_id": "shoulder_stretch",
+          "duration": 40
+        },
+        {
+          "exercise_id": "child_pose",
+          "duration": 30
+        },
+        {
+          "exercise_id": "cobra_stretch",
+          "duration": 30
+        }
       ]
     },
     {
@@ -335,11 +1532,26 @@
       "focus": "upper_body",
       "total_duration": 180,
       "exercises": [
-        {"exercise_id": "breathing_standing", "duration": 35},
-        {"exercise_id": "chest_stretch", "duration": 45},
-        {"exercise_id": "shoulder_stretch", "duration": 40},
-        {"exercise_id": "torso_rotation_standing", "duration": 30},
-        {"exercise_id": "child_pose", "duration": 30}
+        {
+          "exercise_id": "breathing_standing",
+          "duration": 35
+        },
+        {
+          "exercise_id": "chest_stretch",
+          "duration": 45
+        },
+        {
+          "exercise_id": "shoulder_stretch",
+          "duration": 40
+        },
+        {
+          "exercise_id": "torso_rotation_standing",
+          "duration": 30
+        },
+        {
+          "exercise_id": "child_pose",
+          "duration": 30
+        }
       ]
     },
     {
@@ -347,11 +1559,26 @@
       "focus": "lower_body",
       "total_duration": 180,
       "exercises": [
-        {"exercise_id": "breathing_standing", "duration": 40},
-        {"exercise_id": "quad_stretch", "duration": 40},
-        {"exercise_id": "hamstring_stretch", "duration": 40},
-        {"exercise_id": "calf_stretch", "duration": 30},
-        {"exercise_id": "glute_stretch", "duration": 30}
+        {
+          "exercise_id": "breathing_standing",
+          "duration": 40
+        },
+        {
+          "exercise_id": "quad_stretch",
+          "duration": 40
+        },
+        {
+          "exercise_id": "hamstring_stretch",
+          "duration": 40
+        },
+        {
+          "exercise_id": "calf_stretch",
+          "duration": 30
+        },
+        {
+          "exercise_id": "glute_stretch",
+          "duration": 30
+        }
       ]
     },
     {
@@ -359,11 +1586,26 @@
       "focus": "lower_body",
       "total_duration": 180,
       "exercises": [
-        {"exercise_id": "breathing_standing", "duration": 35},
-        {"exercise_id": "glute_stretch", "duration": 40},
-        {"exercise_id": "hamstring_stretch", "duration": 40},
-        {"exercise_id": "quad_stretch", "duration": 35},
-        {"exercise_id": "calf_stretch", "duration": 30}
+        {
+          "exercise_id": "breathing_standing",
+          "duration": 35
+        },
+        {
+          "exercise_id": "glute_stretch",
+          "duration": 40
+        },
+        {
+          "exercise_id": "hamstring_stretch",
+          "duration": 40
+        },
+        {
+          "exercise_id": "quad_stretch",
+          "duration": 35
+        },
+        {
+          "exercise_id": "calf_stretch",
+          "duration": 30
+        }
       ]
     },
     {
@@ -371,11 +1613,26 @@
       "focus": "lower_body",
       "total_duration": 180,
       "exercises": [
-        {"exercise_id": "breathing_standing", "duration": 40},
-        {"exercise_id": "quad_stretch", "duration": 45},
-        {"exercise_id": "calf_stretch", "duration": 40},
-        {"exercise_id": "glute_stretch", "duration": 35},
-        {"exercise_id": "child_pose", "duration": 20}
+        {
+          "exercise_id": "breathing_standing",
+          "duration": 40
+        },
+        {
+          "exercise_id": "quad_stretch",
+          "duration": 45
+        },
+        {
+          "exercise_id": "calf_stretch",
+          "duration": 40
+        },
+        {
+          "exercise_id": "glute_stretch",
+          "duration": 35
+        },
+        {
+          "exercise_id": "child_pose",
+          "duration": 20
+        }
       ]
     },
     {
@@ -383,11 +1640,26 @@
       "focus": "lower_body",
       "total_duration": 180,
       "exercises": [
-        {"exercise_id": "breathing_standing", "duration": 35},
-        {"exercise_id": "hamstring_stretch", "duration": 45},
-        {"exercise_id": "glute_stretch", "duration": 40},
-        {"exercise_id": "calf_stretch", "duration": 35},
-        {"exercise_id": "quad_stretch", "duration": 25}
+        {
+          "exercise_id": "breathing_standing",
+          "duration": 35
+        },
+        {
+          "exercise_id": "hamstring_stretch",
+          "duration": 45
+        },
+        {
+          "exercise_id": "glute_stretch",
+          "duration": 40
+        },
+        {
+          "exercise_id": "calf_stretch",
+          "duration": 35
+        },
+        {
+          "exercise_id": "quad_stretch",
+          "duration": 25
+        }
       ]
     },
     {
@@ -395,11 +1667,26 @@
       "focus": "core",
       "total_duration": 180,
       "exercises": [
-        {"exercise_id": "breathing_standing", "duration": 40},
-        {"exercise_id": "cobra_stretch", "duration": 40},
-        {"exercise_id": "child_pose", "duration": 40},
-        {"exercise_id": "torso_rotation_standing", "duration": 30},
-        {"exercise_id": "glute_stretch", "duration": 30}
+        {
+          "exercise_id": "breathing_standing",
+          "duration": 40
+        },
+        {
+          "exercise_id": "cobra_stretch",
+          "duration": 40
+        },
+        {
+          "exercise_id": "child_pose",
+          "duration": 40
+        },
+        {
+          "exercise_id": "torso_rotation_standing",
+          "duration": 30
+        },
+        {
+          "exercise_id": "glute_stretch",
+          "duration": 30
+        }
       ]
     },
     {
@@ -407,11 +1694,26 @@
       "focus": "core",
       "total_duration": 180,
       "exercises": [
-        {"exercise_id": "breathing_standing", "duration": 35},
-        {"exercise_id": "child_pose", "duration": 45},
-        {"exercise_id": "cobra_stretch", "duration": 40},
-        {"exercise_id": "torso_rotation_standing", "duration": 30},
-        {"exercise_id": "hamstring_stretch", "duration": 30}
+        {
+          "exercise_id": "breathing_standing",
+          "duration": 35
+        },
+        {
+          "exercise_id": "child_pose",
+          "duration": 45
+        },
+        {
+          "exercise_id": "cobra_stretch",
+          "duration": 40
+        },
+        {
+          "exercise_id": "torso_rotation_standing",
+          "duration": 30
+        },
+        {
+          "exercise_id": "hamstring_stretch",
+          "duration": 30
+        }
       ]
     },
     {
@@ -419,11 +1721,26 @@
       "focus": "core",
       "total_duration": 180,
       "exercises": [
-        {"exercise_id": "breathing_standing", "duration": 40},
-        {"exercise_id": "cobra_stretch", "duration": 45},
-        {"exercise_id": "child_pose", "duration": 40},
-        {"exercise_id": "glute_stretch", "duration": 30},
-        {"exercise_id": "chest_stretch", "duration": 25}
+        {
+          "exercise_id": "breathing_standing",
+          "duration": 40
+        },
+        {
+          "exercise_id": "cobra_stretch",
+          "duration": 45
+        },
+        {
+          "exercise_id": "child_pose",
+          "duration": 40
+        },
+        {
+          "exercise_id": "glute_stretch",
+          "duration": 30
+        },
+        {
+          "exercise_id": "chest_stretch",
+          "duration": 25
+        }
       ]
     },
     {
@@ -431,11 +1748,26 @@
       "focus": "core",
       "total_duration": 180,
       "exercises": [
-        {"exercise_id": "breathing_standing", "duration": 35},
-        {"exercise_id": "child_pose", "duration": 40},
-        {"exercise_id": "cobra_stretch", "duration": 40},
-        {"exercise_id": "torso_rotation_standing", "duration": 35},
-        {"exercise_id": "shoulder_stretch", "duration": 30}
+        {
+          "exercise_id": "breathing_standing",
+          "duration": 35
+        },
+        {
+          "exercise_id": "child_pose",
+          "duration": 40
+        },
+        {
+          "exercise_id": "cobra_stretch",
+          "duration": 40
+        },
+        {
+          "exercise_id": "torso_rotation_standing",
+          "duration": 35
+        },
+        {
+          "exercise_id": "shoulder_stretch",
+          "duration": 30
+        }
       ]
     },
     {
@@ -443,11 +1775,26 @@
       "focus": "cardio",
       "total_duration": 180,
       "exercises": [
-        {"exercise_id": "breathing_standing", "duration": 45},
-        {"exercise_id": "hamstring_stretch", "duration": 35},
-        {"exercise_id": "quad_stretch", "duration": 35},
-        {"exercise_id": "chest_stretch", "duration": 35},
-        {"exercise_id": "child_pose", "duration": 30}
+        {
+          "exercise_id": "breathing_standing",
+          "duration": 45
+        },
+        {
+          "exercise_id": "hamstring_stretch",
+          "duration": 35
+        },
+        {
+          "exercise_id": "quad_stretch",
+          "duration": 35
+        },
+        {
+          "exercise_id": "chest_stretch",
+          "duration": 35
+        },
+        {
+          "exercise_id": "child_pose",
+          "duration": 30
+        }
       ]
     },
     {
@@ -455,11 +1802,26 @@
       "focus": "cardio",
       "total_duration": 180,
       "exercises": [
-        {"exercise_id": "breathing_standing", "duration": 45},
-        {"exercise_id": "glute_stretch", "duration": 35},
-        {"exercise_id": "calf_stretch", "duration": 35},
-        {"exercise_id": "shoulder_stretch", "duration": 35},
-        {"exercise_id": "cobra_stretch", "duration": 30}
+        {
+          "exercise_id": "breathing_standing",
+          "duration": 45
+        },
+        {
+          "exercise_id": "glute_stretch",
+          "duration": 35
+        },
+        {
+          "exercise_id": "calf_stretch",
+          "duration": 35
+        },
+        {
+          "exercise_id": "shoulder_stretch",
+          "duration": 35
+        },
+        {
+          "exercise_id": "cobra_stretch",
+          "duration": 30
+        }
       ]
     },
     {
@@ -467,11 +1829,26 @@
       "focus": "cardio",
       "total_duration": 180,
       "exercises": [
-        {"exercise_id": "breathing_standing", "duration": 40},
-        {"exercise_id": "quad_stretch", "duration": 40},
-        {"exercise_id": "hamstring_stretch", "duration": 35},
-        {"exercise_id": "chest_stretch", "duration": 35},
-        {"exercise_id": "child_pose", "duration": 30}
+        {
+          "exercise_id": "breathing_standing",
+          "duration": 40
+        },
+        {
+          "exercise_id": "quad_stretch",
+          "duration": 40
+        },
+        {
+          "exercise_id": "hamstring_stretch",
+          "duration": 35
+        },
+        {
+          "exercise_id": "chest_stretch",
+          "duration": 35
+        },
+        {
+          "exercise_id": "child_pose",
+          "duration": 30
+        }
       ]
     },
     {
@@ -479,11 +1856,762 @@
       "focus": "cardio",
       "total_duration": 180,
       "exercises": [
-        {"exercise_id": "breathing_standing", "duration": 45},
-        {"exercise_id": "calf_stretch", "duration": 35},
-        {"exercise_id": "glute_stretch", "duration": 35},
-        {"exercise_id": "shoulder_stretch", "duration": 35},
-        {"exercise_id": "cobra_stretch", "duration": 30}
+        {
+          "exercise_id": "breathing_standing",
+          "duration": 45
+        },
+        {
+          "exercise_id": "calf_stretch",
+          "duration": 35
+        },
+        {
+          "exercise_id": "glute_stretch",
+          "duration": 35
+        },
+        {
+          "exercise_id": "shoulder_stretch",
+          "duration": 35
+        },
+        {
+          "exercise_id": "cobra_stretch",
+          "duration": 30
+        }
+      ]
+    },
+    {
+      "id": "CD_P2_01",
+      "focus": "full_body",
+      "total_duration": 120,
+      "exercises": [
+        {
+          "exercise_id": "hip_flexor_stretch",
+          "duration": 30
+        },
+        {
+          "exercise_id": "push_up_knees_downdog",
+          "duration": 30
+        },
+        {
+          "exercise_id": "cat_cow_stretch",
+          "duration": 30
+        },
+        {
+          "exercise_id": "child_pose",
+          "duration": 30
+        }
+      ]
+    },
+    {
+      "id": "CD_P2_02",
+      "focus": "arms_chest",
+      "total_duration": 200,
+      "exercises": [
+        {
+          "exercise_id": "hamstring_seated_stretch",
+          "duration": 40
+        },
+        {
+          "exercise_id": "lower_back_seated_left",
+          "duration": 40
+        },
+        {
+          "exercise_id": "lower_back_seated_right",
+          "duration": 40
+        },
+        {
+          "exercise_id": "cat_cow_stretch",
+          "duration": 40
+        },
+        {
+          "exercise_id": "push_up_knees_downdog",
+          "duration": 40
+        }
+      ]
+    },
+    {
+      "id": "CD_P2_03",
+      "focus": "chest",
+      "total_duration": 160,
+      "exercises": [
+        {
+          "exercise_id": "lat_stretch_overhead",
+          "duration": 40
+        },
+        {
+          "exercise_id": "push_up_knees_downdog",
+          "duration": 40
+        },
+        {
+          "exercise_id": "child_pose",
+          "duration": 40
+        },
+        {
+          "exercise_id": "cat_cow_stretch",
+          "duration": 40
+        }
+      ]
+    },
+    {
+      "id": "CD_P2_04",
+      "focus": "full_body",
+      "total_duration": 180,
+      "exercises": [
+        {
+          "exercise_id": "spinal_twist_left",
+          "duration": 30
+        },
+        {
+          "exercise_id": "spinal_twist_right",
+          "duration": 30
+        },
+        {
+          "exercise_id": "cat_cow_stretch",
+          "duration": 30
+        },
+        {
+          "exercise_id": "lat_stretch_overhead",
+          "duration": 30
+        },
+        {
+          "exercise_id": "lower_back_seated_left",
+          "duration": 30
+        },
+        {
+          "exercise_id": "lower_back_seated_right",
+          "duration": 30
+        }
+      ]
+    },
+    {
+      "id": "CD_P2_05",
+      "focus": "glutes_belly",
+      "total_duration": 150,
+      "exercises": [
+        {
+          "exercise_id": "cobra_stretch",
+          "duration": 30
+        },
+        {
+          "exercise_id": "push_up_knees_downdog",
+          "duration": 30
+        },
+        {
+          "exercise_id": "cat_cow_stretch",
+          "duration": 30
+        },
+        {
+          "exercise_id": "child_pose",
+          "duration": 30
+        },
+        {
+          "exercise_id": "hip_flexor_stretch",
+          "duration": 30
+        }
+      ]
+    },
+    {
+      "id": "CD_P2_06",
+      "focus": "glutes",
+      "total_duration": 120,
+      "exercises": [
+        {
+          "exercise_id": "figure_4_stretch_right",
+          "duration": 30
+        },
+        {
+          "exercise_id": "figure_4_stretch_left",
+          "duration": 30
+        },
+        {
+          "exercise_id": "knees_to_chest_stretch",
+          "duration": 30
+        },
+        {
+          "exercise_id": "hamstring_seated_stretch",
+          "duration": 30
+        }
+      ]
+    },
+    {
+      "id": "CD_P2_07",
+      "focus": "belly",
+      "total_duration": 120,
+      "exercises": [
+        {
+          "exercise_id": "push_up_knees_downdog",
+          "duration": 30
+        },
+        {
+          "exercise_id": "cat_cow_stretch",
+          "duration": 30
+        },
+        {
+          "exercise_id": "child_pose",
+          "duration": 30
+        },
+        {
+          "exercise_id": "knees_to_chest_stretch",
+          "duration": 30
+        }
+      ]
+    },
+    {
+      "id": "CD_P2_08",
+      "focus": "legs_belly",
+      "total_duration": 150,
+      "exercises": [
+        {
+          "exercise_id": "child_pose",
+          "duration": 30
+        },
+        {
+          "exercise_id": "lizard_lunge_right",
+          "duration": 30
+        },
+        {
+          "exercise_id": "lizard_lunge_left",
+          "duration": 30
+        },
+        {
+          "exercise_id": "hamstring_seated_stretch",
+          "duration": 30
+        },
+        {
+          "exercise_id": "knees_to_chest_stretch",
+          "duration": 30
+        }
+      ]
+    },
+    {
+      "id": "CD_P2_09",
+      "focus": "arms_belly",
+      "total_duration": 150,
+      "exercises": [
+        {
+          "exercise_id": "figure_4_stretch_right",
+          "duration": 30
+        },
+        {
+          "exercise_id": "figure_4_stretch_left",
+          "duration": 30
+        },
+        {
+          "exercise_id": "butterfly_seated",
+          "duration": 30
+        },
+        {
+          "exercise_id": "push_up_knees_downdog",
+          "duration": 30
+        },
+        {
+          "exercise_id": "cat_cow_stretch",
+          "duration": 30
+        }
+      ]
+    },
+    {
+      "id": "CD_P2_10",
+      "focus": "legs",
+      "total_duration": 150,
+      "exercises": [
+        {
+          "exercise_id": "push_up_knees_downdog",
+          "duration": 30
+        },
+        {
+          "exercise_id": "lizard_lunge_right",
+          "duration": 30
+        },
+        {
+          "exercise_id": "lizard_lunge_left",
+          "duration": 30
+        },
+        {
+          "exercise_id": "hamstring_seated_stretch",
+          "duration": 30
+        },
+        {
+          "exercise_id": "knees_to_chest_stretch",
+          "duration": 30
+        }
+      ]
+    },
+    {
+      "id": "CD_P2_11",
+      "focus": "full_body",
+      "total_duration": 160,
+      "exercises": [
+        {
+          "exercise_id": "push_up_knees_downdog",
+          "duration": 40
+        },
+        {
+          "exercise_id": "cat_cow_stretch",
+          "duration": 40
+        },
+        {
+          "exercise_id": "child_pose",
+          "duration": 40
+        },
+        {
+          "exercise_id": "squat_thoracic_rotation_deep",
+          "duration": 40
+        }
+      ]
+    },
+    {
+      "id": "CD_P2_12",
+      "focus": "back_belly",
+      "total_duration": 160,
+      "exercises": [
+        {
+          "exercise_id": "spinal_twist_left",
+          "duration": 40
+        },
+        {
+          "exercise_id": "spinal_twist_right",
+          "duration": 40
+        },
+        {
+          "exercise_id": "lat_stretch_overhead",
+          "duration": 40
+        },
+        {
+          "exercise_id": "cat_cow_stretch",
+          "duration": 40
+        }
+      ]
+    },
+    {
+      "id": "CD_P2_13",
+      "focus": "arms_belly",
+      "total_duration": 175,
+      "exercises": [
+        {
+          "exercise_id": "child_pose",
+          "duration": 35
+        },
+        {
+          "exercise_id": "cat_cow_stretch",
+          "duration": 35
+        },
+        {
+          "exercise_id": "push_up_knees_downdog",
+          "duration": 35
+        },
+        {
+          "exercise_id": "lunge_thoracic_rotation_right",
+          "duration": 35
+        },
+        {
+          "exercise_id": "lunge_thoracic_rotation_left",
+          "duration": 35
+        }
+      ]
+    },
+    {
+      "id": "CD_P2_14",
+      "focus": "full_body",
+      "total_duration": 150,
+      "exercises": [
+        {
+          "exercise_id": "spinal_twist_left",
+          "duration": 30
+        },
+        {
+          "exercise_id": "spinal_twist_right",
+          "duration": 30
+        },
+        {
+          "exercise_id": "knees_to_chest_stretch",
+          "duration": 30
+        },
+        {
+          "exercise_id": "hamstring_seated_stretch",
+          "duration": 30
+        },
+        {
+          "exercise_id": "cat_cow_stretch",
+          "duration": 30
+        }
+      ]
+    },
+    {
+      "id": "CD_P2_15",
+      "focus": "glutes",
+      "total_duration": 210,
+      "exercises": [
+        {
+          "exercise_id": "figure_4_stretch_right",
+          "duration": 30
+        },
+        {
+          "exercise_id": "figure_4_stretch_left",
+          "duration": 30
+        },
+        {
+          "exercise_id": "knees_to_chest_stretch",
+          "duration": 30
+        },
+        {
+          "exercise_id": "push_up_knees_downdog",
+          "duration": 40
+        },
+        {
+          "exercise_id": "cat_cow_stretch",
+          "duration": 40
+        },
+        {
+          "exercise_id": "child_pose",
+          "duration": 40
+        }
+      ]
+    },
+    {
+      "id": "CD_P2_16",
+      "focus": "legs_glutes",
+      "total_duration": 150,
+      "exercises": [
+        {
+          "exercise_id": "figure_4_stretch_right",
+          "duration": 30
+        },
+        {
+          "exercise_id": "figure_4_stretch_left",
+          "duration": 30
+        },
+        {
+          "exercise_id": "knees_to_chest_stretch",
+          "duration": 30
+        },
+        {
+          "exercise_id": "hamstring_seated_stretch",
+          "duration": 30
+        },
+        {
+          "exercise_id": "cat_cow_stretch",
+          "duration": 30
+        }
+      ]
+    },
+    {
+      "id": "CD_P2_17",
+      "focus": "belly_chest",
+      "total_duration": 160,
+      "exercises": [
+        {
+          "exercise_id": "lower_back_seated_left",
+          "duration": 40
+        },
+        {
+          "exercise_id": "lower_back_seated_right",
+          "duration": 40
+        },
+        {
+          "exercise_id": "lat_stretch_overhead",
+          "duration": 40
+        },
+        {
+          "exercise_id": "cat_cow_stretch",
+          "duration": 40
+        }
+      ]
+    },
+    {
+      "id": "CD_P2_18",
+      "focus": "belly",
+      "total_duration": 180,
+      "exercises": [
+        {
+          "exercise_id": "push_up_knees_downdog",
+          "duration": 30
+        },
+        {
+          "exercise_id": "cat_cow_stretch",
+          "duration": 30
+        },
+        {
+          "exercise_id": "child_pose",
+          "duration": 30
+        },
+        {
+          "exercise_id": "hamstring_seated_stretch",
+          "duration": 30
+        },
+        {
+          "exercise_id": "lower_back_seated_left",
+          "duration": 30
+        },
+        {
+          "exercise_id": "lower_back_seated_right",
+          "duration": 30
+        }
+      ]
+    },
+    {
+      "id": "CD_P2_19",
+      "focus": "chest_belly",
+      "total_duration": 180,
+      "exercises": [
+        {
+          "exercise_id": "knees_to_chest_stretch",
+          "duration": 30
+        },
+        {
+          "exercise_id": "figure_4_stretch_right",
+          "duration": 30
+        },
+        {
+          "exercise_id": "figure_4_stretch_left",
+          "duration": 30
+        },
+        {
+          "exercise_id": "hamstring_seated_stretch",
+          "duration": 30
+        },
+        {
+          "exercise_id": "lower_back_seated_left",
+          "duration": 30
+        },
+        {
+          "exercise_id": "lower_back_seated_right",
+          "duration": 30
+        }
+      ]
+    },
+    {
+      "id": "CD_P2_20",
+      "focus": "belly_back",
+      "total_duration": 150,
+      "exercises": [
+        {
+          "exercise_id": "figure_4_stretch_right",
+          "duration": 30
+        },
+        {
+          "exercise_id": "figure_4_stretch_left",
+          "duration": 30
+        },
+        {
+          "exercise_id": "push_up_knees_downdog",
+          "duration": 30
+        },
+        {
+          "exercise_id": "cat_cow_stretch",
+          "duration": 30
+        },
+        {
+          "exercise_id": "lat_stretch_overhead",
+          "duration": 30
+        }
+      ]
+    },
+    {
+      "id": "CD_P2_21",
+      "focus": "full_body",
+      "total_duration": 150,
+      "exercises": [
+        {
+          "exercise_id": "cobra_stretch",
+          "duration": 30
+        },
+        {
+          "exercise_id": "knees_to_chest_stretch",
+          "duration": 30
+        },
+        {
+          "exercise_id": "lat_stretch_overhead",
+          "duration": 30
+        },
+        {
+          "exercise_id": "child_pose",
+          "duration": 30
+        },
+        {
+          "exercise_id": "push_up_knees_downdog",
+          "duration": 30
+        }
+      ]
+    },
+    {
+      "id": "CD_P2_22",
+      "focus": "arms_belly",
+      "total_duration": 120,
+      "exercises": [
+        {
+          "exercise_id": "knees_to_chest_stretch",
+          "duration": 30
+        },
+        {
+          "exercise_id": "push_up_knees_downdog",
+          "duration": 30
+        },
+        {
+          "exercise_id": "cat_cow_stretch",
+          "duration": 30
+        },
+        {
+          "exercise_id": "child_pose",
+          "duration": 30
+        }
+      ]
+    },
+    {
+      "id": "CD_P2_23",
+      "focus": "full_body",
+      "total_duration": 120,
+      "exercises": [
+        {
+          "exercise_id": "cat_cow_stretch",
+          "duration": 30
+        },
+        {
+          "exercise_id": "lat_stretch_overhead",
+          "duration": 30
+        },
+        {
+          "exercise_id": "lower_back_seated_left",
+          "duration": 30
+        },
+        {
+          "exercise_id": "lower_back_seated_right",
+          "duration": 30
+        }
+      ]
+    },
+    {
+      "id": "CD_P2_24",
+      "focus": "glutes_legs",
+      "total_duration": 150,
+      "exercises": [
+        {
+          "exercise_id": "knees_to_chest_stretch",
+          "duration": 30
+        },
+        {
+          "exercise_id": "cat_cow_stretch",
+          "duration": 30
+        },
+        {
+          "exercise_id": "child_pose",
+          "duration": 30
+        },
+        {
+          "exercise_id": "push_up_knees_downdog",
+          "duration": 30
+        },
+        {
+          "exercise_id": "hamstring_seated_stretch",
+          "duration": 30
+        }
+      ]
+    },
+    {
+      "id": "CD_P2_25",
+      "focus": "chest_back",
+      "total_duration": 150,
+      "exercises": [
+        {
+          "exercise_id": "knees_to_chest_stretch",
+          "duration": 30
+        },
+        {
+          "exercise_id": "lower_back_seated_left",
+          "duration": 30
+        },
+        {
+          "exercise_id": "lower_back_seated_right",
+          "duration": 30
+        },
+        {
+          "exercise_id": "lat_stretch_overhead",
+          "duration": 30
+        },
+        {
+          "exercise_id": "cat_cow_stretch",
+          "duration": 30
+        }
+      ]
+    },
+    {
+      "id": "CD_P2_26",
+      "focus": "full_body",
+      "total_duration": 150,
+      "exercises": [
+        {
+          "exercise_id": "knees_to_chest_stretch",
+          "duration": 30
+        },
+        {
+          "exercise_id": "cobra_stretch",
+          "duration": 30
+        },
+        {
+          "exercise_id": "push_up_knees_downdog",
+          "duration": 30
+        },
+        {
+          "exercise_id": "cat_cow_stretch",
+          "duration": 30
+        },
+        {
+          "exercise_id": "child_pose",
+          "duration": 30
+        }
+      ]
+    },
+    {
+      "id": "CD_P2_27",
+      "focus": "belly_arms",
+      "total_duration": 150,
+      "exercises": [
+        {
+          "exercise_id": "cobra_stretch",
+          "duration": 30
+        },
+        {
+          "exercise_id": "lower_back_seated_left",
+          "duration": 30
+        },
+        {
+          "exercise_id": "lower_back_seated_right",
+          "duration": 30
+        },
+        {
+          "exercise_id": "pigeon_pose_right",
+          "duration": 30
+        },
+        {
+          "exercise_id": "pigeon_pose_left",
+          "duration": 30
+        }
+      ]
+    },
+    {
+      "id": "CD_P2_28",
+      "focus": "legs_glutes",
+      "total_duration": 150,
+      "exercises": [
+        {
+          "exercise_id": "spinal_twist_left",
+          "duration": 30
+        },
+        {
+          "exercise_id": "spinal_twist_right",
+          "duration": 30
+        },
+        {
+          "exercise_id": "knees_to_chest_stretch",
+          "duration": 30
+        },
+        {
+          "exercise_id": "hamstring_seated_stretch",
+          "duration": 30
+        },
+        {
+          "exercise_id": "cat_cow_stretch",
+          "duration": 30
+        }
       ]
     }
   ]

@@ -1,0 +1,300 @@
+{
+  "programs": [
+    {
+      "id": "soft_couch_to_run",
+      "name": "Da Camminata a Corsa",
+      "description": "12 settimane da camminata a corsa",
+      "difficulty": "Principiante",
+      "totalWeeks": 12,
+      "icon": "🚶‍♂️",
+      "phases": [
+        {
+          "name": "Risveglio",
+          "weeks": [1, 2, 3, 4],
+          "description": "Costruisci le basi con la camminata"
+        },
+        {
+          "name": "Prime Corse",
+          "weeks": [5, 6, 7, 8],
+          "description": "Introduci brevi intervalli di corsa"
+        },
+        {
+          "name": "Costruire Resistenza",
+          "weeks": [9, 10, 11, 12],
+          "description": "Aumenta progressivamente la corsa"
+        }
+      ],
+      "weeks": [
+        {
+          "week": 1,
+          "sessionsPerWeek": 3,
+          "totalDuration": 20,
+          "session": {
+            "segments": [
+              { "activity": "Camminata lenta", "speed": 4, "duration": 300 },
+              { "activity": "Camminata normale", "speed": 4.5, "duration": 600 },
+              { "activity": "Camminata lenta", "speed": 4, "duration": 300 }
+            ]
+          }
+        },
+        {
+          "week": 2,
+          "sessionsPerWeek": 3,
+          "totalDuration": 25,
+          "session": {
+            "segments": [
+              { "activity": "Camminata lenta", "speed": 4, "duration": 300 },
+              { "activity": "Camminata normale", "speed": 5, "duration": 900 },
+              { "activity": "Camminata lenta", "speed": 4, "duration": 300 }
+            ]
+          }
+        },
+        {
+          "week": 3,
+          "sessionsPerWeek": 4,
+          "totalDuration": 25,
+          "session": {
+            "segments": [
+              { "activity": "Camminata", "speed": 4.5, "duration": 300 },
+              { "activity": "Camminata sostenuta", "speed": 5.5, "duration": 900 },
+              { "activity": "Camminata lenta", "speed": 4, "duration": 300 }
+            ]
+          }
+        },
+        {
+          "week": 4,
+          "sessionsPerWeek": 4,
+          "totalDuration": 30,
+          "session": {
+            "segments": [
+              { "activity": "Camminata", "speed": 4.5, "duration": 300 },
+              { "activity": "Camminata sostenuta", "speed": 5.5, "duration": 1200 },
+              { "activity": "Camminata lenta", "speed": 4, "duration": 300 }
+            ]
+          }
+        },
+        {
+          "week": 5,
+          "sessionsPerWeek": 4,
+          "totalDuration": 30,
+          "session": {
+            "segments": [
+              { "activity": "Riscaldamento", "speed": 5, "duration": 300 },
+              { "activity": "Camminata", "speed": 5.5, "duration": 240 },
+              { "activity": "Corsa leggera", "speed": 6.5, "duration": 30 },
+              { "activity": "Camminata", "speed": 5.5, "duration": 240 },
+              { "activity": "Corsa leggera", "speed": 6.5, "duration": 30 },
+              { "activity": "Camminata", "speed": 5.5, "duration": 240 },
+              { "activity": "Corsa leggera", "speed": 6.5, "duration": 30 },
+              { "activity": "Camminata", "speed": 5.5, "duration": 240 },
+              { "activity": "Corsa leggera", "speed": 6.5, "duration": 30 },
+              { "activity": "Defaticamento", "speed": 4, "duration": 300 }
+            ]
+          }
+        },
+        {
+          "week": 6,
+          "sessionsPerWeek": 4,
+          "totalDuration": 30,
+          "session": {
+            "segments": [
+              { "activity": "Riscaldamento", "speed": 5, "duration": 300 },
+              { "activity": "Camminata", "speed": 5.5, "duration": 180 },
+              { "activity": "Corsa leggera", "speed": 7, "duration": 60 },
+              { "activity": "Camminata", "speed": 5.5, "duration": 180 },
+              { "activity": "Corsa leggera", "speed": 7, "duration": 60 },
+              { "activity": "Camminata", "speed": 5.5, "duration": 180 },
+              { "activity": "Corsa leggera", "speed": 7, "duration": 60 },
+              { "activity": "Camminata", "speed": 5.5, "duration": 180 },
+              { "activity": "Corsa leggera", "speed": 7, "duration": 60 },
+              { "activity": "Camminata", "speed": 5.5, "duration": 180 },
+              { "activity": "Corsa leggera", "speed": 7, "duration": 60 },
+              { "activity": "Defaticamento", "speed": 4, "duration": 300 }
+            ]
+          }
+        },
+        {
+          "week": 7,
+          "sessionsPerWeek": 4,
+          "totalDuration": 32,
+          "session": {
+            "segments": [
+              { "activity": "Riscaldamento", "speed": 5, "duration": 300 },
+              { "activity": "Camminata", "speed": 5.5, "duration": 180 },
+              { "activity": "Corsa", "speed": 7, "duration": 90 },
+              { "activity": "Camminata", "speed": 5.5, "duration": 180 },
+              { "activity": "Corsa", "speed": 7, "duration": 90 },
+              { "activity": "Camminata", "speed": 5.5, "duration": 180 },
+              { "activity": "Corsa", "speed": 7, "duration": 90 },
+              { "activity": "Camminata", "speed": 5.5, "duration": 180 },
+              { "activity": "Corsa", "speed": 7, "duration": 90 },
+              { "activity": "Camminata", "speed": 5.5, "duration": 180 },
+              { "activity": "Corsa", "speed": 7, "duration": 90 },
+              { "activity": "Defaticamento", "speed": 4, "duration": 300 }
+            ]
+          }
+        },
+        {
+          "week": 8,
+          "sessionsPerWeek": 4,
+          "totalDuration": 35,
+          "session": {
+            "segments": [
+              { "activity": "Riscaldamento", "speed": 5, "duration": 300 },
+              { "activity": "Camminata", "speed": 5.5, "duration": 180 },
+              { "activity": "Corsa", "speed": 7, "duration": 120 },
+              { "activity": "Camminata", "speed": 5.5, "duration": 180 },
+              { "activity": "Corsa", "speed": 7, "duration": 120 },
+              { "activity": "Camminata", "speed": 5.5, "duration": 180 },
+              { "activity": "Corsa", "speed": 7, "duration": 120 },
+              { "activity": "Camminata", "speed": 5.5, "duration": 180 },
+              { "activity": "Corsa", "speed": 7, "duration": 120 },
+              { "activity": "Camminata", "speed": 5.5, "duration": 180 },
+              { "activity": "Corsa", "speed": 7, "duration": 120 },
+              { "activity": "Defaticamento", "speed": 4, "duration": 360 }
+            ]
+          }
+        },
+        {
+          "week": 9,
+          "sessionsPerWeek": 4,
+          "totalDuration": 35,
+          "session": {
+            "segments": [
+              { "activity": "Riscaldamento", "speed": 5, "duration": 300 },
+              { "activity": "Camminata", "speed": 5.5, "duration": 120 },
+              { "activity": "Corsa", "speed": 7.5, "duration": 180 },
+              { "activity": "Camminata", "speed": 5.5, "duration": 120 },
+              { "activity": "Corsa", "speed": 7.5, "duration": 180 },
+              { "activity": "Camminata", "speed": 5.5, "duration": 120 },
+              { "activity": "Corsa", "speed": 7.5, "duration": 180 },
+              { "activity": "Camminata", "speed": 5.5, "duration": 120 },
+              { "activity": "Corsa", "speed": 7.5, "duration": 180 },
+              { "activity": "Camminata", "speed": 5.5, "duration": 120 },
+              { "activity": "Corsa", "speed": 7.5, "duration": 180 },
+              { "activity": "Defaticamento", "speed": 4, "duration": 360 }
+            ]
+          }
+        },
+        {
+          "week": 10,
+          "sessionsPerWeek": 4,
+          "totalDuration": 38,
+          "session": {
+            "segments": [
+              { "activity": "Riscaldamento", "speed": 5, "duration": 300 },
+              { "activity": "Camminata", "speed": 5.5, "duration": 120 },
+              { "activity": "Corsa", "speed": 7.5, "duration": 240 },
+              { "activity": "Camminata", "speed": 5.5, "duration": 120 },
+              { "activity": "Corsa", "speed": 7.5, "duration": 240 },
+              { "activity": "Camminata", "speed": 5.5, "duration": 120 },
+              { "activity": "Corsa", "speed": 7.5, "duration": 240 },
+              { "activity": "Camminata", "speed": 5.5, "duration": 120 },
+              { "activity": "Corsa", "speed": 7.5, "duration": 240 },
+              { "activity": "Corsa", "speed": 7.5, "duration": 180 },
+              { "activity": "Defaticamento", "speed": 4, "duration": 360 }
+            ]
+          }
+        },
+        {
+          "week": 11,
+          "sessionsPerWeek": 4,
+          "totalDuration": 40,
+          "session": {
+            "segments": [
+              { "activity": "Riscaldamento", "speed": 5, "duration": 300 },
+              { "activity": "Camminata", "speed": 5.5, "duration": 120 },
+              { "activity": "Corsa", "speed": 7.5, "duration": 300 },
+              { "activity": "Camminata", "speed": 5.5, "duration": 120 },
+              { "activity": "Corsa", "speed": 7.5, "duration": 300 },
+              { "activity": "Camminata", "speed": 5.5, "duration": 120 },
+              { "activity": "Corsa", "speed": 7.5, "duration": 300 },
+              { "activity": "Camminata", "speed": 5.5, "duration": 120 },
+              { "activity": "Corsa", "speed": 7.5, "duration": 300 },
+              { "activity": "Defaticamento", "speed": 4, "duration": 420 }
+            ]
+          }
+        },
+        {
+          "week": 12,
+          "sessionsPerWeek": 4,
+          "totalDuration": 40,
+          "session": {
+            "segments": [
+              { "activity": "Riscaldamento", "speed": 5, "duration": 300 },
+              { "activity": "Corsa", "speed": 7.5, "duration": 480 },
+              { "activity": "Camminata recupero", "speed": 5.5, "duration": 120 },
+              { "activity": "Corsa", "speed": 7.5, "duration": 600 },
+              { "activity": "Camminata recupero", "speed": 5.5, "duration": 120 },
+              { "activity": "Corsa", "speed": 7.5, "duration": 480 },
+              { "activity": "Defaticamento", "speed": 4, "duration": 300 }
+            ]
+          }
+        }
+      ],
+      "speedLegend": [
+        { "level": "Passeggiata", "speed": 4, "feeling": "Molto rilassato" },
+        { "level": "Camminata normale", "speed": 5, "feeling": "Tranquillo, parli facilmente" },
+        { "level": "Camminata sostenuta", "speed": 5.5, "feeling": "Leggermente impegnato" },
+        { "level": "Corsa leggera", "speed": 7, "feeling": "Respiro frequente ma gestibile" }
+      ]
+    } ,
+    {
+      "id": "soft_couch_to_run_2",
+      "name": "Prova",
+      "description": "desc corsa",
+      "difficulty": "Principiante",
+      "totalWeeks": 3,
+      "icon": "🚶‍♂️",
+      "phases": [
+        {
+          "name": "fase test",
+          "weeks": [1, 2, 3],
+          "description": "Costruisci le basi con la camminata"
+        }
+      ],
+      "weeks": [
+        {
+          "week": 1,
+          "sessionsPerWeek": 3,
+          "totalDuration": 20,
+          "session": {
+            "segments": [
+              { "activity": "Camminata lenta", "speed": 4, "duration": 300 },
+              { "activity": "Camminata normale", "speed": 4.5, "duration": 600 },
+              { "activity": "Camminata lenta", "speed": 4, "duration": 300 }
+            ]
+          }
+        },
+        {
+          "week": 2,
+          "sessionsPerWeek": 3,
+          "totalDuration": 25,
+          "session": {
+            "segments": [
+              { "activity": "Camminata lenta", "speed": 4, "duration": 300 },
+              { "activity": "Camminata normale", "speed": 5, "duration": 900 },
+              { "activity": "Camminata lenta", "speed": 4, "duration": 300 }
+            ]
+          }
+        },
+        {
+          "week": 3,
+          "sessionsPerWeek": 4,
+          "totalDuration": 25,
+          "session": {
+            "segments": [
+              { "activity": "Camminata", "speed": 4.5, "duration": 300 },
+              { "activity": "Camminata sostenuta", "speed": 5.5, "duration": 900 },
+              { "activity": "Camminata lenta", "speed": 4, "duration": 300 }
+            ]
+          }
+        }
+      ],
+      "speedLegend": [
+        { "level": "Passeddggiata", "speed": 4, "feeling": "Molto rilassato" },
+        { "level": "Camminaddta normale", "speed": 5, "feeling": "Tranquillo, parli facilmente" } 
+      ]
+    }	
+  ]
+}

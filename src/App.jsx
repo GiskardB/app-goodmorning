@@ -15,7 +15,13 @@ import {
   getUserProfile,
   getTrainingStats,
   getSetting,
-  setSetting
+  setSetting,
+  getCurrentPhase,
+  setCurrentPhase,
+  getCompletedPhases,
+  markPhaseCompleted,
+  getCompletedDaysForPhase,
+  saveSession
 } from './db';
 import audioManager from './audio/AudioManager';
 import { TrainingProvider, useTraining } from './context/TrainingContext';
@@ -260,8 +266,27 @@ function AppContent() {
   const [restTimer, setRestTimer] = useState(30);
   const [midWorkoutRestTaken, setMidWorkoutRestTaken] = useState(false);
 
+  // Phase system state
+  const [phases, setPhases] = useState([]);           // Available phases [{number: 1, fileName: '...'}]
+  const [currentPhaseNumber, setCurrentPhaseNumber] = useState(1);  // Active phase
+  const [completedPhases, setCompletedPhasesState] = useState([]); // Completed phases [1, 2, ...]
+  const [showPhaseModal, setShowPhaseModal] = useState(false); // Phase completion modal
+  const [showPhaseSelector, setShowPhaseSelector] = useState(false); // Phase selection modal
+
   // Exit confirmation modal
   const [showExitConfirm, setShowExitConfirm] = useState(false);
+
+  // Treadmill state
+  const [treadmillPrograms, setTreadmillPrograms] = useState([]);
+  const [selectedTreadmillProgram, setSelectedTreadmillProgram] = useState(null);
+  const [selectedTreadmillWeek, setSelectedTreadmillWeek] = useState(1);
+  const [treadmillActive, setTreadmillActive] = useState(false);
+  const [treadmillPaused, setTreadmillPaused] = useState(false);
+  const [treadmillSegmentIndex, setTreadmillSegmentIndex] = useState(0);
+  const [treadmillSegmentTimer, setTreadmillSegmentTimer] = useState(0);
+  const [treadmillTotalElapsed, setTreadmillTotalElapsed] = useState(0);
+  const [treadmillCalories, setTreadmillCalories] = useState(0);
+  const [showTreadmillProgramSelector, setShowTreadmillProgramSelector] = useState(false);
 
   // PWA Install prompt
   const [installPrompt, setInstallPrompt] = useState(null);
@@ -275,11 +300,80 @@ function AppContent() {
 
   // Wake Lock to prevent screen from turning off
   const wakeLockRef = useRef(null);
+  const timelineRef = useRef(null);
+  const exercisesListRef = useRef(null);
+  const exercisesScrollPosition = useRef(0);
 
   const prepStartedRef = useRef(false);
   const workoutStartedRef = useRef(false);
   const elapsedIntervalRef = useRef(null);
   const elapsedTimeRef = useRef(0);
+
+  // Detect available phases from public folder
+  async function detectAvailablePhases(basePath) {
+    const detectedPhases = [];
+    let phaseNumber = 1;
+
+    while (phaseNumber <= 10) { // Max 10 phases
+      const fileName = `workouts-phase${phaseNumber}.json`;
+      try {
+        const response = await fetch(`${basePath}${fileName}`);
+        if (response.ok) {
+          // Verify it's actually valid JSON with expected structure
+          const data = await response.json();
+          if (data && data.days && Array.isArray(data.days)) {
+            detectedPhases.push({ number: phaseNumber, fileName });
+            phaseNumber++;
+          } else {
+            break;
+          }
+        } else {
+          break;
+        }
+      } catch {
+        break;
+      }
+    }
+    return detectedPhases;
+  }
+
+  // Calculate performance status for a completed day
+  // Returns: 'excellent' | 'good' | 'below' | null
+  function calculateDayPerformance(day, workoutHistoryData, workoutsData) {
+    // Find the session for this day
+    const session = workoutHistoryData.find(s => s.day === day);
+    if (!session) return null;
+
+    // Find the planned workout
+    const planned = workoutsData.find(w => w.day === day);
+    if (!planned || !planned.exercises) return null;
+
+    const exerciseDetails = session.exerciseDetails || {};
+    const workoutExercises = exerciseDetails.workout || [];
+    const plannedExercises = planned.exercises || [];
+
+    if (plannedExercises.length === 0) return null;
+
+    // Calculate comparison
+    const plannedTotalTime = plannedExercises.reduce((sum, ex) => sum + (ex.duration || 0), 0);
+    const actualTotalTime = workoutExercises.reduce((sum, ex) => sum + (ex.duration || 0), 0);
+    const timeDifference = plannedTotalTime > 0 ? ((actualTotalTime - plannedTotalTime) / plannedTotalTime) * 100 : 0;
+
+    // Count skipped exercises
+    const skippedCount = plannedExercises.filter(
+      p => !workoutExercises.find(ex => ex.name === p.name)
+    ).length;
+    const skippedPercent = (skippedCount / plannedExercises.length) * 100;
+
+    // Determine performance level
+    if (timeDifference >= 5 && skippedPercent < 10) {
+      return 'excellent'; // Did more than planned
+    } else if (timeDifference >= -10 && skippedPercent < 20) {
+      return 'good'; // Normal completion
+    } else {
+      return 'below'; // Significantly less or many skipped
+    }
+  }
 
   // Initialize IndexedDB, load data, and setup audio
   useEffect(() => {
@@ -289,7 +383,7 @@ function AppContent() {
         await initDB();
         setDbReady(true);
 
-        // Initialize Audio Manager
+        // Initialize Audio Manager (loads music playlist dynamically from /public/music/)
         audioManager.init(import.meta.env.BASE_URL);
 
         // Load exercises.json
@@ -311,9 +405,22 @@ function AppContent() {
         });
         setExercises(mergedExercises);
 
-        // Load workouts.json
-        const workoutsRes = await fetch(`${import.meta.env.BASE_URL}workouts.json`);
-        if (!workoutsRes.ok) throw new Error('Errore caricamento workouts.json');
+        // Detect available phases
+        const availablePhases = await detectAvailablePhases(import.meta.env.BASE_URL);
+        setPhases(availablePhases);
+
+        // Load current phase from DB
+        const savedPhase = await getCurrentPhase();
+        setCurrentPhaseNumber(savedPhase);
+
+        // Load completed phases
+        const completedPhasesList = await getCompletedPhases();
+        setCompletedPhasesState(completedPhasesList);
+
+        // Load workouts for current phase
+        const phaseFile = availablePhases.find(p => p.number === savedPhase)?.fileName || 'workouts-phase1.json';
+        const workoutsRes = await fetch(`${import.meta.env.BASE_URL}${phaseFile}`);
+        if (!workoutsRes.ok) throw new Error('Errore caricamento workouts');
         const workoutsData = await workoutsRes.json();
 
         // Load warmup_cooldown.json
@@ -322,11 +429,22 @@ function AppContent() {
         const warmupCooldownJson = await warmupCooldownRes.json();
         setWarmupCooldownData(warmupCooldownJson);
 
+        // Load treadmill programs
+        try {
+          const treadmillRes = await fetch(`${import.meta.env.BASE_URL}workout_treadmill.json`);
+          if (treadmillRes.ok) {
+            const treadmillData = await treadmillRes.json();
+            setTreadmillPrograms(treadmillData.programs || []);
+          }
+        } catch (e) {
+          console.warn('Treadmill programs not loaded:', e);
+        }
+
         // Enrich workouts with exercise data
         const enrichedWorkouts = workoutsData.days.map(workout => ({
           ...workout,
           exercises: workout.exercises.map(ex => ({
-            ...exercisesData[ex.exercise_id],
+            ...mergedExercises[ex.exercise_id],
             exercise_id: ex.exercise_id,
             duration: ex.duration
           }))
@@ -334,8 +452,8 @@ function AppContent() {
 
         setWorkouts(enrichedWorkouts);
 
-        // Load progress from IndexedDB
-        const completedDays = await getCompletedDays();
+        // Load progress for current phase from IndexedDB
+        const completedDays = await getCompletedDaysForPhase(savedPhase);
         setCompleted(completedDays);
 
         const savedDay = await getCurrentDay();
@@ -362,8 +480,15 @@ function AppContent() {
       if (!dbReady || !activeProfileId) return;
 
       try {
-        // Reload completed days for this profile
-        const completedDays = await getCompletedDays();
+        // Reload phase data for this profile
+        const savedPhase = await getCurrentPhase();
+        setCurrentPhaseNumber(savedPhase);
+
+        const completedPhasesList = await getCompletedPhases();
+        setCompletedPhasesState(completedPhasesList);
+
+        // Reload completed days for current phase
+        const completedDays = await getCompletedDaysForPhase(savedPhase);
         setCompleted(completedDays);
 
         // Reload workout history for this profile
@@ -508,6 +633,20 @@ function AppContent() {
       setCurrentDay(day);
     }
   }, [day, dbReady]);
+
+  // Auto-scroll timeline to show the next available day
+  useEffect(() => {
+    if (screen === 'home' && timelineRef.current && workouts.length > 0) {
+      const nextDay = completed.length > 0 ? Math.min(Math.max(...completed) + 1, 28) : 1;
+      const dayElement = timelineRef.current.querySelector(`[data-day="${nextDay}"]`);
+      if (dayElement) {
+        // Scroll to center the current day in the viewport
+        const container = timelineRef.current;
+        const scrollLeft = dayElement.offsetLeft - (container.clientWidth / 2) + (dayElement.clientWidth / 2);
+        container.scrollTo({ left: Math.max(0, scrollLeft), behavior: 'smooth' });
+      }
+    }
+  }, [screen, completed, workouts.length, currentPhaseNumber]);
 
   // Track elapsed time during workout (only during actual exercises, not prep or rest)
   useEffect(() => {
@@ -733,6 +872,55 @@ function AppContent() {
     }
   }, [paused, active]);
 
+  // Treadmill workout timer
+  useEffect(() => {
+    if (treadmillActive && !treadmillPaused && treadmillSegmentTimer > 0) {
+      const interval = setInterval(() => {
+        setTreadmillSegmentTimer(prev => {
+          if (prev <= 1) {
+            // Move to next segment
+            const program = selectedTreadmillProgram;
+            const weekData = program?.weeks?.find(w => w.week === selectedTreadmillWeek);
+            const segments = weekData?.session?.segments || [];
+
+            if (treadmillSegmentIndex < segments.length - 1) {
+              const nextIndex = treadmillSegmentIndex + 1;
+              setTreadmillSegmentIndex(nextIndex);
+              // Announce next segment
+              if (voiceEnabled && 'speechSynthesis' in window) {
+                const nextSeg = segments[nextIndex];
+                speechSynthesis.speak(new SpeechSynthesisUtterance(`${nextSeg.activity}, ${nextSeg.speed} chilometri orari`));
+              }
+              return segments[nextIndex].duration;
+            } else {
+              // Workout complete
+              setTreadmillActive(false);
+              setScreen('treadmill');
+              return 0;
+            }
+          }
+          return prev - 1;
+        });
+
+        // Update total elapsed and calories
+        setTreadmillTotalElapsed(prev => prev + 1);
+        // Estimate calories: ~5 kcal per minute at moderate pace
+        setTreadmillCalories(prev => {
+          const program = selectedTreadmillProgram;
+          const weekData = program?.weeks?.find(w => w.week === selectedTreadmillWeek);
+          const segments = weekData?.session?.segments || [];
+          const currentSeg = segments[treadmillSegmentIndex];
+          const speed = currentSeg?.speed || 5;
+          // Calories per second: higher speed = more calories
+          const calPerSec = (speed / 5) * 0.08;
+          return Math.round(prev + calPerSec);
+        });
+      }, 1000);
+
+      return () => clearInterval(interval);
+    }
+  }, [treadmillActive, treadmillPaused, treadmillSegmentTimer, treadmillSegmentIndex, selectedTreadmillProgram, selectedTreadmillWeek, voiceEnabled]);
+
   // Select random warmup/cooldown based on day focus
   const selectWarmupCooldown = useCallback((dayNum) => {
     if (!warmupCooldownData) return { warmup: null, cooldown: null };
@@ -767,6 +955,48 @@ function AppContent() {
 
     return { warmup: enrichWarmup, cooldown: enrichCooldown };
   }, [warmupCooldownData, exercises]);
+
+  // Phase helper functions
+  const isPhaseUnlocked = useCallback((phaseNumber) => {
+    if (phaseNumber === 1) return true;
+    return completedPhases.includes(phaseNumber - 1);
+  }, [completedPhases]);
+
+  const handlePhaseChange = useCallback(async (phaseNumber) => {
+    // Allow viewing any phase, but workouts can only be started if phase is unlocked
+    // (handled in detail screen)
+    await setCurrentPhase(phaseNumber);
+    setCurrentPhaseNumber(phaseNumber);
+
+    // Reload workouts for the new phase
+    const phaseFile = phases.find(p => p.number === phaseNumber)?.fileName;
+    if (phaseFile) {
+      try {
+        const workoutsRes = await fetch(`${import.meta.env.BASE_URL}${phaseFile}`);
+        const workoutsData = await workoutsRes.json();
+
+        // Enrich workouts with exercise data
+        const enrichedWorkouts = workoutsData.days.map(workout => ({
+          ...workout,
+          exercises: workout.exercises.map(ex => ({
+            ...exercises[ex.exercise_id],
+            exercise_id: ex.exercise_id,
+            duration: ex.duration
+          }))
+        }));
+
+        setWorkouts(enrichedWorkouts);
+
+        // Reload progress for the new phase
+        const completedDays = await getCompletedDaysForPhase(phaseNumber);
+        setCompleted(completedDays);
+        setSelectedDay(null);
+        setDay(1);
+      } catch (error) {
+        console.error('Error loading phase workouts:', error);
+      }
+    }
+  }, [phases, exercises]);
 
   // Mark day as completed - now triggers post-workout feedback
   const handleComplete = useCallback(async () => {
@@ -804,10 +1034,24 @@ function AppContent() {
       }
     }
 
+    let updatedCompleted = completed;
     if (!completed.includes(day)) {
-      await markDayCompleted(day);
-      setCompleted(prev => [...prev, day]);
+      await markDayCompleted(day, currentPhaseNumber);
+      updatedCompleted = [...completed, day];
+      setCompleted(updatedCompleted);
     }
+
+    // Check if phase is completed (all 28 days)
+    if (updatedCompleted.length === 28 && !completedPhases.includes(currentPhaseNumber)) {
+      await markPhaseCompleted(currentPhaseNumber);
+      setCompletedPhasesState([...completedPhases, currentPhaseNumber]);
+
+      // Show modal if next phase exists
+      if (phases.some(p => p.number === currentPhaseNumber + 1)) {
+        setShowPhaseModal(true);
+      }
+    }
+
     setDay(Math.min(day + 1, 28));
     setScreen('home');
     setExerciseIdx(0);
@@ -819,7 +1063,7 @@ function AppContent() {
     setCompletedExercises({ warmup: [], workout: [], cooldown: [] });
     setMidWorkoutRestTaken(false);
     setRestTimer(30);
-  }, [day, completed, curr, completedExercises, onboardingCompleted, userProfile, saveCompleteSession, refreshStats]);
+  }, [day, completed, curr, completedExercises, onboardingCompleted, userProfile, saveCompleteSession, refreshStats, currentPhaseNumber, completedPhases, phases]);
 
   // Handle post-workout feedback completion
   const handlePostWorkoutComplete = useCallback(async (feedbackData) => {
@@ -1266,10 +1510,110 @@ function AppContent() {
 
     return (
       <div className="min-h-screen bg-[var(--bg)]">
+        {/* Phase Completion Modal */}
+        {showPhaseModal && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4">
+            <div className="bg-white rounded-2xl p-6 max-w-sm text-center animate-slide-up">
+              <div className="text-5xl mb-4">🎉</div>
+              <h2 className="text-xl font-bold">Fase {currentPhaseNumber} Completata!</h2>
+              <p className="text-gray-500 my-4">Hai completato tutti i 28 giorni!</p>
+
+              {phases.some(p => p.number === currentPhaseNumber + 1) && (
+                <button
+                  onClick={() => {
+                    handlePhaseChange(currentPhaseNumber + 1);
+                    setShowPhaseModal(false);
+                  }}
+                  className="btn-primary w-full mb-2"
+                >
+                  Inizia Fase {currentPhaseNumber + 1}
+                </button>
+              )}
+              <button
+                onClick={() => setShowPhaseModal(false)}
+                className="btn-secondary w-full"
+              >
+                Chiudi
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* Phase Selection Modal */}
+        {showPhaseSelector && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4" onClick={() => setShowPhaseSelector(false)}>
+            <div className="bg-white rounded-2xl p-5 max-w-sm w-full animate-slide-up" onClick={e => e.stopPropagation()}>
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-lg font-bold">Seleziona Fase</h2>
+                <button
+                  onClick={() => setShowPhaseSelector(false)}
+                  className="w-8 h-8 rounded-full bg-[var(--surface-hover)] flex items-center justify-center"
+                >
+                  <CloseIcon />
+                </button>
+              </div>
+              <div className="space-y-2">
+                {phases.map((phase) => {
+                  const unlocked = isPhaseUnlocked(phase.number);
+                  const isCompleted = completedPhases.includes(phase.number);
+                  const isCurrent = phase.number === currentPhaseNumber;
+
+                  return (
+                    <button
+                      key={phase.number}
+                      onClick={async () => {
+                        setShowPhaseSelector(false);
+                        await handlePhaseChange(phase.number);
+                      }}
+                      className={`w-full flex items-center justify-between p-4 rounded-xl border-2 transition-all ${
+                        isCurrent
+                          ? 'border-[var(--primary)] bg-[var(--primary)]/10'
+                          : 'border-[var(--border)] hover:border-[var(--primary)]/50'
+                      }`}
+                    >
+                      <div className="flex items-center gap-3">
+                        {!unlocked ? (
+                          <span className="text-xl">🔒</span>
+                        ) : isCompleted ? (
+                          <span className="w-6 h-6 rounded-full bg-green-500 flex items-center justify-center text-white text-sm">✓</span>
+                        ) : (
+                          <span className="w-6 h-6 rounded-full bg-[var(--primary)] flex items-center justify-center text-white text-sm font-bold">{phase.number}</span>
+                        )}
+                        <div className="text-left">
+                          <p className={`font-medium ${isCurrent ? 'text-[var(--primary)]' : ''}`}>Fase {phase.number}</p>
+                          <p className="text-xs text-[var(--text-secondary)]">
+                            {isCompleted ? 'Completata' : !unlocked ? `Completa la Fase ${phase.number - 1}` : isCurrent ? 'In corso' : 'Disponibile'}
+                          </p>
+                        </div>
+                      </div>
+                      {isCurrent && (
+                        <span className="text-xs font-medium text-[var(--primary)] bg-[var(--primary)]/10 px-2 py-1 rounded-full">Attiva</span>
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* Header */}
         <div className="bg-[var(--surface)] border-b border-[var(--border)] p-4">
           <div className="flex items-center justify-between max-w-2xl mx-auto">
-            <h1 className="text-lg font-semibold">Il mio Piano</h1>
+            <div>
+              <h1 className="text-lg font-semibold">Il mio Piano</h1>
+              {phases.length > 1 && (
+                <button
+                  onClick={() => setShowPhaseSelector(true)}
+                  className="flex items-center gap-1 text-xs text-[var(--primary)] font-medium"
+                >
+                  Fase {currentPhaseNumber}
+                  <svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+              )}
+            </div>
             <div className="flex items-center gap-2">
               {installPrompt && !isInstalled && (
                 <button
@@ -1303,18 +1647,32 @@ function AppContent() {
           </div>
         </div>
 
+        {/* Locked Phase Banner */}
+        {!isPhaseUnlocked(currentPhaseNumber) && (
+          <div className="px-4 max-w-2xl mx-auto mt-3 mb-2">
+            <div className="bg-amber-50 border border-amber-200 rounded-lg py-2 px-3 flex items-center gap-2">
+              <span className="text-base">🔒</span>
+              <p className="text-amber-700 text-xs">
+                <span className="font-medium">Fase bloccata</span> · Completa la Fase {currentPhaseNumber - 1} per sbloccare
+              </p>
+            </div>
+          </div>
+        )}
+
         {/* Timeline */}
-        <div className="overflow-x-auto py-2 px-3 mb-3">
+        <div ref={timelineRef} className="overflow-x-auto py-2 px-3 mb-3">
           <div className="flex gap-1.5 items-center max-w-2xl mx-auto pb-1">
             {workouts.map((w) => {
               const isCompleted = completed.includes(w.day);
               const isCurrent = w.day === nextAvailableDay;
               const isFuture = w.day > nextAvailableDay;
               const isSelected = w.day === viewingDay;
+              const performance = isCompleted ? calculateDayPerformance(w.day, workoutHistory, workouts) : null;
 
               return (
                 <div
                   key={w.day}
+                  data-day={w.day}
                   onClick={() => setSelectedDay(w.day)}
                   className={`day-card cursor-pointer transition-all ${
                     isSelected
@@ -1326,6 +1684,10 @@ function AppContent() {
                       : isCurrent
                       ? 'day-card-current'
                       : 'day-card-future'
+                  } ${
+                    performance === 'excellent' ? 'ring-2 ring-yellow-400' :
+                    performance === 'below' ? 'ring-2 ring-orange-400' :
+                    performance === 'good' ? 'ring-2 ring-green-400' : ''
                   }`}
                 >
                   {isFuture ? (
@@ -1336,7 +1698,6 @@ function AppContent() {
                     <div className="text-[8px] opacity-50 uppercase">D</div>
                   )}
                   <div className={`font-semibold ${isFuture ? 'text-xs' : isCompleted ? 'text-sm' : 'text-base'}`}>{w.day}</div>
-                  {isCompleted && <CheckIcon />}
                 </div>
               );
             })}
@@ -1384,9 +1745,107 @@ function AppContent() {
               <div className="relative z-10 flex items-center gap-3">
                 <span className="text-4xl drop-shadow-lg">{displayWorkout?.image}</span>
                 <div className="flex flex-col items-start">
-                  <span className="text-white text-sm font-medium bg-black/30 backdrop-blur-sm px-3 py-0.5 rounded-full">
-                    Giorno {viewingDay}
-                  </span>
+                  <div className="flex items-center gap-2">
+                    <span className="text-white text-sm font-medium bg-black/30 backdrop-blur-sm px-3 py-0.5 rounded-full">
+                      Giorno {viewingDay}
+                    </span>
+                    {/* Debug: Complete day button (only in development) */}
+                    {import.meta.env.DEV && !isViewingCompleted && (
+                      <button
+                        onClick={async (e) => {
+                          e.stopPropagation();
+
+                          // Generate random workout data
+                          const workout = workouts.find(w => w.day === viewingDay);
+                          const workoutTitle = workout?.title || `Giorno ${viewingDay}`;
+
+                          // Random duration between 15-35 minutes (in seconds)
+                          const randomDuration = Math.floor(Math.random() * (35 - 15 + 1) + 15) * 60;
+
+                          // Generate exercise details with random variations
+                          // Simulate: some exercises done more, some less, some skipped
+                          const variationFactor = Math.random(); // 0-1: determines if session is easier or harder
+
+                          const generateExerciseVariation = (ex) => {
+                            const rand = Math.random();
+                            // 10% chance to skip exercise
+                            if (rand < 0.1) return null;
+                            // Calculate duration variation (-30% to +30%)
+                            const variation = (Math.random() - 0.5) * 0.6;
+                            const adjustedDuration = Math.round(ex.duration * (1 + variation));
+                            return { name: ex.name, duration: Math.max(10, adjustedDuration) };
+                          };
+
+                          const exerciseDetails = {
+                            warmup: workout?.exercises?.slice(0, 2).map(ex => ({ name: ex.name, duration: ex.duration })) || [],
+                            workout: workout?.exercises?.map(generateExerciseVariation).filter(Boolean) || [],
+                            cooldown: workout?.exercises?.slice(0, 2).map(ex => ({ name: ex.name, duration: ex.duration })) || []
+                          };
+
+                          // Random pre-workout data
+                          const randomPreWorkout = {
+                            sleepQuality: Math.floor(Math.random() * 5) + 1, // 1-5
+                            energyLevel: Math.floor(Math.random() * 5) + 1,
+                            stressLevel: Math.floor(Math.random() * 5) + 1,
+                            muscleSoreness: Math.floor(Math.random() * 5) + 1,
+                            motivation: Math.floor(Math.random() * 5) + 1,
+                            readinessScore: Math.floor(Math.random() * 40) + 50, // 50-90
+                            timestamp: new Date().toISOString()
+                          };
+
+                          // Random post-workout data
+                          const randomPostWorkout = {
+                            rpe: Math.floor(Math.random() * 5) + 5, // 5-9 (moderate to hard)
+                            completion: Math.floor(Math.random() * 30) + 70, // 70-100%
+                            mood: ['great', 'good', 'okay'][Math.floor(Math.random() * 3)],
+                            pain: Math.random() < 0.1, // 10% chance of pain
+                            painAreas: [],
+                            timestamp: new Date().toISOString()
+                          };
+
+                          // Save workout history
+                          await addWorkoutHistory(viewingDay, randomDuration, workoutTitle, exerciseDetails);
+
+                          // Update history state
+                          const history = await getWorkoutHistory(10);
+                          setWorkoutHistory(history);
+
+                          // Save complete session if profile exists
+                          if (onboardingCompleted && userProfile) {
+                            try {
+                              const sessionData = {
+                                day: viewingDay,
+                                workoutTitle,
+                                duration: randomDuration,
+                                exerciseDetails,
+                                preWorkout: randomPreWorkout,
+                                postWorkout: randomPostWorkout,
+                                completedAt: new Date().toISOString()
+                              };
+                              await saveSession(sessionData);
+                              await refreshStats();
+                            } catch (error) {
+                              console.error('Error saving debug session:', error);
+                            }
+                          }
+
+                          // Mark day as completed
+                          await markDayCompleted(viewingDay, currentPhaseNumber);
+                          const updatedCompleted = [...completed, viewingDay];
+                          setCompleted(updatedCompleted);
+
+                          // Check if phase is completed
+                          if (updatedCompleted.length === 28 && !completedPhases.includes(currentPhaseNumber)) {
+                            await markPhaseCompleted(currentPhaseNumber);
+                            setCompletedPhasesState([...completedPhases, currentPhaseNumber]);
+                          }
+                        }}
+                        className="text-white text-xs font-medium bg-orange-500 hover:bg-orange-600 px-2 py-0.5 rounded-full transition-colors"
+                      >
+                        ✓
+                      </button>
+                    )}
+                  </div>
                   {isViewingCompleted && (
                     <span className="text-white text-xs mt-1 flex items-center gap-1 drop-shadow">
                       <CheckIcon /> Completato
@@ -1425,6 +1884,64 @@ function AppContent() {
             </div>
           </div>
         </div>
+
+        {/* Treadmill Journey Card */}
+        {treadmillPrograms.length > 0 && (() => {
+          // Calculate dynamic stats from programs
+          const allDurations = treadmillPrograms.flatMap(p => p.weeks?.map(w => w.totalDuration) || []);
+          const minDuration = allDurations.length > 0 ? Math.min(...allDurations) : 0;
+          const maxDuration = allDurations.length > 0 ? Math.max(...allDurations) : 0;
+          const durationText = minDuration === maxDuration ? `${minDuration} min` : `${minDuration}-${maxDuration} min`;
+
+          return (
+            <div className="px-4 max-w-2xl mx-auto mt-6 animate-fade-in">
+              <div className="card overflow-hidden">
+                <div
+                  className="relative h-20 flex items-center justify-center"
+                  style={{
+                    backgroundImage: 'url(https://img.freepik.com/premium-photo/illustration-cartoon-character-isolated-background_1068144-8377.jpg)',
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center'
+                  }}
+                >
+                  <div className="absolute inset-0 bg-[var(--primary)]/80" />
+                  <div className="relative z-10 flex items-center gap-3">
+                    <span className="text-3xl" style={{ textShadow: '0 2px 8px rgba(0,0,0,0.5)' }}>🏃</span>
+                    <div className="flex flex-col items-start">
+                      <span className="text-white text-sm font-bold" style={{ textShadow: '0 1px 4px rgba(0,0,0,0.5)' }}>
+                        Treadmill Journey
+                      </span>
+                      <span className="text-white/90 text-xs" style={{ textShadow: '0 1px 3px rgba(0,0,0,0.4)' }}>
+                        Allenamento sul tapis roulant
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div className="p-4">
+                  <div className="flex gap-3 mb-4 text-sm text-[var(--text-secondary)]">
+                    <span className="flex items-center gap-1">
+                      <TimerIcon />
+                      {durationText}
+                    </span>
+                    <span className="flex items-center gap-1">
+                      <FlameIcon />
+                      Cardio
+                    </span>
+                    <span>{treadmillPrograms.length} {treadmillPrograms.length === 1 ? 'programma' : 'programmi'}</span>
+                  </div>
+              <div className="flex justify-center">
+                <button
+                  onClick={() => setScreen('treadmill')}
+                  className="bg-[var(--primary)] text-white text-[11px] font-semibold py-1.5 px-4 rounded-full"
+                >
+                  VAI SUL TAPIS ROULANT!
+                </button>
+              </div>
+            </div>
+              </div>
+            </div>
+          );
+        })()}
 
         {/* Bar Chart - Last 7 Workouts */}
         {workoutHistory.length > 0 && (
@@ -1501,6 +2018,7 @@ function AppContent() {
                     hour: '2-digit',
                     minute: '2-digit'
                   });
+                  const performance = calculateDayPerformance(session.day, workoutHistory, workouts);
 
                   return (
                     <div
@@ -1511,16 +2029,23 @@ function AppContent() {
                       }}
                       className="flex items-center justify-between py-2 border-b border-[var(--border)] last:border-0 cursor-pointer hover:bg-[var(--surface-hover)] rounded-lg px-2 -mx-2 transition-colors"
                     >
-                      <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 bg-[var(--primary)]/10 rounded-full flex items-center justify-center">
+                      <div className="flex items-center gap-3 min-w-0 flex-1">
+                        <div className={`w-8 h-8 flex-shrink-0 rounded-full flex items-center justify-center relative bg-[var(--primary)]/10 ${
+                          performance === 'good' ? 'ring-2 ring-green-500' :
+                          performance === 'below' ? 'ring-2 ring-orange-400' : ''
+                        }`}>
                           <span className="text-xs font-medium text-[var(--primary)]">D{session.day}</span>
+                          {/* Medal only for excellent performance */}
+                          {performance === 'excellent' && (
+                            <span className="absolute -top-1 -right-1 text-sm">🏅</span>
+                          )}
                         </div>
-                        <div>
-                          <div className="text-sm font-medium">{session.workoutTitle}</div>
+                        <div className="min-w-0">
+                          <div className="text-sm font-medium truncate">{session.workoutTitle}</div>
                           <div className="text-xs text-[var(--text-secondary)]">{formattedDate}</div>
                         </div>
                       </div>
-                      <div className="flex items-center gap-2">
+                      <div className="flex items-center gap-2 flex-shrink-0">
                         <div className="flex items-center gap-1 text-sm text-[var(--text-secondary)]">
                           <TimerIcon />
                           <span>{formatTime(session.duration)}</span>
@@ -1545,9 +2070,47 @@ function AppContent() {
 
   // Exercises List Screen
   if (screen === 'exercises') {
+    // Calculate how many times each exercise appears in workouts + warmups + cooldowns
+    const exerciseUsageCount = {};
+
+    // Count in main workouts
+    workouts.forEach(day => {
+      if (day.exercises) {
+        day.exercises.forEach(ex => {
+          const id = ex.exercise_id;
+          exerciseUsageCount[id] = (exerciseUsageCount[id] || 0) + 1;
+        });
+      }
+    });
+
+    // Count in warmups
+    if (warmupCooldownData?.warmups) {
+      warmupCooldownData.warmups.forEach(warmup => {
+        if (warmup.exercises) {
+          warmup.exercises.forEach(ex => {
+            const id = ex.exercise_id;
+            exerciseUsageCount[id] = (exerciseUsageCount[id] || 0) + 1;
+          });
+        }
+      });
+    }
+
+    // Count in cooldowns
+    if (warmupCooldownData?.cooldowns) {
+      warmupCooldownData.cooldowns.forEach(cooldown => {
+        if (cooldown.exercises) {
+          cooldown.exercises.forEach(ex => {
+            const id = ex.exercise_id;
+            exerciseUsageCount[id] = (exerciseUsageCount[id] || 0) + 1;
+          });
+        }
+      });
+    }
+
     const exercisesList = Object.entries(exercises).map(([id, ex]) => ({
       id,
-      ...ex
+      ...ex,
+      usageCount: exerciseUsageCount[id] || 0
     }));
 
     // Filter exercises based on search term
@@ -1557,8 +2120,15 @@ function AppContent() {
       (ex.type && ex.type.toLowerCase().includes(exerciseSearchTerm.toLowerCase()))
     );
 
+    // Restore scroll position after render
+    setTimeout(() => {
+      if (exercisesListRef.current && exercisesScrollPosition.current > 0) {
+        exercisesListRef.current.scrollTop = exercisesScrollPosition.current;
+      }
+    }, 0);
+
     return (
-      <div className="min-h-screen bg-[var(--bg)]">
+      <div ref={exercisesListRef} className="min-h-screen bg-[var(--bg)] overflow-y-auto" style={{ height: '100vh' }}>
         {/* Header - Fixed */}
         <div className="sticky top-0 z-20 bg-[var(--surface)] border-b border-[var(--border)]">
           <div className="p-4">
@@ -1620,20 +2190,39 @@ function AppContent() {
                 key={exercise.id}
                 className="card p-4 animate-fade-in cursor-pointer hover:bg-[var(--surface-hover)] transition-colors"
                 onClick={() => {
+                  // Save scroll position before navigating
+                  if (exercisesListRef.current) {
+                    exercisesScrollPosition.current = exercisesListRef.current.scrollTop;
+                  }
                   setSelectedExercise(exercise);
                   setScreen('exerciseDetail');
                 }}
               >
                 <div className="flex gap-4 items-center">
-                  <div className="flex-shrink-0 overflow-hidden rounded-xl">
-                    <ExerciseMedia
-                      src={exercise.gif}
-                      alt={exercise.name}
-                      className="w-20 h-20 object-cover rounded-xl"
-                    />
+                  <div className="flex-shrink-0 relative">
+                    <div className="overflow-hidden rounded-xl">
+                      <ExerciseMedia
+                        src={exercise.gif}
+                        alt={exercise.name}
+                        className="w-20 h-20 object-cover"
+                      />
+                    </div>
+                    {/* Usage count badge */}
+                    {exercise.usageCount > 0 && (
+                      <div className="absolute -top-1 -right-1 bg-[var(--primary)] text-white text-[10px] font-bold rounded-full w-5 h-5 flex items-center justify-center shadow-sm border-2 border-white">
+                        {exercise.usageCount}
+                      </div>
+                    )}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <h3 className="font-semibold text-sm mb-1">{exercise.name}</h3>
+                    <div className="flex items-center gap-2 mb-1">
+                      <h3 className="font-semibold text-sm">{exercise.name}</h3>
+                      {exercise.usageCount > 0 && (
+                        <span className="text-[10px] text-[var(--text-muted)]">
+                          ({exercise.usageCount}x nel piano)
+                        </span>
+                      )}
+                    </div>
                     <p className="text-xs text-[var(--text-secondary)] line-clamp-2 mb-2">
                       {exercise.description}
                     </p>
@@ -2033,8 +2622,10 @@ function AppContent() {
 
   // Detail Screen
   if (screen === 'detail') {
+    // Check if phase is unlocked
+    const phaseUnlocked = isPhaseUnlocked(currentPhaseNumber);
     // Check if this day can be started (day 1 or previous day completed)
-    const canStartThisDay = day === 1 || completed.includes(day - 1);
+    const canStartThisDay = phaseUnlocked && (day === 1 || completed.includes(day - 1));
     const isDayCompleted = completed.includes(day);
 
     return (
@@ -2057,17 +2648,20 @@ function AppContent() {
             }}
           >
             <div className={`absolute inset-0 ${
-              isDayCompleted ? 'bg-green-500/80' : !canStartThisDay ? 'bg-gray-500/80' : 'bg-[var(--primary)]/70'
+              isDayCompleted ? 'bg-green-500/80' : !phaseUnlocked || !canStartThisDay ? 'bg-gray-500/80' : 'bg-[var(--primary)]/70'
             }`} />
             <div className="text-center relative z-10">
               <span className="text-7xl block mb-2 drop-shadow-lg">{curr?.image}</span>
               <span className="text-white/90 text-sm font-medium bg-white/20 px-3 py-0.5 rounded-full">
-                Giorno {day}
+                Fase {currentPhaseNumber} - Giorno {day}
               </span>
               {isDayCompleted && (
                 <span className="text-white/90 text-xs block mt-2">✓ Completato</span>
               )}
-              {!canStartThisDay && !isDayCompleted && (
+              {!phaseUnlocked && (
+                <span className="text-white/90 text-xs block mt-2">🔒 Fase bloccata</span>
+              )}
+              {phaseUnlocked && !canStartThisDay && !isDayCompleted && (
                 <span className="text-white/90 text-xs block mt-2">🔒 Completa prima il giorno {day - 1}</span>
               )}
             </div>
@@ -2141,8 +2735,17 @@ function AppContent() {
               </div>
             )}
 
-            {/* Show locked message if previous day not completed */}
-            {!canStartThisDay && !isDayCompleted && (
+            {/* Show locked message if phase is locked */}
+            {!phaseUnlocked && (
+              <div className="bg-gray-100 rounded-lg p-4 mb-5 text-sm text-center">
+                <span className="text-2xl block mb-2">🔒</span>
+                <p className="text-gray-600 font-medium">Fase bloccata</p>
+                <p className="text-gray-500 text-xs mt-1">Completa la Fase {currentPhaseNumber - 1} per sbloccare</p>
+              </div>
+            )}
+
+            {/* Show locked message if previous day not completed (but phase is unlocked) */}
+            {phaseUnlocked && !canStartThisDay && !isDayCompleted && (
               <div className="bg-gray-100 rounded-lg p-4 mb-5 text-sm text-center">
                 <span className="text-2xl block mb-2">🔒</span>
                 <p className="text-gray-600 font-medium">Allenamento bloccato</p>
@@ -2179,6 +2782,434 @@ function AppContent() {
     );
   }
 
+  // Treadmill Journey Screen
+  if (screen === 'treadmill') {
+    // Use selected program or default to first one
+    const program = selectedTreadmillProgram || treadmillPrograms[0];
+    const weekData = program?.weeks?.find(w => w.week === selectedTreadmillWeek);
+    const currentPhaseInfo = program?.phases?.find(p => p.weeks.includes(selectedTreadmillWeek));
+
+    // Auto-select first program if none selected
+    if (!selectedTreadmillProgram && treadmillPrograms.length > 0) {
+      setSelectedTreadmillProgram(treadmillPrograms[0]);
+    }
+
+    return (
+      <div className="min-h-screen bg-[var(--bg)]">
+        {/* Program Selection Modal */}
+        {showTreadmillProgramSelector && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4" onClick={() => setShowTreadmillProgramSelector(false)}>
+            <div className="bg-white rounded-2xl p-5 max-w-sm w-full animate-slide-up" onClick={e => e.stopPropagation()}>
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-lg font-bold">Seleziona Programma</h2>
+                <button
+                  onClick={() => setShowTreadmillProgramSelector(false)}
+                  className="w-8 h-8 rounded-full bg-[var(--surface-hover)] flex items-center justify-center"
+                >
+                  <CloseIcon />
+                </button>
+              </div>
+              <div className="space-y-2">
+                {treadmillPrograms.map((prog) => {
+                  const isCurrent = program?.id === prog.id;
+                  return (
+                    <button
+                      key={prog.id}
+                      onClick={() => {
+                        setSelectedTreadmillProgram(prog);
+                        setSelectedTreadmillWeek(1);
+                        setShowTreadmillProgramSelector(false);
+                      }}
+                      className={`w-full flex items-center justify-between p-4 rounded-xl border-2 transition-all ${
+                        isCurrent
+                          ? 'border-[var(--primary)] bg-[var(--primary)]/10'
+                          : 'border-[var(--border)] hover:border-[var(--primary)]/50'
+                      }`}
+                    >
+                      <div className="flex items-center gap-3">
+                        <span className="text-2xl">{prog.icon}</span>
+                        <div className="text-left">
+                          <p className="font-semibold">{prog.name}</p>
+                          <p className="text-xs text-[var(--text-secondary)]">{prog.description}</p>
+                        </div>
+                      </div>
+                      {isCurrent && (
+                        <div className="w-6 h-6 rounded-full bg-[var(--primary)] flex items-center justify-center">
+                          <CheckIcon />
+                        </div>
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Header */}
+        <div className="relative">
+          <div className="absolute top-4 left-4 z-10">
+            <button
+              onClick={() => setScreen('home')}
+              className="w-10 h-10 bg-[var(--surface)] rounded-full flex items-center justify-center border border-[var(--border)]"
+            >
+              <BackIcon />
+            </button>
+          </div>
+          <div
+            className="h-28 flex items-center justify-center relative"
+            style={{
+              backgroundImage: 'url(https://img.freepik.com/premium-photo/illustration-cartoon-character-isolated-background_1068144-8377.jpg)',
+              backgroundSize: 'cover',
+              backgroundPosition: 'center'
+            }}
+          >
+            <div className="absolute inset-0 bg-[var(--primary)]/80" />
+            <div className="text-center relative z-10">
+              <div className="flex items-center justify-center gap-2 mb-0.5">
+                <span className="text-xl" style={{ textShadow: '0 2px 8px rgba(0,0,0,0.5)' }}>🏃</span>
+                <h1 className="text-white text-base font-bold" style={{ textShadow: '0 1px 4px rgba(0,0,0,0.5)' }}>
+                  Treadmill Journey
+                </h1>
+              </div>
+              {/* Program selector button */}
+              {treadmillPrograms.length > 0 && (
+                <button
+                  onClick={() => setShowTreadmillProgramSelector(true)}
+                  className="flex items-center gap-1 text-[11px] text-white/90 font-medium mx-auto bg-white/20 px-2 py-0.5 rounded-full"
+                >
+                  {program?.icon} {program?.name}
+                  <svg width="10" height="10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+              )}
+            </div>
+          </div>
+        </div>
+
+        <div className="px-4 max-w-2xl mx-auto -mt-6 relative z-10">
+          {/* Week Selector Card */}
+          <div className="card p-4 mb-4 animate-slide-up">
+            <div className="flex items-center justify-between mb-3">
+              <h2 className="text-base font-bold">Settimana {selectedTreadmillWeek}</h2>
+              {currentPhaseInfo && (
+                <span className="text-[10px] bg-[var(--primary)]/10 text-[var(--primary)] px-2 py-1 rounded-full font-medium">
+                  {currentPhaseInfo.name}
+                </span>
+              )}
+            </div>
+
+            {/* Week Pills */}
+            <div className="flex gap-1.5 overflow-x-auto pb-2 -mx-1 px-1">
+              {Array.from({ length: program?.totalWeeks || 12 }, (_, i) => i + 1).map(week => (
+                <button
+                  key={week}
+                  onClick={() => setSelectedTreadmillWeek(week)}
+                  className={`flex-shrink-0 w-8 h-8 rounded-full text-xs font-medium transition-all ${
+                    week === selectedTreadmillWeek
+                      ? 'bg-[var(--primary)] text-white'
+                      : 'bg-[var(--surface-hover)] text-[var(--text-secondary)] hover:bg-[var(--primary)]/20'
+                  }`}
+                >
+                  {week}
+                </button>
+              ))}
+            </div>
+
+            {/* Session Info */}
+            {weekData && (
+              <div className="mt-4 pt-4 border-t border-[var(--border)]">
+                <div className="flex gap-4 text-sm text-[var(--text-secondary)] mb-4">
+                  <span className="flex items-center gap-1">
+                    <TimerIcon />
+                    {weekData.totalDuration} min
+                  </span>
+                  <span className="flex items-center gap-1">
+                    <FlameIcon />
+                    {weekData.sessionsPerWeek}x a settimana
+                  </span>
+                </div>
+
+                {/* Segments Preview */}
+                <div className="space-y-2 mb-4">
+                  {weekData.session.segments.slice(0, 4).map((seg, i) => (
+                    <div key={i} className="flex items-center justify-between text-sm">
+                      <span className="text-[var(--text-secondary)]">{seg.activity}</span>
+                      <div className="flex items-center gap-3">
+                        <span className="text-[var(--primary)] font-medium">{seg.speed} km/h</span>
+                        <span className="text-[var(--text-muted)] text-xs">{Math.floor(seg.duration / 60)}:{(seg.duration % 60).toString().padStart(2, '0')}</span>
+                      </div>
+                    </div>
+                  ))}
+                  {weekData.session.segments.length > 4 && (
+                    <p className="text-xs text-[var(--text-muted)] text-center">
+                      +{weekData.session.segments.length - 4} altri segmenti
+                    </p>
+                  )}
+                </div>
+
+                <button
+                  onClick={() => {
+                    setSelectedTreadmillProgram(program);
+                    setTreadmillSegmentIndex(0);
+                    setTreadmillSegmentTimer(weekData.session.segments[0].duration);
+                    setTreadmillTotalElapsed(0);
+                    setTreadmillCalories(0);
+                    setTreadmillPaused(false);
+                    setTreadmillActive(true);
+                    setScreen('treadmillWorkout');
+                  }}
+                  className="btn-primary w-full"
+                >
+                  INIZIA SESSIONE
+                </button>
+              </div>
+            )}
+          </div>
+
+          {/* Speed Legend */}
+          {program?.speedLegend && (
+            <div className="card p-4 mb-4">
+              <h3 className="text-sm font-semibold mb-3">Legenda Velocità</h3>
+              <div className="space-y-2">
+                {program.speedLegend.map((item, i) => (
+                  <div key={i} className="flex items-center justify-between text-sm">
+                    <span className="text-[var(--text-secondary)]">{item.level}</span>
+                    <div className="flex items-center gap-2">
+                      <span className="font-medium">{item.speed} km/h</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+
+        <div className="h-6"></div>
+      </div>
+    );
+  }
+
+  // Treadmill Workout Screen
+  if (screen === 'treadmillWorkout' && treadmillActive) {
+    const program = selectedTreadmillProgram;
+    const weekData = program?.weeks?.find(w => w.week === selectedTreadmillWeek);
+    const segments = weekData?.session?.segments || [];
+    const currentSegment = segments[treadmillSegmentIndex];
+
+    // Calculate total duration and elapsed time per segment
+    const totalDuration = segments.reduce((sum, seg) => sum + seg.duration, 0);
+    const elapsedBeforeCurrent = segments.slice(0, treadmillSegmentIndex).reduce((sum, seg) => sum + seg.duration, 0);
+    const elapsedInCurrent = currentSegment ? currentSegment.duration - treadmillSegmentTimer : 0;
+    const totalElapsed = elapsedBeforeCurrent + elapsedInCurrent;
+    const totalRemaining = totalDuration - totalElapsed;
+
+    // Format time as MM:SS
+    const formatTimeMinSec = (seconds) => {
+      const mins = Math.floor(seconds / 60);
+      const secs = Math.round(seconds) % 60;
+      return `${mins}:${secs.toString().padStart(2, '0')}`;
+    };
+
+    // Circular gauge SVG parameters
+    const gaugeSize = 280;
+    const strokeWidth = 10;
+    const radius = (gaugeSize - strokeWidth) / 2;
+    const circumference = 2 * Math.PI * radius;
+    const gapAngle = 5; // Gap between segments in degrees
+
+    // Calculate segment arcs
+    const segmentArcs = segments.map((seg, idx) => {
+      const segmentPercent = (seg.duration / totalDuration) * 100;
+      const segmentAngle = (segmentPercent / 100) * 360 - gapAngle;
+      const startPercent = segments.slice(0, idx).reduce((sum, s) => sum + (s.duration / totalDuration) * 100, 0);
+      const startAngle = (startPercent / 100) * 360 + (idx * gapAngle);
+
+      // Determine if this segment is completed, current, or future
+      let status = 'future';
+      if (idx < treadmillSegmentIndex) {
+        status = 'completed';
+      } else if (idx === treadmillSegmentIndex) {
+        status = 'current';
+      }
+
+      // For current segment, calculate partial fill
+      let fillPercent = 0;
+      if (status === 'completed') {
+        fillPercent = 100;
+      } else if (status === 'current' && currentSegment) {
+        fillPercent = ((currentSegment.duration - treadmillSegmentTimer) / currentSegment.duration) * 100;
+      }
+
+      return { ...seg, idx, segmentAngle, startAngle, status, fillPercent, segmentPercent };
+    });
+
+    return (
+      <div className="min-h-screen bg-[var(--bg)] flex flex-col">
+        {/* Top bar */}
+        <div className="p-4 flex justify-end">
+          <button
+            onClick={() => {
+              setTreadmillActive(false);
+              setScreen('treadmill');
+            }}
+            className="w-10 h-10 rounded-full flex items-center justify-center"
+          >
+            <CloseIcon />
+          </button>
+        </div>
+
+        {/* Calories */}
+        <div className="flex justify-center mb-4">
+          <div className="bg-[var(--surface-hover)] rounded-2xl px-8 py-4 text-center">
+            <span className="text-4xl font-bold">{treadmillCalories}</span>
+            <p className="text-sm text-[var(--text-muted)]">kcal</p>
+          </div>
+        </div>
+
+        {/* Segmented Circular Gauge */}
+        <div className="flex-1 flex items-center justify-center px-4">
+          <div className="relative" style={{ width: gaugeSize, height: gaugeSize }}>
+            <svg width={gaugeSize} height={gaugeSize} className="absolute inset-0">
+              {/* Render each segment */}
+              {segmentArcs.map((seg, idx) => {
+                const segmentCircumference = (seg.segmentAngle / 360) * circumference;
+                const rotation = -90 + seg.startAngle;
+
+                return (
+                  <g key={idx}>
+                    {/* Background arc for this segment */}
+                    <circle
+                      cx={gaugeSize / 2}
+                      cy={gaugeSize / 2}
+                      r={radius}
+                      fill="none"
+                      stroke="var(--border)"
+                      strokeWidth={strokeWidth}
+                      strokeDasharray={`${segmentCircumference} ${circumference}`}
+                      strokeLinecap="round"
+                      transform={`rotate(${rotation} ${gaugeSize / 2} ${gaugeSize / 2})`}
+                      opacity={0.3}
+                    />
+                    {/* Filled arc for completed/current segment */}
+                    {seg.fillPercent > 0 && (
+                      <circle
+                        cx={gaugeSize / 2}
+                        cy={gaugeSize / 2}
+                        r={radius}
+                        fill="none"
+                        stroke="var(--primary)"
+                        strokeWidth={strokeWidth}
+                        strokeDasharray={`${segmentCircumference * (seg.fillPercent / 100)} ${circumference}`}
+                        strokeLinecap="round"
+                        transform={`rotate(${rotation} ${gaugeSize / 2} ${gaugeSize / 2})`}
+                        style={{ transition: 'stroke-dasharray 0.3s ease' }}
+                      />
+                    )}
+                  </g>
+                );
+              })}
+            </svg>
+
+            {/* Center content */}
+            <div className="absolute inset-0 flex flex-col items-center justify-center">
+              <p className="text-xs text-[var(--text-muted)] uppercase tracking-wider mb-1">Tempo totale rimasto</p>
+              <span className="text-5xl font-bold tracking-tight">{formatTimeMinSec(Math.max(0, totalRemaining))}</span>
+              <p className="text-xs text-[var(--text-muted)] mt-2">{treadmillSegmentIndex + 1}/{segments.length} fasi</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Current Phase */}
+        <div className="px-4 mb-4">
+          <p className="text-xs text-[var(--text-muted)] uppercase tracking-wider mb-2 font-medium text-center">Fase attuale</p>
+          <div className="flex items-center gap-2">
+            {/* Prev arrow */}
+            <button
+              onClick={() => {
+                if (treadmillSegmentIndex > 0) {
+                  setTreadmillSegmentIndex(treadmillSegmentIndex - 1);
+                  setTreadmillSegmentTimer(segments[treadmillSegmentIndex - 1].duration);
+                }
+              }}
+              disabled={treadmillSegmentIndex === 0}
+              className={`w-10 h-10 rounded-full flex items-center justify-center ${
+                treadmillSegmentIndex === 0 ? 'opacity-30' : ''
+              }`}
+            >
+              <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+
+            {/* Current segment card */}
+            <div className="flex-1 bg-[var(--surface-hover)] rounded-2xl p-4">
+              <div className="flex items-center justify-between">
+                <div>
+                  <h3 className="font-semibold text-lg">{currentSegment?.activity}</h3>
+                  <p className="text-2xl font-bold text-[var(--primary)]">{currentSegment?.speed} km/h</p>
+                </div>
+                <div className="text-right">
+                  <span className="text-3xl font-bold">{formatTimeMinSec(treadmillSegmentTimer)}</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Next arrow */}
+            <button
+              onClick={() => {
+                if (treadmillSegmentIndex < segments.length - 1) {
+                  setTreadmillSegmentIndex(treadmillSegmentIndex + 1);
+                  setTreadmillSegmentTimer(segments[treadmillSegmentIndex + 1].duration);
+                }
+              }}
+              disabled={treadmillSegmentIndex >= segments.length - 1}
+              className={`w-10 h-10 rounded-full flex items-center justify-center ${
+                treadmillSegmentIndex >= segments.length - 1 ? 'opacity-30' : ''
+              }`}
+            >
+              <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        {/* Bottom controls */}
+        <div className="p-4 pb-8 flex items-center justify-center gap-4">
+          {/* Music button */}
+          <button
+            onClick={() => setMusicEnabled(!musicEnabled)}
+            className="w-14 h-14 rounded-full bg-[var(--surface-hover)] flex items-center justify-center"
+          >
+            <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
+            </svg>
+          </button>
+
+          {/* Pause/Play button */}
+          <button
+            onClick={() => setTreadmillPaused(!treadmillPaused)}
+            className="px-8 py-4 rounded-full bg-[var(--text)] text-[var(--bg)] flex items-center gap-2 font-semibold"
+          >
+            {treadmillPaused ? (
+              <>
+                <PlayIcon />
+                RIPRENDI
+              </>
+            ) : (
+              <>
+                <PauseIcon />
+                PAUSA
+              </>
+            )}
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   // Workout Screen - Preparation
   if (screen === 'workout' && prep) {
     const prepBgColor = phase === 'warmup' ? 'bg-blue-400' : phase === 'cooldown' ? 'bg-slate-600' : 'bg-prep';
@@ -2201,16 +3232,16 @@ function AppContent() {
         </div>
 
         <div className="flex-1 flex flex-col items-center justify-center p-3 animate-fade-in min-h-0">
-          <p className="text-white/60 uppercase tracking-wider text-xs mb-1">Prossimo</p>
-          <h2 className="text-2xl font-bold text-center mb-2">{ex?.name}</h2>
+          <p className="text-white/60 uppercase tracking-wider text-xs mb-1">Preparati</p>
+          <h2 className="text-xl font-bold text-center mb-2">{ex?.name}</h2>
 
-          <div className="text-4xl font-bold mb-3">{prepTimer}</div>
+          <div className={`text-5xl font-bold mb-3 ${prepTimer <= 3 ? 'text-yellow-300 animate-pulse-soft' : ''}`}>{prepTimer}</div>
 
           <div className="mb-3 overflow-hidden rounded-2xl flex-shrink-0">
             <ExerciseMedia
               src={ex?.gif}
               alt={ex?.name}
-              className="w-36 h-36 rounded-2xl object-cover"
+              className="w-52 h-52 rounded-2xl object-cover"
             />
           </div>
 
@@ -2489,6 +3520,10 @@ function AppContent() {
       minute: '2-digit'
     });
 
+    // Get the planned workout for comparison
+    const plannedWorkout = workouts.find(w => w.day === session.day);
+    const plannedExercises = plannedWorkout?.exercises || [];
+
     const exerciseDetails = session.exerciseDetails || { warmup: [], workout: [], cooldown: [] };
     const warmupExercises = exerciseDetails.warmup || [];
     const workoutExercises = exerciseDetails.workout || [];
@@ -2497,6 +3532,56 @@ function AppContent() {
     const totalWarmupTime = warmupExercises.reduce((sum, ex) => sum + (ex.duration || 0), 0);
     const totalWorkoutTime = workoutExercises.reduce((sum, ex) => sum + (ex.duration || 0), 0);
     const totalCooldownTime = cooldownExercises.reduce((sum, ex) => sum + (ex.duration || 0), 0);
+
+    // Calculate comparison with planned workout
+    const plannedTotalTime = plannedExercises.reduce((sum, ex) => sum + (ex.duration || 0), 0);
+    const actualTotalTime = totalWorkoutTime;
+    const timeDifference = actualTotalTime - plannedTotalTime;
+    const percentageDifference = plannedTotalTime > 0 ? Math.round((timeDifference / plannedTotalTime) * 100) : 0;
+
+    // Compare each exercise
+    const exerciseComparison = plannedExercises.map(planned => {
+      const completed = workoutExercises.find(ex => ex.name === planned.name);
+      if (!completed) {
+        return { ...planned, status: 'skipped', actualDuration: 0, difference: -planned.duration };
+      }
+      const diff = completed.duration - planned.duration;
+      let status = 'same';
+      if (diff > 0) status = 'more';
+      else if (diff < 0) status = 'less';
+      return { ...planned, status, actualDuration: completed.duration, difference: diff };
+    });
+
+    // Check for extra exercises (done but not planned)
+    const extraExercises = workoutExercises.filter(
+      ex => !plannedExercises.find(p => p.name === ex.name)
+    );
+
+    // Overall performance
+    const skippedCount = exerciseComparison.filter(ex => ex.status === 'skipped').length;
+    const moreCount = exerciseComparison.filter(ex => ex.status === 'more').length;
+    const lessCount = exerciseComparison.filter(ex => ex.status === 'less').length;
+
+    let overallStatus = 'same';
+    let overallMessage = 'Allenamento completato come previsto';
+    let overallColor = 'bg-blue-500';
+    let overallEmoji = '✓';
+
+    if (percentageDifference >= 10 || moreCount > lessCount + skippedCount) {
+      overallStatus = 'more';
+      overallMessage = `Hai fatto di più! +${Math.abs(percentageDifference)}% rispetto al piano`;
+      overallColor = 'bg-green-500';
+      overallEmoji = '💪';
+    } else if (percentageDifference <= -10 || skippedCount > 0 || lessCount > moreCount) {
+      overallStatus = 'less';
+      overallMessage = `Allenamento ridotto: ${Math.abs(percentageDifference)}% in meno`;
+      overallColor = 'bg-amber-500';
+      overallEmoji = '📉';
+    }
+
+    // Pre/Post workout data
+    const preWorkout = session.preWorkout;
+    const postWorkout = session.postWorkout;
 
     return (
       <div className="min-h-screen bg-[var(--bg)]">
@@ -2520,6 +3605,58 @@ function AppContent() {
         </div>
 
         <div className="px-4 max-w-2xl mx-auto py-6">
+          {/* Performance Summary Banner */}
+          {plannedWorkout && (
+            <div className={`${overallColor} text-white rounded-xl p-4 mb-6`}>
+              <div className="flex items-center gap-3">
+                <span className="text-3xl">{overallEmoji}</span>
+                <div>
+                  <p className="font-semibold">{overallMessage}</p>
+                  <p className="text-sm text-white/80">
+                    {skippedCount > 0 && `${skippedCount} esercizi saltati · `}
+                    {moreCount > 0 && `${moreCount} con più tempo · `}
+                    {lessCount > 0 && `${lessCount} con meno tempo`}
+                    {skippedCount === 0 && moreCount === 0 && lessCount === 0 && 'Tutti gli esercizi completati'}
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Pre-workout & Post-workout Data */}
+          {(preWorkout || postWorkout) && (
+            <div className="card p-4 mb-6">
+              <h3 className="text-xs font-medium text-[var(--text-muted)] uppercase tracking-wide mb-3">
+                Dati Sessione
+              </h3>
+              <div className="grid grid-cols-2 gap-4">
+                {preWorkout && !preWorkout.skipped && (
+                  <div className="bg-[var(--surface-hover)] rounded-lg p-3">
+                    <p className="text-xs text-[var(--text-secondary)] mb-1">Pre-Workout</p>
+                    <div className="flex items-center gap-2">
+                      <span className="text-2xl font-bold text-[var(--primary)]">{preWorkout.readinessScore || '-'}</span>
+                      <span className="text-xs text-[var(--text-secondary)]">Readiness</span>
+                    </div>
+                  </div>
+                )}
+                {postWorkout && !postWorkout.skipped && (
+                  <div className="bg-[var(--surface-hover)] rounded-lg p-3">
+                    <p className="text-xs text-[var(--text-secondary)] mb-1">Post-Workout</p>
+                    <div className="flex items-center gap-2">
+                      <span className="text-2xl font-bold text-[var(--primary)]">{postWorkout.rpe || '-'}</span>
+                      <span className="text-xs text-[var(--text-secondary)]">RPE</span>
+                    </div>
+                    {postWorkout.completion && (
+                      <p className="text-xs text-[var(--text-secondary)] mt-1">
+                        Completamento: {postWorkout.completion}%
+                      </p>
+                    )}
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
           {/* Session Info */}
           <div className="card p-4 mb-6">
             <div className="flex items-center justify-between mb-4">
@@ -2547,7 +3684,74 @@ function AppContent() {
             </div>
           </div>
 
-          {/* Warmup Exercises */}
+          {/* Workout Exercises with Comparison */}
+          {plannedWorkout && exerciseComparison.length > 0 && (
+            <div className="mb-6">
+              <div className="flex items-center gap-2 mb-3">
+                <div className="w-3 h-3 rounded-full bg-[var(--primary)]"></div>
+                <h3 className="text-sm font-medium">Confronto Allenamento</h3>
+              </div>
+              <div className="card p-3 space-y-2">
+                {exerciseComparison.map((ex, i) => (
+                  <div key={i} className={`flex items-center justify-between py-2 px-2 rounded-lg ${
+                    ex.status === 'skipped' ? 'bg-red-50' :
+                    ex.status === 'more' ? 'bg-green-50' :
+                    ex.status === 'less' ? 'bg-amber-50' : ''
+                  }`}>
+                    <div className="flex items-center gap-2 flex-1 min-w-0">
+                      {ex.status === 'skipped' && <span className="text-red-500">✗</span>}
+                      {ex.status === 'more' && <span className="text-green-500">↑</span>}
+                      {ex.status === 'less' && <span className="text-amber-500">↓</span>}
+                      {ex.status === 'same' && <span className="text-blue-500">✓</span>}
+                      <span className={`text-sm truncate ${ex.status === 'skipped' ? 'line-through text-gray-400' : ''}`}>
+                        {ex.name}
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-2 text-xs">
+                      {ex.status === 'skipped' ? (
+                        <span className="text-red-500 font-medium">Saltato</span>
+                      ) : (
+                        <>
+                          <span className="text-[var(--text-secondary)]">{ex.duration}s</span>
+                          <span className="text-[var(--text-muted)]">→</span>
+                          <span className={`font-medium ${
+                            ex.status === 'more' ? 'text-green-600' :
+                            ex.status === 'less' ? 'text-amber-600' : 'text-blue-600'
+                          }`}>
+                            {ex.actualDuration}s
+                          </span>
+                          {ex.difference !== 0 && (
+                            <span className={`text-[10px] ${
+                              ex.difference > 0 ? 'text-green-500' : 'text-amber-500'
+                            }`}>
+                              ({ex.difference > 0 ? '+' : ''}{ex.difference}s)
+                            </span>
+                          )}
+                        </>
+                      )}
+                    </div>
+                  </div>
+                ))}
+                {extraExercises.length > 0 && (
+                  <>
+                    <div className="border-t border-[var(--border)] my-2"></div>
+                    <p className="text-xs text-green-600 font-medium">Esercizi extra:</p>
+                    {extraExercises.map((ex, i) => (
+                      <div key={`extra-${i}`} className="flex items-center justify-between py-2 px-2 rounded-lg bg-green-50">
+                        <div className="flex items-center gap-2">
+                          <span className="text-green-500">+</span>
+                          <span className="text-sm">{ex.name}</span>
+                        </div>
+                        <span className="text-xs text-green-600 font-medium">{ex.duration}s</span>
+                      </div>
+                    ))}
+                  </>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* Warmup Exercises (simplified) */}
           {warmupExercises.length > 0 && (
             <div className="mb-6">
               <div className="flex items-center gap-2 mb-3">
@@ -2566,26 +3770,7 @@ function AppContent() {
             </div>
           )}
 
-          {/* Workout Exercises */}
-          {workoutExercises.length > 0 && (
-            <div className="mb-6">
-              <div className="flex items-center gap-2 mb-3">
-                <div className="w-3 h-3 rounded-full bg-[var(--primary)]"></div>
-                <h3 className="text-sm font-medium">Allenamento</h3>
-                <span className="text-xs text-[var(--text-secondary)]">({formatTime(totalWorkoutTime)})</span>
-              </div>
-              <div className="card p-3 space-y-2">
-                {workoutExercises.map((ex, i) => (
-                  <div key={i} className="flex items-center justify-between py-1">
-                    <span className="text-sm">{ex.name}</span>
-                    <span className="text-xs text-[var(--text-secondary)]">{ex.duration}s</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* Cooldown Exercises */}
+          {/* Cooldown Exercises (simplified) */}
           {cooldownExercises.length > 0 && (
             <div className="mb-6">
               <div className="flex items-center gap-2 mb-3">

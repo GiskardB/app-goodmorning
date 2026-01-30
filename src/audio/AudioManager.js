@@ -262,18 +262,18 @@ class BackgroundMusic {
     this.currentIndex = 0;
     this.isPlaying = false;
     this.volume = 0.08; // Low volume
+    this.basePath = '';
   }
 
   loadPlaylist(basePath = '') {
-    this.playlist = [
-      `${basePath}music/Aylex - Rebellion (freetouse.com).mp3`,
-      `${basePath}music/Aylex - LOUD (freetouse.com).mp3`,
-      `${basePath}music/Walen - Sport Power (freetouse.com).mp3`,
-      `${basePath}music/Walen - Brazilian Hype (freetouse.com).mp3`,
-      `${basePath}music/Aylex - Adrenaline Drive (freetouse.com).mp3`,
-      `${basePath}music/Burgundy - Mirrorball (freetouse.com).mp3`,
-      `${basePath}music/Burgundy - Ignition (freetouse.com).mp3`,
-    ];
+    this.basePath = basePath;
+
+    // Dynamically load all music files from the music folder using Vite's glob import
+    // This automatically detects all mp3 files at build time
+    const musicFiles = import.meta.glob('/public/music/*.mp3', { eager: true, query: '?url', import: 'default' });
+
+    this.playlist = Object.values(musicFiles);
+    console.log(`Loaded ${this.playlist.length} music tracks dynamically`);
   }
 
   start() {
@@ -458,6 +458,10 @@ class AudioManager {
 
   onPrepTick(secondsRemaining) {
     if (!this.enabled) return;
+    // Play countdown beeps in the last 3 seconds
+    if (secondsRemaining <= 3 && secondsRemaining >= 1 && this.countdownEnabled) {
+      this.soundFX.playCountdownBeep(secondsRemaining);
+    }
     // Say "GO" at 2 seconds before end of preparation
     if (secondsRemaining === 2 && this.voiceEnabled) {
       this.voice.speakGo();

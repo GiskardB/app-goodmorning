@@ -108,13 +108,17 @@ export async function getCompletedDays() {
   return all.map(item => item.day);
 }
 
-export async function markDayCompleted(day) {
+export async function markDayCompleted(day, phase = 1) {
   const db = await initDB();
   const profileId = await getActiveProfileId();
+  const globalDay = (phase - 1) * 28 + day; // Giorno globale univoco
+
   await db.put('progress', {
-    id: `${profileId}-day-${day}`,
+    id: `${profileId}-day-${globalDay}`,
     profileId,
-    day: day,
+    day: globalDay,
+    phase: phase,
+    localDay: day,
     completedAt: new Date().toISOString()
   });
 }
@@ -133,6 +137,46 @@ export async function resetProgress() {
   for (const item of all) {
     await db.delete('progress', item.id);
   }
+}
+
+// ============ Phase Management functions (profile-specific) ============
+
+// Get current phase
+export async function getCurrentPhase() {
+  const value = await getSetting('currentPhase');
+  return value || 1;
+}
+
+export async function setCurrentPhase(phase) {
+  await setSetting('currentPhase', phase);
+}
+
+// Get completed phases
+export async function getCompletedPhases() {
+  const value = await getSetting('completedPhases');
+  return value || [];
+}
+
+export async function markPhaseCompleted(phaseNumber) {
+  const completed = await getCompletedPhases();
+  if (!completed.includes(phaseNumber)) {
+    await setSetting('completedPhases', [...completed, phaseNumber]);
+  }
+}
+
+// Get completed days for a specific phase
+export async function getCompletedDaysForPhase(phaseNumber = 1) {
+  const db = await initDB();
+  const profileId = await getActiveProfileId();
+  const all = await db.getAllFromIndex('progress', 'profileId', profileId);
+
+  // Filter by phase (day 1-28 = phase 1, 29-56 = phase 2, etc.)
+  const startDay = (phaseNumber - 1) * 28 + 1;
+  const endDay = phaseNumber * 28;
+
+  return all
+    .filter(item => item.day >= startDay && item.day <= endDay)
+    .map(item => item.day - startDay + 1); // Normalize to 1-28
 }
 
 // ============ Profile Settings functions (profile-specific) ============
