@@ -872,11 +872,31 @@ function AppContent() {
     }
   }, [paused, active]);
 
+  // Auto-select first treadmill program when programs are loaded
+  useEffect(() => {
+    if (treadmillPrograms.length > 0 && !selectedTreadmillProgram) {
+      setSelectedTreadmillProgram(treadmillPrograms[0]);
+    }
+  }, [treadmillPrograms, selectedTreadmillProgram]);
+
   // Treadmill workout timer
   useEffect(() => {
     if (treadmillActive && !treadmillPaused && treadmillSegmentTimer > 0) {
       const interval = setInterval(() => {
         setTreadmillSegmentTimer(prev => {
+          // 5-second warning before segment ends
+          if (prev === 6 && voiceEnabled && 'speechSynthesis' in window) {
+            const program = selectedTreadmillProgram;
+            const weekData = program?.weeks?.find(w => w.week === selectedTreadmillWeek);
+            const segments = weekData?.session?.segments || [];
+            if (treadmillSegmentIndex < segments.length - 1) {
+              const nextSeg = segments[treadmillSegmentIndex + 1];
+              speechSynthesis.speak(new SpeechSynthesisUtterance(`Preparati! Tra 5 secondi: ${nextSeg.speed} chilometri orari`));
+            } else {
+              speechSynthesis.speak(new SpeechSynthesisUtterance('Ultimi 5 secondi! Stai per finire'));
+            }
+          }
+
           if (prev <= 1) {
             // Move to next segment
             const program = selectedTreadmillProgram;
@@ -895,6 +915,7 @@ function AppContent() {
             } else {
               // Workout complete
               setTreadmillActive(false);
+              audioManager.music.stop();
               setScreen('treadmill');
               return 0;
             }
@@ -1684,10 +1705,6 @@ function AppContent() {
                       : isCurrent
                       ? 'day-card-current'
                       : 'day-card-future'
-                  } ${
-                    performance === 'excellent' ? 'ring-2 ring-yellow-400' :
-                    performance === 'below' ? 'ring-2 ring-orange-400' :
-                    performance === 'good' ? 'ring-2 ring-green-400' : ''
                   }`}
                 >
                   {isFuture ? (
@@ -2789,11 +2806,6 @@ function AppContent() {
     const weekData = program?.weeks?.find(w => w.week === selectedTreadmillWeek);
     const currentPhaseInfo = program?.phases?.find(p => p.weeks.includes(selectedTreadmillWeek));
 
-    // Auto-select first program if none selected
-    if (!selectedTreadmillProgram && treadmillPrograms.length > 0) {
-      setSelectedTreadmillProgram(treadmillPrograms[0]);
-    }
-
     return (
       <div className="min-h-screen bg-[var(--bg)]">
         {/* Program Selection Modal */}
@@ -2876,10 +2888,10 @@ function AppContent() {
               {treadmillPrograms.length > 0 && (
                 <button
                   onClick={() => setShowTreadmillProgramSelector(true)}
-                  className="flex items-center gap-1 text-[11px] text-white/90 font-medium mx-auto bg-white/20 px-2 py-0.5 rounded-full"
+                  className="flex items-center gap-2 text-sm text-white font-medium mx-auto bg-white/25 px-4 py-1.5 rounded-full mt-1"
                 >
                   {program?.icon} {program?.name}
-                  <svg width="10" height="10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                   </svg>
                 </button>
@@ -2888,7 +2900,7 @@ function AppContent() {
           </div>
         </div>
 
-        <div className="px-4 max-w-2xl mx-auto -mt-6 relative z-10">
+        <div className="px-4 max-w-2xl mx-auto mt-4 relative z-10">
           {/* Week Selector Card */}
           <div className="card p-4 mb-4 animate-slide-up">
             <div className="flex items-center justify-between mb-3">
@@ -2918,7 +2930,7 @@ function AppContent() {
             </div>
 
             {/* Session Info */}
-            {weekData && (
+            {weekData && weekData.session && weekData.session.segments && weekData.session.segments.length > 0 && (
               <div className="mt-4 pt-4 border-t border-[var(--border)]">
                 <div className="flex gap-4 text-sm text-[var(--text-secondary)] mb-4">
                   <span className="flex items-center gap-1">
@@ -2951,14 +2963,32 @@ function AppContent() {
 
                 <button
                   onClick={() => {
-                    setSelectedTreadmillProgram(program);
-                    setTreadmillSegmentIndex(0);
-                    setTreadmillSegmentTimer(weekData.session.segments[0].duration);
-                    setTreadmillTotalElapsed(0);
-                    setTreadmillCalories(0);
-                    setTreadmillPaused(false);
-                    setTreadmillActive(true);
-                    setScreen('treadmillWorkout');
+                    try {
+                      const segments = weekData?.session?.segments;
+                      if (!segments || segments.length === 0) {
+                        console.error('No segments found');
+                        return;
+                      }
+                      const programToUse = program || treadmillPrograms[0];
+                      if (!programToUse) {
+                        console.error('No program found');
+                        return;
+                      }
+                      setSelectedTreadmillProgram(programToUse);
+                      setTreadmillSegmentIndex(0);
+                      setTreadmillSegmentTimer(segments[0].duration);
+                      setTreadmillTotalElapsed(0);
+                      setTreadmillCalories(0);
+                      setTreadmillPaused(false);
+                      setTreadmillActive(true);
+                      // Start music for treadmill session
+                      if (audioEnabled) {
+                        audioManager.startWorkout();
+                      }
+                      setScreen('treadmillWorkout');
+                    } catch (e) {
+                      console.error('Error starting treadmill session:', e);
+                    }
                   }}
                   className="btn-primary w-full"
                 >
@@ -3052,6 +3082,7 @@ function AppContent() {
           <button
             onClick={() => {
               setTreadmillActive(false);
+              audioManager.music.stop();
               setScreen('treadmill');
             }}
             className="w-10 h-10 rounded-full flex items-center justify-center"
@@ -3190,7 +3221,15 @@ function AppContent() {
 
           {/* Pause/Play button */}
           <button
-            onClick={() => setTreadmillPaused(!treadmillPaused)}
+            onClick={() => {
+              const newPaused = !treadmillPaused;
+              setTreadmillPaused(newPaused);
+              if (newPaused) {
+                audioManager.onPause();
+              } else {
+                audioManager.onResume();
+              }
+            }}
             className="px-8 py-4 rounded-full bg-[var(--text)] text-[var(--bg)] flex items-center gap-2 font-semibold"
           >
             {treadmillPaused ? (
@@ -3364,9 +3403,9 @@ function AppContent() {
           <span className="relative z-10 text-white/60 text-xs">({Math.round(overallProgress)}%)</span>
         </div>
 
-        <div className="flex-1 flex flex-col justify-start items-center p-3 pt-4 min-h-0">
+        <div className="flex-1 flex flex-col justify-start items-center px-3 pb-3 min-h-0">
           {/* Exercise image - full width when setting enabled */}
-          <div className={`relative mb-2 animate-fade-in flex-shrink ${fullWidthAnimation ? 'w-screen -mx-3 bg-white' : 'overflow-hidden rounded-2xl w-fit'}`}>
+          <div className={`relative mb-2 animate-fade-in flex-shrink ${fullWidthAnimation ? 'w-screen -mx-3 bg-white' : 'overflow-hidden rounded-2xl w-fit mt-3'}`}>
             <ExerciseMedia
               src={ex?.gif}
               alt={ex?.name}

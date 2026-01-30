@@ -207,8 +207,6 @@ h1, h2, h3 {
   width: 48px;
   height: 56px;
   background: var(--surface);
-  border-color: var(--primary);
-  border-width: 2px;
 }
 
 .day-card-future {
@@ -216,7 +214,6 @@ h1, h2, h3 {
   height: 44px;
   background: var(--surface-hover);
   color: var(--text-muted);
-  border-color: var(--border);
 }
 
 /* Exercise Card */
