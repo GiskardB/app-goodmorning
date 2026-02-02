@@ -323,6 +323,65 @@ function AppContent() {
   const elapsedIntervalRef = useRef(null);
   const elapsedTimeRef = useRef(0);
 
+  // Navigation history for back button support
+  const navigationHistoryRef = useRef([]);
+
+  // Navigate to a screen with history support
+  const navigateTo = useCallback((newScreen, options = {}) => {
+    const { replace = false, data = {} } = options;
+
+    // Don't add to history for certain screens
+    const noHistoryScreens = ['loading', 'error', 'workout', 'treadmillWorkout'];
+
+    if (!replace && !noHistoryScreens.includes(screen) && screen !== newScreen) {
+      navigationHistoryRef.current.push({ screen, data: { day, selectedDay, activeTab } });
+      // Push state to browser history
+      window.history.pushState({ screen: newScreen, ...data }, '', '');
+    }
+
+    setScreen(newScreen);
+  }, [screen, day, selectedDay, activeTab]);
+
+  // Handle browser back button
+  useEffect(() => {
+    const handlePopState = (event) => {
+      // If in a workout, don't allow back navigation (show exit confirm instead)
+      if (active || treadmillActive) {
+        // Re-push current state to prevent exit
+        window.history.pushState({ screen }, '', '');
+        return;
+      }
+
+      // Get previous screen from our history
+      if (navigationHistoryRef.current.length > 0) {
+        const previous = navigationHistoryRef.current.pop();
+        setScreen(previous.screen);
+        if (previous.data.selectedDay !== undefined) {
+          setSelectedDay(previous.data.selectedDay);
+        }
+        if (previous.data.activeTab) {
+          setActiveTab(previous.data.activeTab);
+        }
+      } else {
+        // No history, go to home
+        if (screen !== 'home') {
+          setScreen('home');
+          setActiveTab('home');
+          setSelectedDay(null);
+        }
+      }
+    };
+
+    window.addEventListener('popstate', handlePopState);
+
+    // Push initial state
+    if (screen === 'home') {
+      window.history.replaceState({ screen: 'home' }, '', '');
+    }
+
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, [screen, active, treadmillActive]);
+
   // Detect available phases from public folder
   async function detectAvailablePhases(basePath) {
     const detectedPhases = [];
@@ -1255,7 +1314,7 @@ function AppContent() {
   const closeMusicSelection = useCallback(() => {
     audioManager.stopMusicPreview();
     setPreviewingTrack(null);
-    setScreen('settings');
+    window.history.back();
   }, []);
 
   // Toggle wrong image exercise (debug feature)
@@ -1525,7 +1584,7 @@ function AppContent() {
           <span className="text-[10px] mt-0.5">{activeTab === 'home' ? 'Home' : ''}</span>
         </button>
         <button
-          onClick={() => { setActiveTab('exercises'); setScreen('exercises'); }}
+          onClick={() => { setActiveTab('exercises'); navigateTo('exercises'); }}
           className={`flex flex-col items-center py-1 px-4 transition-colors ${activeTab === 'exercises' ? 'text-[var(--primary)]' : 'text-[var(--text-muted)]'}`}
         >
           <ListIcon active={activeTab === 'exercises'} />
@@ -1534,7 +1593,7 @@ function AppContent() {
         <button
           onClick={() => {
             setActiveTab('settings');
-            setScreen('settings');
+            navigateTo('settings');
           }}
           className={`flex flex-col items-center py-1 px-4 transition-colors ${activeTab === 'settings' ? 'text-[var(--primary)]' : 'text-[var(--text-muted)]'}`}
         >
@@ -2028,7 +2087,7 @@ function AppContent() {
               <button
                 onClick={() => {
                   setDay(viewingDay);
-                  setScreen('detail');
+                  navigateTo('detail');
                 }}
                 className="btn-primary w-full"
               >
@@ -2084,7 +2143,7 @@ function AppContent() {
                   </div>
               <div className="flex justify-center">
                 <button
-                  onClick={() => setScreen('treadmill')}
+                  onClick={() => navigateTo('treadmill')}
                   className="bg-[var(--primary)] text-white text-[11px] font-semibold py-1.5 px-4 rounded-full"
                 >
                   VAI SUL TAPIS ROULANT!
@@ -2244,7 +2303,7 @@ function AppContent() {
                       key={session.id || index}
                       onClick={() => {
                         setSelectedHistorySession(session);
-                        setScreen('historyDetail');
+                        navigateTo('historyDetail');
                       }}
                       className="flex items-center justify-between py-2 border-b border-[var(--border)] last:border-0 cursor-pointer hover:bg-[var(--surface-hover)] rounded-lg px-2 -mx-2 transition-colors"
                     >
@@ -2416,7 +2475,7 @@ function AppContent() {
               return (
                 <div
                   key={exercise.exerciseKey}
-                  className={`card p-4 animate-fade-in cursor-pointer hover:bg-[var(--surface-hover)] transition-colors ${
+                  className={`card p-4 animate-fade-in cursor-pointer hover:bg-[var(--surface-hover)] transition-colors relative overflow-hidden ${
                     isMarkedWrong ? 'border-red-400 bg-red-50' : ''
                   }`}
                   onClick={() => {
@@ -2425,9 +2484,15 @@ function AppContent() {
                       exercisesScrollPosition.current = exercisesListRef.current.scrollTop;
                     }
                     setSelectedExercise(exercise);
-                    setScreen('exerciseDetail');
+                    navigateTo('exerciseDetail');
                   }}
                 >
+                  {/* Wrong image ribbon */}
+                  {isMarkedWrong && (
+                    <div className="absolute -top-0.5 -right-5 bg-red-500 text-white text-[6px] leading-tight font-medium px-5 py-0.5 rotate-45 shadow-sm text-center">
+                      wrong<br/>img
+                    </div>
+                  )}
                   <div className="flex gap-4 items-center">
                     {/* Debug: Wrong image checkbox */}
                     {import.meta.env.DEV && (
@@ -2518,7 +2583,7 @@ function AppContent() {
               onClick={() => {
                 setSelectedExercise(null);
                 setEditingExercise(null);
-                setScreen('exercises');
+                window.history.back();
               }}
               className="w-10 h-10 rounded-full bg-[var(--surface-hover)] flex items-center justify-center border border-[var(--border)]"
             >
@@ -2942,7 +3007,7 @@ function AppContent() {
             {/* Music Selection */}
             {musicEnabled && musicTracks.length > 0 && (
               <button
-                onClick={() => setScreen('musicSelection')}
+                onClick={() => navigateTo('musicSelection')}
                 className="w-full flex items-center justify-between py-3"
               >
                 <div className="flex items-center gap-3">
@@ -3021,7 +3086,7 @@ function AppContent() {
         <div className="relative">
           <div className="absolute top-4 left-4 z-10">
             <button
-              onClick={() => { setScreen('home'); setSelectedDay(null); }}
+              onClick={() => { setSelectedDay(null); window.history.back(); }}
               className="w-10 h-10 bg-[var(--surface)] rounded-full flex items-center justify-center border border-[var(--border)]"
             >
               <BackIcon />
@@ -3233,7 +3298,7 @@ function AppContent() {
         <div className="relative">
           <div className="absolute top-4 left-4 z-10">
             <button
-              onClick={() => setScreen('home')}
+              onClick={() => window.history.back()}
               className="w-10 h-10 bg-[var(--surface)] rounded-full flex items-center justify-center border border-[var(--border)]"
             >
               <BackIcon />
@@ -4099,7 +4164,7 @@ function AppContent() {
             <button
               onClick={() => {
                 setSelectedHistorySession(null);
-                setScreen('home');
+                window.history.back();
               }}
               className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center"
             >
