@@ -99,6 +99,18 @@ export async function setActiveProfileId(profileId) {
   cachedActiveProfileId = profileId;
 }
 
+// Get/Set global settings (not profile-specific, for debug/admin features)
+export async function getGlobalSetting(key) {
+  const db = await initDB();
+  const result = await db.get('globalSettings', key);
+  return result?.value;
+}
+
+export async function setGlobalSetting(key, value) {
+  const db = await initDB();
+  await db.put('globalSettings', { key, value });
+}
+
 // ============ Progress functions (profile-specific) ============
 
 export async function getCompletedDays() {
@@ -465,6 +477,41 @@ export async function resolveAntiPattern(id) {
     pattern.resolvedAt = new Date().toISOString();
     await db.put('antiPatterns', pattern);
   }
+}
+
+// ============ Treadmill Sessions Functions (profile-specific) ============
+
+export async function saveTreadmillSession(programId, programName, week, duration, calories) {
+  const db = await initDB();
+  const profileId = await getActiveProfileId();
+  return await db.add('sessions', {
+    type: 'treadmill',
+    profileId,
+    programId,
+    programName,
+    week,
+    duration,
+    calories,
+    date: new Date().toISOString()
+  });
+}
+
+export async function getTreadmillSessions() {
+  const db = await initDB();
+  const profileId = await getActiveProfileId();
+  const all = await db.getAllFromIndex('sessions', 'profileId', profileId);
+  return all
+    .filter(s => s.type === 'treadmill')
+    .sort((a, b) => new Date(b.date) - new Date(a.date));
+}
+
+export async function getTreadmillSessionsByProgram(programId) {
+  const db = await initDB();
+  const profileId = await getActiveProfileId();
+  const all = await db.getAllFromIndex('sessions', 'profileId', profileId);
+  return all
+    .filter(s => s.type === 'treadmill' && s.programId === programId)
+    .sort((a, b) => new Date(b.date) - new Date(a.date));
 }
 
 // ============ Statistics Functions (profile-specific) ============

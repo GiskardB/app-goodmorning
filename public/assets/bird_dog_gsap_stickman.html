@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<title>Bird Dog – Stickman GSAP</title>
+<style>
+  body { background:#f5f5f5; display:flex; justify-content:center; align-items:center; height:100vh; }
+  canvas { background:white; border:1px solid #ccc; }
+</style>
+</head>
+<body>
+
+<canvas id="c" width="400" height="300"></canvas>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script>
+const canvas = document.getElementById("c");
+const ctx = canvas.getContext("2d");
+
+const pose = {
+  rightArm: 0,
+  leftArm: 0,
+  rightLeg: 0,
+  leftLeg: 0
+};
+
+const movementJSON = {
+  frames: [
+    { t: 0, pose: "neutral" },
+    { t: 1, pose: { rightArm: 45, leftLeg: -35 } },
+    { t: 2, pose: "neutral" },
+    { t: 3, pose: { leftArm: 45, rightLeg: -35 } },
+    { t: 4, pose: "neutral" }
+  ]
+};
+
+function drawLimb(x, y, angle, length) {
+  ctx.save();
+  ctx.translate(x, y);
+  ctx.rotate(angle * Math.PI / 180);
+  ctx.beginPath();
+  ctx.moveTo(0, 0);
+  ctx.lineTo(length, 0);
+  ctx.stroke();
+  ctx.restore();
+}
+
+function render() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.lineWidth = 4;
+  ctx.strokeStyle = "#000";
+
+  // torso
+  ctx.beginPath();
+  ctx.moveTo(200, 110);
+  ctx.lineTo(200, 160);
+  ctx.stroke();
+
+  // arms
+  drawLimb(200, 120, pose.rightArm, 45);
+  drawLimb(200, 120, 180 - pose.leftArm, 45);
+
+  // legs
+  drawLimb(200, 160, 90 + pose.rightLeg, 50);
+  drawLimb(200, 160, 90 - pose.leftLeg, 50);
+
+  requestAnimationFrame(render);
+}
+
+const tl = gsap.timeline({ repeat:-1, defaults:{ ease:"sine.inOut" } });
+
+movementJSON.frames.forEach(f => {
+  if (f.pose === "neutral") {
+    tl.to(pose, { rightArm:0, leftArm:0, rightLeg:0, leftLeg:0, duration:0.6 }, f.t);
+  } else {
+    tl.to(pose, { ...f.pose, duration:0.8 }, f.t);
+  }
+});
+
+render();
+</script>
+
+</body>
+</html>

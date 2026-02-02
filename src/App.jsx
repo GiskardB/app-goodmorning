@@ -16,12 +16,16 @@ import {
   getTrainingStats,
   getSetting,
   setSetting,
+  getGlobalSetting,
+  setGlobalSetting,
   getCurrentPhase,
   setCurrentPhase,
   getCompletedPhases,
   markPhaseCompleted,
   getCompletedDaysForPhase,
-  saveSession
+  saveSession,
+  saveTreadmillSession,
+  getTreadmillSessions
 } from './db';
 import audioManager from './audio/AudioManager';
 import { TrainingProvider, useTraining } from './context/TrainingContext';
@@ -248,6 +252,10 @@ function AppContent() {
   const [fullWidthAnimation, setFullWidthAnimation] = useState(false);
   const [availableVoices, setAvailableVoices] = useState([]);
   const [selectedVoice, setSelectedVoice] = useState(null);
+  const [musicTracks, setMusicTracks] = useState([]);
+  const [favoriteMusicTracks, setFavoriteMusicTracks] = useState([]);
+  const [previewingTrack, setPreviewingTrack] = useState(null);
+  const [wrongImageExercises, setWrongImageExercises] = useState([]); // Debug: exercises with wrong images
   const [elapsedTime, setElapsedTime] = useState(0);
 
   // Selected day for viewing (separate from current progress day)
@@ -287,6 +295,8 @@ function AppContent() {
   const [treadmillTotalElapsed, setTreadmillTotalElapsed] = useState(0);
   const [treadmillCalories, setTreadmillCalories] = useState(0);
   const [showTreadmillProgramSelector, setShowTreadmillProgramSelector] = useState(false);
+  const [treadmillCompletedSessions, setTreadmillCompletedSessions] = useState([]);
+  const [treadmillSessionToSave, setTreadmillSessionToSave] = useState(null);
 
   // PWA Install prompt
   const [installPrompt, setInstallPrompt] = useState(null);
@@ -303,6 +313,10 @@ function AppContent() {
   const timelineRef = useRef(null);
   const exercisesListRef = useRef(null);
   const exercisesScrollPosition = useRef(0);
+
+  // Refs for treadmill session data (to capture values in interval callbacks)
+  const treadmillElapsedRef = useRef(0);
+  const treadmillCaloriesRef = useRef(0);
 
   const prepStartedRef = useRef(false);
   const workoutStartedRef = useRef(false);
@@ -386,10 +400,34 @@ function AppContent() {
         // Initialize Audio Manager (loads music playlist dynamically from /public/music/)
         audioManager.init(import.meta.env.BASE_URL);
 
+        // Load music tracks list
+        const tracks = audioManager.getAllMusicTracks();
+        setMusicTracks(tracks);
+
         // Load exercises.json
         const exercisesRes = await fetch(`${import.meta.env.BASE_URL}exercises.json`);
         if (!exercisesRes.ok) throw new Error('Errore caricamento exercises.json');
         const exercisesData = await exercisesRes.json();
+
+        // Load wrong image exercises (debug feature) - merge from JSON and database
+        if (import.meta.env.DEV) {
+          // Get exercises marked as wrong in the JSON file
+          const jsonWrongExercises = Object.entries(exercisesData)
+            .filter(([, ex]) => ex.wrongImage === true)
+            .map(([key]) => key);
+
+          // Get exercises marked as wrong in the database
+          const dbWrongExercises = await getGlobalSetting('wrongImageExercises') || [];
+
+          // Merge both lists (union)
+          const mergedWrongExercises = [...new Set([...jsonWrongExercises, ...dbWrongExercises])];
+          setWrongImageExercises(mergedWrongExercises);
+
+          // Sync back to database
+          if (mergedWrongExercises.length !== dbWrongExercises.length) {
+            await setGlobalSetting('wrongImageExercises', mergedWrongExercises);
+          }
+        }
 
         // Load custom exercises from localStorage and merge
         const savedCustomExercises = localStorage.getItem('customExercises');
@@ -436,6 +474,9 @@ function AppContent() {
             const treadmillData = await treadmillRes.json();
             setTreadmillPrograms(treadmillData.programs || []);
           }
+          // Load completed treadmill sessions
+          const completedTreadmill = await getTreadmillSessions();
+          setTreadmillCompletedSessions(completedTreadmill);
         } catch (e) {
           console.warn('Treadmill programs not loaded:', e);
         }
@@ -500,17 +541,20 @@ function AppContent() {
         const savedCountdownEnabled = await getSetting('countdownEnabled');
         const savedMusicEnabled = await getSetting('musicEnabled');
         const savedFullWidthAnimation = await getSetting('fullWidthAnimation');
+        const savedMusicFavorites = await getSetting('musicFavorites');
 
         // Apply settings (use defaults if not set)
         setVoiceEnabled(savedVoiceEnabled !== undefined ? savedVoiceEnabled : true);
         setCountdownEnabled(savedCountdownEnabled !== undefined ? savedCountdownEnabled : true);
         setMusicEnabled(savedMusicEnabled !== undefined ? savedMusicEnabled : true);
         setFullWidthAnimation(savedFullWidthAnimation !== undefined ? savedFullWidthAnimation : false);
+        setFavoriteMusicTracks(savedMusicFavorites || []);
 
         // Apply audio settings
         audioManager.setVoiceEnabled(savedVoiceEnabled !== undefined ? savedVoiceEnabled : true);
         audioManager.setCountdownEnabled(savedCountdownEnabled !== undefined ? savedCountdownEnabled : true);
         audioManager.setMusicEnabled(savedMusicEnabled !== undefined ? savedMusicEnabled : true);
+        audioManager.setMusicFavorites(savedMusicFavorites || []);
 
         // Reset selected day to first available
         setSelectedDay(null);
@@ -585,10 +629,12 @@ function AppContent() {
     loadVoices();
   }, [dbReady]);
 
-  // Wake Lock to prevent screen from turning off during workout
+  // Wake Lock to prevent screen from turning off during workout (daily or treadmill)
   useEffect(() => {
+    const isWorkoutActive = (active && !paused) || (treadmillActive && !treadmillPaused);
+
     const requestWakeLock = async () => {
-      if ('wakeLock' in navigator && active && !paused) {
+      if ('wakeLock' in navigator && isWorkoutActive) {
         try {
           wakeLockRef.current = await navigator.wakeLock.request('screen');
           console.log('Wake Lock attivato');
@@ -606,7 +652,7 @@ function AppContent() {
       }
     };
 
-    if (active && !paused) {
+    if (isWorkoutActive) {
       requestWakeLock();
     } else {
       releaseWakeLock();
@@ -614,7 +660,7 @@ function AppContent() {
 
     // Re-acquire wake lock when page becomes visible again
     const handleVisibilityChange = () => {
-      if (document.visibilityState === 'visible' && active && !paused) {
+      if (document.visibilityState === 'visible' && isWorkoutActive) {
         requestWakeLock();
       }
     };
@@ -625,7 +671,7 @@ function AppContent() {
       releaseWakeLock();
       document.removeEventListener('visibilitychange', handleVisibilityChange);
     };
-  }, [active, paused]);
+  }, [active, paused, treadmillActive, treadmillPaused]);
 
   // Save current day to IndexedDB
   useEffect(() => {
@@ -718,16 +764,24 @@ function AppContent() {
     }
   };
 
+  // Get prep time based on whether exercise has wrong image (7 extra seconds if wrongImage)
+  const getPrepTime = (exercise) => {
+    if (!exercise?.exercise_id) return 10;
+    const hasWrongImage = wrongImageExercises.includes(exercise.exercise_id);
+    return hasWrongImage ? 17 : 10;
+  };
+
   // Handle TTS when prep starts
   useEffect(() => {
     if (active && prep && !prepStartedRef.current && ex) {
       prepStartedRef.current = true;
-      audioManager.onPreparation(ex);
+      const hasWrongImage = wrongImageExercises.includes(ex.exercise_id);
+      audioManager.onPreparation(ex, hasWrongImage);
     }
     if (!prep) {
       prepStartedRef.current = false;
     }
-  }, [active, prep, ex]);
+  }, [active, prep, ex, wrongImageExercises]);
 
   // Speak exercise description when exercise starts (prep ends)
   const exerciseStartedRef = useRef(false);
@@ -776,23 +830,25 @@ function AppContent() {
   const moveToNextPhase = useCallback(() => {
     if (phase === 'warmup') {
       // Move to main workout
+      const nextExercise = curr?.exercises?.[0];
       setPhase('workout');
       setExerciseIdx(0);
       setPrep(true);
-      setPrepTimer(10);
+      setPrepTimer(getPrepTime(nextExercise));
     } else if (phase === 'workout') {
       // Move to cooldown
+      const nextExercise = selectedCooldown?.exercises?.[0];
       setPhase('cooldown');
       setExerciseIdx(0);
       setPrep(true);
-      setPrepTimer(10);
+      setPrepTimer(getPrepTime(nextExercise));
     } else if (phase === 'cooldown') {
       // Finish workout
       setActive(false);
       audioManager.finishWorkout(elapsedTimeRef.current);
       setScreen('done');
     }
-  }, [phase]);
+  }, [phase, curr, selectedCooldown, wrongImageExercises]);
 
   // Execution timer with beep countdown
   useEffect(() => {
@@ -826,9 +882,10 @@ function AppContent() {
                 audioManager.onRestStart();
                 return currentExercises[nextIdx]?.duration || 40;
               }
+              const nextExercise = currentExercises[nextIdx];
               setExerciseIdx(nextIdx);
               setPrep(true);
-              setPrepTimer(10);
+              setPrepTimer(getPrepTime(nextExercise));
             } else {
               // End of current phase, move to next
               moveToNextPhase();
@@ -840,7 +897,7 @@ function AppContent() {
       }, 1000);
       return () => clearInterval(interval);
     }
-  }, [active, prep, paused, timer, exerciseIdx, currentExercises, moveToNextPhase, phase, midWorkoutRestTaken]);
+  }, [active, prep, paused, timer, exerciseIdx, currentExercises, moveToNextPhase, phase, midWorkoutRestTaken, wrongImageExercises]);
 
   // Rest timer for mid-workout pause
   useEffect(() => {
@@ -849,10 +906,11 @@ function AppContent() {
         setRestTimer(p => {
           if (p <= 1) {
             // Rest done, continue workout
+            const nextExercise = currentExercises[exerciseIdx + 1];
             setPhase('workout');
             setExerciseIdx(prev => prev + 1);
             setPrep(true);
-            setPrepTimer(10);
+            setPrepTimer(getPrepTime(nextExercise));
             audioManager.onResume();
             return 30;
           }
@@ -861,7 +919,7 @@ function AppContent() {
       }, 1000);
       return () => clearInterval(interval);
     }
-  }, [active, phase, restTimer]);
+  }, [active, phase, restTimer, currentExercises, exerciseIdx, wrongImageExercises]);
 
   // Handle pause/resume audio
   useEffect(() => {
@@ -878,6 +936,25 @@ function AppContent() {
       setSelectedTreadmillProgram(treadmillPrograms[0]);
     }
   }, [treadmillPrograms, selectedTreadmillProgram]);
+
+  // Save treadmill session when completed
+  useEffect(() => {
+    if (treadmillSessionToSave) {
+      const saveAndReload = async () => {
+        await saveTreadmillSession(
+          treadmillSessionToSave.programId,
+          treadmillSessionToSave.programName,
+          treadmillSessionToSave.week,
+          treadmillSessionToSave.duration,
+          treadmillSessionToSave.calories
+        );
+        const updated = await getTreadmillSessions();
+        setTreadmillCompletedSessions(updated);
+        setTreadmillSessionToSave(null);
+      };
+      saveAndReload();
+    }
+  }, [treadmillSessionToSave]);
 
   // Treadmill workout timer
   useEffect(() => {
@@ -913,7 +990,15 @@ function AppContent() {
               }
               return segments[nextIndex].duration;
             } else {
-              // Workout complete
+              // Workout complete - save session using refs for current values
+              const programToSave = selectedTreadmillProgram;
+              setTreadmillSessionToSave({
+                programId: programToSave?.id,
+                programName: programToSave?.name,
+                week: selectedTreadmillWeek,
+                duration: treadmillElapsedRef.current,
+                calories: treadmillCaloriesRef.current
+              });
               setTreadmillActive(false);
               audioManager.music.stop();
               setScreen('treadmill');
@@ -924,7 +1009,11 @@ function AppContent() {
         });
 
         // Update total elapsed and calories
-        setTreadmillTotalElapsed(prev => prev + 1);
+        setTreadmillTotalElapsed(prev => {
+          const newVal = prev + 1;
+          treadmillElapsedRef.current = newVal;
+          return newVal;
+        });
         // Estimate calories: ~5 kcal per minute at moderate pace
         setTreadmillCalories(prev => {
           const program = selectedTreadmillProgram;
@@ -934,7 +1023,9 @@ function AppContent() {
           const speed = currentSeg?.speed || 5;
           // Calories per second: higher speed = more calories
           const calPerSec = (speed / 5) * 0.08;
-          return Math.round(prev + calPerSec);
+          const newVal = Math.round(prev + calPerSec);
+          treadmillCaloriesRef.current = newVal;
+          return newVal;
         });
       }, 1000);
 
@@ -1138,6 +1229,45 @@ function AppContent() {
     await setSetting('selectedVoice', voiceName);
   }, []);
 
+  // Toggle music track favorite
+  const toggleMusicFavorite = useCallback(async (filename) => {
+    const newFavorites = favoriteMusicTracks.includes(filename)
+      ? favoriteMusicTracks.filter(f => f !== filename)
+      : [...favoriteMusicTracks, filename];
+
+    setFavoriteMusicTracks(newFavorites);
+    audioManager.setMusicFavorites(newFavorites);
+    await setSetting('musicFavorites', newFavorites);
+  }, [favoriteMusicTracks]);
+
+  // Preview music track
+  const handlePreviewTrack = useCallback((filename) => {
+    if (previewingTrack === filename) {
+      audioManager.stopMusicPreview();
+      setPreviewingTrack(null);
+    } else {
+      audioManager.previewMusicTrack(filename);
+      setPreviewingTrack(filename);
+    }
+  }, [previewingTrack]);
+
+  // Stop preview when leaving music selection screen
+  const closeMusicSelection = useCallback(() => {
+    audioManager.stopMusicPreview();
+    setPreviewingTrack(null);
+    setScreen('settings');
+  }, []);
+
+  // Toggle wrong image exercise (debug feature)
+  const toggleWrongImageExercise = useCallback(async (exerciseKey) => {
+    const newList = wrongImageExercises.includes(exerciseKey)
+      ? wrongImageExercises.filter(k => k !== exerciseKey)
+      : [...wrongImageExercises, exerciseKey];
+
+    setWrongImageExercises(newList);
+    await setGlobalSetting('wrongImageExercises', newList);
+  }, [wrongImageExercises]);
+
   // Get tip text based on exercise type - returns null if no specific tip
   const getTipText = (type) => {
     const tips = {
@@ -1176,7 +1306,7 @@ function AppContent() {
     }));
 
     // Update selected exercise if it's the one being edited
-    if (selectedExercise && selectedExercise.id === exerciseId) {
+    if (selectedExercise && selectedExercise.exerciseKey === exerciseId) {
       setSelectedExercise(prev => ({
         ...prev,
         ...updatedData
@@ -1189,13 +1319,15 @@ function AppContent() {
   // Export exercises to JSON
   const exportExercisesToJson = () => {
     const exportData = {};
-    Object.entries(exercises).forEach(([id, ex]) => {
-      exportData[id] = {
+    Object.entries(exercises).forEach(([key, ex]) => {
+      exportData[key] = {
+        id: ex.id,
         name: ex.name,
         description: ex.description,
         muscles: ex.muscles,
         type: ex.type,
-        gif: ex.gif
+        gif: ex.gif,
+        wrongImage: wrongImageExercises.includes(key)
       };
     });
 
@@ -1228,10 +1360,13 @@ function AppContent() {
     setSelectedWarmup(warmup);
     setSelectedCooldown(cooldown);
 
+    // Get first warmup exercise to determine prep time
+    const firstExercise = warmup?.exercises?.[0];
+
     setActive(true);
     setPhase('warmup');
     setPrep(true);
-    setPrepTimer(10);
+    setPrepTimer(getPrepTime(firstExercise));
     setExerciseIdx(0);
     setElapsedTime(0);
     elapsedTimeRef.current = 0;
@@ -1304,10 +1439,11 @@ function AppContent() {
 
   // Skip rest pause
   const skipRest = () => {
+    const nextExercise = currentExercises[exerciseIdx + 1];
     setPhase('workout');
     setExerciseIdx(prev => prev + 1);
     setPrep(true);
-    setPrepTimer(10);
+    setPrepTimer(getPrepTime(nextExercise));
     setRestTimer(30);
     audioManager.onResume();
   };
@@ -1960,57 +2096,123 @@ function AppContent() {
           );
         })()}
 
-        {/* Bar Chart - Last 7 Workouts */}
-        {workoutHistory.length > 0 && (
+        {/* Bar Chart - Last 7 Days Activity */}
+        {(workoutHistory.length > 0 || treadmillCompletedSessions.length > 0) && (
           <div className="px-4 max-w-2xl mx-auto mt-6 animate-fade-in">
             <h3 className="text-xs font-medium text-[var(--text-muted)] uppercase tracking-wide mb-3">
-              Ultimi 7 allenamenti
+              Attività ultimi 7 giorni
             </h3>
             <div className="card p-4">
               {(() => {
-                const last7 = workoutHistory.slice(0, 7).reverse();
-                const maxDuration = Math.max(...last7.map(s => s.duration || 0), 1);
-                const maxMinutes = Math.ceil(maxDuration / 60);
+                // Get last 7 days
+                const days = [];
+                for (let i = 6; i >= 0; i--) {
+                  const date = new Date();
+                  date.setDate(date.getDate() - i);
+                  date.setHours(0, 0, 0, 0);
+                  days.push(date);
+                }
+
+                // Map workouts and treadmill sessions to each day
+                const dayData = days.map(date => {
+                  const dateStr = date.toDateString();
+
+                  // Find daily workout for this day
+                  const dailyWorkout = workoutHistory.find(s => {
+                    const sDate = new Date(s.completedAt);
+                    return sDate.toDateString() === dateStr;
+                  });
+
+                  // Find treadmill sessions for this day
+                  const treadmillSessions = treadmillCompletedSessions.filter(s => {
+                    const sDate = new Date(s.date);
+                    return sDate.toDateString() === dateStr;
+                  });
+                  const treadmillDuration = treadmillSessions.reduce((sum, s) => sum + (s.duration || 0), 0);
+
+                  return {
+                    date,
+                    dayLabel: date.toLocaleDateString('it-IT', { weekday: 'short' }).slice(0, 2),
+                    dailyDuration: dailyWorkout?.duration || 0,
+                    treadmillDuration
+                  };
+                });
+
+                // Calculate max for scaling
+                const maxDuration = Math.max(
+                  ...dayData.map(d => Math.max(d.dailyDuration, d.treadmillDuration)),
+                  1
+                );
 
                 return (
                   <div className="space-y-3">
+                    {/* Legend */}
+                    <div className="flex items-center justify-center gap-4 text-xs">
+                      <div className="flex items-center gap-1">
+                        <div className="w-3 h-3 rounded bg-[var(--primary)]" />
+                        <span className="text-[var(--text-secondary)]">Quotidiano</span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <div className="w-3 h-3 rounded bg-[var(--success)]" />
+                        <span className="text-[var(--text-secondary)]">Tapis roulant</span>
+                      </div>
+                    </div>
+
                     {/* Chart */}
-                    <div className="flex items-end justify-between gap-2 h-32">
-                      {last7.map((session, idx) => {
-                        const minutes = Math.floor((session.duration || 0) / 60);
-                        const heightPercent = maxDuration > 0 ? ((session.duration || 0) / maxDuration) * 100 : 0;
-                        const sessionDate = new Date(session.completedAt);
-                        const dayLabel = sessionDate.toLocaleDateString('it-IT', { weekday: 'short' }).slice(0, 2);
+                    <div className="flex items-end justify-between gap-1 h-28">
+                      {dayData.map((day, idx) => {
+                        const dailyPercent = maxDuration > 0 ? (day.dailyDuration / maxDuration) * 100 : 0;
+                        const treadmillPercent = maxDuration > 0 ? (day.treadmillDuration / maxDuration) * 100 : 0;
+                        const hasDailyWorkout = day.dailyDuration > 0;
+                        const hasTreadmill = day.treadmillDuration > 0;
 
                         return (
-                          <div key={session.id || idx} className="flex-1 flex flex-col items-center gap-1">
-                            <span className="text-xs font-medium text-[var(--text-secondary)]">{minutes}m</span>
-                            <div className="w-full bg-[var(--surface-hover)] rounded-t-lg relative" style={{ height: '80px' }}>
-                              <div
-                                className="absolute bottom-0 w-full bg-[var(--primary)] rounded-t-lg transition-all"
-                                style={{ height: `${Math.max(heightPercent, 5)}%` }}
-                              />
+                          <div key={idx} className="flex-1 flex flex-col items-center gap-1">
+                            {/* Duration labels */}
+                            <div className="text-[10px] font-medium text-[var(--text-secondary)] h-4 flex items-center">
+                              {hasDailyWorkout || hasTreadmill ? (
+                                <span>{Math.floor((day.dailyDuration + day.treadmillDuration) / 60)}m</span>
+                              ) : (
+                                <span className="text-transparent">-</span>
+                              )}
                             </div>
-                            <span className="text-xs text-[var(--text-muted)] uppercase">{dayLabel}</span>
+                            {/* Bars container */}
+                            <div className="w-full flex gap-0.5 justify-center" style={{ height: '70px' }}>
+                              {/* Daily workout bar */}
+                              <div className="flex-1 bg-[var(--surface-hover)] rounded-t relative max-w-3">
+                                {hasDailyWorkout && (
+                                  <div
+                                    className="absolute bottom-0 w-full bg-[var(--primary)] rounded-t transition-all"
+                                    style={{ height: `${Math.max(dailyPercent, 8)}%` }}
+                                  />
+                                )}
+                              </div>
+                              {/* Treadmill bar */}
+                              <div className="flex-1 bg-[var(--surface-hover)] rounded-t relative max-w-3">
+                                {hasTreadmill && (
+                                  <div
+                                    className="absolute bottom-0 w-full bg-[var(--success)] rounded-t transition-all"
+                                    style={{ height: `${Math.max(treadmillPercent, 8)}%` }}
+                                  />
+                                )}
+                              </div>
+                            </div>
+                            <span className="text-[10px] text-[var(--text-muted)] uppercase">{day.dayLabel}</span>
                           </div>
                         );
                       })}
-                      {/* Fill empty slots if less than 7 */}
-                      {Array.from({ length: Math.max(0, 7 - last7.length) }).map((_, idx) => (
-                        <div key={`empty-${idx}`} className="flex-1 flex flex-col items-center gap-1">
-                          <span className="text-xs font-medium text-transparent">-</span>
-                          <div className="w-full bg-[var(--surface-hover)] rounded-t-lg opacity-30" style={{ height: '80px' }} />
-                          <span className="text-xs text-transparent">--</span>
-                        </div>
-                      ))}
                     </div>
 
                     {/* Summary */}
-                    <div className="flex justify-between items-center pt-2 border-t border-[var(--border)]">
-                      <span className="text-sm text-[var(--text-secondary)]">Media</span>
-                      <span className="text-sm font-medium">
-                        {Math.round(last7.reduce((sum, s) => sum + (s.duration || 0), 0) / last7.length / 60)} min
-                      </span>
+                    <div className="flex justify-between items-center pt-2 border-t border-[var(--border)] text-xs">
+                      <div className="flex gap-3">
+                        <span className="text-[var(--text-secondary)]">
+                          <span className="text-[var(--primary)]">●</span> {dayData.filter(d => d.dailyDuration > 0).length} giorni
+                        </span>
+                        <span className="text-[var(--text-secondary)]">
+                          <span className="text-[var(--success)]">●</span> {dayData.filter(d => d.treadmillDuration > 0).length} giorni
+                        </span>
+                      </div>
                     </div>
                   </div>
                 );
@@ -2124,10 +2326,10 @@ function AppContent() {
       });
     }
 
-    const exercisesList = Object.entries(exercises).map(([id, ex]) => ({
-      id,
+    const exercisesList = Object.entries(exercises).map(([key, ex]) => ({
       ...ex,
-      usageCount: exerciseUsageCount[id] || 0
+      exerciseKey: key,
+      usageCount: exerciseUsageCount[key] || 0
     }));
 
     // Filter exercises based on search term
@@ -2137,10 +2339,11 @@ function AppContent() {
       (ex.type && ex.type.toLowerCase().includes(exerciseSearchTerm.toLowerCase()))
     );
 
-    // Restore scroll position after render
+    // Restore scroll position after render (only once, then reset)
     setTimeout(() => {
       if (exercisesListRef.current && exercisesScrollPosition.current > 0) {
         exercisesListRef.current.scrollTop = exercisesScrollPosition.current;
+        exercisesScrollPosition.current = 0; // Reset after restoring
       }
     }, 0);
 
@@ -2153,7 +2356,12 @@ function AppContent() {
               <div className="flex items-center justify-between mb-3">
                 <div>
                   <h1 className="text-lg font-semibold">Tutti gli Esercizi</h1>
-                  <p className="text-sm text-[var(--text-secondary)]">{filteredExercises.length} esercizi trovati</p>
+                  <p className="text-sm text-[var(--text-secondary)]">
+                    {filteredExercises.length} esercizi trovati
+                    {import.meta.env.DEV && wrongImageExercises.length > 0 && (
+                      <span className="text-red-500 ml-2">({wrongImageExercises.length} wrong)</span>
+                    )}
+                  </p>
                 </div>
                 <button
                   onClick={exportExercisesToJson}
@@ -2202,61 +2410,91 @@ function AppContent() {
         {/* Exercises List */}
         <div className="px-4 py-4 max-w-2xl mx-auto">
           <div className="space-y-3">
-            {filteredExercises.map((exercise) => (
-              <div
-                key={exercise.id}
-                className="card p-4 animate-fade-in cursor-pointer hover:bg-[var(--surface-hover)] transition-colors"
-                onClick={() => {
-                  // Save scroll position before navigating
-                  if (exercisesListRef.current) {
-                    exercisesScrollPosition.current = exercisesListRef.current.scrollTop;
-                  }
-                  setSelectedExercise(exercise);
-                  setScreen('exerciseDetail');
-                }}
-              >
-                <div className="flex gap-4 items-center">
-                  <div className="flex-shrink-0 relative">
-                    <div className="overflow-hidden rounded-xl">
-                      <ExerciseMedia
-                        src={exercise.gif}
-                        alt={exercise.name}
-                        className="w-20 h-20 object-cover"
-                      />
-                    </div>
-                    {/* Usage count badge */}
-                    {exercise.usageCount > 0 && (
-                      <div className="absolute -top-1 -right-1 bg-[var(--primary)] text-white text-[10px] font-bold rounded-full w-5 h-5 flex items-center justify-center shadow-sm border-2 border-white">
-                        {exercise.usageCount}
-                      </div>
+            {filteredExercises.map((exercise) => {
+              const isMarkedWrong = wrongImageExercises.includes(exercise.exerciseKey);
+
+              return (
+                <div
+                  key={exercise.exerciseKey}
+                  className={`card p-4 animate-fade-in cursor-pointer hover:bg-[var(--surface-hover)] transition-colors ${
+                    isMarkedWrong ? 'border-red-400 bg-red-50' : ''
+                  }`}
+                  onClick={() => {
+                    // Save scroll position before navigating
+                    if (exercisesListRef.current) {
+                      exercisesScrollPosition.current = exercisesListRef.current.scrollTop;
+                    }
+                    setSelectedExercise(exercise);
+                    setScreen('exerciseDetail');
+                  }}
+                >
+                  <div className="flex gap-4 items-center">
+                    {/* Debug: Wrong image checkbox */}
+                    {import.meta.env.DEV && (
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          toggleWrongImageExercise(exercise.exerciseKey);
+                        }}
+                        className={`flex-shrink-0 w-6 h-6 rounded border-2 flex items-center justify-center transition-colors ${
+                          isMarkedWrong
+                            ? 'bg-red-500 border-red-500 text-white'
+                            : 'border-gray-300 hover:border-red-400'
+                        }`}
+                      >
+                        {isMarkedWrong && (
+                          <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M6 18L18 6M6 6l12 12" />
+                          </svg>
+                        )}
+                      </button>
                     )}
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2 mb-1">
-                      <h3 className="font-semibold text-sm">{exercise.name}</h3>
+                    <div className="flex-shrink-0 relative">
+                      <div className="overflow-hidden rounded-xl">
+                        <ExerciseMedia
+                          src={exercise.gif}
+                          alt={exercise.name}
+                          className="w-20 h-20 object-cover"
+                        />
+                      </div>
+                      {/* Exercise ID badge - bottom left */}
+                      <div className="absolute bottom-1 left-1 bg-black/60 text-white text-[9px] font-medium rounded px-1.5 py-0.5">
+                        {exercise.id}
+                      </div>
+                      {/* Usage count badge - top right */}
                       {exercise.usageCount > 0 && (
-                        <span className="text-[10px] text-[var(--text-muted)]">
-                          ({exercise.usageCount}x nel piano)
-                        </span>
+                        <div className="absolute -top-1 -right-1 bg-[var(--primary)] text-white text-[10px] font-bold rounded-full w-5 h-5 flex items-center justify-center shadow-sm border-2 border-white">
+                          {exercise.usageCount}
+                        </div>
                       )}
                     </div>
-                    <p className="text-xs text-[var(--text-secondary)] line-clamp-2 mb-2">
-                      {exercise.description}
-                    </p>
-                    <div className="flex gap-2">
-                      {exercise.muscles && (
-                        <span className="chip chip-light text-xs">
-                          {exercise.muscles}
-                        </span>
-                      )}
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2 mb-1">
+                        <h3 className="font-semibold text-sm">{exercise.name}</h3>
+                        {exercise.usageCount > 0 && (
+                          <span className="text-[10px] text-[var(--text-muted)]">
+                            ({exercise.usageCount}x nel piano)
+                          </span>
+                        )}
+                      </div>
+                      <p className="text-xs text-[var(--text-secondary)] line-clamp-2 mb-2">
+                        {exercise.description}
+                      </p>
+                      <div className="flex gap-2">
+                        {exercise.muscles && (
+                          <span className="chip chip-light text-xs">
+                            {exercise.muscles}
+                          </span>
+                        )}
+                      </div>
                     </div>
+                    <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" className="text-[var(--text-muted)] flex-shrink-0">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
                   </div>
-                  <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" className="text-[var(--text-muted)] flex-shrink-0">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
 
@@ -2268,8 +2506,8 @@ function AppContent() {
 
   // Exercise Detail Screen
   if (screen === 'exerciseDetail' && selectedExercise) {
-    // Edit mode state
-    const isEditing = editingExercise === selectedExercise.id;
+    // Edit mode state - use exerciseKey for editing
+    const isEditing = editingExercise === selectedExercise.exerciseKey;
 
     return (
       <div className="min-h-screen bg-[var(--bg)]">
@@ -2286,10 +2524,14 @@ function AppContent() {
             >
               <BackIcon />
             </button>
+            {/* Exercise ID badge */}
+            <div className="w-8 h-8 rounded-full bg-[var(--primary)]/10 flex items-center justify-center flex-shrink-0">
+              <span className="text-xs font-bold text-[var(--primary)]">#{selectedExercise.id}</span>
+            </div>
             <h1 className="text-lg font-semibold truncate flex-1">{selectedExercise.name}</h1>
             {!isEditing && (
               <button
-                onClick={() => setEditingExercise(selectedExercise.id)}
+                onClick={() => setEditingExercise(selectedExercise.exerciseKey)}
                 className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-[var(--primary)] bg-[var(--primary)]/10 rounded-lg hover:bg-[var(--primary)]/20 transition-colors"
               >
                 <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -2387,7 +2629,7 @@ function AppContent() {
                     const muscles = document.getElementById('edit-muscles').value;
                     const description = document.getElementById('edit-description').value;
                     const gif = document.getElementById('edit-gif').value;
-                    saveExerciseEdit(selectedExercise.id, { name, muscles, description, gif });
+                    saveExerciseEdit(selectedExercise.exerciseKey, { name, muscles, description, gif });
                   }}
                   className="flex-1 py-2.5 px-4 text-sm font-medium text-white bg-[var(--primary)] rounded-xl hover:bg-[var(--primary-light)] transition-colors"
                 >
@@ -2444,6 +2686,112 @@ function AppContent() {
 
         <div className="h-14"></div>
         <BottomNav />
+      </div>
+    );
+  }
+
+  // Music Selection Screen
+  if (screen === 'musicSelection') {
+    return (
+      <div className="min-h-screen bg-[var(--bg)]">
+        {/* Header */}
+        <div className="bg-[var(--surface)] border-b border-[var(--border)] p-4">
+          <div className="max-w-2xl mx-auto flex items-center gap-3">
+            <button
+              onClick={closeMusicSelection}
+              className="p-2 -ml-2 rounded-full hover:bg-[var(--surface-hover)]"
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="15 18 9 12 15 6"></polyline>
+              </svg>
+            </button>
+            <div>
+              <h1 className="text-lg font-semibold">Brani Preferiti</h1>
+              <p className="text-xs text-[var(--text-secondary)]">
+                {favoriteMusicTracks.length > 0
+                  ? `${favoriteMusicTracks.length} selezionati`
+                  : 'Tutti i brani attivi'}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div className="p-4 max-w-2xl mx-auto">
+          <p className="text-sm text-[var(--text-secondary)] mb-4">
+            Seleziona i brani che vuoi ascoltare durante l'allenamento. Se non ne selezioni nessuno, verranno riprodotti tutti.
+          </p>
+
+          <div className="space-y-2">
+            {musicTracks.map((track) => {
+              const isFavorite = favoriteMusicTracks.includes(track.filename);
+              const isPreviewing = previewingTrack === track.filename;
+
+              return (
+                <div
+                  key={track.filename}
+                  className={`card p-3 flex items-center gap-3 transition-colors ${
+                    isFavorite ? 'border-[var(--primary)] bg-[var(--primary)]/5' : ''
+                  }`}
+                >
+                  {/* Play/Stop Preview Button */}
+                  <button
+                    onClick={() => handlePreviewTrack(track.filename)}
+                    className={`w-10 h-10 rounded-full flex items-center justify-center transition-colors ${
+                      isPreviewing
+                        ? 'bg-[var(--primary)] text-white'
+                        : 'bg-[var(--surface-hover)]'
+                    }`}
+                  >
+                    {isPreviewing ? (
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                        <rect x="6" y="4" width="4" height="16" rx="1" />
+                        <rect x="14" y="4" width="4" height="16" rx="1" />
+                      </svg>
+                    ) : (
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                        <polygon points="5 3 19 12 5 21 5 3" />
+                      </svg>
+                    )}
+                  </button>
+
+                  {/* Track Name */}
+                  <div className="flex-1 min-w-0">
+                    <div className="font-medium text-sm truncate">{track.name}</div>
+                  </div>
+
+                  {/* Favorite Toggle */}
+                  <button
+                    onClick={() => toggleMusicFavorite(track.filename)}
+                    className="p-2 rounded-full hover:bg-[var(--surface-hover)]"
+                  >
+                    {isFavorite ? (
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="#EAB308" stroke="#EAB308" strokeWidth="2">
+                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                      </svg>
+                    ) : (
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" strokeWidth="2">
+                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                      </svg>
+                    )}
+                  </button>
+                </div>
+              );
+            })}
+          </div>
+
+          {favoriteMusicTracks.length > 0 && (
+            <button
+              onClick={async () => {
+                setFavoriteMusicTracks([]);
+                audioManager.setMusicFavorites([]);
+                await setSetting('musicFavorites', []);
+              }}
+              className="w-full mt-4 py-3 text-sm text-[var(--text-secondary)] border border-[var(--border)] rounded-xl"
+            >
+              Rimuovi tutti i preferiti
+            </button>
+          )}
+        </div>
       </div>
     );
   }
@@ -2573,7 +2921,7 @@ function AppContent() {
             {/* Music */}
             <button
               onClick={toggleMusic}
-              className="w-full flex items-center justify-between py-3"
+              className="w-full flex items-center justify-between py-3 border-b border-[var(--border)]"
             >
               <div className="flex items-center gap-3">
                 <span className="text-xl">🎵</span>
@@ -2590,6 +2938,29 @@ function AppContent() {
                 }`} />
               </div>
             </button>
+
+            {/* Music Selection */}
+            {musicEnabled && musicTracks.length > 0 && (
+              <button
+                onClick={() => setScreen('musicSelection')}
+                className="w-full flex items-center justify-between py-3"
+              >
+                <div className="flex items-center gap-3">
+                  <span className="text-xl">⭐</span>
+                  <div className="text-left">
+                    <div className="font-medium text-sm">Seleziona Brani Preferiti</div>
+                    <div className="text-xs text-[var(--text-secondary)]">
+                      {favoriteMusicTracks.length > 0
+                        ? `${favoriteMusicTracks.length} brani selezionati`
+                        : 'Tutti i brani in riproduzione'}
+                    </div>
+                  </div>
+                </div>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-[var(--text-muted)]">
+                  <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+              </button>
+            )}
           </div>
 
           {/* Display Settings */}
@@ -2979,6 +3350,8 @@ function AppContent() {
                       setTreadmillSegmentTimer(segments[0].duration);
                       setTreadmillTotalElapsed(0);
                       setTreadmillCalories(0);
+                      treadmillElapsedRef.current = 0;
+                      treadmillCaloriesRef.current = 0;
                       setTreadmillPaused(false);
                       setTreadmillActive(true);
                       // Start music for treadmill session
@@ -3014,6 +3387,54 @@ function AppContent() {
               </div>
             </div>
           )}
+
+          {/* Completed Sessions */}
+          {(() => {
+            // Filter sessions for current program
+            const programSessions = treadmillCompletedSessions.filter(s => s.programId === program?.id);
+            if (programSessions.length === 0) return null;
+
+            // Group by week
+            const byWeek = {};
+            programSessions.forEach(session => {
+              const week = session.week || 1;
+              if (!byWeek[week]) byWeek[week] = [];
+              byWeek[week].push(session);
+            });
+
+            // Get week numbers and sort
+            const weeks = Object.keys(byWeek).map(Number).sort((a, b) => a - b);
+
+            return (
+              <div className="card p-4 mb-4">
+                <h3 className="text-sm font-semibold mb-3">Sessioni Completate</h3>
+                <div className="space-y-3">
+                  {weeks.map(week => {
+                    const sessions = byWeek[week];
+                    // Get unique days
+                    const days = sessions.map(s => {
+                      const date = new Date(s.date);
+                      return date.toLocaleDateString('it-IT', { weekday: 'short', day: 'numeric', month: 'short' });
+                    });
+
+                    return (
+                      <div key={week} className="bg-[var(--surface-hover)] rounded-xl p-3">
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className="text-[var(--primary)] font-semibold">Settimana {week}</span>
+                          <span className="text-xs bg-[var(--primary)]/10 text-[var(--primary)] px-2 py-0.5 rounded-full">
+                            {sessions.length} {sessions.length === 1 ? 'sessione' : 'sessioni'}
+                          </span>
+                        </div>
+                        <p className="text-xs text-[var(--text-secondary)]">
+                          {days.join(', ')}
+                        </p>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            );
+          })()}
         </div>
 
         <div className="h-6"></div>
@@ -3043,7 +3464,7 @@ function AppContent() {
     };
 
     // Circular gauge SVG parameters
-    const gaugeSize = 280;
+    const gaugeSize = 220;
     const strokeWidth = 10;
     const radius = (gaugeSize - strokeWidth) / 2;
     const circumference = 2 * Math.PI * radius;
@@ -3076,9 +3497,9 @@ function AppContent() {
     });
 
     return (
-      <div className="min-h-screen bg-[var(--bg)] flex flex-col">
+      <div className="workout-screen bg-[var(--bg)] flex flex-col">
         {/* Top bar */}
-        <div className="p-4 flex justify-end">
+        <div className="p-3 flex justify-end flex-shrink-0">
           <button
             onClick={() => {
               setTreadmillActive(false);
@@ -3092,15 +3513,15 @@ function AppContent() {
         </div>
 
         {/* Calories */}
-        <div className="flex justify-center mb-4">
-          <div className="bg-[var(--surface-hover)] rounded-2xl px-8 py-4 text-center">
-            <span className="text-4xl font-bold">{treadmillCalories}</span>
-            <p className="text-sm text-[var(--text-muted)]">kcal</p>
+        <div className="flex justify-center mb-2 flex-shrink-0">
+          <div className="bg-[var(--surface-hover)] rounded-xl px-6 py-2 text-center">
+            <span className="text-2xl font-bold">{treadmillCalories}</span>
+            <span className="text-sm text-[var(--text-muted)] ml-1">kcal</span>
           </div>
         </div>
 
         {/* Segmented Circular Gauge */}
-        <div className="flex-1 flex items-center justify-center px-4">
+        <div className="flex-1 flex items-center justify-center px-3 min-h-0">
           <div className="relative" style={{ width: gaugeSize, height: gaugeSize }}>
             <svg width={gaugeSize} height={gaugeSize} className="absolute inset-0">
               {/* Render each segment */}
@@ -3145,16 +3566,16 @@ function AppContent() {
 
             {/* Center content */}
             <div className="absolute inset-0 flex flex-col items-center justify-center">
-              <p className="text-xs text-[var(--text-muted)] uppercase tracking-wider mb-1">Tempo totale rimasto</p>
-              <span className="text-5xl font-bold tracking-tight">{formatTimeMinSec(Math.max(0, totalRemaining))}</span>
-              <p className="text-xs text-[var(--text-muted)] mt-2">{treadmillSegmentIndex + 1}/{segments.length} fasi</p>
+              <p className="text-[10px] text-[var(--text-muted)] uppercase tracking-wider mb-1">Tempo rimasto</p>
+              <span className="text-4xl font-bold tracking-tight">{formatTimeMinSec(Math.max(0, totalRemaining))}</span>
+              <p className="text-[10px] text-[var(--text-muted)] mt-1">{treadmillSegmentIndex + 1}/{segments.length} fasi</p>
             </div>
           </div>
         </div>
 
         {/* Current Phase */}
-        <div className="px-4 mb-4">
-          <p className="text-xs text-[var(--text-muted)] uppercase tracking-wider mb-2 font-medium text-center">Fase attuale</p>
+        <div className="px-3 mb-2 flex-shrink-0">
+          <p className="text-[10px] text-[var(--text-muted)] uppercase tracking-wider mb-1 font-medium text-center">Fase attuale</p>
           <div className="flex items-center gap-2">
             {/* Prev arrow */}
             <button
@@ -3165,24 +3586,24 @@ function AppContent() {
                 }
               }}
               disabled={treadmillSegmentIndex === 0}
-              className={`w-10 h-10 rounded-full flex items-center justify-center ${
+              className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
                 treadmillSegmentIndex === 0 ? 'opacity-30' : ''
               }`}
             >
-              <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
               </svg>
             </button>
 
             {/* Current segment card */}
-            <div className="flex-1 bg-[var(--surface-hover)] rounded-2xl p-4">
+            <div className="flex-1 bg-[var(--surface-hover)] rounded-xl p-3">
               <div className="flex items-center justify-between">
                 <div>
-                  <h3 className="font-semibold text-lg">{currentSegment?.activity}</h3>
-                  <p className="text-2xl font-bold text-[var(--primary)]">{currentSegment?.speed} km/h</p>
+                  <h3 className="font-medium text-sm">{currentSegment?.activity}</h3>
+                  <p className="text-xl font-bold text-[var(--primary)]">{currentSegment?.speed} km/h</p>
                 </div>
                 <div className="text-right">
-                  <span className="text-3xl font-bold">{formatTimeMinSec(treadmillSegmentTimer)}</span>
+                  <span className="text-2xl font-bold">{formatTimeMinSec(treadmillSegmentTimer)}</span>
                 </div>
               </div>
             </div>
@@ -3196,11 +3617,11 @@ function AppContent() {
                 }
               }}
               disabled={treadmillSegmentIndex >= segments.length - 1}
-              className={`w-10 h-10 rounded-full flex items-center justify-center ${
+              className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
                 treadmillSegmentIndex >= segments.length - 1 ? 'opacity-30' : ''
               }`}
             >
-              <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
               </svg>
             </button>
@@ -3208,15 +3629,26 @@ function AppContent() {
         </div>
 
         {/* Bottom controls */}
-        <div className="p-4 pb-8 flex items-center justify-center gap-4">
-          {/* Music button */}
+        <div className="p-3 pb-6 flex items-center justify-center gap-3 flex-shrink-0">
+          {/* Music mute/unmute button */}
           <button
-            onClick={() => setMusicEnabled(!musicEnabled)}
-            className="w-14 h-14 rounded-full bg-[var(--surface-hover)] flex items-center justify-center"
+            onClick={() => {
+              const newMusicEnabled = !musicEnabled;
+              setMusicEnabled(newMusicEnabled);
+              audioManager.setMusicEnabled(newMusicEnabled);
+            }}
+            className={`w-12 h-12 rounded-full flex items-center justify-center ${musicEnabled ? 'bg-[var(--surface-hover)]' : 'bg-[var(--surface-hover)]'}`}
           >
-            <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
-            </svg>
+            {musicEnabled ? (
+              <svg width="22" height="22" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.536 8.464a5 5 0 010 7.072M18.364 5.636a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+              </svg>
+            ) : (
+              <svg width="22" height="22" fill="none" stroke="currentColor" viewBox="0 0 24 24" className="text-[var(--text-muted)]">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2" />
+              </svg>
+            )}
           </button>
 
           {/* Pause/Play button */}
@@ -3230,7 +3662,7 @@ function AppContent() {
                 audioManager.onResume();
               }
             }}
-            className="px-8 py-4 rounded-full bg-[var(--text)] text-[var(--bg)] flex items-center gap-2 font-semibold"
+            className="px-6 py-3 rounded-full bg-[var(--text)] text-[var(--bg)] flex items-center gap-2 font-semibold"
           >
             {treadmillPaused ? (
               <>
@@ -3244,6 +3676,31 @@ function AppContent() {
               </>
             )}
           </button>
+
+          {/* Dev: Complete session button */}
+          {import.meta.env.DEV && (
+            <button
+              onClick={() => {
+                // Save session before completing
+                setTreadmillSessionToSave({
+                  programId: program?.id,
+                  programName: program?.name,
+                  week: selectedTreadmillWeek,
+                  duration: treadmillElapsedRef.current || treadmillTotalElapsed,
+                  calories: treadmillCaloriesRef.current || treadmillCalories
+                });
+                setTreadmillActive(false);
+                audioManager.music.stop();
+                setScreen('treadmill');
+              }}
+              className="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center"
+              title="Completa sessione (dev)"
+            >
+              <svg width="22" height="22" fill="none" stroke="currentColor" viewBox="0 0 24 24" className="text-green-600">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+              </svg>
+            </button>
+          )}
         </div>
       </div>
     );
@@ -3253,6 +3710,7 @@ function AppContent() {
   if (screen === 'workout' && prep) {
     const prepBgColor = phase === 'warmup' ? 'bg-blue-400' : phase === 'cooldown' ? 'bg-slate-600' : 'bg-prep';
     const phaseCode = getPhaseCode();
+    const hasWrongImage = wrongImageExercises.includes(ex?.exercise_id);
 
     return (
       <div className={`workout-screen ${prepBgColor} text-white flex flex-col`}>
@@ -3271,17 +3729,27 @@ function AppContent() {
         </div>
 
         <div className="flex-1 flex flex-col items-center justify-center p-3 animate-fade-in min-h-0">
-          <p className="text-white/60 uppercase tracking-wider text-xs mb-1">Preparati</p>
+          <p className="text-white/60 uppercase tracking-wider text-xs mb-1">
+            {hasWrongImage ? 'Ascolta la descrizione' : 'Preparati'}
+          </p>
           <h2 className="text-xl font-bold text-center mb-2">{ex?.name}</h2>
 
           <div className={`text-5xl font-bold mb-3 ${prepTimer <= 3 ? 'text-yellow-300 animate-pulse-soft' : ''}`}>{prepTimer}</div>
 
           <div className="mb-3 overflow-hidden rounded-2xl flex-shrink-0">
-            <ExerciseMedia
-              src={ex?.gif}
-              alt={ex?.name}
-              className="w-52 h-52 rounded-2xl object-cover"
-            />
+            {hasWrongImage ? (
+              <img
+                src={`${import.meta.env.BASE_URL}assets/listen_placeholder.jpg`}
+                alt="Ascolta la descrizione"
+                className="w-52 h-52 rounded-2xl object-cover"
+              />
+            ) : (
+              <ExerciseMedia
+                src={ex?.gif}
+                alt={ex?.name}
+                className="w-52 h-52 rounded-2xl object-cover"
+              />
+            )}
           </div>
 
           <p className="text-white/60 text-sm mb-3">Durata: {ex?.duration}s</p>
@@ -3458,9 +3926,10 @@ function AppContent() {
                 onClick={() => {
                   const hasNext = exerciseIdx < currentExercises.length - 1;
                   if (hasNext) {
+                    const nextExercise = currentExercises[exerciseIdx + 1];
                     setExerciseIdx(prev => prev + 1);
                     setPrep(true);
-                    setPrepTimer(10);
+                    setPrepTimer(getPrepTime(nextExercise));
                   } else {
                     moveToNextPhase();
                   }

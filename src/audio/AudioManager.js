@@ -258,11 +258,14 @@ class WorkoutVoice {
 class BackgroundMusic {
   constructor() {
     this.audio = null;
-    this.playlist = [];
+    this.allTracks = []; // All available tracks with metadata
+    this.playlist = []; // Filtered playlist (favorites or all)
     this.currentIndex = 0;
     this.isPlaying = false;
     this.volume = 0.08; // Low volume
     this.basePath = '';
+    this.favorites = []; // List of favorite track filenames
+    this.previewAudio = null; // For previewing tracks
   }
 
   loadPlaylist(basePath = '') {
@@ -272,8 +275,54 @@ class BackgroundMusic {
     // This automatically detects all mp3 files at build time
     const musicFiles = import.meta.glob('/public/music/*.mp3', { eager: true, query: '?url', import: 'default' });
 
-    this.playlist = Object.values(musicFiles);
-    console.log(`Loaded ${this.playlist.length} music tracks dynamically`);
+    // Store tracks with metadata
+    this.allTracks = Object.entries(musicFiles).map(([path, url]) => {
+      const filename = path.split('/').pop();
+      const name = filename.replace('.mp3', '').replace(/_/g, ' ');
+      return { filename, url, name };
+    });
+
+    // Initially all tracks are in the playlist
+    this.playlist = this.allTracks.map(t => t.url);
+    console.log(`Loaded ${this.allTracks.length} music tracks dynamically`);
+  }
+
+  // Get all available tracks
+  getAllTracks() {
+    return this.allTracks;
+  }
+
+  // Set favorite tracks - if empty, use all tracks
+  setFavorites(favoriteFilenames) {
+    this.favorites = favoriteFilenames || [];
+    if (this.favorites.length > 0) {
+      this.playlist = this.allTracks
+        .filter(t => this.favorites.includes(t.filename))
+        .map(t => t.url);
+    } else {
+      // If no favorites, use all tracks
+      this.playlist = this.allTracks.map(t => t.url);
+    }
+    console.log(`Music playlist updated: ${this.playlist.length} tracks`);
+  }
+
+  // Preview a specific track
+  previewTrack(filename) {
+    this.stopPreview();
+    const track = this.allTracks.find(t => t.filename === filename);
+    if (track) {
+      this.previewAudio = new Audio(track.url);
+      this.previewAudio.volume = 0.3;
+      this.previewAudio.play().catch(() => {});
+    }
+  }
+
+  // Stop preview
+  stopPreview() {
+    if (this.previewAudio) {
+      this.previewAudio.pause();
+      this.previewAudio = null;
+    }
   }
 
   start() {
@@ -426,15 +475,19 @@ class AudioManager {
     }
   }
 
-  onPreparation(exercise) {
+  onPreparation(exercise, wrongImage = false) {
     if (!this.enabled || !this.voiceEnabled) return;
-
-    // Just announce the exercise name without "prossimo"
-    const text = exercise.name;
 
     // Small delay to let UI update first
     setTimeout(() => {
-      this.voice.speak(text);
+      if (wrongImage && exercise?.description) {
+        // For wrong image exercises, warn and describe
+        const text = `Immagine errata, ascoltami. ${exercise.description}`;
+        this.voice.speak(text, { rate: 0.85 });
+      } else {
+        // Just announce the exercise name
+        this.voice.speak(exercise.name);
+      }
     }, 600);
   }
 
@@ -589,6 +642,23 @@ class AudioManager {
 
   getCurrentVoiceName() {
     return this.voice.getCurrentVoiceName();
+  }
+
+  // Music track management
+  getAllMusicTracks() {
+    return this.music.getAllTracks();
+  }
+
+  setMusicFavorites(favoriteFilenames) {
+    this.music.setFavorites(favoriteFilenames);
+  }
+
+  previewMusicTrack(filename) {
+    this.music.previewTrack(filename);
+  }
+
+  stopMusicPreview() {
+    this.music.stopPreview();
   }
 }
 
