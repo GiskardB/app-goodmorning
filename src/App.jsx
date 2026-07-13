@@ -33,6 +33,7 @@ import OnboardingWizard from './components/onboarding/OnboardingWizard';
 import PreWorkoutAssessment from './components/assessment/PreWorkoutAssessment';
 import PostWorkoutFeedback from './components/assessment/PostWorkoutFeedback';
 import ProfileScreen from './components/profile/ProfileScreen';
+import { adaptWorkoutToReadiness } from './utils/workoutAdaptation';
 
 // Day to focus mapping (from GUIDA_MAPPATURA_WARMUP_COOLDOWN.md)
 const DAY_FOCUS_MAP = {
@@ -306,6 +307,8 @@ function AppContent() {
   const [phase, setPhase] = useState('warmup');
   const [selectedWarmup, setSelectedWarmup] = useState(null);
   const [selectedCooldown, setSelectedCooldown] = useState(null);
+  // Adattamento del workout in base al readiness score (null = piano standard)
+  const [workoutAdjustment, setWorkoutAdjustment] = useState(null);
   const [workoutHistory, setWorkoutHistory] = useState([]);
   const [selectedHistorySession, setSelectedHistorySession] = useState(null);
   const [completedExercises, setCompletedExercises] = useState({ warmup: [], workout: [], cooldown: [] });
@@ -827,7 +830,7 @@ function AppContent() {
     } else if (phase === 'cooldown' && selectedCooldown) {
       return selectedCooldown.exercises;
     } else if (phase === 'workout') {
-      return curr?.exercises || [];
+      return workoutAdjustment?.exercises || curr?.exercises || [];
     }
     return [];
   };
@@ -1445,6 +1448,7 @@ function AppContent() {
 
   // Start workout handler - now triggers pre-workout assessment first
   const startWorkout = () => {
+    setWorkoutAdjustment(null);
     // If onboarding is completed and user has a profile, show pre-workout assessment
     if (onboardingCompleted && userProfile) {
       startPreWorkoutAssessment();
@@ -1480,7 +1484,10 @@ function AppContent() {
 
   // Handle pre-workout assessment completion
   const handlePreWorkoutComplete = (assessmentData) => {
-    completePreWorkoutAssessment(assessmentData);
+    const result = completePreWorkoutAssessment(assessmentData);
+    // Adapt today's workout to the readiness score using difficulty weights
+    const score = assessmentData?.readinessScore ?? result?.score;
+    setWorkoutAdjustment(adaptWorkoutToReadiness(curr?.exercises, exercises, score));
     beginWorkoutAfterAssessment();
   };
 
@@ -1506,6 +1513,7 @@ function AppContent() {
   const confirmExit = () => {
     setShowExitConfirm(false);
     setActive(false);
+    setWorkoutAdjustment(null);
     audioManager.exitWorkout();
     setScreen('detail');
     setElapsedTime(0);
@@ -3871,6 +3879,12 @@ function AppContent() {
         </div>
 
         <div className="flex-1 flex flex-col items-center justify-center p-3 animate-fade-in min-h-0">
+          {phase === 'workout' && workoutAdjustment && (
+            <div className="bg-white/15 rounded-full px-3 py-1 mb-2 text-xs flex items-center gap-1.5">
+              <span>{workoutAdjustment.icon}</span>
+              <span>Workout {workoutAdjustment.label.toLowerCase()} in base al tuo check-in</span>
+            </div>
+          )}
           <p className="text-white/60 uppercase tracking-wider text-xs mb-1">
             {hasWrongImage ? 'Ascolta la descrizione' : 'Preparati'}
           </p>
