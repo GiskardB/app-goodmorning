@@ -23,6 +23,40 @@ const ADAPTATION_SETTINGS = {
 
 const MIN_DURATION = 15;
 
+// Mappa le aree del check-in DOMS (BODY_AREAS) alle parole chiave dei muscoli
+// nel registro esercizi, per evitare sostituzioni su muscoli indolenziti
+const BODY_AREA_MUSCLES = {
+  neck: ['collo'],
+  shoulders: ['spalle', 'deltoidi'],
+  upper_back: ['dorsali', 'schiena'],
+  lower_back: ['lombari', 'schiena'],
+  chest: ['petto', 'pettorali'],
+  arms: ['bicipiti', 'tricipiti', 'braccia', 'avambracci'],
+  abs: ['addominali', 'core', 'obliqui'],
+  glutes: ['glutei'],
+  thighs: ['quadricipiti', 'femorali', 'cosce', 'adduttori', "flessori dell'anca"],
+  calves: ['polpacci'],
+  knees: ['quadricipiti', 'femorali'],
+  ankles: ['polpacci']
+};
+
+function soreMuscleKeywords(domsAreas) {
+  const keywords = new Set();
+  (domsAreas || []).forEach(area => {
+    (BODY_AREA_MUSCLES[area] || []).forEach(k => keywords.add(k));
+  });
+  return keywords;
+}
+
+function targetsSoreMuscles(muscles, soreKeywords) {
+  if (soreKeywords.size === 0) return false;
+  const lower = (muscles || '').toLowerCase();
+  for (const keyword of soreKeywords) {
+    if (lower.includes(keyword)) return true;
+  }
+  return false;
+}
+
 function roundDuration(seconds) {
   return Math.max(MIN_DURATION, Math.round(seconds / 5) * 5);
 }
@@ -49,9 +83,11 @@ function sharedMuscleCount(a, b) {
  * the cap, preferring alternatives that target the same muscles and are
  * closest to the cap (to avoid over-easing the workout).
  */
-function findEasierAlternative(exercise, allExercises, maxDifficulty, usedKeys) {
+function findEasierAlternative(exercise, allExercises, maxDifficulty, usedKeys, soreKeywords) {
   let best = null;
   let bestScore = -1;
+  let bestSore = null;
+  let bestSoreScore = -1;
 
   Object.entries(allExercises).forEach(([key, candidate]) => {
     if (usedKeys.has(key)) return;
@@ -60,13 +96,21 @@ function findEasierAlternative(exercise, allExercises, maxDifficulty, usedKeys) 
     if (difficulty > maxDifficulty) return;
 
     const score = sharedMuscleCount(exercise.muscles, candidate.muscles) * 10 + difficulty;
+    if (targetsSoreMuscles(candidate.muscles, soreKeywords)) {
+      // candidato su muscoli indolenziti: solo come ripiego
+      if (score > bestSoreScore) {
+        bestSoreScore = score;
+        bestSore = { key, exercise: candidate };
+      }
+      return;
+    }
     if (score > bestScore) {
       bestScore = score;
       best = { key, exercise: candidate };
     }
   });
 
-  return best;
+  return best || bestSore;
 }
 
 /**
@@ -76,9 +120,10 @@ function findEasierAlternative(exercise, allExercises, maxDifficulty, usedKeys) 
  * @param {Array} workoutExercises - Enriched exercises of the day ({ exercise_id, duration, difficulty, ... })
  * @param {Object} allExercises - Full exercise registry keyed by exercise_id
  * @param {number} readinessScore - Score 0-100 from the pre-workout check-in
+ * @param {Array} domsAreas - Aree indolenzite dal check-in (BODY_AREAS), evitate nelle sostituzioni
  * @returns {null|{level, label, icon, description, durationFactor, exercises, changes}}
  */
-export function adaptWorkoutToReadiness(workoutExercises, allExercises, readinessScore) {
+export function adaptWorkoutToReadiness(workoutExercises, allExercises, readinessScore, domsAreas = []) {
   if (readinessScore == null || !Array.isArray(workoutExercises) || workoutExercises.length === 0) {
     return null;
   }
@@ -87,6 +132,7 @@ export function adaptWorkoutToReadiness(workoutExercises, allExercises, readines
   const settings = ADAPTATION_SETTINGS[level];
   if (!settings) return null; // zona media: workout standard
 
+  const soreKeywords = soreMuscleKeywords(domsAreas);
   const usedKeys = new Set(workoutExercises.map(ex => ex.exercise_id));
   const changes = [];
 
@@ -95,7 +141,7 @@ export function adaptWorkoutToReadiness(workoutExercises, allExercises, readines
 
     const difficulty = ex.difficulty || 3;
     if (difficulty > settings.maxDifficulty && allExercises) {
-      const alternative = findEasierAlternative(ex, allExercises, settings.maxDifficulty, usedKeys);
+      const alternative = findEasierAlternative(ex, allExercises, settings.maxDifficulty, usedKeys, soreKeywords);
       if (alternative) {
         usedKeys.add(alternative.key);
         changes.push({ from: ex.name, to: alternative.exercise.name });

@@ -2,9 +2,10 @@
 
 /* Design System - Clean & Flat */
 :root {
-  /* Primary - Single accent color */
-  --primary: #6366F1;
-  --primary-light: #818CF8;
+  /* Primary - Single accent color (teal) */
+  --primary: #0D9488;
+  --primary-light: #14B8A6;
+  --primary-dark: #0F766E;
 
   /* Success - Blue tones */
   --success: #3B82F6;
@@ -172,7 +173,7 @@ h1, h2, h3 {
 }
 
 .bg-prep {
-  background: linear-gradient(135deg, #6366F1 0%, #8B5CF6 100%);
+  background: linear-gradient(135deg, #0D9488 0%, #10B981 100%);
 }
 
 .bg-success {

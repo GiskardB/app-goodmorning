@@ -1487,7 +1487,7 @@ function AppContent() {
     const result = completePreWorkoutAssessment(assessmentData);
     // Adapt today's workout to the readiness score using difficulty weights
     const score = assessmentData?.readinessScore ?? result?.score;
-    setWorkoutAdjustment(adaptWorkoutToReadiness(curr?.exercises, exercises, score));
+    setWorkoutAdjustment(adaptWorkoutToReadiness(curr?.exercises, exercises, score, assessmentData?.domsAreas));
     beginWorkoutAfterAssessment();
   };
 
@@ -1676,6 +1676,7 @@ function AppContent() {
         onComplete={handlePreWorkoutComplete}
         onSkip={handlePreWorkoutSkip}
         onClose={() => setShowPreWorkout(false)}
+        getAdaptationPreview={(score, domsAreas) => adaptWorkoutToReadiness(curr?.exercises, exercises, score, domsAreas)}
       />
     );
   }
@@ -1902,7 +1903,7 @@ function AppContent() {
                 }}
                 className="w-9 h-9 rounded-full flex items-center justify-center overflow-hidden"
                 style={{
-                  background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
+                  background: 'linear-gradient(135deg, #14B8A6 0%, #0F766E 100%)'
                 }}
               >
                 <span className="text-white text-sm font-bold drop-shadow-sm">
@@ -2967,7 +2968,7 @@ function AppContent() {
                 <div className="flex items-center gap-3">
                   <div
                     className="w-10 h-10 rounded-full flex items-center justify-center"
-                    style={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' }}
+                    style={{ background: 'linear-gradient(135deg, #14B8A6 0%, #0F766E 100%)' }}
                   >
                     <span className="text-white font-bold drop-shadow-sm">
                       {userProfile.name?.charAt(0)?.toUpperCase()}

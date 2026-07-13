@@ -19,7 +19,8 @@ export default function PreWorkoutAssessment({
   userProfile,
   onComplete,
   onSkip,
-  onClose
+  onClose,
+  getAdaptationPreview
 }) {
   const [step, setStep] = useState(0);
   const [showResult, setShowResult] = useState(false);
@@ -101,6 +102,7 @@ export default function PreWorkoutAssessment({
         userProfile={userProfile}
         onContinue={handleComplete}
         onBack={() => setShowResult(false)}
+        getAdaptationPreview={getAdaptationPreview}
       />
     );
   }

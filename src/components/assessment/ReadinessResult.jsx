@@ -6,7 +6,8 @@ export default function ReadinessResult({
   assessment,
   userProfile,
   onContinue,
-  onBack
+  onBack,
+  getAdaptationPreview
 }) {
   const { score, level, color, label, recommendations } = useMemo(() => {
     const calculatedScore = calculateReadinessScore(assessment, userProfile);
@@ -73,6 +74,12 @@ export default function ReadinessResult({
       recommendations: recs
     };
   }, [assessment, userProfile]);
+
+  // Anteprima dell'adattamento del workout (sostituzioni e durate)
+  const adaptation = useMemo(
+    () => (getAdaptationPreview ? getAdaptationPreview(score, assessment.domsAreas) : null),
+    [getAdaptationPreview, score, assessment]
+  );
 
   // Calculate ring percentage
   const circumference = 2 * Math.PI * 45; // r = 45
@@ -144,6 +151,37 @@ export default function ReadinessResult({
           {level === 'medium' && 'Sei in buona forma per un allenamento standard.'}
           {level === 'high' && 'Sei al top! Ottima giornata per dare il massimo.'}
         </p>
+
+        {/* Workout Adaptation Preview */}
+        {adaptation && (
+          <div className="w-full max-w-md mb-6">
+            <h3 className="text-sm font-medium text-[var(--text-muted)] uppercase tracking-wide mb-3">
+              Come cambierà il workout
+            </h3>
+            <div className="card p-4">
+              <div className="flex items-center gap-2 mb-2">
+                <span className="text-2xl">{adaptation.icon}</span>
+                <div>
+                  <p className="font-semibold text-sm">Workout {adaptation.label.toLowerCase()}</p>
+                  <p className="text-xs text-[var(--text-secondary)]">
+                    Durata esercizi {adaptation.durationFactor > 1 ? '+' : ''}{Math.round((adaptation.durationFactor - 1) * 100)}%
+                  </p>
+                </div>
+              </div>
+              {adaptation.changes.length > 0 && (
+                <div className="mt-3 pt-3 border-t border-[var(--border)] space-y-1.5">
+                  {adaptation.changes.map((change, i) => (
+                    <p key={i} className="text-xs text-[var(--text-secondary)]">
+                      <span className="line-through opacity-60">{change.from}</span>
+                      {' → '}
+                      <span className="font-medium text-[var(--text)]">{change.to}</span>
+                    </p>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+        )}
 
         {/* Recommendations */}
         <div className="w-full max-w-md">
