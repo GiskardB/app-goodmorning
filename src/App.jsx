@@ -196,6 +196,47 @@ const ExerciseMedia = ({ src, alt, className, style }) => {
   );
 };
 
+// Difficulty scale (1-5) shared by exercises and workouts
+const DIFFICULTY_LEVELS = {
+  1: { label: 'Molto facile', color: '#22c55e' },
+  2: { label: 'Facile', color: '#84cc16' },
+  3: { label: 'Medio', color: '#eab308' },
+  4: { label: 'Difficile', color: '#f97316' },
+  5: { label: 'Molto difficile', color: '#ef4444' },
+};
+
+// Average difficulty of a list of exercises (null if none has a value)
+const getWorkoutDifficulty = (exercises) => {
+  const values = (exercises || []).map(ex => ex?.difficulty).filter(Boolean);
+  if (values.length === 0) return null;
+  return Math.round((values.reduce((a, b) => a + b, 0) / values.length) * 10) / 10;
+};
+
+const DifficultyBadge = ({ level, showLabel = true, size = 'sm' }) => {
+  if (!level) return null;
+  const rounded = Math.min(5, Math.max(1, Math.round(level)));
+  const info = DIFFICULTY_LEVELS[rounded];
+  const dot = size === 'sm' ? 'w-1.5 h-1.5' : 'w-2 h-2';
+  return (
+    <span className="inline-flex items-center gap-1.5" title={`Difficoltà: ${info.label}`}>
+      <span className="flex items-center gap-0.5">
+        {[1, 2, 3, 4, 5].map(i => (
+          <span
+            key={i}
+            className={`${dot} rounded-full`}
+            style={{ backgroundColor: i <= rounded ? info.color : 'var(--border)' }}
+          />
+        ))}
+      </span>
+      {showLabel && (
+        <span className="text-xs font-medium" style={{ color: info.color }}>
+          {info.label}
+        </span>
+      )}
+    </span>
+  );
+};
+
 function AppContent() {
   // Training context
   const {
@@ -1385,6 +1426,7 @@ function AppContent() {
         description: ex.description,
         muscles: ex.muscles,
         type: ex.type,
+        difficulty: ex.difficulty,
         gif: ex.gif,
         wrongImage: wrongImageExercises.includes(key)
       };
@@ -2073,7 +2115,7 @@ function AppContent() {
             </div>
             <div className="p-5">
               <h3 className="text-lg font-semibold mb-1">{displayWorkout?.title}</h3>
-              <div className="flex gap-3 mb-5 text-sm text-[var(--text-secondary)]">
+              <div className="flex items-center gap-3 mb-5 text-sm text-[var(--text-secondary)] flex-wrap">
                 <span className="flex items-center gap-1">
                   <FlameIcon />
                   {displayWorkout?.calories} kcal
@@ -2083,6 +2125,7 @@ function AppContent() {
                   ~{(displayWorkout?.duration || 0) + 6} min
                 </span>
                 <span>{displayWorkout?.exercises?.length} esercizi</span>
+                <DifficultyBadge level={getWorkoutDifficulty(displayWorkout?.exercises)} />
               </div>
               <button
                 onClick={() => {
@@ -2545,12 +2588,13 @@ function AppContent() {
                       <p className="text-xs text-[var(--text-secondary)] line-clamp-2 mb-2">
                         {exercise.description}
                       </p>
-                      <div className="flex gap-2">
+                      <div className="flex items-center gap-2 flex-wrap">
                         {exercise.muscles && (
                           <span className="chip chip-light text-xs">
                             {exercise.muscles}
                           </span>
                         )}
+                        <DifficultyBadge level={exercise.difficulty} showLabel={false} />
                       </div>
                     </div>
                     <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" className="text-[var(--text-muted)] flex-shrink-0">
@@ -2666,6 +2710,24 @@ function AppContent() {
                 />
               </div>
 
+              {/* Difficulty Input */}
+              <div className="mb-4">
+                <label className="text-xs font-medium text-[var(--text-muted)] uppercase tracking-wide mb-2 block">
+                  Difficoltà (1-5)
+                </label>
+                <select
+                  defaultValue={selectedExercise.difficulty || 3}
+                  id="edit-difficulty"
+                  className="w-full px-3 py-2.5 bg-[var(--surface-hover)] border border-[var(--border)] rounded-xl text-sm focus:outline-none focus:border-[var(--primary)] transition-colors"
+                >
+                  {Object.entries(DIFFICULTY_LEVELS).map(([value, info]) => (
+                    <option key={value} value={value}>
+                      {value} - {info.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
               {/* GIF URL Input */}
               <div className="mb-6">
                 <label className="text-xs font-medium text-[var(--text-muted)] uppercase tracking-wide mb-2 block">
@@ -2694,7 +2756,8 @@ function AppContent() {
                     const muscles = document.getElementById('edit-muscles').value;
                     const description = document.getElementById('edit-description').value;
                     const gif = document.getElementById('edit-gif').value;
-                    saveExerciseEdit(selectedExercise.exerciseKey, { name, muscles, description, gif });
+                    const difficulty = parseInt(document.getElementById('edit-difficulty').value, 10);
+                    saveExerciseEdit(selectedExercise.exerciseKey, { name, muscles, description, gif, difficulty });
                   }}
                   className="flex-1 py-2.5 px-4 text-sm font-medium text-white bg-[var(--primary)] rounded-xl hover:bg-[var(--primary-light)] transition-colors"
                 >
@@ -2733,6 +2796,16 @@ function AppContent() {
                   <span className="chip chip-light text-sm capitalize">
                     {selectedExercise.type}
                   </span>
+                </div>
+              )}
+
+              {/* Difficulty */}
+              {selectedExercise.difficulty && (
+                <div className="mb-4">
+                  <h3 className="text-xs font-medium text-[var(--text-muted)] uppercase tracking-wide mb-2">
+                    Difficoltà
+                  </h3>
+                  <DifficultyBadge level={selectedExercise.difficulty} size="md" />
                 </div>
               )}
 
@@ -3124,7 +3197,7 @@ function AppContent() {
         <div className="px-4 max-w-2xl mx-auto -mt-6 relative z-10">
           <div className="card p-5 animate-slide-up">
             <h2 className="text-xl font-bold mb-2">{curr?.title}</h2>
-            <div className="flex gap-3 mb-5 text-sm text-[var(--text-secondary)]">
+            <div className="flex items-center gap-3 mb-5 text-sm text-[var(--text-secondary)] flex-wrap">
               <span className="flex items-center gap-1">
                 <FlameIcon />
                 {curr?.calories} kcal
@@ -3133,6 +3206,7 @@ function AppContent() {
                 <TimerIcon />
                 ~{(curr?.duration || 0) + 6} min
               </span>
+              <DifficultyBadge level={getWorkoutDifficulty(curr?.exercises)} />
             </div>
 
             {/* Workout structure info */}
@@ -3219,9 +3293,12 @@ function AppContent() {
                   />
                   <div className="flex-1 min-w-0">
                     <div className="font-medium text-sm truncate">{exercise.name}</div>
-                    <div className="text-xs text-[var(--text-secondary)] flex items-center gap-1">
-                      <TimerIcon />
-                      {exercise.duration} sec
+                    <div className="text-xs text-[var(--text-secondary)] flex items-center gap-2">
+                      <span className="flex items-center gap-1">
+                        <TimerIcon />
+                        {exercise.duration} sec
+                      </span>
+                      <DifficultyBadge level={exercise.difficulty} showLabel={false} />
                     </div>
                   </div>
                 </div>
