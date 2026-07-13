@@ -6,7 +6,8 @@
     "muscles": "Petto, Tricipiti, Spalle",
     "type": "push",
     "gif": "assets/knee_push_up_chest.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 3
   },
   "bird_dog": {
     "id": 2,
@@ -15,7 +16,8 @@
     "muscles": "Core, Schiena, Glutei",
     "type": "core",
     "gif": "assets/bird_dog.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 2
   },
   "bird_dog_knee_elbow": {
     "id": 3,
@@ -24,7 +26,8 @@
     "muscles": "Core, Obliqui, Stabilità",
     "type": "core",
     "gif": "assets/bird_dog_extended.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 3
   },
   "plank": {
     "id": 4,
@@ -33,7 +36,8 @@
     "muscles": "Core, Addominali, Spalle",
     "type": "plank",
     "gif": "assets/plank_hold.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 3
   },
   "plank_side_left": {
     "id": 5,
@@ -42,7 +46,8 @@
     "muscles": "Obliqui, Core, Glutei",
     "type": "plank",
     "gif": "assets/side_plank.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 3
   },
   "plank_side_right": {
     "id": 6,
@@ -51,25 +56,28 @@
     "muscles": "Obliqui, Core, Glutei",
     "type": "plank",
     "gif": "assets/side_plank.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 3
   },
   "plank_airplane": {
     "id": 7,
-    "name": "Plank Aeroplano",
-    "description": "Dal plank alto, solleva un braccio lateralmente mantenendo il corpo stabile. Alterna i lati.",
-    "muscles": "Core, Spalle, Stabilità",
+    "name": "Plank alto con slancio di gamba",
+    "description": "Mettiti in plank alto con le mani sotto le spalle e il corpo in linea retta. Solleva una gamba tesa verso l'alto contraendo il gluteo, senza ruotare i fianchi. Riappoggia il piede e alterna le gambe con movimento controllato.",
+    "muscles": "Core, Glutei, Spalle",
     "type": "plank",
     "gif": "assets/high_plank_hold.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 3
   },
   "plank_with_fist": {
     "id": 8,
-    "name": "Plank con pugni",
-    "description": "Plank sui gomiti con movimento alternato dei pugni davanti a te.",
-    "muscles": "Core, Spalle",
+    "name": "Sphinx push-up",
+    "description": "Parti in plank sugli avambracci con il corpo in linea retta. Spingi con i palmi a terra estendendo i gomiti fino ad arrivare in plank alto, poi torna con controllo sugli avambracci. Mantieni core e glutei contratti per tutta l'esecuzione.",
+    "muscles": "Tricipiti, Core, Spalle",
     "type": "plank",
     "gif": "assets/sphinx_push_up.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 4
   },
   "dead_bug": {
     "id": 9,
@@ -78,7 +86,8 @@
     "muscles": "Addominali, Core, Hip Flexors",
     "type": "core",
     "gif": "assets/dead_bug.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 2
   },
   "glute_bridge": {
     "id": 10,
@@ -87,7 +96,8 @@
     "muscles": "Glutei, Femorali, Core",
     "type": "glutes",
     "gif": "assets/glute_bridge.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 2
   },
   "glute_bridge_isometric": {
     "id": 11,
@@ -96,7 +106,8 @@
     "muscles": "Glutei, Femorali, Core",
     "type": "glutes",
     "gif": "assets/glute_bridge_iso.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 2
   },
   "glute_bridge_march": {
     "id": 12,
@@ -105,7 +116,8 @@
     "muscles": "Glutei, Core, Femorali",
     "type": "glutes",
     "gif": "assets/hip_bridge_hold.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 3
   },
   "heel_touches": {
     "id": 13,
@@ -114,7 +126,8 @@
     "muscles": "Obliqui, Addominali",
     "type": "core",
     "gif": "assets/0006.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 2
   },
   "bodyweight_squat": {
     "id": 14,
@@ -123,25 +136,28 @@
     "muscles": "Gambe, Glutei, Quadricipiti",
     "type": "squat",
     "gif": "assets/goblet_squat_position.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 3
   },
   "squat_malasana": {
     "id": 15,
-    "name": "Squat Malasana",
-    "description": "Squat profondo con i piedi leggermente rivolti verso l'esterno, gomiti all'interno delle ginocchia, mani unite.",
-    "muscles": "Gambe, Glutei, Mobilità",
+    "name": "Squat profondo",
+    "description": "In piedi con i piedi alla larghezza delle spalle e le mani unite davanti al petto. Scendi in uno squat molto profondo portando i fianchi verso i talloni e le braccia verso il basso, mantenendo i talloni a terra. Risali con controllo spingendo sui talloni fino a tornare in piedi.",
+    "muscles": "Quadricipiti, Glutei, Mobilità",
     "type": "squat",
     "gif": "assets/bodyweight_squat.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 3
   },
   "squat_sumo": {
     "id": 16,
-    "name": "Squat sumo",
-    "description": "Squat con posizione delle gambe molto larga e punte dei piedi rivolte verso l'esterno per coinvolgere l'interno coscia.",
-    "muscles": "Interno Coscia, Glutei",
+    "name": "Squat profondo Malasana",
+    "description": "In piedi con i piedi poco più larghi delle spalle e le punte leggermente in fuori, scendi in uno squat profondo portando i fianchi vicino ai talloni. Unisci le mani davanti al petto e spingi i gomiti contro l'interno delle ginocchia per aprire le anche. Risali con controllo mantenendo i talloni a terra.",
+    "muscles": "Quadricipiti, Glutei, Polpacci",
     "type": "squat",
     "gif": "assets/asian_squat.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 2
   },
   "squat_lateral_step_push_up": {
     "id": 17,
@@ -150,7 +166,8 @@
     "muscles": "Full Body",
     "type": "cardio",
     "gif": "assets/0501.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 4
   },
   "burpee": {
     "id": 18,
@@ -159,7 +176,8 @@
     "muscles": "Full Body, Cardio",
     "type": "cardio",
     "gif": "assets/burpee-movement-jump.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 4
   },
   "burpee_walkout": {
     "id": 19,
@@ -168,7 +186,8 @@
     "muscles": "Full Body, Cardio",
     "type": "cardio",
     "gif": "assets/burpee-squat.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 4
   },
   "mountain_climber": {
     "id": 20,
@@ -177,7 +196,8 @@
     "muscles": "Core, Cardio, Spalle, Tricipiti",
     "type": "cardio",
     "gif": "assets/push_up_hold.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 3
   },
   "superman": {
     "id": 21,
@@ -186,7 +206,8 @@
     "muscles": "Lower Back, Schiena, Glutei",
     "type": "core",
     "gif": "assets/superman-exercice-dos.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 3
   },
   "superman_swimmer": {
     "id": 22,
@@ -195,25 +216,28 @@
     "muscles": "Schiena, Spalle, Glutei",
     "type": "core",
     "gif": "assets/swimming_exercise.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 3
   },
   "sit_up": {
     "id": 23,
-    "name": "Sit up",
-    "description": "Sdraiati sulla schiena con le ginocchia piegate. Solleva la parte superiore del corpo verso le ginocchia contraendo gli addominali.",
-    "muscles": "Addominali, Hip Flexors",
+    "name": "Crunch con braccia incrociate",
+    "description": "Sdraiati sulla schiena con le ginocchia piegate, i piedi a terra e le braccia incrociate sul petto. Contrai gli addominali per sollevare testa e spalle da terra, poi torna giù lentamente in modo controllato.",
+    "muscles": "Addominali",
     "type": "core",
     "gif": "assets/crunch_arms_crossed.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 2
   },
   "sit_up_reach_toes": {
     "id": 24,
-    "name": "Sit up con braccia alla testa",
-    "description": "Sit up con braccia distese sopra la testa che raggiungono le punte dei piedi durante la salita.",
+    "name": "Crunch con mani dietro la testa",
+    "description": "Sdraiati sulla schiena con le ginocchia piegate e le mani dietro la testa. Contrai gli addominali per sollevare testa e spalle da terra senza tirare il collo, poi ridiscendi lentamente.",
     "muscles": "Addominali",
     "type": "core",
     "gif": "assets/crunch.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 2
   },
   "leg_raises": {
     "id": 25,
@@ -222,16 +246,18 @@
     "muscles": "Lower Abs, Addominali bassi, Hip Flexors",
     "type": "core",
     "gif": "assets/lying-leg-raise.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 3
   },
   "leg_lifts_scissor": {
     "id": 26,
     "name": "Sollevamenti gambe a forbice",
-    "description": "Sdraiati sulla schiena, solleva le gambe e incrociale alternativamente come delle forbici mantenendo la schiena a terra.",
+    "description": "Sdraiati sulla schiena con le mani dietro la testa e le gambe tese. Solleva una gamba verso l'alto mentre l'altra resta bassa, poi alternale con un movimento controllato a forbice verticale, mantenendo la schiena aderente al pavimento.",
     "muscles": "Addominali bassi, Hip Flexors",
     "type": "core",
     "gif": "assets/alternate-leg-raises.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 3
   },
   "side_crunch_standing_left": {
     "id": 27,
@@ -240,7 +266,8 @@
     "muscles": "Obliqui",
     "type": "core",
     "gif": "assets/Side-Crunch-sx.jpeg",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 2
   },
   "side_crunch_standing_right": {
     "id": 28,
@@ -249,7 +276,8 @@
     "muscles": "Obliqui",
     "type": "core",
     "gif": "assets/Side-Crunch-dx.jpeg",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 2
   },
   "side_crunch_floor_left": {
     "id": 29,
@@ -258,7 +286,8 @@
     "muscles": "Obliqui",
     "type": "core",
     "gif": "assets/oblique_floor_crunch.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 2
   },
   "side_crunch_floor_right": {
     "id": 30,
@@ -267,7 +296,8 @@
     "muscles": "Obliqui",
     "type": "core",
     "gif": "assets/oblique_floor_crunch.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 2
   },
   "donkey_kicks_left": {
     "id": 31,
@@ -276,7 +306,8 @@
     "muscles": "Glutei, Femorali",
     "type": "glutes",
     "gif": "assets/Donkey-Kicks.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 2
   },
   "donkey_kicks_right": {
     "id": 32,
@@ -285,7 +316,8 @@
     "muscles": "Glutei, Femorali",
     "type": "glutes",
     "gif": "assets/Donkey-Kicks.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 2
   },
   "donkey_kicks_knee_left": {
     "id": 33,
@@ -294,7 +326,8 @@
     "muscles": "Glutei, Core",
     "type": "glutes",
     "gif": "assets/donkey-kick-and-crunch.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 3
   },
   "donkey_kicks_knee_right": {
     "id": 34,
@@ -303,7 +336,8 @@
     "muscles": "Glutei, Core",
     "type": "glutes",
     "gif": "assets/donkey-kick-and-crunch.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 3
   },
   "cobra_stretch": {
     "id": 35,
@@ -312,7 +346,8 @@
     "muscles": "Schiena, Flessibilità, Addominali",
     "type": "stretching",
     "gif": "assets/cobra.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 1
   },
   "child_pose": {
     "id": 36,
@@ -321,16 +356,18 @@
     "muscles": "Schiena, Rilassamento",
     "type": "stretching",
     "gif": "assets/child_pose_static.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 1
   },
   "knee_push_up_down_dog": {
     "id": 37,
-    "name": "Kneeling Push-Ups to Down Dog",
-    "description": "Esegui un push-up in ginocchio, poi spingi i fianchi verso l'alto nella posizione del cane a testa in giù.",
-    "muscles": "Petto, Spalle, Flessibilità",
+    "name": "Cane a testa in giù",
+    "description": "Dalla posizione di plank spingi i fianchi verso l'alto e all'indietro formando una V rovesciata, con braccia e gambe distese. Spingi i talloni verso il pavimento e allunga la colonna, mantenendo la testa tra le braccia.",
+    "muscles": "Spalle, Femorali, Polpacci",
     "type": "push",
     "gif": "assets/downward_dog.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 2
   },
   "hip_rotation": {
     "id": 38,
@@ -339,61 +376,68 @@
     "muscles": "Obliqui, Anche, Mobilità",
     "type": "core",
     "gif": "assets/v_up.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 2
   },
   "lunge_static": {
     "id": 39,
-    "name": "Affondo statico",
-    "description": "In posizione di affondo, mantieni la posizione con il ginocchio posteriore vicino al pavimento.",
-    "muscles": "Gambe, Glutei, Quadricipiti",
+    "name": "Plank sulle ginocchia (posizione quadrupedica)",
+    "description": "Mettiti a quattro zampe con le mani sotto le spalle e le ginocchia sotto i fianchi, appoggiando le punte dei piedi. Contrai il core e i glutei mantenendo la schiena piatta, sollevando leggermente le ginocchia da terra per aumentare l'intensità.",
+    "muscles": "Core, Glutei, Spalle",
     "type": "squat",
     "gif": "assets/plank-on-knee.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 3
   },
   "lunge_static_left": {
     "id": 40,
-    "name": "Affondi all'indietro (sinistra)",
+    "name": "Affondo statico (sinistra)",
     "description": "Affondo statico con la gamba sinistra in avanti.",
     "muscles": "Gambe, Glutei",
     "type": "squat",
     "gif": "assets/static_lunge.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 3
   },
   "lunge_static_right": {
     "id": 41,
-    "name": "Affondi all'indietro (destra)",
+    "name": "Affondo statico (destra)",
     "description": "Affondo statico con la gamba destra in avanti.",
     "muscles": "Gambe, Glutei",
     "type": "squat",
     "gif": "assets/static_lunge.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 3
   },
   "curtsy_lunge_left": {
     "id": 42,
-    "name": "Affondi incrociati (sinistra)",
-    "description": "Affondo con la gamba destra che incrocia dietro la sinistra, come un inchino.",
-    "muscles": "Glutei, Interno coscia",
+    "name": "Affondo laterale con tocco del piede",
+    "description": "Fai un passo laterale piegando il ginocchio della gamba d'appoggio e spingendo i fianchi indietro. Ruota il busto portando la mano opposta verso il piede, con l'altro braccio esteso dietro di te, poi torna in posizione eretta e ripeti.",
+    "muscles": "Glutei, Quadricipiti, Femorali",
     "type": "squat",
     "gif": "assets/lateral_lunge.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 3
   },
   "curtsy_lunge_right": {
     "id": 43,
-    "name": "Affondi incrociati (destra)",
-    "description": "Affondo con la gamba sinistra che incrocia dietro la destra, come un inchino.",
-    "muscles": "Glutei, Interno coscia",
+    "name": "Affondo laterale (destra)",
+    "description": "Fai un ampio passo laterale con la gamba destra, piegando il ginocchio e spingendo le anche indietro mentre la gamba sinistra resta tesa. Porta la mano opposta verso il piede, poi spingi per tornare alla posizione di partenza.",
+    "muscles": "Glutei, Quadricipiti, Interno coscia",
     "type": "squat",
     "gif": "assets/lateral_lunge.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 3
   },
   "lunge_reverse": {
     "id": 44,
-    "name": "Affondi indietro alternati",
-    "description": "Fai un passo indietro con una gamba piegando entrambe le ginocchia, poi alterna.",
+    "name": "Affondi in avanti alternati",
+    "description": "Fai un passo in avanti piegando entrambe le ginocchia a circa 90 gradi, mantenendo il busto eretto. Spingi con la gamba anteriore per tornare in piedi e alterna le gambe.",
     "muscles": "Gambe, Glutei, Quadricipiti",
     "type": "squat",
     "gif": "assets/forward_lunge.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 3
   },
   "high_knees": {
     "id": 45,
@@ -402,7 +446,8 @@
     "muscles": "Cardio, Gambe, Core",
     "type": "cardio",
     "gif": "assets/high_knees.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 3
   },
   "jumping_jacks": {
     "id": 46,
@@ -411,25 +456,28 @@
     "muscles": "Cardio, Full Body",
     "type": "cardio",
     "gif": "assets/jumping-jack.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 2
   },
   "ankle_touch": {
     "id": 47,
-    "name": "Spinta dell'anca",
-    "description": "Siediti sui talloni e tieni la schiena dritta. Spingi le anche in avanti contraendo i glutei.",
-    "muscles": "Glutei, Femorali",
+    "name": "Affondo in ginocchio",
+    "description": "Parti in ginocchio con la schiena dritta e le mani unite al petto. Porta un piede in avanti appoggiandolo a terra e spingi con le anche contraendo glutei e quadricipiti per sollevarti, poi torna nella posizione di partenza. Alterna le gambe.",
+    "muscles": "Glutei, Quadricipiti, Femorali",
     "type": "core",
-    "gif": "https://cdnl.iconscout.com/lottie/premium/preview-watermark/man-doing-kneeling-squat-exercise-for-legs-animation-gif-download-10469921.mp4",
-    "wrongImage": false
+    "gif": "assets/kneeling_lunge.gif",
+    "wrongImage": false,
+    "difficulty": 2
   },
   "chest_opener_rotation": {
     "id": 48,
-    "name": "Aperture del petto con rotazione",
-    "description": "In posizione laterale, ruota il busto aprendo il braccio superiore per allungare il petto.",
-    "muscles": "Petto, Mobilità toracica",
+    "name": "Aperture del petto in piedi",
+    "description": "In piedi, estendi le braccia davanti a te all'altezza delle spalle. Aprile lateralmente portandole indietro per allungare il petto, poi richiudile davanti a te con movimento controllato.",
+    "muscles": "Petto, Spalle, Mobilità toracica",
     "type": "stretching",
     "gif": "assets/horizontal-chest-opener.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 1
   },
   "push_up_archer_left": {
     "id": 49,
@@ -438,7 +486,8 @@
     "muscles": "Petto, Tricipiti, Spalle",
     "type": "push",
     "gif": "assets/archer_push_up.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 4
   },
   "push_up_archer_right": {
     "id": 50,
@@ -447,25 +496,28 @@
     "muscles": "Petto, Tricipiti, Spalle",
     "type": "push",
     "gif": "assets/archer_push_up.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 4
   },
   "pseudo_push_up_knees": {
     "id": 51,
-    "name": "Pseudo push up in ginocchio",
-    "description": "Push-up in ginocchio con le mani posizionate più in basso verso la vita per maggiore difficoltà.",
+    "name": "Push up sulle ginocchia",
+    "description": "Mettiti in ginocchio con le mani a terra circa alla larghezza delle spalle e i piedi sollevati. Piega i gomiti abbassando il petto verso il pavimento, poi spingi per tornare su mantenendo il corpo allineato dalle ginocchia alla testa.",
     "muscles": "Petto, Spalle anteriori",
     "type": "push",
     "gif": "assets/knee_push_up_chest.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 3
   },
   "push_up_wide_arm": {
     "id": 52,
-    "name": "Push up con braccia ad aeroplano",
-    "description": "Push-up con mani posizionate molto più larghe delle spalle per enfatizzare il petto.",
-    "muscles": "Petto, Spalle",
+    "name": "Push up classico",
+    "description": "In posizione di plank alto con le mani alla larghezza delle spalle, piega i gomiti abbassando il petto verso il pavimento. Spingi con forza per tornare alla posizione di partenza mantenendo il corpo in linea retta.",
+    "muscles": "Petto, Tricipiti, Spalle",
     "type": "push",
     "gif": "assets/push_up_full.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 4
   },
   "calf_raise_left": {
     "id": 53,
@@ -474,7 +526,8 @@
     "muscles": "Polpacci",
     "type": "squat",
     "gif": "assets/standing_calf_raise.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 2
   },
   "calf_raise_right": {
     "id": 54,
@@ -483,7 +536,8 @@
     "muscles": "Polpacci",
     "type": "squat",
     "gif": "assets/standing_calf_raise.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 2
   },
   "bicycle_crunch": {
     "id": 55,
@@ -492,7 +546,8 @@
     "muscles": "Addominali, Obliqui",
     "type": "core",
     "gif": "assets/bicycle_crunch.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 3
   },
   "flutter_kicks": {
     "id": 56,
@@ -501,16 +556,18 @@
     "muscles": "Addominali bassi, Hip Flexors",
     "type": "core",
     "gif": "assets/flutter_kicks.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 3
   },
   "hip_raise": {
     "id": 57,
-    "name": "Sollevamenti del bacino",
-    "description": "Sdraiati sulla schiena con le gambe verso il soffitto, solleva il bacino contraendo gli addominali bassi.",
+    "name": "Crunch inverso",
+    "description": "Sdraiati sulla schiena con le ginocchia piegate e le braccia distese oltre la testa o lungo i fianchi. Contraendo gli addominali bassi, porta le ginocchia verso il petto sollevando il bacino da terra, poi torna giù con controllo.",
     "muscles": "Addominali bassi",
     "type": "core",
     "gif": "assets/reverse_crunch.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 3
   },
   "shoulder_taps": {
     "id": 58,
@@ -519,7 +576,8 @@
     "muscles": "Core, Spalle, Stabilità",
     "type": "plank",
     "gif": "assets/plank_shoulder_tap.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 3
   },
   "march_in_place": {
     "id": 59,
@@ -528,7 +586,8 @@
     "muscles": "Gambe, Cardio",
     "type": "warmup",
     "gif": "assets/marching_in_place.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 2
   },
   "arm_circles": {
     "id": 60,
@@ -537,70 +596,78 @@
     "muscles": "Spalle, Mobilità",
     "type": "warmup",
     "gif": "assets/3669.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 1
   },
   "torso_rotation_standing": {
     "id": 61,
-    "name": "Rotazione del busto in piedi",
-    "description": "In piedi con i piedi alla larghezza delle spalle, ruota il busto da un lato all'altro.",
-    "muscles": "Core, Obliqui, Mobilità",
+    "name": "Torsione spinale da sdraiato",
+    "description": "Sdraiati sulla schiena con le ginocchia piegate e le braccia aperte. Lascia cadere le ginocchia unite verso un lato ruotando la parte bassa della schiena, poi torna al centro e ripeti dall'altro lato.",
+    "muscles": "Obliqui, Core, Mobilità spinale",
     "type": "warmup",
     "gif": "assets/lying_spinal_twist.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 1
   },
   "hip_circles": {
     "id": 62,
-    "name": "Circonduzioni delle anche",
-    "description": "In piedi, ruota le anche in cerchi ampi prima in senso orario poi antiorario.",
+    "name": "Circonduzioni delle anche a quattro zampe",
+    "description": "Mettiti a quattro zampe appoggiandoti sugli avambracci. Muovi le anche disegnando cerchi ampi, prima in un senso poi nell'altro, mantenendo la schiena neutra.",
     "muscles": "Anche, Mobilità, Glutei",
     "type": "warmup",
     "gif": "assets/2571.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 1
   },
   "breathing_standing": {
     "id": 63,
-    "name": "Respirazione in piedi",
-    "description": "In piedi rilassato, inspira profondamente sollevando le braccia, espira abbassandole lentamente.",
+    "name": "Respirazione da sdraiato",
+    "description": "Sdraiati sulla schiena con le braccia rilassate lungo i fianchi e le gambe distese. Inspira profondamente gonfiando l'addome, poi espira lentamente rilasciando ogni tensione dal corpo.",
     "muscles": "Rilassamento, Recupero",
     "type": "cooldown",
     "gif": "assets/corpse_pose.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 1
   },
   "hamstring_stretch": {
     "id": 64,
     "name": "Stretching bicipiti femorali",
-    "description": "Fai un passo avanti, mantieni la gamba tesa e piegati in avanti dai fianchi sentendo l'allungamento dietro la coscia.",
+    "description": "In piedi con i piedi uniti, piegati in avanti dai fianchi lasciando cadere la testa e portando le mani verso il pavimento. Mantieni le gambe tese e senti l'allungamento dietro le cosce e lungo la schiena.",
     "muscles": "Bicipiti femorali, Flessibilità",
     "type": "stretching",
     "gif": "assets/standing_forward_fold.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 1
   },
   "glute_stretch": {
     "id": 65,
     "name": "Stretching glutei",
-    "description": "Seduto, incrocia una caviglia sul ginocchio opposto e tira delicatamente il ginocchio verso il petto.",
+    "description": "Sdraiati sulla schiena, incrocia una caviglia sul ginocchio opposto e afferra la coscia con entrambe le mani. Tira delicatamente la gamba verso il petto sentendo l'allungamento nel gluteo.",
     "muscles": "Glutei, Flessibilità",
     "type": "stretching",
     "gif": "assets/piriformis_stretch.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 1
   },
   "quad_stretch": {
     "id": 66,
     "name": "Stretching quadricipiti",
-    "description": "In piedi su una gamba, afferra la caviglia opposta e tira il tallone verso il gluteo.",
+    "description": "Sdraiati, piega il ginocchio della gamba da allungare e afferra la caviglia portando il tallone verso il gluteo. Mantieni le ginocchia vicine e senti l'allungamento sul davanti della coscia.",
     "muscles": "Quadricipiti, Flessibilità",
     "type": "stretching",
     "gif": "assets/lying_quad_stretch.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 1
   },
   "calf_stretch": {
     "id": 67,
-    "name": "Stretching polpacci",
-    "description": "Metti un piede indietro con il tallone a terra, piega la gamba anteriore e spingi il peso in avanti.",
-    "muscles": "Polpacci, Flessibilità",
+    "name": "Stretching femorali con piede su rialzo",
+    "description": "Appoggia il tallone su una panca o un rialzo mantenendo la gamba tesa. Piegati in avanti dai fianchi e afferra le dita del piede, sentendo l'allungamento dietro la coscia e nel polpaccio.",
+    "muscles": "Bicipiti femorali, Polpacci, Flessibilità",
     "type": "stretching",
     "gif": "assets/1398.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 1
   },
   "shoulder_stretch": {
     "id": 68,
@@ -609,16 +676,18 @@
     "muscles": "Spalle, Flessibilità",
     "type": "stretching",
     "gif": "assets/0669.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 1
   },
   "chest_stretch": {
     "id": 69,
     "name": "Stretching pettorali",
-    "description": "Metti il braccio contro una parete a 90 gradi e ruota il corpo nella direzione opposta.",
+    "description": "In piedi, estendi le braccia davanti a te all'altezza delle spalle. Aprile all'indietro allargando il petto, poi riportale avanti con un movimento controllato e ritmico.",
     "muscles": "Petto, Flessibilità",
     "type": "stretching",
     "gif": "assets/chest_stretch.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 1
   },
   "russian_twist": {
     "id": 70,
@@ -627,7 +696,8 @@
     "muscles": "Obliqui, Addominali",
     "type": "core",
     "gif": "assets/0687.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 3
   },
   "reverse_crunch": {
     "id": 71,
@@ -636,7 +706,8 @@
     "muscles": "Addominali bassi, Hip Flexors",
     "type": "core",
     "gif": "assets/reverse_crunch.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 2
   },
   "jump_squat": {
     "id": 72,
@@ -645,7 +716,8 @@
     "muscles": "Gambe, Glutei, Cardio",
     "type": "cardio",
     "gif": "assets/squat_jump_prep.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 4
   },
   "inchworm": {
     "id": 73,
@@ -654,13 +726,14 @@
     "muscles": "Core, Spalle, Femorali",
     "type": "warmup",
     "gif": "assets/1471.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 3
   },
   "dynamic_side_bends": {
     "id": 74,
-    "name": "Piegamenti laterali dinamici",
-    "description": "Allunga dinamicamente i muscoli addominali e il gran dorsale. In piedi con i piedi alla larghezza dei fianchi, metti le mani sui fianchi, solleva il braccio destro sopra la testa e piega il corpo verso sinistra. Torna indietro e ripeti il movimento sull'altro lato.",
-    "muscles": "Addominali, Gran dorsale, Obliqui",
+    "name": "Crunch laterale",
+    "description": "Sdraiati sulla schiena e lascia cadere le ginocchia piegate su un lato. Solleva il busto contraendo gli obliqui, poi scendi lentamente. Completa le ripetizioni e ripeti sull'altro lato.",
+    "muscles": "Obliqui, Addominali",
     "type": "warmup",
     "gif": "assets/side_crunch.gif",
     "instructions": [
@@ -674,13 +747,14 @@
       "Affrettare il movimento"
     ],
     "tips": "Mantieni un pattern di respirazione costante durante il movimento",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 2
   },
   "elbow_rotations": {
     "id": 75,
     "name": "Rotazioni dei gomiti",
     "description": "Riscalda i gomiti. In piedi con i piedi alla larghezza dei fianchi, solleva le braccia ed estendile ai lati, chiudi i pugni. Ruota le braccia verso l'interno partendo dai gomiti per alcune ripetizioni, poi ruota le braccia verso l'esterno.",
-    "muscles": "Gomiti, Avambracci, Spalle",
+    "muscles": "Petto, Spalle",
     "type": "warmup",
     "gif": "assets/3669.gif",
     "instructions": [
@@ -695,7 +769,8 @@
       "Affrettare il movimento"
     ],
     "tips": "Mantieni un pattern di respirazione costante durante il movimento",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 1
   },
   "shoulder_cross_body": {
     "id": 76,
@@ -704,7 +779,8 @@
     "muscles": "Spalle, Flessibilità",
     "type": "stretching",
     "gif": "assets/0669.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 1
   },
   "shoulder_cross_body_left": {
     "id": 77,
@@ -713,7 +789,8 @@
     "muscles": "Spalle, Flessibilità",
     "type": "stretching",
     "gif": "assets/0669.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 1
   },
   "shoulder_cross_body_right": {
     "id": 78,
@@ -722,7 +799,8 @@
     "muscles": "Spalle, Flessibilità",
     "type": "stretching",
     "gif": "assets/0669.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 1
   },
   "roll_down": {
     "id": 79,
@@ -742,13 +820,14 @@
       "Trattenere il respiro"
     ],
     "tips": "Mantieni un pattern di respirazione costante durante il movimento",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 1
   },
   "hip_rotation_standing_left": {
     "id": 80,
-    "name": "Rotazione anche in piedi (sinistra)",
-    "description": "Modo eccellente per migliorare la mobilità dell'anca. In piedi con i piedi alla larghezza dei fianchi, metti le mani davanti a te, solleva il ginocchio sinistro e fai un cerchio con esso. Appoggia le dita dei piedi a terra, poi fai un cerchio all'indietro.",
-    "muscles": "Hip Flexors, Mobilità",
+    "name": "Rotazione anche in quadrupedia (sinistra)",
+    "description": "Mettiti a quattro zampe con le mani sotto le spalle e le ginocchia sotto i fianchi. Solleva il ginocchio sinistro e disegna ampi cerchi con l'anca, mantenendo il core stabile e la schiena neutra.",
+    "muscles": "Glutei, Anche, Mobilità",
     "type": "warmup",
     "gif": "assets/2571.gif",
     "instructions": [
@@ -763,13 +842,14 @@
       "Eseguire il movimento su una superficie scivolosa"
     ],
     "tips": "Mantieni un pattern di respirazione costante durante il movimento",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 1
   },
   "hip_rotation_standing_right": {
     "id": 81,
-    "name": "Rotazione anche in piedi (destra)",
-    "description": "Modo eccellente per migliorare la mobilità dell'anca. In piedi con i piedi alla larghezza dei fianchi, metti le mani davanti a te, solleva il ginocchio destro e fai un cerchio con esso. Appoggia le dita dei piedi a terra, poi fai un cerchio all'indietro.",
-    "muscles": "Hip Flexors, Mobilità",
+    "name": "Rotazione anche in quadrupedia (destra)",
+    "description": "Mettiti a quattro zampe con le mani sotto le spalle e le ginocchia sotto i fianchi. Solleva il ginocchio destro e disegna ampi cerchi con l'anca, mantenendo il core stabile e la schiena neutra.",
+    "muscles": "Glutei, Anche, Mobilità",
     "type": "warmup",
     "gif": "assets/2571.gif",
     "instructions": [
@@ -784,12 +864,13 @@
       "Eseguire il movimento su una superficie scivolosa"
     ],
     "tips": "Mantieni un pattern di respirazione costante durante il movimento",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 1
   },
   "lunge_side_to_side_deep": {
     "id": 82,
     "name": "Affondo laterale profondo",
-    "description": "Rafforza i glutei e i quadricipiti, migliorando anche la salute dei tendini del ginocchio. Prendi una posizione molto ampia mantenendo la postura eretta, ruota leggermente le dita dei piedi verso l'esterno, unisci le mani all'altezza del petto. Da questa posizione, scendi in squat verso la gamba sinistra, poi senza alzarti sposta il corpo verso la gamba destra.",
+    "description": "Fai un ampio passo laterale e piegati su una gamba scendendo in un affondo laterale profondo, mantenendo l'altra gamba tesa. Piega il busto in avanti portando la mano verso il piede, poi spostati sull'altro lato senza rialzarti completamente.",
     "muscles": "Glutei, Quadricipiti, Gambe",
     "type": "warmup",
     "gif": "assets/lateral_lunge.gif",
@@ -806,34 +887,36 @@
       "Trattenere il respiro"
     ],
     "tips": "Mantieni un pattern di respirazione costante durante il movimento",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 3
   },
   "calf_hamstring_active_stretch": {
     "id": 83,
-    "name": "Allungamento attivo polpacci e femorali",
-    "description": "Allunga femorali, parte bassa della schiena e polpacci. Prendi una posizione con i piedi alla larghezza dei fianchi, metti il tallone sinistro in avanti ed eleva le dita. Mantenendo la gamba sinistra estesa, piega il corpo verso il piede sinistro. Alterna tra le gambe.",
-    "muscles": "Femorali, Polpacci, Lower Back",
+    "name": "Piegamento in avanti in piedi",
+    "description": "In piedi con i piedi uniti, piegati in avanti dalle anche mantenendo le gambe distese e lascia scendere le mani verso terra. Rilassa collo e schiena e senti l'allungamento lungo femorali e polpacci. Risali lentamente vertebra dopo vertebra.",
+    "muscles": "Femorali, Polpacci, Schiena",
     "type": "warmup",
     "gif": "assets/standing_forward_fold.gif",
     "equipment": "Tappetino",
     "instructions": [
-      "Prendi una posizione con i piedi alla larghezza dei fianchi",
-      "Metti il tallone sinistro in avanti ed eleva le dita",
-      "Mantenendo la gamba sinistra estesa, piega il corpo verso il piede sinistro",
-      "Alterna tra le gambe"
+      "In piedi, piedi uniti o alla larghezza dei fianchi",
+      "Piegati in avanti dalle anche mantenendo le gambe distese",
+      "Lascia scendere le mani verso terra e rilassa il collo",
+      "Risali lentamente vertebra dopo vertebra"
     ],
     "common_mistakes": [
-      "Fare solo un lato",
       "Piegare le ginocchia",
+      "Incurvare la schiena di colpo",
       "Affrettare il movimento"
     ],
     "tips": "Mantieni un pattern di respirazione costante durante il movimento",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 1
   },
   "prayer_pulse": {
     "id": 84,
-    "name": "Pulsazioni in preghiera",
-    "description": "Siediti sui talloni, unisci le mani all'altezza del petto come in preghiera. Spingi i palmi uno contro l'altro contraendo il petto e solleva le mani, poi abbassale lentamente. Inspira all'inizio del movimento ed espira mentre sollevi le mani.",
+    "name": "Apertura dinamica del petto",
+    "description": "In piedi, estendi le braccia davanti a te all'altezza delle spalle. Aprile all'indietro allargando il petto, poi riportale avanti con un movimento controllato e ritmico. Espira mentre apri le braccia.",
     "muscles": "Petto, Spalle",
     "type": "core",
     "gif": "assets/chest_stretch.gif",
@@ -848,22 +931,24 @@
       "Trattenere il respiro"
     ],
     "tips": "Inspira all'inizio del movimento ed espira mentre sollevi le mani verso l'alto",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 1
   },
   "lat_stretch_overhead_standing": {
     "id": 85,
-    "name": "Allungamento dorsali sopra la testa in piedi",
-    "description": "In piedi, allunga entrambe le braccia sopra la testa e inclinati lateralmente per allungare i dorsali.",
-    "muscles": "Dorsali, Obliqui, Flessibilità",
+    "name": "Piegamento in avanti in piedi",
+    "description": "In piedi con i piedi alla larghezza dei fianchi, piegati lentamente in avanti dai fianchi lasciando cadere il busto verso le gambe. Porta le mani verso il pavimento mantenendo le ginocchia morbide e senti l'allungamento lungo femorali e schiena. Mantieni la posizione respirando profondamente.",
+    "muscles": "Femorali, Polpacci, Zona lombare, Flessibilità",
     "type": "warmup",
     "gif": "assets/standing_forward_fold.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 1
   },
   "lunge_leg_rolls_full": {
     "id": 86,
-    "name": "Affondo con rotolamento completo della gamba",
-    "description": "Sfida i quadricipiti e rafforza i glutei. Posizione ampia con le dita dei piedi ruotate verso l'esterno, fai uno squat verso la gamba sinistra mantenendo la destra estesa. Ruota il busto a sinistra e fai un affondo. Torna alla posizione precedente e alzati, poi ripeti il movimento sull'altro lato.",
-    "muscles": "Quadricipiti, Glutei, Mobilità, Gambe",
+    "name": "Affondo in avanti",
+    "description": "In piedi, fai un ampio passo in avanti e piega entrambe le ginocchia fino a circa 90 gradi, mantenendo il busto eretto. Spingi sul tallone anteriore per tornare alla posizione di partenza e ripeti alternando le gambe.",
+    "muscles": "Quadricipiti, Glutei, Femorali",
     "type": "warmup",
     "gif": "assets/forward_lunge.gif",
     "instructions": [
@@ -879,7 +964,8 @@
       "Affrettare il movimento"
     ],
     "tips": "Mantieni un pattern di respirazione costante durante il movimento",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 3
   },
   "windshield_wipers": {
     "id": 87,
@@ -901,13 +987,14 @@
       "Affrettare il movimento"
     ],
     "tips": "Inspira all'inizio del movimento ed espira mentre lasci cadere le ginocchia verso il pavimento",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 2
   },
   "side_stretch_left": {
     "id": 88,
-    "name": "Allungamento laterale (sinistra)",
-    "description": "Allunga il lato del corpo, compresi i muscoli addominali laterali e il gran dorsale. In ginocchio con la gamba destra estesa lateralmente, appoggia la mano destra sull'anca destra, solleva il braccio sinistro sopra la testa e piega il corpo verso destra.",
-    "muscles": "Addominali Laterali, Gran dorsale, Obliqui",
+    "name": "Crunch laterale (sinistra)",
+    "description": "Sdraiati sulla schiena con le ginocchia piegate e lasciale cadere sul lato destro, mantenendo le spalle a terra. Contrai gli obliqui per sollevare il busto verso l'alto, poi scendi con controllo. Esegui le ripetizioni concentrandoti sul fianco sinistro.",
+    "muscles": "Obliqui, Addominali",
     "type": "warmup",
     "gif": "assets/side_crunch.gif",
     "instructions": [
@@ -920,13 +1007,14 @@
       "Affrettare il movimento"
     ],
     "tips": "Mantieni un pattern di respirazione costante durante il movimento",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 2
   },
   "side_stretch_right": {
     "id": 89,
-    "name": "Allungamento laterale (destra)",
-    "description": "Allunga il lato del corpo, compresi i muscoli addominali laterali e il gran dorsale. In ginocchio con la gamba sinistra estesa lateralmente, appoggia la mano sinistra sull'anca sinistra, solleva il braccio destro sopra la testa e piega il corpo verso sinistra.",
-    "muscles": "Addominali Laterali, Gran dorsale, Obliqui",
+    "name": "Crunch laterale (destra)",
+    "description": "Sdraiati sulla schiena con le ginocchia piegate e lasciale cadere sul lato sinistro, mantenendo le spalle a terra. Contrai gli obliqui per sollevare il busto verso l'alto, poi scendi con controllo. Esegui le ripetizioni concentrandoti sul fianco destro.",
+    "muscles": "Obliqui, Addominali",
     "type": "warmup",
     "gif": "assets/side_crunch.gif",
     "instructions": [
@@ -939,13 +1027,14 @@
       "Affrettare il movimento"
     ],
     "tips": "Mantieni un pattern di respirazione costante durante il movimento",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 2
   },
   "push_up_knees_downdog": {
     "id": 90,
-    "name": "Push-up in ginocchio verso cane a testa in giù",
-    "description": "Allunga i femorali e attiva i muscoli della parte superiore del corpo. Inizia a quattro zampe con le ginocchia piegate ad angolo ottuso, mani sotto le spalle. Esegui un push-up in ginocchio, poi spingi i fianchi verso l'alto e indietro estendendo le gambe. Abbassa la testa in posizione di cane a testa in giù.",
-    "muscles": "Petto, Tricipiti, Spalle, Femorali",
+    "name": "Cane a testa in giù",
+    "description": "Dalla posizione a quattro zampe, spingi i fianchi verso l'alto e indietro estendendo braccia e gambe fino a formare una V rovesciata. Spingi i talloni verso il pavimento e rilassa la testa tra le braccia, mantenendo la posizione respirando.",
+    "muscles": "Spalle, Femorali, Polpacci",
     "type": "push",
     "gif": "assets/downward_dog.gif",
     "equipment": "Tappetino",
@@ -963,12 +1052,13 @@
       "Allargare troppo i gomiti"
     ],
     "tips": "Inspira all'inizio del movimento ed espira mentre ti spingi verso la posizione del cane a testa in giù",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 2
   },
   "hamstring_pendulum_stretch": {
     "id": 91,
-    "name": "Allungamento femorali a pendolo",
-    "description": "Allunga la parte bassa della schiena, i polpacci e i femorali. Posizione ampia, estendi le braccia in avanti e incrociale all'altezza del petto. Oscilla il busto dal ginocchio sinistro a quello destro in un movimento semi-circolare, abbassandoti quanto ti è confortevole.",
+    "name": "Piegamento in avanti in piedi",
+    "description": "In piedi con i piedi alla larghezza dei fianchi, piegati in avanti dai fianchi lasciando scendere il busto verso le gambe. Porta le mani verso il pavimento fin dove ti è confortevole, mantenendo le ginocchia leggermente morbide. Respira e mantieni l'allungamento.",
     "muscles": "Lower Back, Polpacci, Femorali, Flessibilità",
     "type": "warmup",
     "gif": "assets/standing_forward_fold.gif",
@@ -983,13 +1073,14 @@
       "Affrettare il movimento"
     ],
     "tips": "Mantieni un pattern di respirazione costante durante il movimento",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 1
   },
   "squat_thoracic_rotation_deep": {
     "id": 92,
-    "name": "Squat profondo con rotazione toracica",
-    "description": "Esercizio fenomenale per migliorare la mobilità della colonna vertebrale toracica. In piedi con i piedi più larghi dei fianchi, scendi in squat e appoggia le mani a terra. Porta il gomito sinistro al ginocchio sinistro e ruota il busto e il braccio destro verso il soffitto. Mantieni l'allungamento e ripeti sull'altro lato.",
-    "muscles": "Mobilità Toracica, Core, Gambe",
+    "name": "Squat profondo a corpo libero",
+    "description": "In piedi con i piedi leggermente più larghi dei fianchi, scendi in uno squat profondo spingendo i fianchi indietro e piegando le ginocchia. Mantieni il petto alto e i talloni a terra, poi risali spingendo sui talloni.",
+    "muscles": "Quadricipiti, Glutei, Gambe",
     "type": "warmup",
     "gif": "assets/bodyweight_squat.gif",
     "instructions": [
@@ -1003,13 +1094,14 @@
       "Trattenere il respiro"
     ],
     "tips": "Mantieni un pattern di respirazione costante durante il movimento",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 3
   },
   "squat_walkout": {
     "id": 93,
-    "name": "Squat con camminata in plank",
-    "description": "Ottimo esercizio di riscaldamento per tutto il corpo. Inizia in piedi con i piedi alla larghezza dei fianchi, fai uno squat ed estendi le braccia davanti a te. Dal fondo del movimento, cammina con le mani fino alla posizione di push-up, mantieni per un momento, poi cammina indietro fino allo squat, alzati e ripeti.",
-    "muscles": "Full Body, Core, Spalle, Gambe",
+    "name": "Push-up",
+    "description": "In posizione di plank con le mani sotto le spalle e il corpo in linea retta, piega i gomiti per abbassare il petto verso il pavimento. Spingi con forza sulle mani per tornare alla posizione di partenza, mantenendo core e glutei contratti.",
+    "muscles": "Petto, Tricipiti, Spalle, Core",
     "type": "warmup",
     "gif": "assets/1471.gif",
     "instructions": [
@@ -1024,7 +1116,8 @@
       "Inarcare la colonna vertebrale"
     ],
     "tips": "Mantieni un pattern di respirazione costante durante il movimento",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 4
   },
   "lunge_side_to_side": {
     "id": 94,
@@ -1033,21 +1126,23 @@
     "muscles": "Gambe, Interno coscia, Glutei",
     "type": "squat",
     "gif": "assets/lateral_lunge.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 3
   },
   "squat_side_step": {
     "id": 95,
-    "name": "Squat con passo laterale",
-    "description": "Fai un passo laterale e poi esegui uno squat, ripeti alternando i lati.",
+    "name": "Affondo laterale con tocco del piede",
+    "description": "Fai un ampio passo laterale piegando il ginocchio della gamba d'appoggio e mantenendo l'altra gamba estesa. Piega il busto in avanti e tocca il piede della gamba piegata con la mano opposta, poi spingi per tornare al centro e ripeti sull'altro lato.",
     "muscles": "Gambe, Glutei, Abduttori",
     "type": "squat",
     "gif": "assets/lateral_lunge.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 3
   },
   "hip_mobility_9090": {
     "id": 96,
-    "name": "Mobilità dell'anca 90/90",
-    "description": "Seduto con le gambe distese, piega le ginocchia e appoggia le mani dietro di te per supportare il peso. Porta il ginocchio destro verso l'interno cercando di toccare il pavimento, poi torna alla posizione iniziale e ripeti con il ginocchio sinistro. Movimento fenomenale per migliorare la mobilità dell'anca.",
+    "name": "Mobilità dell'anca in quadrupedia",
+    "description": "Mettiti a quattro zampe appoggiandoti sugli avambracci, con le ginocchia sotto i fianchi. Spingi lentamente i fianchi indietro verso i talloni mantenendo la schiena neutra, senti l'allungamento su glutei e anche, poi torna in avanti e ripeti.",
     "muscles": "Anche, Mobilità, Glutei",
     "type": "warmup",
     "gif": "assets/2571.gif",
@@ -1062,13 +1157,14 @@
       "Affrettare il movimento"
     ],
     "tips": "Durante il movimento assicurati di scendere quanto ti è confortevole, deve creare una sensazione piacevole invece di disagio",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 1
   },
   "wood_chops_left": {
     "id": 97,
-    "name": "Taglialegna (sinistra)",
-    "description": "In piedi, unisci le mani e allungale sopra la spalla sinistra seguendo il movimento con gli occhi. Attiva il core e porta le mani verso il ginocchio destro, piegando leggermente le ginocchia. Torna alla posizione iniziale. Attiva i muscoli obliqui.",
-    "muscles": "Obliqui, Core, Spalle",
+    "name": "Russian twist (sinistra)",
+    "description": "Seduto a terra con le ginocchia piegate e i talloni appoggiati, inclina il busto leggermente indietro mantenendo la schiena dritta. Con le mani unite davanti al petto, ruota il tronco portando le mani verso il lato sinistro, poi torna al centro con controllo.",
+    "muscles": "Obliqui, Addominali, Core",
     "type": "core",
     "gif": "assets/0687.gif",
     "instructions": [
@@ -1083,13 +1179,14 @@
       "Trattenere il respiro"
     ],
     "tips": "Inspira all'inizio del movimento ed espira mentre porti le mani verso il ginocchio",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 3
   },
   "wood_chops_right": {
     "id": 98,
-    "name": "Taglialegna (destra)",
-    "description": "In piedi, unisci le mani e allungale sopra la spalla destra seguendo il movimento con gli occhi. Attiva il core e porta le mani verso il ginocchio sinistro, piegando leggermente le ginocchia. Torna alla posizione iniziale. Attiva i muscoli obliqui.",
-    "muscles": "Obliqui, Core, Spalle",
+    "name": "Russian twist (destra)",
+    "description": "Seduto a terra con le ginocchia piegate e i talloni appoggiati, inclina il busto leggermente indietro mantenendo la schiena dritta. Con le mani unite davanti al petto, ruota il tronco portando le mani verso il lato destro, poi torna al centro con controllo.",
+    "muscles": "Obliqui, Addominali, Core",
     "type": "core",
     "gif": "assets/0687.gif",
     "instructions": [
@@ -1104,31 +1201,34 @@
       "Trattenere il respiro"
     ],
     "tips": "Inspira all'inizio del movimento ed espira mentre porti le mani verso il ginocchio",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 3
   },
   "lunge_backward_left": {
     "id": 99,
-    "name": "Affondo all'indietro (sinistra)",
-    "description": "Fai un passo indietro con la gamba sinistra e abbassati in affondo, poi torna alla posizione iniziale.",
-    "muscles": "Gambe, Glutei, Equilibrio",
+    "name": "Affondo in avanti (sinistra)",
+    "description": "Fai un ampio passo in avanti con la gamba sinistra e piega entrambe le ginocchia fino a circa 90 gradi, mantenendo il busto eretto. Spingi sul tallone sinistro per tornare alla posizione di partenza e ripeti.",
+    "muscles": "Quadricipiti, Glutei, Femorali",
     "type": "squat",
     "gif": "assets/forward_lunge.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 3
   },
   "lunge_backward_right": {
     "id": 100,
-    "name": "Affondo all'indietro (destra)",
-    "description": "Fai un passo indietro con la gamba destra e abbassati in affondo, poi torna alla posizione iniziale.",
-    "muscles": "Gambe, Glutei, Equilibrio",
+    "name": "Affondo in avanti (destra)",
+    "description": "Fai un ampio passo in avanti con la gamba destra e piega entrambe le ginocchia fino a circa 90 gradi, mantenendo il busto eretto. Spingi sul tallone destro per tornare alla posizione di partenza e ripeti.",
+    "muscles": "Quadricipiti, Glutei, Femorali",
     "type": "squat",
     "gif": "assets/forward_lunge.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 3
   },
   "knees_to_chest_stretch": {
     "id": 101,
     "name": "Ginocchia al petto",
-    "description": "Allunga i muscoli della parte bassa della schiena e attiva i flessori dell'anca. Sdraiato sulla schiena, estendi entrambe le gambe in avanti e sollevale in aria. Tira un ginocchio verso il petto mentre mantieni l'altra gamba estesa. Torna indietro e alterna tra le gambe.",
-    "muscles": "Lower Back, Hip Flexors",
+    "description": "Sdraiati sulla schiena con entrambe le gambe distese a terra. Piega un ginocchio e tiralo verso il petto afferrandolo con le mani, mantenendo l'altra gamba appoggiata al pavimento. Mantieni l'allungamento, poi torna alla posizione iniziale e alterna le gambe.",
+    "muscles": "Glutei, Zona lombare, Flessori dell'anca",
     "type": "stretching",
     "gif": "assets/knee_to_chest_stretch.gif",
     "equipment": "Tappetino",
@@ -1143,22 +1243,24 @@
       "Trattenere il respiro"
     ],
     "tips": "Mantieni un pattern di respirazione costante durante il movimento",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 1
   },
   "butterfly_seated": {
     "id": 102,
-    "name": "Farfalla seduta",
-    "description": "Seduto, unisci le piante dei piedi e lascia cadere delicatamente le ginocchia verso il basso.",
+    "name": "Allungamento seduto a gambe divaricate",
+    "description": "Siediti a terra e apri le gambe il più possibile ai lati, mantenendo le ginocchia rivolte verso l'alto e la schiena dritta. Appoggia le mani sulle cosce o davanti a te e lascia che l'interno coscia si allunghi dolcemente. Respira e mantieni la posizione.",
     "muscles": "Interno coscia, Anche, Flessibilità",
     "type": "stretching",
     "gif": "assets/butterfly_stretch.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 1
   },
   "lizard_lunge_right": {
     "id": 103,
-    "name": "Affondo lucertola (destra)",
-    "description": "Rafforza e allunga i quadricipiti e i glutei. Inizia a quattro zampe, estendi le gambe dietro di te, porta il piede destro accanto alla mano destra e mantieni la posizione facendo piccole pulsazioni con la gamba sinistra.",
-    "muscles": "Quadricipiti, Glutei, Hip Flexors, Flessibilità",
+    "name": "Affondo in avanti (destra)",
+    "description": "Fai un ampio passo in avanti con la gamba destra e piega entrambe le ginocchia fino a circa 90 gradi, mantenendo il busto eretto. Spingi sul tallone destro per tornare alla posizione di partenza e ripeti.",
+    "muscles": "Quadricipiti, Glutei, Femorali",
     "type": "stretching",
     "gif": "assets/forward_lunge.gif",
     "equipment": "Tappetino",
@@ -1173,13 +1275,14 @@
       "Curvare la colonna vertebrale"
     ],
     "tips": "Mantieni un pattern di respirazione costante durante il movimento",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 3
   },
   "lizard_lunge_left": {
     "id": 104,
-    "name": "Affondo lucertola (sinistra)",
-    "description": "Rafforza e allunga i quadricipiti e i glutei. Inizia a quattro zampe, estendi le gambe dietro di te, porta il piede sinistro accanto alla mano sinistra e mantieni la posizione facendo piccole pulsazioni con la gamba destra.",
-    "muscles": "Quadricipiti, Glutei, Hip Flexors, Flessibilità",
+    "name": "Affondo in avanti (sinistra)",
+    "description": "Fai un ampio passo in avanti con la gamba sinistra e piega entrambe le ginocchia fino a circa 90 gradi, mantenendo il busto eretto. Spingi sul tallone sinistro per tornare alla posizione di partenza e ripeti.",
+    "muscles": "Quadricipiti, Glutei, Femorali",
     "type": "stretching",
     "gif": "assets/forward_lunge.gif",
     "equipment": "Tappetino",
@@ -1194,7 +1297,8 @@
       "Curvare la colonna vertebrale"
     ],
     "tips": "Mantieni un pattern di respirazione costante durante il movimento",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 3
   },
   "spinal_twist_left": {
     "id": 105,
@@ -1215,7 +1319,8 @@
       "Non ruotare la testa"
     ],
     "tips": "Se vuoi sentire più allungamento durante questo esercizio, premi delicatamente le ginocchia con la mano",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 1
   },
   "spinal_twist_right": {
     "id": 106,
@@ -1236,40 +1341,44 @@
       "Non ruotare la testa"
     ],
     "tips": "Se vuoi sentire più allungamento durante questo esercizio, premi delicatamente le ginocchia con la mano",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 1
   },
   "lat_stretch_overhead": {
     "id": 107,
-    "name": "Allungamento dorsali sopra la testa",
-    "description": "Intreccia le dita e allunga le braccia sopra la testa, poi inclinati lateralmente.",
-    "muscles": "Dorsali, Obliqui, Flessibilità",
+    "name": "Piegamento in avanti in piedi",
+    "description": "In piedi con i piedi alla larghezza dei fianchi, piegati in avanti a partire dalle anche lasciando cadere il busto verso le gambe. Porta le mani verso il pavimento o le caviglie mantenendo le ginocchia leggermente morbide. Mantieni la posizione respirando profondamente e sentendo l'allungamento nei femorali.",
+    "muscles": "Femorali, Lombari, Polpacci, Flessibilità",
     "type": "stretching",
     "gif": "assets/standing_forward_fold.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 1
   },
   "lower_back_seated_left": {
     "id": 108,
-    "name": "Allungamento lombare seduto (sinistra)",
-    "description": "Seduto con le gambe distese, piega la gamba sinistra e ruota il busto verso sinistra.",
+    "name": "Torsione spinale sdraiato (sinistra)",
+    "description": "Sdraiati sulla schiena con le ginocchia piegate e le braccia aperte ai lati. Lascia cadere lentamente le ginocchia verso sinistra mentre ruoti la testa a destra, mantenendo le spalle a contatto con il pavimento. Mantieni la posizione respirando profondamente.",
     "muscles": "Lower Back, Obliqui, Flessibilità",
     "type": "stretching",
     "gif": "assets/lying_spinal_twist.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 1
   },
   "lower_back_seated_right": {
     "id": 109,
-    "name": "Allungamento lombare seduto (destra)",
-    "description": "Seduto con le gambe distese, piega la gamba destra e ruota il busto verso destra.",
+    "name": "Torsione spinale sdraiato (destra)",
+    "description": "Sdraiati sulla schiena con le ginocchia piegate e le braccia aperte ai lati. Lascia cadere lentamente le ginocchia verso destra mentre ruoti la testa a sinistra, mantenendo le spalle a contatto con il pavimento. Mantieni la posizione respirando profondamente.",
     "muscles": "Lower Back, Obliqui, Flessibilità",
     "type": "stretching",
     "gif": "assets/lying_spinal_twist.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 1
   },
   "lunge_thoracic_rotation_right": {
     "id": 110,
-    "name": "Affondo con rotazione toracica (destra)",
-    "description": "Rafforza i quadricipiti e i glutei, migliorando anche la mobilità della colonna vertebrale toracica. In piedi, fai un affondo profondo in avanti con la gamba destra mantenendo la sinistra leggermente piegata. Appoggia la mano destra accanto all'interno del piede destro, estendi il braccio sinistro verso l'alto e ruota il petto a sinistra.",
-    "muscles": "Quadricipiti, Glutei, Mobilità Toracica",
+    "name": "Affondo in avanti (destra)",
+    "description": "In piedi con i piedi alla larghezza dei fianchi, fai un passo avanti con la gamba destra e piega entrambe le ginocchia fino a circa 90 gradi, mantenendo il busto eretto. Spingi sul tallone destro per tornare alla posizione di partenza e ripeti.",
+    "muscles": "Quadricipiti, Glutei, Femorali",
     "type": "warmup",
     "gif": "assets/forward_lunge.gif",
     "instructions": [
@@ -1284,13 +1393,14 @@
       "Non seguire il movimento con gli occhi"
     ],
     "tips": "Mantieni un pattern di respirazione costante durante il movimento",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 3
   },
   "lunge_thoracic_rotation_left": {
     "id": 111,
-    "name": "Affondo con rotazione toracica (sinistra)",
-    "description": "Rafforza i quadricipiti e i glutei, migliorando anche la mobilità della colonna vertebrale toracica. In piedi, fai un affondo profondo in avanti con la gamba sinistra mantenendo la destra leggermente piegata. Appoggia la mano sinistra accanto all'interno del piede sinistro, estendi il braccio destro verso l'alto e ruota il petto a destra.",
-    "muscles": "Quadricipiti, Glutei, Mobilità Toracica",
+    "name": "Affondo in avanti (sinistra)",
+    "description": "In piedi con i piedi alla larghezza dei fianchi, fai un passo avanti con la gamba sinistra e piega entrambe le ginocchia fino a circa 90 gradi, mantenendo il busto eretto. Spingi sul tallone sinistro per tornare alla posizione di partenza e ripeti.",
+    "muscles": "Quadricipiti, Glutei, Femorali",
     "type": "warmup",
     "gif": "assets/forward_lunge.gif",
     "equipment": "Tappetino",
@@ -1306,13 +1416,14 @@
       "Non seguire il movimento con gli occhi"
     ],
     "tips": "Mantieni un pattern di respirazione costante durante il movimento",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 3
   },
   "pigeon_pose_right": {
     "id": 112,
-    "name": "Posizione del piccione (destra)",
-    "description": "Ottimo esercizio per migliorare la mobilità dell'anca. Inizia inginocchiandoti, metti la gamba destra in avanti e la sinistra all'indietro. Abbassa la gamba destra sul pavimento con il ginocchio piegato a 45 gradi e il piede vicino al ginocchio sinistro. Piega il petto verso il ginocchio destro estendendo la gamba sinistra. Mantieni questo allungamento.",
-    "muscles": "Hip Flexors, Glutei, Mobilità",
+    "name": "Allungamento piriforme sdraiato (destra)",
+    "description": "Sdraiati sulla schiena con le ginocchia piegate e appoggia la caviglia destra sul ginocchio sinistro. Afferra la coscia sinistra con entrambe le mani e tirala verso il petto finché non senti l'allungamento nel gluteo destro. Mantieni la posizione respirando profondamente.",
+    "muscles": "Glutei, Piriforme, Flessibilità",
     "type": "stretching",
     "gif": "assets/piriformis_stretch.gif",
     "equipment": "Tappetino",
@@ -1328,13 +1439,14 @@
       "Trattenere il respiro"
     ],
     "tips": "Se non riesci ad arrivare fino ai gomiti in questo esercizio, va bene. Sostieni il corpo sulle mani",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 1
   },
   "pigeon_pose_left": {
     "id": 113,
-    "name": "Posizione del piccione (sinistra)",
-    "description": "Ottimo esercizio per migliorare la mobilità dell'anca. Inizia inginocchiandoti, metti la gamba sinistra in avanti e la destra all'indietro. Abbassa la gamba sinistra sul pavimento con il ginocchio piegato a 45 gradi e il piede vicino al ginocchio destro. Piega il petto verso il ginocchio sinistro estendendo la gamba destra. Mantieni questo allungamento.",
-    "muscles": "Hip Flexors, Glutei, Mobilità",
+    "name": "Allungamento piriforme sdraiato (sinistra)",
+    "description": "Sdraiati sulla schiena con le ginocchia piegate e appoggia la caviglia sinistra sul ginocchio destro. Afferra la coscia destra con entrambe le mani e tirala verso il petto finché non senti l'allungamento nel gluteo sinistro. Mantieni la posizione respirando profondamente.",
+    "muscles": "Glutei, Piriforme, Flessibilità",
     "type": "stretching",
     "gif": "assets/piriformis_stretch.gif",
     "instructions": [
@@ -1349,13 +1461,14 @@
       "Trattenere il respiro"
     ],
     "tips": "Se non riesci ad arrivare fino ai gomiti in questo esercizio, va bene. Sostieni il corpo sulle mani",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 1
   },
   "hip_rotation_standing": {
     "id": 114,
-    "name": "Rotazione anche in piedi",
-    "description": "Modo eccellente per migliorare la mobilità dell'anca. In piedi con i piedi alla larghezza dei fianchi, inizia a marciare delicatamente sul posto spostando il peso da una gamba all'altra. Fermati e solleva il ginocchio destro facendo un cerchio con l'anca. Abbassa la gamba, riprendi a marciare e fai l'altro lato.",
-    "muscles": "Hip Flexors, Mobilità",
+    "name": "Cerchi d'anca in quadrupedia",
+    "description": "Mettiti a quattro zampe appoggiandoti sugli avambracci, con le ginocchia sotto i fianchi. Solleva un ginocchio da terra e disegna cerchi ampi con l'anca, mantenendo il core stabile e la schiena neutra. Completa le ripetizioni e ripeti con l'altra gamba.",
+    "muscles": "Glutei, Femorali, Flessori dell'anca, Mobilità",
     "type": "warmup",
     "gif": "assets/2571.gif",
     "instructions": [
@@ -1370,12 +1483,13 @@
       "Eseguire il movimento su una superficie scivolosa"
     ],
     "tips": "Mantieni un pattern di respirazione costante durante il movimento",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 2
   },
   "hamstring_seated_stretch": {
     "id": 115,
-    "name": "Stretching femorali da seduto",
-    "description": "Come dice il nome stesso, questo esercizio è un modo eccellente per rilasciare la tensione nei femorali. Siediti sul pavimento con le gambe estese, piega il corpo verso le gambe quanto ti è confortevole senza piegare troppo le ginocchia, afferra le caviglie con le mani. Mantieni questo allungamento.",
+    "name": "Piegamento in avanti in piedi",
+    "description": "In piedi con i piedi alla larghezza dei fianchi, piegati in avanti a partire dalle anche portando il busto verso le gambe. Lascia scendere le mani verso il pavimento mantenendo le ginocchia leggermente morbide. Mantieni l'allungamento sentendo la tensione nei femorali.",
     "muscles": "Femorali, Lower Back",
     "type": "stretching",
     "gif": "assets/standing_forward_fold.gif",
@@ -1391,13 +1505,14 @@
       "Trattenere il respiro"
     ],
     "tips": "Raggiungi le caviglie quanto ti è confortevole senza piegare troppo le ginocchia",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 1
   },
   "cat_cow_stretch": {
     "id": 116,
-    "name": "Stretching gatto-mucca",
-    "description": "Esercizio fenomenale per migliorare la mobilità spinale. La colonna vertebrale toracica, lombare e cervicale si rilasseranno dopo questo esercizio. A quattro zampe con le ginocchia sotto i fianchi e la schiena in posizione neutra, inarca la colonna vertebrale e piega la testa all'indietro. Da questa posizione arcuata, arrotonda la colonna vertebrale a forma di C. Ripeti lentamente il movimento.",
-    "muscles": "Schiena, Colonna vertebrale, Core, Mobilità",
+    "name": "Posizione del cobra",
+    "description": "Sdraiati a pancia in giù con le mani appoggiate a terra sotto le spalle. Spingi sulle braccia sollevando il petto e inarcando la schiena, portando lo sguardo verso l'alto. Mantieni i fianchi vicini al pavimento e tieni la posizione respirando profondamente.",
+    "muscles": "Erettori spinali, Glutei, Femorali, Mobilità",
     "type": "stretching",
     "gif": "assets/cobra.gif",
     "instructions": [
@@ -1412,7 +1527,8 @@
       "Trattenere il respiro"
     ],
     "tips": "Mantieni un pattern di respirazione costante durante il movimento",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 1
   },
   "cross_body_shoulder_stretch": {
     "id": 117,
@@ -1433,13 +1549,14 @@
       "Piegare troppo il gomito"
     ],
     "tips": "Mantieni un pattern di respirazione costante durante il movimento",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 1
   },
   "shadow_boxing": {
     "id": 118,
-    "name": "Shadow Boxing",
-    "description": "Aumenta la frequenza cardiaca e fa sudare. È un fantastico esercizio cardio. In piedi con i piedi alla larghezza dei fianchi, mantieni le mani rilassate ai lati. Inizia a marciare sul posto, accelera il ritmo della marcia e inizia a dare pugni all'aria davanti a te come se fossi in un match di boxe.",
-    "muscles": "Cardio, Full Body, Spalle, Core",
+    "name": "High Knees",
+    "description": "In piedi con i piedi alla larghezza dei fianchi, corri sul posto sollevando alternativamente le ginocchia fino all'altezza dei fianchi. Mantieni il core attivo e le braccia piegate che accompagnano il movimento. Aumenta il ritmo per alzare la frequenza cardiaca.",
+    "muscles": "Quadricipiti, Flessori dell'anca, Polpacci, Cardio",
     "type": "cardio",
     "gif": "assets/high_knees.gif",
     "instructions": [
@@ -1453,7 +1570,8 @@
       "Trattenere il respiro"
     ],
     "tips": "Se vuoi rendere questo esercizio più impegnativo, tieni dei manubri leggeri nelle mani",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 3
   },
   "figure_4_stretch_right": {
     "id": 119,
@@ -1474,7 +1592,8 @@
       "Trattenere il respiro"
     ],
     "tips": "Mantieni un pattern di respirazione costante durante il movimento",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 1
   },
   "figure_4_stretch_left": {
     "id": 120,
@@ -1495,13 +1614,14 @@
       "Trattenere il respiro"
     ],
     "tips": "Mantieni un pattern di respirazione costante durante il movimento",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 1
   },
   "hip_flexor_stretch": {
     "id": 121,
-    "name": "Allungamento flessori dell'anca",
-    "description": "I flessori dell'anca contratti possono causare disagio e dolore alla parte bassa della schiena. Questo esercizio eliminerà la tensione nei flessori dell'anca. In piedi con i piedi alla larghezza dei fianchi, porta la gamba destra dietro mentre fai un affondo sulla gamba sinistra. Metti le mani sul ginocchio sinistro e fai delle pulsazioni con la gamba destra.",
-    "muscles": "Hip Flexors, Flessibilità",
+    "name": "Affondo in avanti",
+    "description": "In piedi con i piedi alla larghezza dei fianchi, fai un passo avanti e piega entrambe le ginocchia fino a circa 90 gradi, mantenendo il busto eretto. Nella posizione bassa la gamba posteriore rimane estesa, allungando la parte anteriore dell'anca. Spingi sul tallone anteriore per tornare in piedi e alterna le gambe.",
+    "muscles": "Quadricipiti, Glutei, Flessori dell'anca",
     "type": "stretching",
     "gif": "assets/forward_lunge.gif",
     "instructions": [
@@ -1517,13 +1637,14 @@
       "Trattenere il respiro"
     ],
     "tips": "Se vuoi sentire più allungamento durante questo esercizio, contrai i muscoli glutei",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 3
   },
   "wrist_warmup": {
     "id": 122,
-    "name": "Riscaldamento polsi",
-    "description": "Questo esercizio dovrebbe far parte della routine di riscaldamento. Riscaldare i polsi è molto importante nell'allenamento a corpo libero. In piedi con i piedi alla larghezza dei fianchi, estendi le mani davanti a te, chiudi i pugni e fai cerchi in senso orario e antiorario con i polsi.",
-    "muscles": "Polsi, Avambracci",
+    "name": "Allungamento pettorali e addome in piedi",
+    "description": "In piedi con i piedi alla larghezza dei fianchi, porta le braccia indietro o sopra la testa aprendo bene il petto. Estendi delicatamente il busto all'indietro per allungare i pettorali e la parete addominale. Mantieni la posizione respirando in modo controllato.",
+    "muscles": "Pettorali, Addominali, Flessori dell'anca",
     "type": "warmup",
     "gif": "assets/3669.gif",
     "instructions": [
@@ -1537,13 +1658,14 @@
       "Affrettare il movimento"
     ],
     "tips": "Mantieni un pattern di respirazione costante durante il movimento",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 1
   },
   "butt_kicks": {
     "id": 123,
-    "name": "Calci ai glutei",
-    "description": "Ottimo esercizio di riscaldamento, se eseguito più velocemente diventa sicuramente un esercizio cardio. In piedi con i piedi alla larghezza dei fianchi, mantieni le mani all'altezza del petto con i pugni alzati. Inizia a correre sul posto cercando di toccare i glutei con i talloni.",
-    "muscles": "Cardio, Femorali, Gambe",
+    "name": "High Knees",
+    "description": "In piedi con i piedi alla larghezza dei fianchi, corri sul posto sollevando alternativamente le ginocchia fino all'altezza dei fianchi. Mantieni il core attivo e le braccia piegate che accompagnano il movimento. Aumenta il ritmo per alzare la frequenza cardiaca.",
+    "muscles": "Quadricipiti, Flessori dell'anca, Polpacci, Cardio",
     "type": "warmup",
     "gif": "assets/high_knees.gif",
     "instructions": [
@@ -1556,12 +1678,13 @@
       "Eseguire il movimento su una superficie scivolosa"
     ],
     "tips": "Mantieni un pattern di respirazione costante durante il movimento",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 3
   },
   "backward_lunges_left": {
     "id": 124,
-    "name": "Affondi all'indietro (sinistra)",
-    "description": "Rafforza i quadricipiti e i muscoli glutei. In piedi con i piedi alla larghezza dei fianchi, fai un passo indietro con la gamba sinistra, mantieni la schiena dritta e fai un affondo con la gamba sinistra. Torna alla posizione di partenza e ripeti.",
+    "name": "Affondi in avanti (sinistra)",
+    "description": "In piedi con i piedi alla larghezza dei fianchi, fai un passo avanti con la gamba sinistra e piega entrambe le ginocchia mantenendo la schiena dritta. Spingi sul tallone anteriore per tornare alla posizione di partenza e ripeti.",
     "muscles": "Quadricipiti, Glutei, Gambe",
     "type": "squat",
     "gif": "assets/forward_lunge.gif",
@@ -1577,12 +1700,13 @@
       "Trattenere il respiro"
     ],
     "tips": "Se vuoi rendere questo esercizio più impegnativo, tieni dei manubri leggeri nelle mani",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 3
   },
   "backward_lunges_right": {
     "id": 125,
-    "name": "Affondi all'indietro (destra)",
-    "description": "Rafforza i quadricipiti e i muscoli glutei. In piedi con i piedi alla larghezza dei fianchi, fai un passo indietro con la gamba destra, mantieni la schiena dritta e fai un affondo con la gamba destra. Torna alla posizione di partenza e ripeti.",
+    "name": "Affondi in avanti (destra)",
+    "description": "In piedi con i piedi alla larghezza dei fianchi, fai un passo avanti con la gamba destra e piega entrambe le ginocchia mantenendo la schiena dritta. Spingi sul tallone anteriore per tornare alla posizione di partenza e ripeti.",
     "muscles": "Quadricipiti, Glutei, Gambe",
     "type": "squat",
     "gif": "assets/forward_lunge.gif",
@@ -1598,7 +1722,8 @@
       "Trattenere il respiro"
     ],
     "tips": "Se vuoi rendere questo esercizio più impegnativo, tieni dei manubri leggeri nelle mani",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 3
   },
   "squat_to_walkout": {
     "id": 126,
@@ -1620,13 +1745,14 @@
       "Inarcare la colonna vertebrale"
     ],
     "tips": "Mantieni un pattern di respirazione costante durante il movimento",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 3
   },
   "side_step_squats": {
     "id": 127,
-    "name": "Squat con passo laterale",
-    "description": "Rafforza i quadricipiti e i muscoli glutei. In piedi con i piedi vicini, fai un passo a sinistra e fai uno squat. Riporta i piedi insieme e fai la stessa cosa dall'altro lato. Continua ad alternare tra i lati.",
-    "muscles": "Quadricipiti, Glutei, Gambe",
+    "name": "Affondo Laterale",
+    "description": "In piedi con i piedi uniti, fai un ampio passo di lato piegando il ginocchio della gamba d'appoggio e tenendo l'altra gamba tesa. Spingi i fianchi indietro e scendi portando le mani verso il piede, mantenendo la schiena neutra. Spingi sulla gamba piegata per tornare alla posizione di partenza e alterna i lati.",
+    "muscles": "Quadricipiti, Glutei, Adduttori",
     "type": "squat",
     "gif": "assets/lateral_lunge.gif",
     "instructions": [
@@ -1641,12 +1767,13 @@
       "Sollevare i talloni dal pavimento"
     ],
     "tips": "Mantieni un pattern di respirazione costante durante il movimento",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 3
   },
   "squat_prisoner": {
     "id": 128,
-    "name": "Squat prigioniero",
-    "description": "Rafforza i quadricipiti e i muscoli glutei. In piedi con i piedi alla larghezza dei fianchi, metti le mani dietro la testa. Fai uno squat mantenendo il petto alto e il core attivo.",
+    "name": "Squat a Corpo Libero",
+    "description": "In piedi con i piedi alla larghezza delle spalle, piega anche e ginocchia scendendo in uno squat profondo con le braccia rilassate in avanti verso il basso. Mantieni il petto alto, la schiena neutra e i talloni a terra. Spingi sui talloni per tornare in piedi.",
     "muscles": "Quadricipiti, Glutei, Core",
     "type": "squat",
     "gif": "assets/bodyweight_squat.gif",
@@ -1661,7 +1788,8 @@
       "Sollevare i talloni dal pavimento"
     ],
     "tips": "Fai un respiro profondo prima dello squat, espira mentre ti alzi dalla posizione di squat",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 3
   },
   "basic_crunch": {
     "id": 129,
@@ -1670,7 +1798,8 @@
     "muscles": "Retto addominale, Obliqui",
     "type": "abs",
     "gif": "assets/basic_crunch.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 2
   },
   "bear_crawl": {
     "id": 130,
@@ -1679,16 +1808,18 @@
     "muscles": "Core, Spalle, Quadricipiti, Tricipiti",
     "type": "core",
     "gif": "assets/bear_crawl.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 3
   },
   "bench_quad_stretch": {
     "id": 131,
-    "name": "Stretching Quadricipiti su Panca",
-    "description": "Siediti sul bordo di una panca e porta un piede indietro, appoggiando il dorso del piede sulla panca dietro di te. Inclina leggermente il bacino in avanti per intensificare l'allungamento della parte anteriore della coscia. Mantieni la posizione per 30-60 secondi per lato.",
-    "muscles": "Quadricipiti, Flessori dell'anca",
+    "name": "Curl del Polso da Seduto",
+    "description": "Siediti sul bordo di una panca e appoggia l'avambraccio sulla coscia, con il polso oltre il ginocchio. Fletti il polso verso l'alto contraendo i muscoli dell'avambraccio, poi abbassa lentamente la mano. Esegui il movimento in modo lento e controllato.",
+    "muscles": "Avambracci",
     "type": "flexibility",
     "gif": "assets/bench_quad_stretch.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 2
   },
   "bench_side_plank": {
     "id": 132,
@@ -1697,7 +1828,8 @@
     "muscles": "Obliqui, Core, Spalle, Glutei",
     "type": "obliques",
     "gif": "assets/bench_side_plank.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 4
   },
   "boxing_stance": {
     "id": 133,
@@ -1706,7 +1838,8 @@
     "muscles": "Gambe, Core, Spalle, Cardio",
     "type": "cardio",
     "gif": "assets/boxing_stance.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 2
   },
   "calf_raise": {
     "id": 134,
@@ -1715,7 +1848,8 @@
     "muscles": "Gastrocnemio, Soleo",
     "type": "calves",
     "gif": "assets/calf_raise.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 2
   },
   "calf_raise_back": {
     "id": 135,
@@ -1724,7 +1858,8 @@
     "muscles": "Gastrocnemio, Soleo",
     "type": "calves",
     "gif": "assets/calf_raise_back.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 2
   },
   "close_grip_push_up": {
     "id": 136,
@@ -1733,16 +1868,18 @@
     "muscles": "Tricipiti, Petto, Spalle",
     "type": "triceps",
     "gif": "assets/close_grip_push_up.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 4
   },
   "crunch_hip_flexor": {
     "id": 137,
     "name": "Crunch con Flessori dell'Anca",
-    "description": "Sdraiati supino con le gambe sollevate e le ginocchia piegate a 90 gradi. Esegui un crunch portando le spalle verso le ginocchia mentre mantieni le gambe ferme. Questa variante attiva contemporaneamente addominali superiori e flessori dell'anca.",
+    "description": "Sdraiati supino con le ginocchia piegate e i piedi ben appoggiati a terra. Contrai gli addominali sollevando testa e spalle dal pavimento, mantenendo la zona lombare a contatto con il suolo. Torna giù lentamente e ripeti il movimento in modo controllato.",
     "muscles": "Retto addominale, Flessori dell'anca",
     "type": "abs",
     "gif": "assets/crunch_hip_flexor.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 2
   },
   "crunch_rotation": {
     "id": 138,
@@ -1751,7 +1888,8 @@
     "muscles": "Retto addominale, Obliqui",
     "type": "abs",
     "gif": "assets/crunch_rotation.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 2
   },
   "dead_bug_basic": {
     "id": 139,
@@ -1760,7 +1898,8 @@
     "muscles": "Retto addominale, Core profondo",
     "type": "abs",
     "gif": "assets/dead_bug_basic.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 2
   },
   "deep_squat": {
     "id": 140,
@@ -1769,7 +1908,8 @@
     "muscles": "Quadricipiti, Glutei, Femorali",
     "type": "quadriceps",
     "gif": "assets/deep_squat.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 3
   },
   "deep_squat_full": {
     "id": 141,
@@ -1778,7 +1918,8 @@
     "muscles": "Quadricipiti, Glutei, Femorali, Polpacci",
     "type": "quadriceps",
     "gif": "assets/deep_squat_full.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 3
   },
   "deep_squat_position": {
     "id": 142,
@@ -1787,7 +1928,8 @@
     "muscles": "Quadricipiti, Glutei, Anche, Caviglie",
     "type": "mobility",
     "gif": "assets/deep_squat_position.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 2
   },
   "diamond_push_up": {
     "id": 143,
@@ -1796,7 +1938,8 @@
     "muscles": "Tricipiti, Petto, Spalle",
     "type": "triceps",
     "gif": "assets/diamond_push_up.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 4
   },
   "dumbbell_bicep_curl": {
     "id": 144,
@@ -1805,7 +1948,8 @@
     "muscles": "Bicipiti, Avambracci",
     "type": "biceps",
     "gif": "assets/dumbbell_bicep_curl.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 2
   },
   "foam_roller_glutes": {
     "id": 145,
@@ -1814,7 +1958,8 @@
     "muscles": "Glutei, Piriforme",
     "type": "recovery",
     "gif": "assets/foam_roller_glutes.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 1
   },
   "forearm_plank": {
     "id": 146,
@@ -1823,7 +1968,8 @@
     "muscles": "Core, Retto addominale, Spalle, Glutei",
     "type": "core",
     "gif": "assets/forearm_plank.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 3
   },
   "forearm_plank_hold": {
     "id": 147,
@@ -1832,7 +1978,8 @@
     "muscles": "Core, Retto addominale, Spalle",
     "type": "core",
     "gif": "assets/forearm_plank_hold.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 3
   },
   "forearm_stretch": {
     "id": 148,
@@ -1841,7 +1988,8 @@
     "muscles": "Flessori ed estensori dell'avambraccio",
     "type": "flexibility",
     "gif": "assets/forearm_stretch.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 1
   },
   "frog_stretch": {
     "id": 149,
@@ -1850,7 +1998,8 @@
     "muscles": "Adduttori, Anche, Inguine",
     "type": "flexibility",
     "gif": "assets/frog_stretch.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 1
   },
   "full_body_plank": {
     "id": 150,
@@ -1859,7 +2008,8 @@
     "muscles": "Core, Petto, Spalle, Glutei, Quadricipiti",
     "type": "core",
     "gif": "assets/full_body_plank.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 3
   },
   "handstand": {
     "id": 151,
@@ -1868,7 +2018,8 @@
     "muscles": "Spalle, Tricipiti, Core, Trapezio",
     "type": "shoulders",
     "gif": "assets/handstand.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 5
   },
   "high_plank": {
     "id": 152,
@@ -1877,16 +2028,18 @@
     "muscles": "Core, Spalle, Tricipiti, Glutei",
     "type": "core",
     "gif": "assets/high_plank.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 3
   },
   "hip_bridge": {
     "id": 153,
-    "name": "Bridge",
-    "description": "Sdraiati supino con le ginocchia piegate. Solleva i fianchi contraendo i glutei fino a formare una linea retta dalle spalle alle ginocchia. Evita di inarcare eccessivamente la schiena. Mantieni la posizione per un secondo in alto, poi scendi lentamente.",
-    "muscles": "Glutei, Femorali, Core",
+    "name": "Retroversione del Bacino",
+    "description": "Sdraiati supino con le ginocchia piegate e i piedi appoggiati a terra. Contrai gli addominali inclinando il bacino verso di te e premendo la zona lombare contro il pavimento. Mantieni la contrazione per qualche secondo, poi rilascia lentamente senza sollevare i fianchi.",
+    "muscles": "Addominali, Core",
     "type": "glutes",
     "gif": "assets/hip_bridge.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 1
   },
   "hollow_body_hold": {
     "id": 154,
@@ -1895,7 +2048,8 @@
     "muscles": "Retto addominale, Flessori dell'anca, Core profondo",
     "type": "abs",
     "gif": "assets/hollow_body_hold.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 4
   },
   "knee_push_up": {
     "id": 155,
@@ -1904,7 +2058,8 @@
     "muscles": "Petto, Tricipiti, Spalle",
     "type": "chest",
     "gif": "assets/knee_push_up.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 3
   },
   "knee_to_chest_stretch": {
     "id": 156,
@@ -1913,7 +2068,8 @@
     "muscles": "Glutei, Lombari, Flessori dell'anca",
     "type": "flexibility",
     "gif": "assets/knee_to_chest_stretch.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 1
   },
   "kneeling_lunge": {
     "id": 157,
@@ -1922,7 +2078,8 @@
     "muscles": "Quadricipiti, Flessori dell'anca, Glutei",
     "type": "quadriceps",
     "gif": "assets/kneeling_lunge.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 3
   },
   "l_sit": {
     "id": 158,
@@ -1931,7 +2088,8 @@
     "muscles": "Tricipiti, Addominali, Flessori dell'anca",
     "type": "triceps",
     "gif": "assets/l_sit.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 5
   },
   "low_push_up_hold": {
     "id": 159,
@@ -1940,7 +2098,8 @@
     "muscles": "Petto, Tricipiti, Core",
     "type": "chest",
     "gif": "assets/low_push_up_hold.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 4
   },
   "lying_chest_stretch": {
     "id": 160,
@@ -1949,16 +2108,18 @@
     "muscles": "Pettorali, Spalle, Bicipiti",
     "type": "flexibility",
     "gif": "assets/lying_chest_stretch.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 1
   },
   "lying_knee_raise": {
     "id": 161,
-    "name": "Sollevamento Ginocchia da Supino",
-    "description": "Sdraiati supino con le braccia lungo i fianchi. Solleva le ginocchia verso il petto mantenendo gli addominali contratti e la zona lombare a terra. Abbassa le gambe lentamente senza toccare terra e ripeti. Lavora principalmente sugli addominali bassi.",
-    "muscles": "Addominali bassi, Flessori dell'anca",
+    "name": "Ponte Glutei",
+    "description": "Sdraiati supino con le ginocchia piegate, i piedi appoggiati a terra e le braccia lungo i fianchi. Spingi sui talloni e solleva i fianchi contraendo glutei e femorali fino a formare una linea retta dalle spalle alle ginocchia. Scendi lentamente e ripeti in modo controllato.",
+    "muscles": "Glutei, Femorali",
     "type": "abs",
     "gif": "assets/lying_knee_raise.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 2
   },
   "lying_leg_twist": {
     "id": 162,
@@ -1967,16 +2128,18 @@
     "muscles": "Obliqui, Erettori spinali, Flessibilità",
     "type": "obliques",
     "gif": "assets/lying_leg_twist.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 3
   },
   "lying_spinal_stretch": {
     "id": 163,
-    "name": "Stretching Spinale a Terra",
-    "description": "Sdraiati supino e porta una gamba piegata oltre il corpo verso il lato opposto, mantenendo le spalle a terra. Guarda nella direzione opposta alla gamba. Questa torsione allunga i muscoli della schiena e migliora la mobilità spinale.",
-    "muscles": "Erettori spinali, Obliqui, Dorsali",
+    "name": "Crunch",
+    "description": "Sdraiati supino con le ginocchia piegate, i piedi a terra e le mani dietro la testa. Contrai gli addominali sollevando le spalle da terra, senza tirare il collo con le mani. Scendi lentamente e ripeti mantenendo la zona lombare a contatto con il pavimento.",
+    "muscles": "Retto addominale, Obliqui",
     "type": "flexibility",
     "gif": "assets/lying_spinal_stretch.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 2
   },
   "neck_stretch": {
     "id": 164,
@@ -1985,52 +2148,58 @@
     "muscles": "Trapezio, Muscoli del collo",
     "type": "flexibility",
     "gif": "assets/neck_stretch.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 1
   },
   "oblique_crunch": {
     "id": 165,
     "name": "Crunch Obliquo",
-    "description": "Sdraiati supino con le ginocchia piegate. Solleva le spalle ruotando il busto per portare il gomito verso il ginocchio opposto. Alterna i lati in modo controllato. La rotazione coinvolge gli obliqui più del crunch tradizionale.",
+    "description": "Sdraiati supino con le mani dietro la testa e le gambe sollevate con le ginocchia piegate a 90 gradi. Solleva le spalle ruotando il busto per portare il gomito verso il ginocchio opposto, alternando i lati in modo controllato. Mantieni la zona lombare a terra e non tirare il collo con le mani.",
     "muscles": "Obliqui, Retto addominale",
     "type": "obliques",
     "gif": "assets/oblique_crunch.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 3
   },
   "pike_push_up_position": {
     "id": 166,
-    "name": "Pike Push-up",
-    "description": "Posizionati a V invertita con i fianchi sollevati e le mani più avanti delle spalle. Scendi piegando i gomiti e portando la testa verso il pavimento, poi spingi per tornare su. Questo esercizio enfatizza le spalle ed è propedeutico per i push-up verticali.",
-    "muscles": "Spalle, Tricipiti, Core",
+    "name": "Push-up Scapolare",
+    "description": "Mettiti in plank alto con le mani sotto le spalle e le braccia tese. Senza piegare i gomiti, avvicina le scapole lasciando scendere leggermente il petto, poi spingi il pavimento allontanandole in protrazione. Movimento piccolo e controllato che rinforza scapole e parte alta della schiena.",
+    "muscles": "Dentato anteriore, Romboidi, Trapezio",
     "type": "shoulders",
     "gif": "assets/pike_push_up_position.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 3
   },
   "pistol_squat": {
     "id": 167,
-    "name": "Pistol Squat",
-    "description": "Squat su una gamba sola con l'altra gamba tesa davanti a te. Scendi controllando il movimento fino a quando il gluteo quasi tocca il tallone, poi risali senza appoggiare l'altra gamba. Esercizio avanzato che richiede forza, equilibrio e mobilità eccezionali.",
+    "name": "Skater Squat",
+    "description": "In equilibrio su una gamba, piega il ginocchio e scendi in squat portando la gamba libera indietro e inclinando leggermente il busto in avanti per bilanciarti. Scendi finché il ginocchio della gamba posteriore quasi sfiora il pavimento, poi risali spingendo sulla gamba d'appoggio. Esercizio impegnativo che richiede forza ed equilibrio su una sola gamba.",
     "muscles": "Quadricipiti, Glutei, Core, Equilibrio",
     "type": "quadriceps",
     "gif": "assets/pistol_squat.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 4
   },
   "planche_lean": {
     "id": 168,
-    "name": "Planche Lean",
-    "description": "Dalla posizione di plank alto, inclina il corpo in avanti spostando le spalle oltre le mani. Mantieni il corpo rigido e i gomiti bloccati. Questo esercizio propedeutico costruisce la forza nelle spalle necessaria per la planche completa.",
+    "name": "Planche",
+    "description": "Appoggia le mani a terra e inclina le spalle in avanti fino a sollevare i piedi dal pavimento, mantenendo il corpo completamente orizzontale con le braccia tese. Tieni core e glutei contratti e le scapole protratte. Skill di calisthenics estremamente avanzata, da costruire con progressioni come planche lean e tuck planche.",
     "muscles": "Spalle, Petto, Core, Tricipiti",
     "type": "shoulders",
     "gif": "assets/planche_lean.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 5
   },
   "prone_y_raise": {
     "id": 169,
-    "name": "Y Raise Prono",
-    "description": "Sdraiati prono con le braccia tese oltre la testa formando una Y. Solleva le braccia da terra contraendo i muscoli della parte alta della schiena e delle spalle. Mantieni un secondo in alto, poi abbassa. Ottimo per la postura e la salute delle spalle.",
-    "muscles": "Trapezio, Romboidi, Deltoidi posteriori",
+    "name": "V-Up",
+    "description": "Sdraiati supino con le braccia distese oltre la testa e le gambe tese. Solleva contemporaneamente busto e gambe piegandoti a V e portando le mani verso i piedi. Torna giù con controllo mantenendo gli addominali contratti e la zona lombare aderente al pavimento.",
+    "muscles": "Addominali, Flessori dell'anca, Quadricipiti",
     "type": "back",
     "gif": "assets/prone_y_raise.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 4
   },
   "push_up": {
     "id": 170,
@@ -2039,16 +2208,18 @@
     "muscles": "Petto, Tricipiti, Spalle, Core",
     "type": "chest",
     "gif": "assets/push_up.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 4
   },
   "quadruped_position": {
     "id": 171,
     "name": "Posizione Quadrupede",
     "description": "Posizione base a quattro zampe con le mani sotto le spalle e le ginocchia sotto i fianchi. Mantieni la schiena piatta e il core attivo. Da questa posizione partono molti esercizi come bird dog, cat-cow e bear crawl. Fondamentale per la stabilità del core.",
-    "muscles": "Core, Spalle, Anche",
+    "muscles": "Quadricipiti, Core, Spalle",
     "type": "core",
     "gif": "assets/quadruped_position.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 1
   },
   "reverse_plank": {
     "id": 172,
@@ -2057,7 +2228,8 @@
     "muscles": "Glutei, Femorali, Tricipiti, Core",
     "type": "glutes",
     "gif": "assets/reverse_plank.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 3
   },
   "reverse_plank_bridge": {
     "id": 173,
@@ -2066,7 +2238,8 @@
     "muscles": "Glutei, Tricipiti, Core, Spalle",
     "type": "glutes",
     "gif": "assets/reverse_plank_bridge.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 2
   },
   "reverse_table_top": {
     "id": 174,
@@ -2075,7 +2248,8 @@
     "muscles": "Tricipiti, Glutei, Spalle, Core",
     "type": "triceps",
     "gif": "assets/reverse_table_top.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 2
   },
   "running_in_place": {
     "id": 175,
@@ -2084,7 +2258,8 @@
     "muscles": "Quadricipiti, Polpacci, Core, Cardio",
     "type": "cardio",
     "gif": "assets/running_in_place.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 2
   },
   "running_sprint": {
     "id": 176,
@@ -2093,7 +2268,8 @@
     "muscles": "Quadricipiti, Femorali, Glutei, Polpacci, Core",
     "type": "cardio",
     "gif": "assets/running_sprint.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 4
   },
   "scissor_kicks": {
     "id": 177,
@@ -2102,7 +2278,8 @@
     "muscles": "Addominali bassi, Flessori dell'anca, Adduttori",
     "type": "abs",
     "gif": "assets/scissor_kicks.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 3
   },
   "seated_tibialis_stretch": {
     "id": 178,
@@ -2111,7 +2288,8 @@
     "muscles": "Tibiale anteriore, Caviglia",
     "type": "flexibility",
     "gif": "assets/seated_tibialis_stretch.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 1
   },
   "side_bicycle_crunch": {
     "id": 179,
@@ -2120,7 +2298,8 @@
     "muscles": "Obliqui, Addominali",
     "type": "obliques",
     "gif": "assets/side_bicycle_crunch.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 3
   },
   "side_crow_pose": {
     "id": 180,
@@ -2129,16 +2308,18 @@
     "muscles": "Core, Braccia, Spalle, Equilibrio",
     "type": "core",
     "gif": "assets/side_crow_pose.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 5
   },
   "side_crunch": {
     "id": 181,
     "name": "Crunch Laterale",
-    "description": "Sdraiati sul fianco con le gambe leggermente piegate. Solleva il busto lateralmente contraendo gli obliqui. Mantieni il movimento controllato, evitando di usare lo slancio. Concentrati sulla contrazione muscolare ad ogni ripetizione.",
-    "muscles": "Obliqui",
+    "description": "Sdraiati sulla schiena e lascia cadere le ginocchia piegate su un lato, mantenendo le spalle a terra. Solleva il busto contraendo addominali e obliqui, poi scendi con controllo. Completa le ripetizioni su un lato prima di cambiare, evitando di usare lo slancio.",
+    "muscles": "Obliqui, Addominali",
     "type": "obliques",
     "gif": "assets/side_crunch.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 2
   },
   "side_lying_crunch": {
     "id": 182,
@@ -2147,16 +2328,18 @@
     "muscles": "Obliqui, Addominali",
     "type": "obliques",
     "gif": "assets/side_lying_crunch.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 3
   },
   "side_oblique_crunch": {
     "id": 183,
     "name": "Crunch Obliqui Laterale",
-    "description": "Sdraiati sul fianco con le gambe sovrapposte. Porta la mano dietro la testa e solleva il busto contraendo gli obliqui. Esegui tutte le ripetizioni su un lato prima di cambiare. Focus sulla qualità della contrazione.",
+    "description": "Sdraiati sulla schiena con le mani dietro la testa e lascia cadere le ginocchia piegate su un lato. Solleva il busto contraendo obliqui e addominali, poi torna giù lentamente. Esegui tutte le ripetizioni su un lato prima di cambiare, curando la qualità della contrazione.",
     "muscles": "Obliqui, Addominali",
     "type": "obliques",
     "gif": "assets/side_oblique_crunch.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 2
   },
   "side_plank_leg_raise": {
     "id": 184,
@@ -2165,7 +2348,8 @@
     "muscles": "Obliqui, Abduttori, Glutei, Core",
     "type": "obliques",
     "gif": "assets/side_plank_leg_raise.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 4
   },
   "side_plank_obliques": {
     "id": 185,
@@ -2174,7 +2358,8 @@
     "muscles": "Obliqui, Core, Spalle",
     "type": "obliques",
     "gif": "assets/side_plank_obliques.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 3
   },
   "single_leg_calf_raise": {
     "id": 186,
@@ -2183,7 +2368,8 @@
     "muscles": "Gastrocnemio, Soleo",
     "type": "calves",
     "gif": "assets/single_leg_calf_raise.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 2
   },
   "single_leg_stand": {
     "id": 187,
@@ -2192,7 +2378,8 @@
     "muscles": "Stabilizzatori caviglia, Core, Glutei",
     "type": "balance",
     "gif": "assets/single_leg_stand.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 2
   },
   "spiderman_crawl": {
     "id": 188,
@@ -2201,7 +2388,8 @@
     "muscles": "Core, Flessori dell'anca, Obliqui, Petto",
     "type": "core",
     "gif": "assets/spiderman_crawl.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 4
   },
   "spiderman_plank": {
     "id": 189,
@@ -2210,16 +2398,18 @@
     "muscles": "Core, Obliqui, Flessori dell'anca, Spalle",
     "type": "core",
     "gif": "assets/spiderman_plank.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 4
   },
   "stability_ball_hip_flexor": {
     "id": 190,
-    "name": "Flessori Anca su Palla Fitness",
-    "description": "Inginocchiati con gli stinchi appoggiati su una palla fitness. Mantieni l'equilibrio e contrai il core mentre la palla tende a muoversi. Questo esercizio sfida la stabilità del core e attiva i flessori dell'anca in modo funzionale.",
-    "muscles": "Flessori dell'anca, Core, Addominali",
+    "name": "Sit-up",
+    "description": "Sdraiati supino con le ginocchia piegate e i piedi a terra, mani incrociate al petto. Solleva il busto fino a raggiungere la posizione seduta contraendo gli addominali, poi scendi lentamente. Mantieni il movimento controllato senza slanci del collo.",
+    "muscles": "Retto addominale, Flessori dell'anca, Core",
     "type": "core",
     "gif": "assets/stability_ball_hip_flexor.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 3
   },
   "standard_push_up": {
     "id": 191,
@@ -2228,7 +2418,8 @@
     "muscles": "Petto, Tricipiti, Spalle, Core",
     "type": "chest",
     "gif": "assets/standard_push_up.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 4
   },
   "standing_high_knee": {
     "id": 192,
@@ -2237,7 +2428,8 @@
     "muscles": "Flessori dell'anca, Quadricipiti, Core",
     "type": "cardio",
     "gif": "assets/standing_high_knee.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 2
   },
   "standing_knee_raise": {
     "id": 193,
@@ -2246,16 +2438,18 @@
     "muscles": "Flessori dell'anca, Quadricipiti, Core",
     "type": "hip_flexors",
     "gif": "assets/standing_knee_raise.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 2
   },
   "standing_leg_raise": {
     "id": 194,
     "name": "Sollevamento Gamba in Piedi",
-    "description": "In piedi su una gamba, solleva l'altra gamba tesa davanti a te. Mantieni l'equilibrio e il core contratto. Puoi anche sollevare la gamba lateralmente o posteriormente per lavorare diversi muscoli. Sviluppa equilibrio e forza nelle gambe.",
-    "muscles": "Flessori dell'anca, Quadricipiti, Core, Equilibrio",
+    "description": "In piedi con le braccia tese sopra la testa, solleva una gamba tesa davanti a te con uno slancio controllato, mantenendo il busto eretto. Riporta la gamba a terra e ripeti, alternando i lati. Sviluppa equilibrio, mobilità delle anche e coordinazione.",
+    "muscles": "Spalle, Flessori dell'anca, Core",
     "type": "balance",
     "gif": "assets/standing_leg_raise.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 2
   },
   "standing_neck_stretch": {
     "id": 195,
@@ -2264,7 +2458,8 @@
     "muscles": "Trapezio superiore, Muscoli del collo",
     "type": "flexibility",
     "gif": "assets/standing_neck_stretch.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 1
   },
   "standing_overhead_reach": {
     "id": 196,
@@ -2273,25 +2468,28 @@
     "muscles": "Spalle, Dorsali, Addominali, Full body",
     "type": "flexibility",
     "gif": "assets/standing_overhead_reach.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 1
   },
   "standing_prayer_stretch": {
     "id": 197,
     "name": "Stretching Preghiera in Piedi",
-    "description": "In piedi con le mani unite davanti al petto in posizione di preghiera. Spingi i palmi insieme attivando i pettorali, poi solleva le mani sopra la testa mantenendole unite. Allungamento per spalle, petto e braccia.",
-    "muscles": "Spalle, Petto, Braccia",
+    "description": "In piedi con postura eretta, unisci le mani e portale tese sopra la testa. Allungati verso l'alto sentendo l'estensione lungo addominali e fianchi, mantenendo le spalle lontane dalle orecchie. Respira profondamente e mantieni la posizione per alcuni secondi.",
+    "muscles": "Addominali, Obliqui, Spalle",
     "type": "flexibility",
     "gif": "assets/standing_prayer_stretch.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 1
   },
   "static_lunge_hold": {
     "id": 198,
-    "name": "Affondo Statico (Tenuta)",
-    "description": "Mantieni la posizione di affondo per un tempo prolungato. Il ginocchio anteriore sopra la caviglia, quello posteriore quasi a terra. Questa tenuta sviluppa resistenza muscolare e stabilità nelle gambe e nel core.",
-    "muscles": "Quadricipiti, Glutei, Flessori dell'anca",
+    "name": "Allungamento Flessori dell'Anca in Piedi",
+    "description": "In piedi, porta una gamba indietro in posizione divaricata mantenendola tesa e con il tallone a terra. Spingi delicatamente il bacino in avanti mantenendo il busto eretto e le mani sui fianchi, fino a sentire l'allungamento nella parte anteriore dell'anca e nel polpaccio. Mantieni 20-30 secondi per lato.",
+    "muscles": "Flessori dell'anca, Polpacci",
     "type": "quadriceps",
     "gif": "assets/static_lunge_hold.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 1
   },
   "sumo_squat": {
     "id": 199,
@@ -2300,7 +2498,8 @@
     "muscles": "Adduttori, Glutei, Quadricipiti",
     "type": "adductors",
     "gif": "assets/sumo_squat.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 3
   },
   "sumo_squat_deep": {
     "id": 200,
@@ -2309,7 +2508,8 @@
     "muscles": "Adduttori, Glutei, Quadricipiti, Anche",
     "type": "adductors",
     "gif": "assets/sumo_squat_deep.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 3
   },
   "toe_touch_crunch": {
     "id": 201,
@@ -2318,7 +2518,8 @@
     "muscles": "Retto addominale, Obliqui",
     "type": "abs",
     "gif": "assets/toe_touch_crunch.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 3
   },
   "tricep_push_up": {
     "id": 202,
@@ -2327,7 +2528,8 @@
     "muscles": "Tricipiti, Petto, Spalle",
     "type": "triceps",
     "gif": "assets/tricep_push_up.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 4
   },
   "tricep_stretch": {
     "id": 203,
@@ -2336,7 +2538,8 @@
     "muscles": "Tricipiti, Spalle",
     "type": "flexibility",
     "gif": "assets/tricep_stretch.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 1
   },
   "walking_lunge": {
     "id": 204,
@@ -2345,16 +2548,18 @@
     "muscles": "Quadricipiti, Glutei, Femorali",
     "type": "quadriceps",
     "gif": "assets/walking_lunge.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 3
   },
   "wall_assisted_squat": {
     "id": 205,
     "name": "Squat Assistito al Muro",
     "description": "Esegui uno squat tenendoti a un muro o a una superficie per supporto e equilibrio. Questa variante aiuta a imparare la forma corretta e permette di eseguire squat più profondi in sicurezza. Ideale per principianti o riabilitazione.",
-    "muscles": "Quadricipiti, Glutei, Mobilità",
+    "muscles": "Dorsali, Schiena alta, Avambracci, Quadricipiti",
     "type": "quadriceps",
     "gif": "assets/wall_assisted_squat.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 2
   },
   "wall_knee_drive": {
     "id": 206,
@@ -2363,16 +2568,18 @@
     "muscles": "Flessori dell'anca, Quadricipiti, Polpacci, Cardio",
     "type": "cardio",
     "gif": "assets/wall_knee_drive.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 3
   },
   "wall_sit": {
     "id": 207,
-    "name": "Wall Sit",
-    "description": "Appoggia la schiena al muro e scendi fino ad avere le cosce parallele al pavimento, con le ginocchia a 90 gradi. Mantieni la posizione per il tempo prestabilito. Esercizio isometrico intenso per i quadricipiti.",
-    "muscles": "Quadricipiti, Glutei, Core",
+    "name": "Wall Sit con Sollevamento Ginocchio",
+    "description": "Appoggia la schiena al muro e scendi fino ad avere le cosce parallele al pavimento, con le ginocchia a 90 gradi. Mantenendo la posizione, solleva un ginocchio verso il petto e poi riappoggia il piede, alternando le gambe. Variante intensa del wall sit che aggiunge lavoro per flessori dell'anca ed equilibrio.",
+    "muscles": "Quadricipiti, Glutei, Flessori dell'anca, Core",
     "type": "quadriceps",
     "gif": "assets/wall_sit.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 3
   },
   "wide_push_up": {
     "id": 208,
@@ -2381,6 +2588,7 @@
     "muscles": "Petto, Spalle, Tricipiti",
     "type": "chest",
     "gif": "assets/wide_push_up.gif",
-    "wrongImage": false
+    "wrongImage": false,
+    "difficulty": 4
   }
 }
