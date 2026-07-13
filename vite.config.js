@@ -13,8 +13,8 @@ export default defineConfig(({ command }) => ({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'mask-icon.svg'],
       manifest: {
-        name: 'Fitness App - 28 Giorni Calisthenics',
-        short_name: 'Fitness 28',
+        name: 'Rise - 28 Giorni Calisthenics',
+        short_name: 'Rise',
         description: 'App per allenamenti fitness giornalieri a corpo libero',
         theme_color: '#EA580C',
         background_color: '#f3f4f6',

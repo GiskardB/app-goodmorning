@@ -10,16 +10,16 @@ export default function WelcomeStep({ onNext }) {
         </div>
 
         {/* Title */}
-        <h1 className="text-3xl font-bold mb-4">Benvenuto!</h1>
+        <h1 className="text-5xl font-bold tracking-tight mb-2">Rise</h1>
 
         {/* Subtitle */}
-        <p className="text-lg text-white/80 mb-2">
-          Good Morning Fitness
+        <p className="text-sm font-semibold uppercase tracking-[0.3em] text-white/70 mb-4">
+          28 giorni
         </p>
 
         {/* Description */}
-        <p className="text-white/60 mb-12 max-w-xs mx-auto">
-          Il tuo percorso di 28 giorni verso una versione migliore di te stesso inizia ora.
+        <p className="text-white/70 mb-12 max-w-xs mx-auto">
+          Ogni mattina, una versione migliore di te. Il tuo percorso di 28 giorni inizia ora.
         </p>
 
         {/* Features */}

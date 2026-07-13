@@ -3163,7 +3163,7 @@ function AppContent() {
               Informazioni
             </h3>
             <div className="text-sm text-[var(--text-secondary)]">
-              <p>Good Morning Fitness</p>
+              <p>Rise</p>
               <p>Versione {APP_VERSION}</p>
               <p className="text-xs mt-1">Build: {BUILD_DATE}</p>
             </div>

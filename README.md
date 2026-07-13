@@ -1,4 +1,4 @@
-# Good Morning Fitness - 28 Days Calisthenics PWA
+# Rise - 28 Days Calisthenics PWA
 
 A Progressive Web Application for a 28-day bodyweight fitness program. The app guides users through daily workouts with animated GIF demonstrations, voice coaching, and background music.
 

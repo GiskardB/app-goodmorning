@@ -4,7 +4,7 @@
 export const DISCLAIMER_TITLE = 'Nota informativa e scarico di responsabilità';
 
 export const DISCLAIMER_INTRO =
-  'Good Morning Fitness è un\'applicazione di supporto all\'attività fisica a corpo libero. ' +
+  'Rise è un\'applicazione di supporto all\'attività fisica a corpo libero. ' +
   'Non fornisce consulenza medica e non sostituisce in alcun modo il parere di un medico, ' +
   'di un fisioterapista o di un professionista sanitario qualificato.';
 
