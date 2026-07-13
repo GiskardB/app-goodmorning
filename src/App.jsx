@@ -34,6 +34,7 @@ import PreWorkoutAssessment from './components/assessment/PreWorkoutAssessment';
 import PostWorkoutFeedback from './components/assessment/PostWorkoutFeedback';
 import ProfileScreen from './components/profile/ProfileScreen';
 import { adaptWorkoutToReadiness } from './utils/workoutAdaptation';
+import { DISCLAIMER_TITLE, DISCLAIMER_INTRO, DISCLAIMER_POINTS } from './utils/disclaimer';
 
 // Day to focus mapping (from GUIDA_MAPPATURA_WARMUP_COOLDOWN.md)
 const DAY_FOCUS_MAP = {
@@ -3166,6 +3167,29 @@ function AppContent() {
               <p>Versione {APP_VERSION}</p>
               <p className="text-xs mt-1">Build: {BUILD_DATE}</p>
             </div>
+          </div>
+
+          {/* Disclaimer */}
+          <div className="card p-4 mt-4">
+            <h3 className="text-xs font-medium text-[var(--text-muted)] uppercase tracking-wide mb-3">
+              {DISCLAIMER_TITLE}
+            </h3>
+            <p className="text-sm text-[var(--text-secondary)] leading-relaxed mb-4">
+              {DISCLAIMER_INTRO}
+            </p>
+            <div className="space-y-3">
+              {DISCLAIMER_POINTS.map((point, i) => (
+                <div key={i} className="border-l-2 border-[var(--primary)]/40 pl-3">
+                  <p className="text-sm font-medium mb-0.5">{point.title}</p>
+                  <p className="text-xs text-[var(--text-secondary)] leading-relaxed">{point.text}</p>
+                </div>
+              ))}
+            </div>
+            {userProfile?.disclaimerAcceptedAt && (
+              <p className="text-xs text-[var(--text-muted)] mt-4">
+                Accettata il {new Date(userProfile.disclaimerAcceptedAt).toLocaleDateString('it-IT')}
+              </p>
+            )}
           </div>
         </div>
 

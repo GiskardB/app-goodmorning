@@ -65,6 +65,9 @@ export default function OnboardingWizard({ onComplete }) {
     const profileData = {
       ...formData,
       onboardingCompleted: true,
+      // il pulsante finale e abilitato solo dopo l'accettazione della nota informativa
+      disclaimerAccepted: true,
+      disclaimerAcceptedAt: new Date().toISOString(),
       createdAt: new Date().toISOString()
     };
     onComplete(profileData);

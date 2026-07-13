@@ -1,12 +1,22 @@
+import { useState } from 'react';
 import { calculateAge, calculateBMI, getBMICategory } from '../../utils/calculations';
 import { formatGender, formatGoal, formatExperience, formatCondition, formatList } from '../../utils/formatters';
+import {
+  DISCLAIMER_TITLE,
+  DISCLAIMER_INTRO,
+  DISCLAIMER_POINTS,
+  DISCLAIMER_CHECKBOX_LABEL
+} from '../../utils/disclaimer';
 
 export default function SummaryStep({ data, onComplete, onPrevious }) {
   const age = data.birthDate ? calculateAge(data.birthDate) : null;
   const bmi = calculateBMI(data.weight, data.height);
   const bmiCategory = getBMICategory(bmi);
+  const [disclaimerAccepted, setDisclaimerAccepted] = useState(false);
+  const [showFullDisclaimer, setShowFullDisclaimer] = useState(false);
 
   const handleComplete = () => {
+    if (!disclaimerAccepted) return;
     onComplete();
   };
 
@@ -116,11 +126,47 @@ export default function SummaryStep({ data, onComplete, onPrevious }) {
           </ul>
         </div>
 
+        {/* Disclaimer */}
+        <div className="card p-4 mb-6">
+          <h4 className="font-semibold text-sm mb-2">{DISCLAIMER_TITLE}</h4>
+          <p className="text-xs text-[var(--text-secondary)] leading-relaxed mb-2">
+            {DISCLAIMER_INTRO}
+          </p>
+          {showFullDisclaimer && (
+            <div className="space-y-2 mb-2">
+              {DISCLAIMER_POINTS.map((point, i) => (
+                <div key={i} className="border-l-2 border-[var(--primary)]/40 pl-3">
+                  <p className="text-xs font-medium mb-0.5">{point.title}</p>
+                  <p className="text-xs text-[var(--text-secondary)] leading-relaxed">{point.text}</p>
+                </div>
+              ))}
+            </div>
+          )}
+          <button
+            onClick={() => setShowFullDisclaimer(!showFullDisclaimer)}
+            className="text-xs font-medium text-[var(--primary)] mb-3"
+          >
+            {showFullDisclaimer ? 'Mostra meno' : 'Leggi la nota completa'}
+          </button>
+          <label className="flex items-start gap-3 cursor-pointer select-none">
+            <input
+              type="checkbox"
+              checked={disclaimerAccepted}
+              onChange={(e) => setDisclaimerAccepted(e.target.checked)}
+              className="mt-0.5 w-5 h-5 flex-shrink-0 accent-[var(--primary)]"
+            />
+            <span className="text-xs text-[var(--text-secondary)] leading-relaxed">
+              {DISCLAIMER_CHECKBOX_LABEL}
+            </span>
+          </label>
+        </div>
+
         {/* Actions */}
         <div className="space-y-3">
           <button
             onClick={handleComplete}
-            className="btn-primary w-full py-4 text-lg"
+            disabled={!disclaimerAccepted}
+            className="btn-primary w-full py-4 text-lg disabled:opacity-40 disabled:cursor-not-allowed disabled:shadow-none"
           >
             Inizia il programma!
           </button>
