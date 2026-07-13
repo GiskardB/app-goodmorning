@@ -3,7 +3,7 @@
     {
       "day": 1,
       "title": "Tonificazione Total Body",
-      "image": "🏋️",
+      "image": "totalbody",
       "calories": 48,
       "duration": 6,
       "exercises": [
@@ -44,7 +44,7 @@
     {
       "day": 2,
       "title": "Parte superiore in forma",
-      "image": "💪",
+      "image": "upper",
       "calories": 48,
       "duration": 6,
       "exercises": [
@@ -85,7 +85,7 @@
     {
       "day": 3,
       "title": "Gambe in fiamme",
-      "image": "🦵",
+      "image": "legs",
       "calories": 48,
       "duration": 6,
       "exercises": [
@@ -126,7 +126,7 @@
     {
       "day": 4,
       "title": "Core d'acciaio",
-      "image": "🎯",
+      "image": "core",
       "calories": 48,
       "duration": 6,
       "exercises": [
@@ -167,7 +167,7 @@
     {
       "day": 5,
       "title": "Cardio brucia grassi",
-      "image": "⚡",
+      "image": "cardio",
       "calories": 48,
       "duration": 6,
       "exercises": [
@@ -208,7 +208,7 @@
     {
       "day": 6,
       "title": "Allenamento Glutei Fit",
-      "image": "🍑",
+      "image": "glutes",
       "calories": 48,
       "duration": 6,
       "exercises": [
@@ -249,7 +249,7 @@
     {
       "day": 7,
       "title": "Recupero attivo e mobilità",
-      "image": "🧘",
+      "image": "recovery",
       "calories": 23,
       "duration": 7,
       "exercises": [
@@ -290,7 +290,7 @@
     {
       "day": 8,
       "title": "Total Body energia",
-      "image": "🏋️",
+      "image": "totalbody",
       "calories": 55,
       "duration": 6,
       "exercises": [
@@ -331,7 +331,7 @@
     {
       "day": 9,
       "title": "Potere delle flessioni",
-      "image": "💪",
+      "image": "upper",
       "calories": 55,
       "duration": 6,
       "exercises": [
@@ -372,7 +372,7 @@
     {
       "day": 10,
       "title": "Scolpisci le gambe",
-      "image": "🦵",
+      "image": "legs",
       "calories": 55,
       "duration": 6,
       "exercises": [
@@ -413,7 +413,7 @@
     {
       "day": 11,
       "title": "Pancia piatta",
-      "image": "🎯",
+      "image": "core",
       "calories": 55,
       "duration": 6,
       "exercises": [
@@ -454,7 +454,7 @@
     {
       "day": 12,
       "title": "Scarica di energia",
-      "image": "⚡",
+      "image": "cardio",
       "calories": 55,
       "duration": 6,
       "exercises": [
@@ -495,7 +495,7 @@
     {
       "day": 13,
       "title": "Glutei e catena posteriore",
-      "image": "🍑",
+      "image": "glutes",
       "calories": 55,
       "duration": 6,
       "exercises": [
@@ -536,7 +536,7 @@
     {
       "day": 14,
       "title": "Recupero attivo e mobilità",
-      "image": "🧘",
+      "image": "recovery",
       "calories": 23,
       "duration": 7,
       "exercises": [
@@ -577,7 +577,7 @@
     {
       "day": 15,
       "title": "Corpo forte e snello",
-      "image": "🏋️",
+      "image": "totalbody",
       "calories": 63,
       "duration": 7,
       "exercises": [
@@ -618,7 +618,7 @@
     {
       "day": 16,
       "title": "Petto e spalle",
-      "image": "💪",
+      "image": "upper",
       "calories": 62,
       "duration": 7,
       "exercises": [
@@ -659,7 +659,7 @@
     {
       "day": 17,
       "title": "Fai crescere le gambe",
-      "image": "🦵",
+      "image": "legs",
       "calories": 62,
       "duration": 7,
       "exercises": [
@@ -700,7 +700,7 @@
     {
       "day": 18,
       "title": "Allenamento addominale intenso",
-      "image": "🎯",
+      "image": "core",
       "calories": 63,
       "duration": 7,
       "exercises": [
@@ -741,7 +741,7 @@
     {
       "day": 19,
       "title": "Cardio HIIT",
-      "image": "⚡",
+      "image": "cardio",
       "calories": 63,
       "duration": 7,
       "exercises": [
@@ -782,7 +782,7 @@
     {
       "day": 20,
       "title": "Glutei scolpiti",
-      "image": "🍑",
+      "image": "glutes",
       "calories": 63,
       "duration": 7,
       "exercises": [
@@ -823,7 +823,7 @@
     {
       "day": 21,
       "title": "Recupero attivo e mobilità",
-      "image": "🧘",
+      "image": "recovery",
       "calories": 23,
       "duration": 7,
       "exercises": [
@@ -864,7 +864,7 @@
     {
       "day": 22,
       "title": "Allenamento completo da titano",
-      "image": "🏋️",
+      "image": "totalbody",
       "calories": 66,
       "duration": 7,
       "exercises": [
@@ -905,7 +905,7 @@
     {
       "day": 23,
       "title": "Parte superiore da titano",
-      "image": "💪",
+      "image": "upper",
       "calories": 65,
       "duration": 7,
       "exercises": [
@@ -946,7 +946,7 @@
     {
       "day": 24,
       "title": "Gambe da urlo",
-      "image": "🦵",
+      "image": "legs",
       "calories": 65,
       "duration": 7,
       "exercises": [
@@ -987,7 +987,7 @@
     {
       "day": 25,
       "title": "Tartaruga da urlo",
-      "image": "🎯",
+      "image": "core",
       "calories": 64,
       "duration": 7,
       "exercises": [
@@ -1028,7 +1028,7 @@
     {
       "day": 26,
       "title": "Sfida cardio finale",
-      "image": "⚡",
+      "image": "cardio",
       "calories": 66,
       "duration": 7,
       "exercises": [
@@ -1069,7 +1069,7 @@
     {
       "day": 27,
       "title": "Glutei e gambe d'acciaio",
-      "image": "🍑",
+      "image": "glutes",
       "calories": 66,
       "duration": 7,
       "exercises": [
@@ -1110,7 +1110,7 @@
     {
       "day": 28,
       "title": "Recupero e allungamento profondo",
-      "image": "🧘",
+      "image": "recovery",
       "calories": 23,
       "duration": 7,
       "exercises": [

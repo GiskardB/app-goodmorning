@@ -16,7 +16,7 @@ export default defineConfig(({ command }) => ({
         name: 'Fitness App - 28 Giorni Calisthenics',
         short_name: 'Fitness 28',
         description: 'App per allenamenti fitness giornalieri a corpo libero',
-        theme_color: '#0D9488',
+        theme_color: '#EA580C',
         background_color: '#f3f4f6',
         display: 'standalone',
         orientation: 'portrait',

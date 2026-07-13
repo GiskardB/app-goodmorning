@@ -197,6 +197,39 @@ const ExerciseMedia = ({ src, alt, className, style }) => {
   );
 };
 
+const MedalIcon = ({ size = 56 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="12" cy="9" r="6" />
+    <path d="M9.2 9l1.8 1.8L14.8 7" />
+    <path d="M8.6 14.2L7 21l5-2.4L17 21l-1.6-6.8" />
+  </svg>
+);
+
+const ActivityIcon = () => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+  </svg>
+);
+
+const LockIcon = () => (
+  <svg width="12" height="12" fill="currentColor" viewBox="0 0 20 20">
+    <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
+  </svg>
+);
+
+// Workout theme labels (slug in workouts JSON "image" field)
+const THEME_LABELS = {
+  totalbody: 'Total Body',
+  upper: 'Parte superiore',
+  legs: 'Gambe',
+  core: 'Core',
+  cardio: 'Cardio',
+  glutes: 'Glutei',
+  recovery: 'Recupero attivo'
+};
+
+const getThemeLabel = (slug) => THEME_LABELS[slug] || 'Allenamento';
+
 // Difficulty scale (1-5) shared by exercises and workouts
 const DIFFICULTY_LEVELS = {
   1: { label: 'Molto facile', color: '#22c55e' },
@@ -852,8 +885,8 @@ function AppContent() {
   // Get phase color
   const getPhaseColor = () => {
     switch (phase) {
-      case 'warmup': return 'bg-blue-400';
-      case 'cooldown': return 'bg-slate-600';
+      case 'warmup': return 'bg-warmup';
+      case 'cooldown': return 'bg-cooldown';
       default: return 'bg-workout';
     }
   };
@@ -1781,7 +1814,7 @@ function AppContent() {
         {showPhaseModal && (
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4">
             <div className="bg-white rounded-2xl p-6 max-w-sm text-center animate-slide-up">
-              <div className="text-5xl mb-4">🎉</div>
+              <div className="flex justify-center mb-4 text-[var(--primary)]"><MedalIcon /></div>
               <h2 className="text-xl font-bold">Fase {currentPhaseNumber} Completata!</h2>
               <p className="text-gray-500 my-4">Hai completato tutti i 28 giorni!</p>
 
@@ -1903,7 +1936,7 @@ function AppContent() {
                 }}
                 className="w-9 h-9 rounded-full flex items-center justify-center overflow-hidden"
                 style={{
-                  background: 'linear-gradient(135deg, #14B8A6 0%, #0F766E 100%)'
+                  background: 'linear-gradient(135deg, #F59E0B 0%, #C2410C 100%)'
                 }}
               >
                 <span className="text-white text-sm font-bold drop-shadow-sm">
@@ -1994,24 +2027,18 @@ function AppContent() {
         <div className="px-4 max-w-2xl mx-auto animate-slide-up">
           <div className="card overflow-hidden">
             <div
-              className="relative h-28 flex items-center justify-center"
-              style={{
-                backgroundImage: 'url(https://cdn.vectorstock.com/i/500p/75/82/yoga-poses-and-exercises-flat-vector-42197582.jpg)',
-                backgroundSize: 'cover',
-                backgroundPosition: 'center'
-              }}
+              className={`relative h-28 flex items-center justify-center ${
+                isViewingCompleted ? 'hero-sunrise-done' : isViewingFuture ? 'hero-sunrise-locked' : 'hero-sunrise'
+              }`}
             >
-              {/* Overlay for better text visibility */}
-              <div className={`absolute inset-0 ${
-                isViewingCompleted ? 'bg-green-500/80' : isViewingFuture ? 'bg-gray-500/80' : 'bg-[var(--primary)]/70'
-              }`} />
-              <div className="relative z-10 flex items-center gap-3">
-                <span className="text-4xl drop-shadow-lg">{displayWorkout?.image}</span>
-                <div className="flex flex-col items-start">
-                  <div className="flex items-center gap-2">
-                    <span className="text-white text-sm font-medium bg-black/30 backdrop-blur-sm px-3 py-0.5 rounded-full">
-                      Giorno {viewingDay}
-                    </span>
+              <div className="relative z-10 flex flex-col items-center text-center">
+                <span className="text-white/80 text-[11px] font-semibold uppercase tracking-[0.25em] mb-0.5">
+                  {getThemeLabel(displayWorkout?.image)}
+                </span>
+                <div className="flex items-center gap-2">
+                  <span className="text-white text-3xl font-bold tracking-tight drop-shadow-sm">
+                    Giorno {viewingDay}
+                  </span>
                     {/* Debug: Complete day button (only in development) */}
                     {import.meta.env.DEV && !isViewingCompleted && (
                       <button
@@ -2109,17 +2136,16 @@ function AppContent() {
                       </button>
                     )}
                   </div>
-                  {isViewingCompleted && (
-                    <span className="text-white text-xs mt-1 flex items-center gap-1 drop-shadow">
-                      <CheckIcon /> Completato
-                    </span>
-                  )}
-                  {isViewingFuture && (
-                    <span className="text-white text-xs mt-1 flex items-center gap-1 drop-shadow">
-                      🔒 Bloccato
-                    </span>
-                  )}
-                </div>
+                {isViewingCompleted && (
+                  <span className="text-white text-xs mt-1 flex items-center gap-1 drop-shadow">
+                    <CheckIcon /> Completato
+                  </span>
+                )}
+                {isViewingFuture && (
+                  <span className="text-white text-xs mt-1 flex items-center gap-1 drop-shadow">
+                    <LockIcon /> Bloccato
+                  </span>
+                )}
               </div>
             </div>
             <div className="p-5">
@@ -2160,22 +2186,16 @@ function AppContent() {
           return (
             <div className="px-4 max-w-2xl mx-auto mt-6 animate-fade-in">
               <div className="card overflow-hidden">
-                <div
-                  className="relative h-20 flex items-center justify-center"
-                  style={{
-                    backgroundImage: 'url(https://img.freepik.com/premium-photo/illustration-cartoon-character-isolated-background_1068144-8377.jpg)',
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center'
-                  }}
-                >
-                  <div className="absolute inset-0 bg-[var(--primary)]/80" />
+                <div className="relative h-20 flex items-center justify-center hero-dusk">
                   <div className="relative z-10 flex items-center gap-3">
-                    <span className="text-3xl" style={{ textShadow: '0 2px 8px rgba(0,0,0,0.5)' }}>🏃</span>
+                    <span className="w-10 h-10 rounded-full bg-white/15 flex items-center justify-center text-white">
+                      <ActivityIcon />
+                    </span>
                     <div className="flex flex-col items-start">
-                      <span className="text-white text-sm font-bold" style={{ textShadow: '0 1px 4px rgba(0,0,0,0.5)' }}>
+                      <span className="text-white text-sm font-bold">
                         Treadmill Journey
                       </span>
-                      <span className="text-white/90 text-xs" style={{ textShadow: '0 1px 3px rgba(0,0,0,0.4)' }}>
+                      <span className="text-white/80 text-xs">
                         Allenamento sul tapis roulant
                       </span>
                     </div>
@@ -2968,7 +2988,7 @@ function AppContent() {
                 <div className="flex items-center gap-3">
                   <div
                     className="w-10 h-10 rounded-full flex items-center justify-center"
-                    style={{ background: 'linear-gradient(135deg, #14B8A6 0%, #0F766E 100%)' }}
+                    style={{ background: 'linear-gradient(135deg, #F59E0B 0%, #C2410C 100%)' }}
                   >
                     <span className="text-white font-bold drop-shadow-sm">
                       {userProfile.name?.charAt(0)?.toUpperCase()}
@@ -3175,29 +3195,28 @@ function AppContent() {
             </button>
           </div>
           <div
-            className="h-48 flex items-center justify-center relative"
-            style={{
-              backgroundImage: 'url(https://www.shutterstock.com/image-vector/workout-men-set-doing-fitness-260nw-1769134532.jpg)',
-              backgroundSize: 'cover',
-              backgroundPosition: 'center'
-            }}
+            className={`h-48 flex items-center justify-center relative ${
+              isDayCompleted ? 'hero-sunrise-done' : !phaseUnlocked || !canStartThisDay ? 'hero-sunrise-locked' : 'hero-sunrise'
+            }`}
           >
-            <div className={`absolute inset-0 ${
-              isDayCompleted ? 'bg-green-500/80' : !phaseUnlocked || !canStartThisDay ? 'bg-gray-500/80' : 'bg-[var(--primary)]/70'
-            }`} />
             <div className="text-center relative z-10">
-              <span className="text-7xl block mb-2 drop-shadow-lg">{curr?.image}</span>
+              <span className="text-white/80 text-xs font-semibold uppercase tracking-[0.3em] block mb-1">
+                {getThemeLabel(curr?.image)}
+              </span>
+              <span className="text-white text-5xl font-bold tracking-tight block mb-3 drop-shadow-sm">
+                Giorno {day}
+              </span>
               <span className="text-white/90 text-sm font-medium bg-white/20 px-3 py-0.5 rounded-full">
-                Fase {currentPhaseNumber} - Giorno {day}
+                Fase {currentPhaseNumber}
               </span>
               {isDayCompleted && (
-                <span className="text-white/90 text-xs block mt-2">✓ Completato</span>
+                <span className="text-white/90 text-xs mt-2 flex items-center justify-center gap-1"><CheckIcon /> Completato</span>
               )}
               {!phaseUnlocked && (
-                <span className="text-white/90 text-xs block mt-2">🔒 Fase bloccata</span>
+                <span className="text-white/90 text-xs mt-2 flex items-center justify-center gap-1"><LockIcon /> Fase bloccata</span>
               )}
               {phaseUnlocked && !canStartThisDay && !isDayCompleted && (
-                <span className="text-white/90 text-xs block mt-2">🔒 Completa prima il giorno {day - 1}</span>
+                <span className="text-white/90 text-xs mt-2 flex items-center justify-center gap-1"><LockIcon /> Completa prima il giorno {day - 1}</span>
               )}
             </div>
           </div>
@@ -3390,19 +3409,11 @@ function AppContent() {
               <BackIcon />
             </button>
           </div>
-          <div
-            className="h-28 flex items-center justify-center relative"
-            style={{
-              backgroundImage: 'url(https://img.freepik.com/premium-photo/illustration-cartoon-character-isolated-background_1068144-8377.jpg)',
-              backgroundSize: 'cover',
-              backgroundPosition: 'center'
-            }}
-          >
-            <div className="absolute inset-0 bg-[var(--primary)]/80" />
+          <div className="h-28 flex items-center justify-center relative hero-dusk">
             <div className="text-center relative z-10">
               <div className="flex items-center justify-center gap-2 mb-0.5">
-                <span className="text-xl" style={{ textShadow: '0 2px 8px rgba(0,0,0,0.5)' }}>🏃</span>
-                <h1 className="text-white text-base font-bold" style={{ textShadow: '0 1px 4px rgba(0,0,0,0.5)' }}>
+                <span className="text-white"><ActivityIcon /></span>
+                <h1 className="text-white text-base font-bold">
                   Treadmill Journey
                 </h1>
               </div>
@@ -3859,7 +3870,7 @@ function AppContent() {
 
   // Workout Screen - Preparation
   if (screen === 'workout' && prep) {
-    const prepBgColor = phase === 'warmup' ? 'bg-blue-400' : phase === 'cooldown' ? 'bg-slate-600' : 'bg-prep';
+    const prepBgColor = phase === 'warmup' ? 'bg-warmup' : phase === 'cooldown' ? 'bg-cooldown' : 'bg-prep';
     const phaseCode = getPhaseCode();
     const hasWrongImage = wrongImageExercises.includes(ex?.exercise_id);
 
@@ -4134,9 +4145,9 @@ function AppContent() {
   // Done Screen
   if (screen === 'done') {
     return (
-      <div className="min-h-screen bg-blue-600 text-white flex items-center justify-center p-4">
+      <div className="min-h-screen bg-success text-white flex items-center justify-center p-4">
         <div className="text-center animate-slide-up">
-          <div className="text-6xl mb-4">🎉</div>
+          <div className="flex justify-center mb-4"><MedalIcon size={72} /></div>
           <h1 className="text-2xl font-bold mb-1">Fantastico!</h1>
           <p className="text-lg text-white/80 mb-8">{curr?.title}</p>
 
@@ -4236,12 +4247,12 @@ function AppContent() {
       overallStatus = 'more';
       overallMessage = `Hai fatto di più! +${Math.abs(percentageDifference)}% rispetto al piano`;
       overallColor = 'bg-green-500';
-      overallEmoji = '💪';
+      overallEmoji = '↑';
     } else if (percentageDifference <= -10 || skippedCount > 0 || lessCount > moreCount) {
       overallStatus = 'less';
       overallMessage = `Allenamento ridotto: ${Math.abs(percentageDifference)}% in meno`;
       overallColor = 'bg-amber-500';
-      overallEmoji = '📉';
+      overallEmoji = '↓';
     }
 
     // Pre/Post workout data
@@ -4274,7 +4285,7 @@ function AppContent() {
           {plannedWorkout && (
             <div className={`${overallColor} text-white rounded-xl p-4 mb-6`}>
               <div className="flex items-center gap-3">
-                <span className="text-3xl">{overallEmoji}</span>
+                <span className="text-3xl font-bold">{overallEmoji}</span>
                 <div>
                   <p className="font-semibold">{overallMessage}</p>
                   <p className="text-sm text-white/80">
