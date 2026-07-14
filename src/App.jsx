@@ -2026,7 +2026,7 @@ function AppContent() {
 
         {/* Workout Card */}
         <div className="px-4 max-w-2xl mx-auto animate-slide-up">
-          <div className="card overflow-hidden">
+          <div className={`card overflow-hidden ${canStartWorkout && !isViewingCompleted ? 'card-active' : ''}`}>
             <div
               className={`relative h-28 flex items-center justify-center ${
                 isViewingCompleted ? 'hero-sunrise-done' : isViewingFuture ? 'hero-sunrise-locked' : 'hero-sunrise'
