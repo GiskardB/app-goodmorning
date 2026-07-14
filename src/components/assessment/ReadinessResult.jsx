@@ -81,10 +81,6 @@ export default function ReadinessResult({
     [getAdaptationPreview, score, assessment]
   );
 
-  // Calculate ring percentage
-  const circumference = 2 * Math.PI * 45; // r = 45
-  const strokeDashoffset = circumference - (score / 100) * circumference;
-
   return (
     <div className="min-h-screen bg-[var(--bg)] flex flex-col">
       {/* Header */}
@@ -104,36 +100,41 @@ export default function ReadinessResult({
       {/* Content */}
       <div className="flex-1 flex flex-col items-center justify-center p-6">
         {/* Score Ring */}
-        <div className="relative w-52 h-52 mb-8">
-          <svg className="w-full h-full transform -rotate-90">
+        <div className="relative w-56 h-56 mb-8">
+          <svg viewBox="0 0 220 220" className="w-full h-full -rotate-90">
+            <defs>
+              <linearGradient id="readinessRing" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor={color} stopOpacity="0.45" />
+                <stop offset="100%" stopColor={color} stopOpacity="1" />
+              </linearGradient>
+            </defs>
             {/* Background circle */}
             <circle
-              cx="104"
-              cy="104"
-              r="45"
+              cx="110"
+              cy="110"
+              r="95"
               fill="none"
               stroke="var(--border)"
-              strokeWidth="10"
-              className="scale-[2] origin-center"
+              strokeWidth="7"
             />
             {/* Progress circle */}
             <circle
-              cx="104"
-              cy="104"
-              r="45"
+              cx="110"
+              cy="110"
+              r="95"
               fill="none"
-              stroke={color}
-              strokeWidth="10"
+              stroke="url(#readinessRing)"
+              strokeWidth="7"
               strokeLinecap="round"
-              strokeDasharray={circumference}
-              strokeDashoffset={strokeDashoffset}
-              className="scale-[2] origin-center transition-all duration-1000"
+              strokeDasharray={2 * Math.PI * 95}
+              strokeDashoffset={(2 * Math.PI * 95) * (1 - score / 100)}
+              className="transition-all duration-1000"
             />
           </svg>
           {/* Score text */}
           <div className="absolute inset-0 flex flex-col items-center justify-center">
-            <span className="text-5xl font-bold" style={{ color }}>{score}</span>
-            <span className="text-sm text-[var(--text-secondary)]">su 100</span>
+            <span className="text-6xl font-bold tracking-tight leading-none" style={{ color }}>{score}</span>
+            <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[var(--text-muted)] mt-1.5">su 100</span>
           </div>
         </div>
 
@@ -230,9 +231,12 @@ export default function ReadinessResult({
       <div className="p-4 bg-[var(--surface)] border-t border-[var(--border)]">
         <button
           onClick={() => onContinue(score)}
-          className="btn-primary w-full py-4 text-lg"
+          className="btn-primary w-full py-4 text-lg flex items-center justify-center gap-2"
         >
           Inizia l'allenamento
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z" />
+          </svg>
         </button>
       </div>
     </div>

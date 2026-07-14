@@ -2615,17 +2615,14 @@ function AppContent() {
                           </span>
                         )}
                       </div>
-                      <p className="text-xs text-[var(--text-secondary)] line-clamp-2 mb-2">
-                        {exercise.description}
-                      </p>
-                      <div className="flex items-center gap-2 flex-wrap">
-                        {exercise.muscles && (
+                      {exercise.muscles && (
+                        <div className="mb-2">
                           <span className="chip chip-light text-xs">
                             {exercise.muscles}
                           </span>
-                        )}
-                        <DifficultyBadge level={exercise.difficulty} showLabel={false} />
-                      </div>
+                        </div>
+                      )}
+                      <DifficultyBadge level={exercise.difficulty} showLabel={true} />
                     </div>
                     <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" className="text-[var(--text-muted)] flex-shrink-0">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
