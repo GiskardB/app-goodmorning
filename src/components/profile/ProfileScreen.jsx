@@ -91,7 +91,7 @@ export default function ProfileScreen({
   return (
     <div className="min-h-screen bg-[var(--bg)]">
       {/* Header */}
-      <div className="bg-[var(--primary)] text-white">
+      <div className="hero-sunrise text-white">
         <div className="p-4 flex items-center justify-between">
           <button
             onClick={onClose}

@@ -4166,13 +4166,16 @@ function AppContent() {
   // Done Screen
   if (screen === 'done') {
     return (
-      <div className="min-h-screen bg-success text-white flex items-center justify-center p-4">
-        <div className="text-center animate-slide-up">
-          <div className="flex justify-center mb-4"><MedalIcon size={72} /></div>
-          <h1 className="text-2xl font-bold mb-1">Fantastico!</h1>
-          <p className="text-lg text-white/80 mb-8">{curr?.title}</p>
+      <div className="min-h-screen bg-success text-white flex items-center justify-center p-6">
+        <div className="text-center animate-slide-up w-full max-w-sm">
+          <div className="w-24 h-24 mx-auto mb-5 rounded-full bg-white/15 flex items-center justify-center">
+            <MedalIcon size={56} />
+          </div>
+          <span className="text-xs font-semibold uppercase tracking-[0.3em] text-white/70">Giorno {day} completato</span>
+          <h1 className="text-3xl font-bold tracking-tight mt-1 mb-1">Fantastico!</h1>
+          <p className="text-base text-white/80 mb-8">{curr?.title}</p>
 
-          <div className="flex gap-3 justify-center mb-8 flex-wrap">
+          <div className="grid grid-cols-3 gap-3 mb-8">
             <div className="stat-card">
               <div className="text-2xl font-bold">{curr?.calories}</div>
               <div className="text-xs text-white/60">kcal</div>
@@ -4185,17 +4188,18 @@ function AppContent() {
               <div className="text-2xl font-bold">{curr?.exercises?.length}</div>
               <div className="text-xs text-white/60">esercizi</div>
             </div>
-            {readinessScore !== null && (
-              <div className="stat-card">
-                <div className="text-2xl font-bold">{readinessScore}</div>
-                <div className="text-xs text-white/60">readiness</div>
-              </div>
-            )}
           </div>
+
+          {readinessScore !== null && (
+            <div className="bg-white/10 rounded-xl px-4 py-3 mb-8 flex items-center justify-center gap-2 text-sm">
+              <span className="text-white/70">Readiness di oggi</span>
+              <span className="font-bold">{readinessScore}/100</span>
+            </div>
+          )}
 
           <button
             onClick={handleComplete}
-            className="bg-white text-blue-600 px-10 py-3 rounded-full font-semibold"
+            className="bg-white text-[var(--success)] w-full py-4 rounded-full font-semibold shadow-lg"
           >
             {onboardingCompleted && userProfile ? 'Dai il tuo feedback' : 'Continua'}
           </button>
