@@ -192,7 +192,7 @@ export default function ProfileScreen({
               <span>Sovrappeso</span>
               <span>Obesita</span>
             </div>
-            <div className="h-2 bg-gradient-to-r from-blue-400 via-green-400 via-yellow-400 to-red-400 rounded-full relative">
+            <div className="h-2 bg-gradient-to-r from-amber-300 via-amber-500 via-orange-500 to-red-500 rounded-full relative">
               <div
                 className="absolute w-3 h-3 bg-white border-2 border-[var(--text)] rounded-full -top-0.5"
                 style={{ left: `${Math.min(95, Math.max(5, ((bmi - 15) / 25) * 100))}%` }}

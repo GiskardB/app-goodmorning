@@ -7,9 +7,9 @@
   --primary-light: #F97316;
   --primary-dark: #C2410C;
 
-  /* Success - warm green for completed days */
-  --success: #16A34A;
-  --success-light: #4ADE80;
+  /* Success - warm gold for completed / earned states */
+  --success: #D97706;
+  --success-light: #F59E0B;
 
   /* Neutral palette - warm cream tones */
   --bg: #FAF6F0;
@@ -185,7 +185,7 @@ h1, h2, h3 {
 }
 
 .bg-success {
-  background: linear-gradient(150deg, #16A34A 0%, #15803D 100%);
+  background: linear-gradient(150deg, #F59E0B 0%, #D97706 100%);
 }
 
 /* Hero gradients - warm sunrise, no external images */
@@ -194,7 +194,7 @@ h1, h2, h3 {
 }
 
 .hero-sunrise-done {
-  background: linear-gradient(150deg, #4ADE80 0%, #16A34A 70%, #15803D 100%);
+  background: linear-gradient(150deg, #FCD34D 0%, #F59E0B 60%, #D97706 100%);
 }
 
 .hero-sunrise-locked {
@@ -205,13 +205,13 @@ h1, h2, h3 {
   background: linear-gradient(135deg, #322A1F 0%, #7C2D12 70%, #B45309 100%);
 }
 
-/* Phase backgrounds: morning sky -> sunrise -> dusk */
+/* Phase backgrounds: warm dawn -> sunrise -> warm dusk */
 .bg-warmup {
-  background: linear-gradient(150deg, #7DD3FC 0%, #3B82F6 100%);
+  background: linear-gradient(150deg, #F59E0B 0%, #D97706 100%);
 }
 
 .bg-cooldown {
-  background: linear-gradient(150deg, #64748B 0%, #334155 100%);
+  background: linear-gradient(150deg, #9A3412 0%, #431407 100%);
 }
 
 /* Day Card Styles */
@@ -298,8 +298,8 @@ h1, h2, h3 {
 }
 
 .chip-info {
-  background: rgba(99, 179, 237, 0.15);
-  color: #3B82F6;
+  background: rgba(217, 119, 6, 0.15);
+  color: #B45309;
 }
 
 .chip-primary {

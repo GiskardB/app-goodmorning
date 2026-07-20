@@ -7,14 +7,14 @@ const EXPERIENCE_OPTIONS = [
     label: EXPERIENCE_LABELS[EXPERIENCE_LEVELS.BEGINNER],
     description: EXPERIENCE_DESCRIPTIONS[EXPERIENCE_LEVELS.BEGINNER],
     icon: '1',
-    color: 'bg-green-500'
+    color: 'bg-amber-500'
   },
   {
     value: EXPERIENCE_LEVELS.INTERMEDIATE,
     label: EXPERIENCE_LABELS[EXPERIENCE_LEVELS.INTERMEDIATE],
     description: EXPERIENCE_DESCRIPTIONS[EXPERIENCE_LEVELS.INTERMEDIATE],
     icon: '2',
-    color: 'bg-yellow-500'
+    color: 'bg-orange-500'
   },
   {
     value: EXPERIENCE_LEVELS.ADVANCED,

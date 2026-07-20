@@ -155,9 +155,9 @@ export const READINESS_THRESHOLDS = {
 };
 
 export const READINESS_COLORS = {
-  LOW: '#ef4444',     // red-500
-  MEDIUM: '#eab308',  // yellow-500
-  HIGH: '#22c55e'     // green-500
+  LOW: '#DC2626',     // red - riposo
+  MEDIUM: '#F59E0B',  // amber - normale
+  HIGH: '#EA580C'     // sunrise orange - pronto
 };
 
 export const READINESS_LABELS = {
@@ -221,10 +221,10 @@ export const MENSTRUAL_PHASE_MODIFIERS = {
 
 // BMI Categories
 export const BMI_CATEGORIES = {
-  UNDERWEIGHT: { max: 18.5, label: 'Sottopeso', color: '#3b82f6' },
-  NORMAL: { max: 25, label: 'Normopeso', color: '#22c55e' },
-  OVERWEIGHT: { max: 30, label: 'Sovrappeso', color: '#eab308' },
-  OBESE: { max: Infinity, label: 'Obesità', color: '#ef4444' }
+  UNDERWEIGHT: { max: 18.5, label: 'Sottopeso', color: '#FBBF24' },
+  NORMAL: { max: 25, label: 'Normopeso', color: '#D97706' },
+  OVERWEIGHT: { max: 30, label: 'Sovrappeso', color: '#EA580C' },
+  OBESE: { max: Infinity, label: 'Obesità', color: '#DC2626' }
 };
 
 // Age categories for fitness adjustments

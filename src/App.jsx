@@ -233,11 +233,11 @@ const getThemeLabel = (slug) => THEME_LABELS[slug] || 'Allenamento';
 
 // Difficulty scale (1-5) shared by exercises and workouts
 const DIFFICULTY_LEVELS = {
-  1: { label: 'Molto facile', color: '#22c55e' },
-  2: { label: 'Facile', color: '#84cc16' },
-  3: { label: 'Medio', color: '#eab308' },
-  4: { label: 'Difficile', color: '#f97316' },
-  5: { label: 'Molto difficile', color: '#ef4444' },
+  1: { label: 'Molto facile', color: '#FCD34D' },
+  2: { label: 'Facile', color: '#FBBF24' },
+  3: { label: 'Medio', color: '#F97316' },
+  4: { label: 'Difficile', color: '#EA580C' },
+  5: { label: 'Molto difficile', color: '#DC2626' },
 };
 
 // Average difficulty of a list of exercises (null if none has a value)
@@ -1874,9 +1874,9 @@ function AppContent() {
                     >
                       <div className="flex items-center gap-3">
                         {!unlocked ? (
-                          <span className="text-xl">🔒</span>
+                          <span className="w-6 h-6 rounded-full bg-[var(--surface-hover)] flex items-center justify-center text-[var(--text-muted)]"><LockIcon /></span>
                         ) : isCompleted ? (
-                          <span className="w-6 h-6 rounded-full bg-green-500 flex items-center justify-center text-white text-sm">✓</span>
+                          <span className="w-6 h-6 rounded-full bg-[var(--success)] flex items-center justify-center text-white"><CheckIcon /></span>
                         ) : (
                           <span className="w-6 h-6 rounded-full bg-[var(--primary)] flex items-center justify-center text-white text-sm font-bold">{phase.number}</span>
                         )}
@@ -2382,8 +2382,8 @@ function AppContent() {
                     >
                       <div className="flex items-center gap-3 min-w-0 flex-1">
                         <div className={`w-8 h-8 flex-shrink-0 rounded-full flex items-center justify-center relative bg-[var(--primary)]/10 ${
-                          performance === 'good' ? 'ring-2 ring-green-500' :
-                          performance === 'below' ? 'ring-2 ring-orange-400' : ''
+                          performance === 'good' ? 'ring-2 ring-[var(--success)]' :
+                          performance === 'below' ? 'ring-2 ring-red-400' : ''
                         }`}>
                           <span className="text-xs font-medium text-[var(--primary)]">D{session.day}</span>
                           {/* Medal only for excellent performance */}
@@ -3261,7 +3261,7 @@ function AppContent() {
             {/* Workout structure info */}
             <div className="bg-[var(--surface-hover)] rounded-lg p-3 mb-5 text-sm">
               <div className="flex items-center gap-2 mb-2">
-                <div className="w-3 h-3 rounded-full bg-blue-400"></div>
+                <div className="w-3 h-3 rounded-full bg-amber-400"></div>
                 <span>Riscaldamento (~3 min)</span>
               </div>
               <div className="flex items-center gap-2 mb-2">
@@ -3269,7 +3269,7 @@ function AppContent() {
                 <span>Allenamento ({curr?.exercises?.length} esercizi)</span>
               </div>
               <div className="flex items-center gap-2">
-                <div className="w-3 h-3 rounded-full bg-slate-600"></div>
+                <div className="w-3 h-3 rounded-full bg-orange-900"></div>
                 <span>Defaticamento (~3 min)</span>
               </div>
             </div>
@@ -3297,8 +3297,8 @@ function AppContent() {
 
             {/* Show repeat button if day is completed */}
             {isDayCompleted && (
-              <div className="bg-green-50 rounded-lg p-4 mb-5 text-sm">
-                <div className="flex items-center gap-2 text-green-700">
+              <div className="bg-amber-50 rounded-lg p-4 mb-5 text-sm">
+                <div className="flex items-center gap-2 text-amber-700">
                   <CheckIcon />
                   <span className="font-medium">Hai già completato questo allenamento!</span>
                 </div>
@@ -3876,10 +3876,10 @@ function AppContent() {
                 audioManager.music.stop();
                 setScreen('treadmill');
               }}
-              className="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center"
+              className="w-12 h-12 rounded-full bg-amber-100 flex items-center justify-center"
               title="Completa sessione (dev)"
             >
-              <svg width="22" height="22" fill="none" stroke="currentColor" viewBox="0 0 24 24" className="text-green-600">
+              <svg width="22" height="22" fill="none" stroke="currentColor" viewBox="0 0 24 24" className="text-amber-700">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
               </svg>
             </button>
@@ -4011,7 +4011,7 @@ function AppContent() {
   // Workout Screen - Execution
   if (screen === 'workout') {
     const progress = ((totalDuration - timer) / totalDuration) * 100;
-    const bgColor = phase === 'warmup' ? 'bg-blue-500' : phase === 'cooldown' ? 'bg-slate-700' : 'bg-workout';
+    const bgColor = phase === 'warmup' ? 'bg-warmup' : phase === 'cooldown' ? 'bg-cooldown' : 'bg-workout';
     const phaseCode = getPhaseCode();
 
     // Calculate total workout progress
@@ -4083,7 +4083,7 @@ function AppContent() {
           </div>
 
           {/* Timer */}
-          <div className={`text-4xl font-bold mb-1 ${timer <= 3 ? 'text-sky-200 animate-pulse-soft' : ''}`}>
+          <div className={`text-4xl font-bold mb-1 ${timer <= 3 ? 'text-amber-100 animate-pulse-soft' : ''}`}>
             {timer}
           </div>
 
@@ -4265,13 +4265,13 @@ function AppContent() {
 
     let overallStatus = 'same';
     let overallMessage = 'Allenamento completato come previsto';
-    let overallColor = 'bg-blue-500';
+    let overallColor = 'bg-[var(--primary)]';
     let overallEmoji = '✓';
 
     if (percentageDifference >= 10 || moreCount > lessCount + skippedCount) {
       overallStatus = 'more';
       overallMessage = `Hai fatto di più! +${Math.abs(percentageDifference)}% rispetto al piano`;
-      overallColor = 'bg-green-500';
+      overallColor = 'bg-[var(--success)]';
       overallEmoji = '↑';
     } else if (percentageDifference <= -10 || skippedCount > 0 || lessCount > moreCount) {
       overallStatus = 'less';
@@ -4370,16 +4370,16 @@ function AppContent() {
               </div>
             </div>
             <div className="grid grid-cols-3 gap-2 text-center">
-              <div className="bg-blue-400/10 rounded-lg p-2">
-                <div className="text-lg font-bold text-blue-400">{warmupExercises.length}</div>
+              <div className="bg-amber-400/10 rounded-lg p-2">
+                <div className="text-lg font-bold text-amber-500">{warmupExercises.length}</div>
                 <div className="text-[10px] text-[var(--text-secondary)] truncate">Risc.</div>
               </div>
               <div className="bg-[var(--primary)]/10 rounded-lg p-2">
                 <div className="text-lg font-bold text-[var(--primary)]">{workoutExercises.length}</div>
                 <div className="text-[10px] text-[var(--text-secondary)] truncate">Workout</div>
               </div>
-              <div className="bg-slate-600/20 rounded-lg p-2">
-                <div className="text-lg font-bold text-slate-500">{cooldownExercises.length}</div>
+              <div className="bg-orange-900/10 rounded-lg p-2">
+                <div className="text-lg font-bold text-orange-900">{cooldownExercises.length}</div>
                 <div className="text-[10px] text-[var(--text-secondary)] truncate">Defat.</div>
               </div>
             </div>
@@ -4396,14 +4396,14 @@ function AppContent() {
                 {exerciseComparison.map((ex, i) => (
                   <div key={i} className={`flex items-center justify-between py-2 px-2 rounded-lg ${
                     ex.status === 'skipped' ? 'bg-red-50' :
-                    ex.status === 'more' ? 'bg-green-50' :
+                    ex.status === 'more' ? 'bg-amber-50' :
                     ex.status === 'less' ? 'bg-amber-50' : ''
                   }`}>
                     <div className="flex items-center gap-2 flex-1 min-w-0">
                       {ex.status === 'skipped' && <span className="text-red-500">✗</span>}
-                      {ex.status === 'more' && <span className="text-green-500">↑</span>}
+                      {ex.status === 'more' && <span className="text-[var(--success)]">↑</span>}
                       {ex.status === 'less' && <span className="text-amber-500">↓</span>}
-                      {ex.status === 'same' && <span className="text-blue-500">✓</span>}
+                      {ex.status === 'same' && <span className="text-[var(--text-secondary)]">✓</span>}
                       <span className={`text-sm truncate ${ex.status === 'skipped' ? 'line-through text-gray-400' : ''}`}>
                         {ex.name}
                       </span>
@@ -4416,14 +4416,14 @@ function AppContent() {
                           <span className="text-[var(--text-secondary)]">{ex.duration}s</span>
                           <span className="text-[var(--text-muted)]">→</span>
                           <span className={`font-medium ${
-                            ex.status === 'more' ? 'text-green-600' :
-                            ex.status === 'less' ? 'text-amber-600' : 'text-blue-600'
+                            ex.status === 'more' ? 'text-[var(--success)]' :
+                            ex.status === 'less' ? 'text-amber-600' : 'text-[var(--text-secondary)]'
                           }`}>
                             {ex.actualDuration}s
                           </span>
                           {ex.difference !== 0 && (
                             <span className={`text-[10px] ${
-                              ex.difference > 0 ? 'text-green-500' : 'text-amber-500'
+                              ex.difference > 0 ? 'text-[var(--success)]' : 'text-amber-500'
                             }`}>
                               ({ex.difference > 0 ? '+' : ''}{ex.difference}s)
                             </span>
@@ -4436,14 +4436,14 @@ function AppContent() {
                 {extraExercises.length > 0 && (
                   <>
                     <div className="border-t border-[var(--border)] my-2"></div>
-                    <p className="text-xs text-green-600 font-medium">Esercizi extra:</p>
+                    <p className="text-xs text-[var(--success)] font-medium">Esercizi extra:</p>
                     {extraExercises.map((ex, i) => (
-                      <div key={`extra-${i}`} className="flex items-center justify-between py-2 px-2 rounded-lg bg-green-50">
+                      <div key={`extra-${i}`} className="flex items-center justify-between py-2 px-2 rounded-lg bg-amber-50">
                         <div className="flex items-center gap-2">
-                          <span className="text-green-500">+</span>
+                          <span className="text-[var(--success)]">+</span>
                           <span className="text-sm">{ex.name}</span>
                         </div>
-                        <span className="text-xs text-green-600 font-medium">{ex.duration}s</span>
+                        <span className="text-xs text-[var(--success)] font-medium">{ex.duration}s</span>
                       </div>
                     ))}
                   </>
@@ -4456,7 +4456,7 @@ function AppContent() {
           {warmupExercises.length > 0 && (
             <div className="mb-6">
               <div className="flex items-center gap-2 mb-3">
-                <div className="w-3 h-3 rounded-full bg-blue-400"></div>
+                <div className="w-3 h-3 rounded-full bg-amber-400"></div>
                 <h3 className="text-sm font-medium">Riscaldamento</h3>
                 <span className="text-xs text-[var(--text-secondary)]">({formatTime(totalWarmupTime)})</span>
               </div>
@@ -4475,7 +4475,7 @@ function AppContent() {
           {cooldownExercises.length > 0 && (
             <div className="mb-6">
               <div className="flex items-center gap-2 mb-3">
-                <div className="w-3 h-3 rounded-full bg-slate-600"></div>
+                <div className="w-3 h-3 rounded-full bg-orange-900"></div>
                 <h3 className="text-sm font-medium">Defaticamento</h3>
                 <span className="text-xs text-[var(--text-secondary)]">({formatTime(totalCooldownTime)})</span>
               </div>

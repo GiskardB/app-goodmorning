@@ -25,8 +25,8 @@ export default function SummaryStep({ data, onComplete, onPrevious }) {
       <div className="flex-1 max-w-md mx-auto w-full pt-4">
         {/* Header */}
         <div className="text-center mb-8">
-          <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-green-100 flex items-center justify-center">
-            <svg width="40" height="40" fill="none" stroke="#22c55e" strokeWidth="2" viewBox="0 0 24 24">
+          <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-[var(--primary)]/10 flex items-center justify-center">
+            <svg width="40" height="40" fill="none" stroke="var(--primary)" strokeWidth="2" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
           </div>

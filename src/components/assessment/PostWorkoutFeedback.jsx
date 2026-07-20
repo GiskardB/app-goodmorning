@@ -170,24 +170,24 @@ export default function PostWorkoutFeedback({
 
             {/* Progression Recommendation */}
             <div className={`card p-4 mb-6 ${
-              progression.action === PROGRESSION_ACTIONS.INCREASE ? 'bg-green-50 border-green-200' :
+              progression.action === PROGRESSION_ACTIONS.INCREASE ? 'bg-amber-50 border-amber-200' :
               progression.action === PROGRESSION_ACTIONS.DECREASE ? 'bg-amber-50 border-amber-200' :
               progression.action === PROGRESSION_ACTIONS.REST ? 'bg-red-50 border-red-200' :
-              'bg-blue-50 border-blue-200'
+              'bg-[var(--surface-hover)] border-[var(--border)]'
             }`}>
               <h3 className={`font-semibold mb-2 ${
-                progression.action === PROGRESSION_ACTIONS.INCREASE ? 'text-green-700' :
+                progression.action === PROGRESSION_ACTIONS.INCREASE ? 'text-[var(--primary)]' :
                 progression.action === PROGRESSION_ACTIONS.DECREASE ? 'text-amber-700' :
                 progression.action === PROGRESSION_ACTIONS.REST ? 'text-red-700' :
-                'text-blue-700'
+                'text-[var(--text)]'
               }`}>
                 Suggerimento per la prossima sessione
               </h3>
               <p className={`text-sm ${
-                progression.action === PROGRESSION_ACTIONS.INCREASE ? 'text-green-600' :
+                progression.action === PROGRESSION_ACTIONS.INCREASE ? 'text-[var(--primary)]' :
                 progression.action === PROGRESSION_ACTIONS.DECREASE ? 'text-amber-600' :
                 progression.action === PROGRESSION_ACTIONS.REST ? 'text-red-600' :
-                'text-blue-600'
+                'text-[var(--text-secondary)]'
               }`}>
                 {progression.reason}
               </p>
@@ -345,12 +345,12 @@ export default function PostWorkoutFeedback({
                 onClick={() => updateFeedback('pain', false)}
                 className={`flex-1 p-6 rounded-xl border-2 transition-all ${
                   !feedback.pain
-                    ? 'border-green-500 bg-green-50'
+                    ? 'border-[var(--success)] bg-amber-50'
                     : 'border-[var(--border)] bg-[var(--surface)]'
                 }`}
               >
                 <span className="text-3xl block mb-2">😊</span>
-                <span className={`font-medium ${!feedback.pain ? 'text-green-600' : ''}`}>No</span>
+                <span className={`font-medium ${!feedback.pain ? 'text-[var(--success)]' : ''}`}>No</span>
               </button>
               <button
                 onClick={() => updateFeedback('pain', true)}

@@ -276,7 +276,7 @@ export default function PreWorkoutAssessment({
                 onClick={() => updateAssessment('hydration', !assessment.hydration)}
                 className={`w-full flex items-center justify-between p-4 rounded-xl border-2 transition-all ${
                   assessment.hydration
-                    ? 'border-green-500 bg-green-50'
+                    ? 'border-[var(--primary)] bg-[var(--primary)]/10'
                     : 'border-[var(--border)] bg-[var(--surface)]'
                 }`}
               >
@@ -285,7 +285,7 @@ export default function PreWorkoutAssessment({
                   <span className="font-medium">Hai bevuto abbastanza acqua?</span>
                 </div>
                 <div className={`w-12 h-7 rounded-full transition-colors flex items-center ${
-                  assessment.hydration ? 'bg-green-500' : 'bg-[var(--border)]'
+                  assessment.hydration ? 'bg-[var(--primary)]' : 'bg-[var(--border)]'
                 }`}>
                   <div className={`w-5 h-5 rounded-full bg-white shadow transition-transform mx-1 ${
                     assessment.hydration ? 'translate-x-5' : ''
