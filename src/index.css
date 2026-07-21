@@ -2,23 +2,24 @@
 
 /* Design System - Warm Sunrise */
 :root {
-  /* Primary - warm sunrise orange */
-  --primary: #EA580C;
-  --primary-light: #F97316;
-  --primary-dark: #C2410C;
+  /* Primary - muted terracotta (softer than the vivid orange) */
+  --primary: #C46A43;
+  --primary-light: #D98C63;
+  --primary-dark: #A5502F;
+  --sunburst: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%27400%27%20height%3D%27260%27%20viewBox%3D%270%200%20400%20260%27%3E%3Cg%20stroke%3D%27white%27%20stroke-opacity%3D%270.09%27%20stroke-width%3D%272%27%3E%3Cline%20x1%3D%27200%27%20y1%3D%27-30%27%20x2%3D%27748%27%20y2%3D%27214%27%2F%3E%3Cline%20x1%3D%27200%27%20y1%3D%27-30%27%20x2%3D%27691%27%20y2%3D%27314%27%2F%3E%3Cline%20x1%3D%27200%27%20y1%3D%27-30%27%20x2%3D%27617%27%20y2%3D%27402%27%2F%3E%3Cline%20x1%3D%27200%27%20y1%3D%27-30%27%20x2%3D%27527%27%20y2%3D%27473%27%2F%3E%3Cline%20x1%3D%27200%27%20y1%3D%27-30%27%20x2%3D%27425%27%20y2%3D%27526%27%2F%3E%3Cline%20x1%3D%27200%27%20y1%3D%27-30%27%20x2%3D%27314%27%20y2%3D%27559%27%2F%3E%3Cline%20x1%3D%27200%27%20y1%3D%27-30%27%20x2%3D%27200%27%20y2%3D%27570%27%2F%3E%3Cline%20x1%3D%27200%27%20y1%3D%27-30%27%20x2%3D%2786%27%20y2%3D%27559%27%2F%3E%3Cline%20x1%3D%27200%27%20y1%3D%27-30%27%20x2%3D%27-25%27%20y2%3D%27526%27%2F%3E%3Cline%20x1%3D%27200%27%20y1%3D%27-30%27%20x2%3D%27-127%27%20y2%3D%27473%27%2F%3E%3Cline%20x1%3D%27200%27%20y1%3D%27-30%27%20x2%3D%27-217%27%20y2%3D%27402%27%2F%3E%3Cline%20x1%3D%27200%27%20y1%3D%27-30%27%20x2%3D%27-291%27%20y2%3D%27314%27%2F%3E%3Cline%20x1%3D%27200%27%20y1%3D%27-30%27%20x2%3D%27-348%27%20y2%3D%27214%27%2F%3E%3C%2Fg%3E%3Ccircle%20cx%3D%27200%27%20cy%3D%27-30%27%20r%3D%2795%27%20fill%3D%27none%27%20stroke%3D%27white%27%20stroke-opacity%3D%270.11%27%20stroke-width%3D%272%27%2F%3E%3Ccircle%20cx%3D%27200%27%20cy%3D%27-30%27%20r%3D%27150%27%20fill%3D%27none%27%20stroke%3D%27white%27%20stroke-opacity%3D%270.07%27%20stroke-width%3D%272%27%2F%3E%3C%2Fsvg%3E");
 
-  /* Success - warm gold for completed / earned states */
-  --success: #D97706;
-  --success-light: #F59E0B;
+  /* Success - muted ochre gold for completed / earned states */
+  --success: #C6902F;
+  --success-light: #DBA94A;
 
-  /* Neutral palette - warm cream tones */
-  --bg: #FAF6F0;
+  /* Neutral palette - soft warm sand tones */
+  --bg: #FBF7F1;
   --surface: #FFFFFF;
-  --surface-hover: #F5EEE4;
-  --border: #ECE2D4;
-  --text: #241D14;
-  --text-secondary: #80735F;
-  --text-muted: #B5A895;
+  --surface-hover: #F4ECE1;
+  --border: #EBE0D2;
+  --text: #2A2018;
+  --text-secondary: #7D6E5C;
+  --text-muted: #B3A492;
 
   /* Dark variants for workout screens - warm night */
   --dark-bg: #241D14;
@@ -57,6 +58,7 @@ body {
   min-height: 100vh;
   min-height: 100dvh;
   background-color: var(--bg);
+  background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%2730%27%20height%3D%2730%27%3E%3Ccircle%20cx%3D%273%27%20cy%3D%273%27%20r%3D%271%27%20fill%3D%27%23C46A43%27%20fill-opacity%3D%270.05%27%2F%3E%3C%2Fsvg%3E");
   color: var(--text);
   line-height: 1.5;
   overflow-x: hidden;
@@ -148,7 +150,7 @@ h1, h2, h3 {
   cursor: pointer;
   transition: all 0.2s ease;
   font-family: var(--font-family);
-  box-shadow: 0 4px 14px rgba(234, 88, 12, 0.3);
+  box-shadow: 0 4px 14px rgba(165, 80, 47, 0.22);
 }
 
 .btn-primary:hover {
@@ -181,37 +183,51 @@ h1, h2, h3 {
 }
 
 .bg-prep {
-  background: linear-gradient(150deg, #F59E0B 0%, #EA580C 60%, #C2410C 100%);
+  background:
+    var(--sunburst) center top / 100% auto no-repeat,
+    radial-gradient(130% 90% at 50% -20%, rgba(255, 244, 225, 0.4), transparent 55%),
+    linear-gradient(150deg, #D98C63 0%, #C46A43 55%, #A5502F 100%);
 }
 
 .bg-success {
-  background: linear-gradient(150deg, #F59E0B 0%, #D97706 100%);
+  background:
+    var(--sunburst) center top / 100% auto no-repeat,
+    linear-gradient(150deg, #DBA94A 0%, #C6902F 100%);
 }
 
-/* Hero gradients - warm sunrise, no external images */
+/* Hero gradients - soft muted sunrise with a gentle sun-glow, no external images */
 .hero-sunrise {
-  background: linear-gradient(150deg, #FBBF24 0%, #F97316 55%, #DB4B0B 100%);
+  background:
+    var(--sunburst) center top / 100% auto no-repeat,
+    radial-gradient(130% 100% at 50% -25%, rgba(255, 246, 228, 0.55), transparent 55%),
+    linear-gradient(150deg, #E7B98C 0%, #D2895D 55%, #B5623C 100%);
 }
 
 .hero-sunrise-done {
-  background: linear-gradient(150deg, #FCD34D 0%, #F59E0B 60%, #D97706 100%);
+  background:
+    var(--sunburst) center top / 100% auto no-repeat,
+    radial-gradient(130% 100% at 50% -25%, rgba(255, 249, 232, 0.5), transparent 55%),
+    linear-gradient(150deg, #E8CA84 0%, #D6A94E 60%, #C6902F 100%);
 }
 
 .hero-sunrise-locked {
-  background: linear-gradient(150deg, #B5A895 0%, #80735F 100%);
+  background: linear-gradient(150deg, #C3B6A4 0%, #8A7C68 100%);
 }
 
 .hero-dusk {
-  background: linear-gradient(135deg, #322A1F 0%, #7C2D12 70%, #B45309 100%);
+  background: linear-gradient(135deg, #2E241B 0%, #6B3A24 70%, #9A5A38 100%);
 }
 
-/* Phase backgrounds: warm dawn -> sunrise -> warm dusk */
+/* Phase backgrounds: soft dawn -> sunrise -> warm dusk */
 .bg-warmup {
-  background: linear-gradient(150deg, #F59E0B 0%, #D97706 100%);
+  background:
+    var(--sunburst) center top / 100% auto no-repeat,
+    radial-gradient(130% 90% at 50% -20%, rgba(255, 248, 232, 0.4), transparent 55%),
+    linear-gradient(150deg, #E3B87A 0%, #CE9A57 100%);
 }
 
 .bg-cooldown {
-  background: linear-gradient(150deg, #9A3412 0%, #431407 100%);
+  background: linear-gradient(150deg, #7C5038 0%, #3A2416 100%);
 }
 
 /* Day Card Styles */
@@ -404,7 +420,7 @@ h1, h2, h3 {
 
 /* Header Card */
 .header-card {
-  background: linear-gradient(135deg, #EA580C 0%, #F59E0B 100%);
+  background: linear-gradient(135deg, #C46A43 0%, #DBA94A 100%);
   border-radius: var(--radius-md);
   padding: 10px 16px;
   color: white;
