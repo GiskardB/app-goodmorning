@@ -231,6 +231,25 @@ const THEME_LABELS = {
 
 const getThemeLabel = (slug) => THEME_LABELS[slug] || 'Allenamento';
 
+// Treadmill energy expenditure — ACSM metabolic equations.
+// Returns kcal burned per second for a given speed (km/h), body weight (kg)
+// and incline grade (decimal, e.g. 0.02 = 2%). Calorie burn on a treadmill is
+// driven by body mass, speed and incline; height has no meaningful effect in
+// these equations, so it is intentionally not used.
+const treadmillKcalPerSecond = (speedKmh, weightKg, grade = 0) => {
+  const speed = speedKmh > 0 ? speedKmh : 0;
+  const weight = weightKg && weightKg > 0 ? weightKg : 70; // fallback 70 kg
+  if (speed === 0) return 0;
+  const metersPerMin = speed * (1000 / 60); // km/h -> m/min
+  // VO2 in mL/kg/min: walking eq. below ~6.4 km/h, running eq. above
+  const vo2 = speed < 6.4
+    ? 3.5 + 0.1 * metersPerMin + 1.8 * metersPerMin * grade
+    : 3.5 + 0.2 * metersPerMin + 0.9 * metersPerMin * grade;
+  // 5 kcal per litre of O2 consumed
+  const kcalPerMin = (vo2 * weight * 5) / 1000;
+  return kcalPerMin / 60;
+};
+
 // Difficulty scale (1-5) shared by exercises and workouts
 const DIFFICULTY_LEVELS = {
   1: { label: 'Molto facile', color: '#FCD34D' },
@@ -395,6 +414,7 @@ function AppContent() {
   // Refs for treadmill session data (to capture values in interval callbacks)
   const treadmillElapsedRef = useRef(0);
   const treadmillCaloriesRef = useRef(0);
+  const treadmillCaloriesFloatRef = useRef(0); // float accumulator (kcal)
 
   const prepStartedRef = useRef(false);
   const workoutStartedRef = useRef(false);
@@ -1151,24 +1171,25 @@ function AppContent() {
           treadmillElapsedRef.current = newVal;
           return newVal;
         });
-        // Estimate calories: ~5 kcal per minute at moderate pace
-        setTreadmillCalories(prev => {
+        // Estimate calories with the ACSM metabolic equation (weight + speed + incline)
+        setTreadmillCalories(() => {
           const program = selectedTreadmillProgram;
           const weekData = program?.weeks?.find(w => w.week === selectedTreadmillWeek);
           const segments = weekData?.session?.segments || [];
           const currentSeg = segments[treadmillSegmentIndex];
           const speed = currentSeg?.speed || 5;
-          // Calories per second: higher speed = more calories
-          const calPerSec = (speed / 5) * 0.08;
-          const newVal = Math.round(prev + calPerSec);
-          treadmillCaloriesRef.current = newVal;
-          return newVal;
+          const grade = (currentSeg?.incline || 0) / 100; // % -> decimal
+          // Accumulate as float, round only for display/saving
+          treadmillCaloriesFloatRef.current += treadmillKcalPerSecond(speed, userProfile?.weight, grade);
+          const rounded = Math.round(treadmillCaloriesFloatRef.current);
+          treadmillCaloriesRef.current = rounded;
+          return rounded;
         });
       }, 1000);
 
       return () => clearInterval(interval);
     }
-  }, [treadmillActive, treadmillPaused, treadmillSegmentTimer, treadmillSegmentIndex, selectedTreadmillProgram, selectedTreadmillWeek, voiceEnabled]);
+  }, [treadmillActive, treadmillPaused, treadmillSegmentTimer, treadmillSegmentIndex, selectedTreadmillProgram, selectedTreadmillWeek, voiceEnabled, userProfile?.weight]);
 
   // Select random warmup/cooldown based on day focus
   const selectWarmupCooldown = useCallback((dayNum) => {
@@ -3535,6 +3556,7 @@ function AppContent() {
                       setTreadmillCalories(0);
                       treadmillElapsedRef.current = 0;
                       treadmillCaloriesRef.current = 0;
+                      treadmillCaloriesFloatRef.current = 0;
                       setTreadmillPaused(false);
                       setTreadmillActive(true);
                       // Start music for treadmill session
