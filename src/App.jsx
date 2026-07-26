@@ -672,6 +672,14 @@ function AppContent() {
     loadData();
   }, []);
 
+  // Set the illustrated hero background (base-path aware, offline via public/)
+  useEffect(() => {
+    document.documentElement.style.setProperty(
+      '--hero-img',
+      `url(${import.meta.env.BASE_URL}assets/rise_hero.jpg)`
+    );
+  }, []);
+
   // Reload profile-specific data when active profile changes
   useEffect(() => {
     async function reloadProfileData() {
@@ -1919,15 +1927,15 @@ function AppContent() {
           </div>
         )}
 
-        {/* Header */}
-        <div className="bg-[var(--surface)] border-b border-[var(--border)] p-4">
+        {/* Header - illustrated banner */}
+        <div className="home-banner text-white px-4 pt-5 pb-6">
           <div className="flex items-center justify-between max-w-2xl mx-auto">
             <div>
-              <h1 className="text-lg font-semibold">Il mio Piano</h1>
+              <h1 className="text-xl font-bold tracking-tight drop-shadow-sm">Il mio Piano</h1>
               {phases.length > 1 && (
                 <button
                   onClick={() => setShowPhaseSelector(true)}
-                  className="flex items-center gap-1 text-xs text-[var(--primary)] font-medium"
+                  className="flex items-center gap-1 text-xs text-white/85 font-medium mt-0.5"
                 >
                   Fase {currentPhaseNumber}
                   <svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -1940,7 +1948,7 @@ function AppContent() {
               {installPrompt && !isInstalled && (
                 <button
                   onClick={handleInstall}
-                  className="flex items-center gap-2 px-3 py-2 bg-[var(--primary)] text-white text-sm font-medium rounded-full"
+                  className="flex items-center gap-2 px-3 py-2 bg-white/20 backdrop-blur-sm text-white text-sm font-medium rounded-full"
                 >
                   <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />

@@ -195,12 +195,20 @@ h1, h2, h3 {
     linear-gradient(150deg, #DBA94A 0%, #C6902F 100%);
 }
 
-/* Hero gradients - soft muted sunrise with a gentle sun-glow, no external images */
+/* Hero gradients - warm illustrated sunrise banner (with scrim for legible text) */
 .hero-sunrise {
   background:
-    var(--sunburst) center top / 100% auto no-repeat,
-    radial-gradient(130% 100% at 50% -25%, rgba(255, 246, 228, 0.55), transparent 55%),
+    linear-gradient(180deg, rgba(58, 30, 16, 0.10) 0%, rgba(58, 30, 16, 0.52) 100%),
+    var(--hero-img, none) center 35% / cover no-repeat,
     linear-gradient(150deg, #E7B98C 0%, #D2895D 55%, #B5623C 100%);
+}
+
+/* Home header illustrated banner */
+.home-banner {
+  background:
+    linear-gradient(180deg, rgba(58, 30, 16, 0.28) 0%, rgba(58, 30, 16, 0.55) 100%),
+    var(--hero-img, none) center 28% / cover no-repeat,
+    linear-gradient(135deg, #C46A43 0%, #DBA94A 100%);
 }
 
 .hero-sunrise-done {
