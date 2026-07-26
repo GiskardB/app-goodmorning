@@ -2590,5 +2590,65 @@
     "gif": "assets/wide_push_up.gif",
     "wrongImage": false,
     "difficulty": 4
+  },
+  "squat_kickback": {
+    "name": "Squat con kick back",
+    "description": "Esegui uno squat a corpo libero; risalendo, estendi indietro una gamba contraendo il gluteo. Alterna la gamba a ogni ripetizione mantenendo il core attivo.",
+    "muscles": "Glutei, Quadricipiti, Femorali",
+    "type": "glutes",
+    "gif": "assets/goblet_squat_position.gif",
+    "difficulty": 3,
+    "id": 209,
+    "wrongImage": false
+  },
+  "squat_heel_raise": {
+    "name": "Squat con sollevamento talloni",
+    "description": "Scendi in uno squat e, risalendo, sollevati sulle punte dei piedi contraendo i polpacci. Torna con i talloni a terra e ripeti mantenendo l'equilibrio.",
+    "muscles": "Quadricipiti, Glutei, Polpacci",
+    "type": "quadriceps",
+    "gif": "assets/deep_squat.gif",
+    "difficulty": 3,
+    "id": 210,
+    "wrongImage": false
+  },
+  "box_jump_4point": {
+    "name": "Box jump a 4 punti",
+    "description": "Salta in modo esplosivo spostandoti tra quattro punti immaginari (avanti, indietro e lati), atterrando morbido sulle ginocchia piegate. Mantieni un ritmo controllato.",
+    "muscles": "Quadricipiti, Glutei, Polpacci, Core",
+    "type": "cardio",
+    "gif": "assets/squat_jump_prep.gif",
+    "difficulty": 4,
+    "id": 211,
+    "wrongImage": false
+  },
+  "glute_bridge_abduction": {
+    "name": "Ponte per i glutei con abduzione",
+    "description": "In posizione di ponte glutei con i fianchi in alto, apri e chiudi le ginocchia verso l'esterno contro resistenza, mantenendo il bacino sollevato e stabile.",
+    "muscles": "Glutei, Abduttori, Femorali",
+    "type": "glutes",
+    "gif": "assets/glute_bridge.gif",
+    "difficulty": 3,
+    "id": 212,
+    "wrongImage": false
+  },
+  "plank_commando": {
+    "name": "Plank commando",
+    "description": "Dal plank sugli avambracci, sali in plank alto un braccio alla volta e poi torna sugli avambracci, alternando il braccio che guida. Mantieni i fianchi fermi.",
+    "muscles": "Core, Spalle, Tricipiti",
+    "type": "plank",
+    "gif": "assets/plank_hold.gif",
+    "difficulty": 4,
+    "id": 213,
+    "wrongImage": false
+  },
+  "plank_jack": {
+    "name": "Plank con salto",
+    "description": "In posizione di plank, salta aprendo e chiudendo le gambe come un jumping jack, mantenendo il core contratto e i fianchi stabili.",
+    "muscles": "Core, Spalle, Cardio",
+    "type": "core",
+    "gif": "assets/plank_hold.gif",
+    "difficulty": 3,
+    "id": 214,
+    "wrongImage": false
   }
 }
