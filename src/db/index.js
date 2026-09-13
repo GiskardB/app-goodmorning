@@ -481,7 +481,7 @@ export async function resolveAntiPattern(id) {
 
 // ============ Treadmill Sessions Functions (profile-specific) ============
 
-export async function saveTreadmillSession(programId, programName, week, duration, calories) {
+export async function saveTreadmillSession(programId, programName, week, duration, calories, distance = 0, completed = true) {
   const db = await initDB();
   const profileId = await getActiveProfileId();
   return await db.add('sessions', {
@@ -492,6 +492,8 @@ export async function saveTreadmillSession(programId, programName, week, duratio
     week,
     duration,
     calories,
+    distance,
+    completed,
     date: new Date().toISOString()
   });
 }

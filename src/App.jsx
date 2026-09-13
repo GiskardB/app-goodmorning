@@ -391,6 +391,7 @@ function AppContent() {
   const [treadmillSegmentTimer, setTreadmillSegmentTimer] = useState(0);
   const [treadmillTotalElapsed, setTreadmillTotalElapsed] = useState(0);
   const [treadmillCalories, setTreadmillCalories] = useState(0);
+  const [treadmillDistance, setTreadmillDistance] = useState(0); // km percorsi
   const [showTreadmillProgramSelector, setShowTreadmillProgramSelector] = useState(false);
   const [treadmillCompletedSessions, setTreadmillCompletedSessions] = useState([]);
   const [treadmillSessionToSave, setTreadmillSessionToSave] = useState(null);
@@ -415,6 +416,7 @@ function AppContent() {
   const treadmillElapsedRef = useRef(0);
   const treadmillCaloriesRef = useRef(0);
   const treadmillCaloriesFloatRef = useRef(0); // float accumulator (kcal)
+  const treadmillDistanceRef = useRef(0); // float accumulator (km)
 
   const prepStartedRef = useRef(false);
   const workoutStartedRef = useRef(false);
@@ -1111,7 +1113,9 @@ function AppContent() {
           treadmillSessionToSave.programName,
           treadmillSessionToSave.week,
           treadmillSessionToSave.duration,
-          treadmillSessionToSave.calories
+          treadmillSessionToSave.calories,
+          treadmillSessionToSave.distance || 0,
+          treadmillSessionToSave.completed !== false
         );
         const updated = await getTreadmillSessions();
         setTreadmillCompletedSessions(updated);
@@ -1162,7 +1166,9 @@ function AppContent() {
                 programName: programToSave?.name,
                 week: selectedTreadmillWeek,
                 duration: treadmillElapsedRef.current,
-                calories: treadmillCaloriesRef.current
+                calories: treadmillCaloriesRef.current,
+                distance: treadmillDistanceRef.current,
+                completed: true
               });
               setTreadmillActive(false);
               audioManager.music.stop();
@@ -1192,6 +1198,15 @@ function AppContent() {
           const rounded = Math.round(treadmillCaloriesFloatRef.current);
           treadmillCaloriesRef.current = rounded;
           return rounded;
+        });
+        // Distanza percorsa (km) = velocita(km/h) * (1s / 3600)
+        setTreadmillDistance(() => {
+          const program = selectedTreadmillProgram;
+          const weekData = program?.weeks?.find(w => w.week === selectedTreadmillWeek);
+          const segments = weekData?.session?.segments || [];
+          const speed = segments[treadmillSegmentIndex]?.speed || 0;
+          treadmillDistanceRef.current += speed / 3600;
+          return treadmillDistanceRef.current;
         });
       }, 1000);
 
@@ -3562,9 +3577,11 @@ function AppContent() {
                       setTreadmillSegmentTimer(segments[0].duration);
                       setTreadmillTotalElapsed(0);
                       setTreadmillCalories(0);
+                      setTreadmillDistance(0);
                       treadmillElapsedRef.current = 0;
                       treadmillCaloriesRef.current = 0;
                       treadmillCaloriesFloatRef.current = 0;
+                      treadmillDistanceRef.current = 0;
                       setTreadmillPaused(false);
                       setTreadmillActive(true);
                       // Start music for treadmill session
@@ -3620,27 +3637,42 @@ function AppContent() {
 
             return (
               <div className="card p-4 mb-4">
-                <h3 className="text-sm font-semibold mb-3">Sessioni Completate</h3>
+                <h3 className="text-sm font-semibold mb-3">Le tue sessioni</h3>
                 <div className="space-y-3">
                   {weeks.map(week => {
                     const sessions = byWeek[week];
-                    // Get unique days
-                    const days = sessions.map(s => {
-                      const date = new Date(s.date);
-                      return date.toLocaleDateString('it-IT', { weekday: 'short', day: 'numeric', month: 'short' });
-                    });
-
                     return (
                       <div key={week} className="bg-[var(--surface-hover)] rounded-xl p-3">
-                        <div className="flex items-center gap-2 mb-1">
+                        <div className="flex items-center gap-2 mb-2">
                           <span className="text-[var(--primary)] font-semibold">Settimana {week}</span>
                           <span className="text-xs bg-[var(--primary)]/10 text-[var(--primary)] px-2 py-0.5 rounded-full">
                             {sessions.length} {sessions.length === 1 ? 'sessione' : 'sessioni'}
                           </span>
                         </div>
-                        <p className="text-xs text-[var(--text-secondary)]">
-                          {days.join(', ')}
-                        </p>
+                        <div className="space-y-1.5">
+                          {sessions.map((s, i) => {
+                            const date = new Date(s.date).toLocaleDateString('it-IT', { weekday: 'short', day: 'numeric', month: 'short' });
+                            return (
+                              <div key={i} className="flex items-center justify-between text-xs">
+                                <div className="flex items-center gap-2 min-w-0">
+                                  <span className="text-[var(--text-secondary)] truncate">{date}</span>
+                                  {s.completed === false && (
+                                    <span className="text-[10px] bg-amber-100 text-amber-700 px-1.5 py-0.5 rounded-full flex-shrink-0">parziale</span>
+                                  )}
+                                </div>
+                                <div className="flex items-center gap-1.5 text-[var(--text-secondary)] flex-shrink-0">
+                                  <span>{formatTime(s.duration || 0)}</span>
+                                  {s.distance > 0 && (
+                                    <>
+                                      <span className="text-[var(--text-muted)]">·</span>
+                                      <span>{s.distance.toFixed(2)} km</span>
+                                    </>
+                                  )}
+                                </div>
+                              </div>
+                            );
+                          })}
+                        </div>
                       </div>
                     );
                   })}
@@ -3715,6 +3747,19 @@ function AppContent() {
         <div className="p-3 flex justify-end flex-shrink-0">
           <button
             onClick={() => {
+              // Salva comunque la corsa parziale se ha corso almeno 30s
+              if (treadmillElapsedRef.current >= 30) {
+                const prog = selectedTreadmillProgram;
+                setTreadmillSessionToSave({
+                  programId: prog?.id,
+                  programName: prog?.name,
+                  week: selectedTreadmillWeek,
+                  duration: treadmillElapsedRef.current,
+                  calories: treadmillCaloriesRef.current,
+                  distance: treadmillDistanceRef.current,
+                  completed: false
+                });
+              }
               setTreadmillActive(false);
               audioManager.music.stop();
               setScreen('treadmill');
@@ -3725,11 +3770,15 @@ function AppContent() {
           </button>
         </div>
 
-        {/* Calories */}
-        <div className="flex justify-center mb-2 flex-shrink-0">
-          <div className="bg-[var(--surface-hover)] rounded-xl px-6 py-2 text-center">
+        {/* Calorie + Distanza */}
+        <div className="flex justify-center gap-3 mb-2 flex-shrink-0">
+          <div className="bg-[var(--surface-hover)] rounded-xl px-5 py-2 text-center">
             <span className="text-2xl font-bold">{treadmillCalories}</span>
             <span className="text-sm text-[var(--text-muted)] ml-1">kcal</span>
+          </div>
+          <div className="bg-[var(--surface-hover)] rounded-xl px-5 py-2 text-center">
+            <span className="text-2xl font-bold">{treadmillDistance.toFixed(2)}</span>
+            <span className="text-sm text-[var(--text-muted)] ml-1">km</span>
           </div>
         </div>
 
@@ -3900,7 +3949,9 @@ function AppContent() {
                   programName: program?.name,
                   week: selectedTreadmillWeek,
                   duration: treadmillElapsedRef.current || treadmillTotalElapsed,
-                  calories: treadmillCaloriesRef.current || treadmillCalories
+                  calories: treadmillCaloriesRef.current || treadmillCalories,
+                  distance: treadmillDistanceRef.current || treadmillDistance,
+                  completed: true
                 });
                 setTreadmillActive(false);
                 audioManager.music.stop();
