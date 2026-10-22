@@ -9,24 +9,38 @@ const OUT = process.argv[2];
 const DEST = process.argv[3];
 fs.mkdirSync(OUT, { recursive: true }); fs.mkdirSync(DEST, { recursive: true });
 
-const C = { bg: '#FBF7F1', fig: '#C46A43', fig2: '#D98C63', prop: '#D9CBB8', ground: '#E3D5C3', head: '#B5623C', mat: '#EFE3D3', arrow: '#8A4428' };
+// Stile allineato alle GIF esistenti: sfondo bianco, figura grigia con volume, muscoli attivi in rosso.
+const C = { bg: '#FFFFFF', body: '#E9E9E9', edge: '#B9B9B9', far: '#F1F1F1', farEdge: '#CFCFCF', head: '#E1E1E1', headEdge: '#B0B0B0',
+  prop: '#DADADA', ground: '#D6D6D6', mat: '#ECECEC', red: '#E0352B', redFar: '#EF8A84', arrow: '#6B6B6B' };
 const lerp = (a, b, t) => a + (b - a) * t;
 const ease = t => t < .5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
 const ip = (A, B, t) => { const o = {}; for (const k in A) o[k] = [lerp(A[k][0], B[k][0], t), lerp(A[k][1], B[k][1], t)]; return o; };
+const key = (a, b) => a + '-' + b;
 
 function render(pose, def) {
-  const L = (a, b, col, w = 14) => `<line x1="${a[0].toFixed(1)}" y1="${a[1].toFixed(1)}" x2="${b[0].toFixed(1)}" y2="${b[1].toFixed(1)}" stroke="${col}" stroke-width="${w}" stroke-linecap="round"/>`;
+  const seg = (a, b, col, w) => `<line x1="${a[0].toFixed(1)}" y1="${a[1].toFixed(1)}" x2="${b[0].toFixed(1)}" y2="${b[1].toFixed(1)}" stroke="${col}" stroke-width="${w}" stroke-linecap="round"/>`;
+  const active = new Set((def.active || []).map(([a, b]) => key(a, b)).concat((def.active || []).map(([a, b]) => key(b, a))));
+  const isTorso = (a, b) => (a === 'sh' && b === 'hip') || (a === 'neck' && b === 'hip') || (a === 'sh' && b === 'mid') || (a === 'mid' && b === 'hip');
   let s = `<svg xmlns="http://www.w3.org/2000/svg" width="360" height="360" viewBox="0 0 360 360"><rect width="360" height="360" fill="${C.bg}"/>`;
   if (def.props) s += def.props(pose);
-  for (const [a, b] of (def.far || [])) s += L(pose[a], pose[b], C.fig2, 12);
-  for (const [a, b] of def.bones) s += L(pose[a], pose[b], C.fig, 14);
-  if (pose.head) s += `<circle cx="${pose.head[0].toFixed(1)}" cy="${pose.head[1].toFixed(1)}" r="${def.headR || 20}" fill="${C.head}"/>`;
-  if (def.arrow) { // freccia statica che indica il movimento principale
+  // arti lontani (più chiari e sottili)
+  for (const [a, b] of (def.far || [])) {
+    s += seg(pose[a], pose[b], C.farEdge, 24) + seg(pose[a], pose[b], C.far, 18);
+    if (active.has(key(a, b))) s += seg(pose[a], pose[b], C.redFar, 9);
+  }
+  // corpo vicino: contorno + riempimento (tronco più spesso)
+  for (const [a, b] of def.bones) {
+    const w = isTorso(a, b) ? 46 : 30;
+    s += seg(pose[a], pose[b], C.edge, w) + seg(pose[a], pose[b], C.body, w - 6);
+  }
+  for (const [a, b] of def.bones) if (active.has(key(a, b))) s += seg(pose[a], pose[b], C.red, isTorso(a, b) ? 18 : 13);
+  if (pose.head) s += `<circle cx="${pose.head[0].toFixed(1)}" cy="${pose.head[1].toFixed(1)}" r="${(def.headR || 20) + 2}" fill="${C.headEdge}"/><circle cx="${pose.head[0].toFixed(1)}" cy="${pose.head[1].toFixed(1)}" r="${def.headR || 20}" fill="${C.head}"/>`;
+  if (def.arrow) {
     const [[x1, y1], [x2, y2]] = def.arrow; const ang = Math.atan2(y2 - y1, x2 - x1);
     const hx = x2 - 14 * Math.cos(ang), hy = y2 - 14 * Math.sin(ang);
-    s += `<line x1="${x1}" y1="${y1}" x2="${hx.toFixed(1)}" y2="${hy.toFixed(1)}" stroke="${C.arrow}" stroke-width="5" stroke-linecap="round" stroke-dasharray="9 7" opacity="0.85"/>`;
-    const p = a => `${(x2 - 16 * Math.cos(ang - a)).toFixed(1)},${(y2 - 16 * Math.sin(ang - a)).toFixed(1)}`;
-    s += `<polygon points="${x2},${y2} ${p(0.5)} ${p(-0.5)}" fill="${C.arrow}" opacity="0.85"/>`;
+    s += `<line x1="${x1}" y1="${y1}" x2="${hx.toFixed(1)}" y2="${hy.toFixed(1)}" stroke="${C.arrow}" stroke-width="4" stroke-linecap="round" stroke-dasharray="8 7" opacity="0.8"/>`;
+    const pt = a => `${(x2 - 15 * Math.cos(ang - a)).toFixed(1)},${(y2 - 15 * Math.sin(ang - a)).toFixed(1)}`;
+    s += `<polygon points="${x2},${y2} ${pt(0.5)} ${pt(-0.5)}" fill="${C.arrow}" opacity="0.8"/>`;
   }
   return s + `</svg>`;
 }
@@ -37,7 +51,7 @@ const matSide = `<rect x="24" y="318" width="312" height="14" rx="7" fill="${C.m
 const wallLeft = `<rect x="38" y="40" width="14" height="300" rx="4" fill="${C.prop}"/>` + ground(340);
 const table = `<rect x="30" y="212" width="110" height="12" rx="4" fill="${C.prop}"/><rect x="40" y="224" width="10" height="116" fill="${C.prop}"/><rect x="120" y="224" width="10" height="116" fill="${C.prop}"/>` + ground(340);
 const chair = `<rect x="250" y="238" width="80" height="12" rx="4" fill="${C.prop}"/><rect x="258" y="250" width="10" height="90" fill="${C.prop}"/><rect x="312" y="250" width="10" height="90" fill="${C.prop}"/>` + ground(340);
-const wallBack = `<rect x="20" y="30" width="320" height="310" rx="6" fill="#F4ECE1"/>` + ground(340);
+const wallBack = `<rect x="20" y="30" width="320" height="310" rx="6" fill="#F3F3F3"/>` + ground(340);
 const spots = `<ellipse cx="110" cy="334" rx="34" ry="8" fill="${C.prop}"/><ellipse cx="250" cy="334" rx="34" ry="8" fill="${C.prop}"/><ellipse cx="180" cy="300" rx="26" ry="6" fill="${C.prop}" opacity="0.6"/><ellipse cx="180" cy="350" rx="34" ry="8" fill="${C.prop}" opacity="0.6"/>`;
 const sideBones = [['head', 'sh'], ['sh', 'hip'], ['sh', 'el'], ['el', 'wr'], ['hip', 'knee'], ['knee', 'ankle']];
 const sideFar = [['sh', 'el2'], ['el2', 'wr2'], ['hip', 'knee2'], ['knee2', 'ankle2']];
@@ -117,6 +131,23 @@ const EX = {
     B: { head: [60, 220], sh: [104, 238], el: [84, 280], wr: [66, 318], hip: [210, 270], knee: [266, 294], ankle: [326, 322], el2: [92, 284], wr2: [74, 322], knee2: [272, 298], ankle2: [332, 326] } },
 };
 EX.side_crunch_standing_right = { ...EX.side_crunch_standing_left, A: mirror(EX.side_crunch_standing_left.A), B: mirror(EX.side_crunch_standing_left.B), arrow: [[240, 250], [232, 200]] };
+
+
+// Muscoli evidenziati in rosso (segmenti del corpo) per esercizio
+const ACTIVE = {
+  push_up_wall: [['sh','el'],['el','wr'],['sh','hip']], push_up_incline: [['sh','el'],['el','wr'],['sh','hip']],
+  prone_y: [['neck','hip'],['shL','elL'],['shR','elR']], prone_t: [['neck','hip'],['shL','elL'],['shR','elR']], prone_w: [['neck','hip'],['shL','elL'],['shR','elR']],
+  reverse_snow_angel: [['neck','hip'],['shL','elL'],['shR','elR']], prone_pull: [['neck','hip'],['shL','elL'],['shR','elR'],['elL','wrL'],['elR','wrR']],
+  plank_jack: [['neck','hip'],['shL','elL'],['shR','elR']], wall_slide: [['neck','hip'],['shL','elL'],['shR','elR']],
+  hip_hinge: [['hip','knee'],['hip','knee2'],['sh','hip']], single_leg_glute_bridge: [['hip','knee'],['hip','knee2'],['sh','hip']],
+  single_leg_rdl: [['hip','knee'],['hip','knee2'],['sh','hip']], bulgarian_split_squat: [['hip','knee'],['knee','ankle']],
+  butt_kicks: [['hip','knee'],['knee','ankle'],['hip','knee2'],['knee2','ankle2']], shadow_boxing: [['sh','el'],['el','wr'],['sh','hip']],
+  cat_cow_stretch: [['sh','mid'],['mid','hip']], side_crunch_standing_left: [['neck','hip']], side_crunch_standing_right: [['neck','hip']],
+  squat_kickback: [['hip','knee'],['knee','ankle'],['hip','knee2']], squat_heel_raise: [['hip','knee'],['knee','ankle'],['ankle','toe'],['knee2','ankle2']],
+  box_jump_4point: [['hip','kneeL'],['hip','kneeR'],['kneeL','ankL'],['kneeR','ankR']], glute_bridge_abduction: [['hip','kneeL'],['hip','kneeR']],
+  plank_commando: [['sh','hip'],['sh','el'],['el','wr']],
+};
+for (const k in ACTIVE) if (EX[k]) EX[k].active = ACTIVE[k];
 
 const only = process.argv[4] ? process.argv[4].split(',') : null;
 (async () => {
