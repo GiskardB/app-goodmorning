@@ -246,12 +246,8 @@
           "duration": 30
         },
         {
-          "exercise_id": "calf_raise_left",
-          "duration": 20
-        },
-        {
-          "exercise_id": "calf_raise_right",
-          "duration": 20
+          "exercise_id": "calf_raise",
+          "duration": 40
         }
       ]
     },
@@ -296,7 +292,7 @@
           "duration": 35
         },
         {
-          "exercise_id": "squat_sumo",
+          "exercise_id": "sumo_squat",
           "duration": 40
         },
         {
@@ -562,28 +558,24 @@
       "total_duration": 180,
       "exercises": [
         {
-          "exercise_id": "dynamic_side_bends",
+          "exercise_id": "side_crunch",
           "duration": 30
         },
         {
-          "exercise_id": "elbow_rotations",
+          "exercise_id": "arm_circles",
           "duration": 30
         },
         {
-          "exercise_id": "cross_body_shoulder_stretch",
+          "exercise_id": "shoulder_stretch",
           "duration": 30
         },
         {
-          "exercise_id": "roll_down",
+          "exercise_id": "hamstring_stretch",
           "duration": 30
         },
         {
-          "exercise_id": "hip_rotation_standing_left",
-          "duration": 30
-        },
-        {
-          "exercise_id": "hip_rotation_standing_right",
-          "duration": 30
+          "exercise_id": "hip_circles",
+          "duration": 60
         }
       ]
     },
@@ -593,11 +585,11 @@
       "total_duration": 150,
       "exercises": [
         {
-          "exercise_id": "wrist_warmup",
+          "exercise_id": "arm_circles",
           "duration": 30
         },
         {
-          "exercise_id": "dynamic_side_bends",
+          "exercise_id": "side_crunch",
           "duration": 30
         },
         {
@@ -605,11 +597,11 @@
           "duration": 30
         },
         {
-          "exercise_id": "hip_rotation_standing",
+          "exercise_id": "hip_circles",
           "duration": 30
         },
         {
-          "exercise_id": "lunge_side_to_side_deep",
+          "exercise_id": "lunge_side_to_side",
           "duration": 30
         }
       ]
@@ -624,27 +616,23 @@
           "duration": 30
         },
         {
-          "exercise_id": "cross_body_shoulder_stretch",
+          "exercise_id": "shoulder_stretch",
+          "duration": 60
+        },
+        {
+          "exercise_id": "arm_circles",
           "duration": 30
         },
         {
-          "exercise_id": "cross_body_shoulder_stretch",
+          "exercise_id": "side_crunch",
           "duration": 30
         },
         {
-          "exercise_id": "elbow_rotations",
+          "exercise_id": "hamstring_stretch",
           "duration": 30
         },
         {
-          "exercise_id": "dynamic_side_bends",
-          "duration": 30
-        },
-        {
-          "exercise_id": "calf_hamstring_active_stretch",
-          "duration": 30
-        },
-        {
-          "exercise_id": "squat_malasana",
+          "exercise_id": "squat_prisoner",
           "duration": 30
         }
       ]
@@ -655,28 +643,24 @@
       "total_duration": 180,
       "exercises": [
         {
-          "exercise_id": "lat_stretch_overhead_standing",
+          "exercise_id": "hamstring_stretch",
           "duration": 30
         },
         {
-          "exercise_id": "dynamic_side_bends",
+          "exercise_id": "side_crunch",
           "duration": 30
         },
         {
-          "exercise_id": "cross_body_shoulder_stretch",
+          "exercise_id": "shoulder_stretch",
           "duration": 30
         },
         {
-          "exercise_id": "roll_down",
+          "exercise_id": "hamstring_stretch",
           "duration": 30
         },
         {
-          "exercise_id": "hip_rotation_standing_left",
-          "duration": 30
-        },
-        {
-          "exercise_id": "hip_rotation_standing_right",
-          "duration": 30
+          "exercise_id": "hip_circles",
+          "duration": 60
         }
       ]
     },
@@ -686,15 +670,15 @@
       "total_duration": 150,
       "exercises": [
         {
-          "exercise_id": "cross_body_shoulder_stretch",
+          "exercise_id": "shoulder_stretch",
           "duration": 30
         },
         {
-          "exercise_id": "elbow_rotations",
+          "exercise_id": "arm_circles",
           "duration": 30
         },
         {
-          "exercise_id": "dynamic_side_bends",
+          "exercise_id": "side_crunch",
           "duration": 30
         },
         {
@@ -702,7 +686,7 @@
           "duration": 30
         },
         {
-          "exercise_id": "lunge_side_to_side_deep",
+          "exercise_id": "lunge_side_to_side",
           "duration": 30
         }
       ]
@@ -717,24 +701,12 @@
           "duration": 30
         },
         {
-          "exercise_id": "elbow_rotations",
+          "exercise_id": "arm_circles",
           "duration": 30
         },
         {
-          "exercise_id": "hip_flexor_stretch",
-          "duration": 30
-        },
-        {
-          "exercise_id": "lunge_leg_rolls_full",
-          "duration": 30
-        },
-        {
-          "exercise_id": "lunge_thoracic_rotation_left",
-          "duration": 30
-        },
-        {
-          "exercise_id": "lunge_thoracic_rotation_right",
-          "duration": 30
+          "exercise_id": "lunge_reverse",
+          "duration": 120
         }
       ]
     },
@@ -744,7 +716,7 @@
       "total_duration": 180,
       "exercises": [
         {
-          "exercise_id": "dynamic_side_bends",
+          "exercise_id": "side_crunch",
           "duration": 30
         },
         {
@@ -752,19 +724,19 @@
           "duration": 30
         },
         {
-          "exercise_id": "elbow_rotations",
+          "exercise_id": "arm_circles",
           "duration": 30
         },
         {
-          "exercise_id": "hip_rotation_standing",
+          "exercise_id": "hip_circles",
           "duration": 30
         },
         {
-          "exercise_id": "calf_hamstring_active_stretch",
+          "exercise_id": "hamstring_stretch",
           "duration": 30
         },
         {
-          "exercise_id": "lunge_side_to_side_deep",
+          "exercise_id": "lunge_side_to_side",
           "duration": 30
         }
       ]
@@ -779,20 +751,16 @@
           "duration": 30
         },
         {
-          "exercise_id": "calf_hamstring_active_stretch",
+          "exercise_id": "hamstring_stretch",
           "duration": 30
         },
         {
-          "exercise_id": "hip_flexor_stretch",
+          "exercise_id": "lunge_reverse",
           "duration": 30
         },
         {
-          "exercise_id": "hip_rotation_standing_left",
-          "duration": 30
-        },
-        {
-          "exercise_id": "hip_rotation_standing_right",
-          "duration": 30
+          "exercise_id": "hip_circles",
+          "duration": 60
         }
       ]
     },
@@ -806,19 +774,19 @@
           "duration": 30
         },
         {
-          "exercise_id": "wrist_warmup",
+          "exercise_id": "arm_circles",
           "duration": 30
         },
         {
-          "exercise_id": "dynamic_side_bends",
+          "exercise_id": "side_crunch",
           "duration": 30
         },
         {
-          "exercise_id": "hip_rotation_standing",
+          "exercise_id": "hip_circles",
           "duration": 30
         },
         {
-          "exercise_id": "calf_hamstring_active_stretch",
+          "exercise_id": "hamstring_stretch",
           "duration": 30
         }
       ]
@@ -829,24 +797,20 @@
       "total_duration": 160,
       "exercises": [
         {
-          "exercise_id": "wrist_warmup",
+          "exercise_id": "arm_circles",
           "duration": 30
         },
         {
-          "exercise_id": "calf_hamstring_active_stretch",
+          "exercise_id": "hamstring_stretch",
           "duration": 30
         },
         {
-          "exercise_id": "hip_flexor_stretch",
+          "exercise_id": "lunge_reverse",
           "duration": 40
         },
         {
-          "exercise_id": "hip_rotation_standing_left",
-          "duration": 30
-        },
-        {
-          "exercise_id": "hip_rotation_standing_right",
-          "duration": 30
+          "exercise_id": "hip_circles",
+          "duration": 60
         }
       ]
     },
@@ -856,23 +820,23 @@
       "total_duration": 150,
       "exercises": [
         {
-          "exercise_id": "cross_body_shoulder_stretch",
+          "exercise_id": "shoulder_stretch",
           "duration": 30
         },
         {
-          "exercise_id": "elbow_rotations",
+          "exercise_id": "arm_circles",
           "duration": 30
         },
         {
-          "exercise_id": "dynamic_side_bends",
+          "exercise_id": "side_crunch",
           "duration": 30
         },
         {
-          "exercise_id": "roll_down",
+          "exercise_id": "hamstring_stretch",
           "duration": 30
         },
         {
-          "exercise_id": "hip_rotation_standing",
+          "exercise_id": "hip_circles",
           "duration": 30
         }
       ]
@@ -887,19 +851,19 @@
           "duration": 30
         },
         {
-          "exercise_id": "wrist_warmup",
+          "exercise_id": "arm_circles",
           "duration": 30
         },
         {
-          "exercise_id": "dynamic_side_bends",
+          "exercise_id": "side_crunch",
           "duration": 30
         },
         {
-          "exercise_id": "hip_rotation_standing",
+          "exercise_id": "hip_circles",
           "duration": 30
         },
         {
-          "exercise_id": "calf_hamstring_active_stretch",
+          "exercise_id": "hamstring_stretch",
           "duration": 30
         }
       ]
@@ -910,23 +874,19 @@
       "total_duration": 150,
       "exercises": [
         {
-          "exercise_id": "side_stretch_left",
+          "exercise_id": "side_crunch",
+          "duration": 60
+        },
+        {
+          "exercise_id": "hamstring_stretch",
           "duration": 30
         },
         {
-          "exercise_id": "side_stretch_right",
+          "exercise_id": "arm_circles",
           "duration": 30
         },
         {
-          "exercise_id": "lat_stretch_overhead_standing",
-          "duration": 30
-        },
-        {
-          "exercise_id": "elbow_rotations",
-          "duration": 30
-        },
-        {
-          "exercise_id": "dynamic_side_bends",
+          "exercise_id": "side_crunch",
           "duration": 30
         }
       ]
@@ -937,23 +897,19 @@
       "total_duration": 150,
       "exercises": [
         {
-          "exercise_id": "elbow_rotations",
+          "exercise_id": "arm_circles",
           "duration": 30
         },
         {
-          "exercise_id": "hamstring_pendulum_stretch",
+          "exercise_id": "hamstring_stretch",
           "duration": 30
         },
         {
-          "exercise_id": "hip_rotation_standing_left",
-          "duration": 30
+          "exercise_id": "hip_circles",
+          "duration": 60
         },
         {
-          "exercise_id": "hip_rotation_standing_right",
-          "duration": 30
-        },
-        {
-          "exercise_id": "lunge_side_to_side_deep",
+          "exercise_id": "lunge_side_to_side",
           "duration": 30
         }
       ]
@@ -968,19 +924,19 @@
           "duration": 30
         },
         {
-          "exercise_id": "lunge_leg_rolls_full",
+          "exercise_id": "lunge_reverse",
           "duration": 30
         },
         {
-          "exercise_id": "dynamic_side_bends",
+          "exercise_id": "side_crunch",
           "duration": 30
         },
         {
-          "exercise_id": "hip_rotation_standing",
+          "exercise_id": "hip_circles",
           "duration": 30
         },
         {
-          "exercise_id": "calf_hamstring_active_stretch",
+          "exercise_id": "hamstring_stretch",
           "duration": 30
         }
       ]
@@ -991,23 +947,23 @@
       "total_duration": 150,
       "exercises": [
         {
-          "exercise_id": "lat_stretch_overhead_standing",
+          "exercise_id": "hamstring_stretch",
           "duration": 30
         },
         {
-          "exercise_id": "cross_body_shoulder_stretch",
+          "exercise_id": "shoulder_stretch",
           "duration": 30
         },
         {
-          "exercise_id": "dynamic_side_bends",
+          "exercise_id": "side_crunch",
           "duration": 30
         },
         {
-          "exercise_id": "lunge_side_to_side_deep",
+          "exercise_id": "lunge_side_to_side",
           "duration": 30
         },
         {
-          "exercise_id": "hip_rotation_standing",
+          "exercise_id": "hip_circles",
           "duration": 30
         }
       ]
@@ -1022,19 +978,19 @@
           "duration": 30
         },
         {
-          "exercise_id": "wrist_warmup",
+          "exercise_id": "arm_circles",
           "duration": 30
         },
         {
-          "exercise_id": "dynamic_side_bends",
+          "exercise_id": "side_crunch",
           "duration": 30
         },
         {
-          "exercise_id": "hip_rotation_standing",
+          "exercise_id": "hip_circles",
           "duration": 30
         },
         {
-          "exercise_id": "calf_hamstring_active_stretch",
+          "exercise_id": "hamstring_stretch",
           "duration": 30
         }
       ]
@@ -1045,23 +1001,23 @@
       "total_duration": 150,
       "exercises": [
         {
-          "exercise_id": "cross_body_shoulder_stretch",
+          "exercise_id": "shoulder_stretch",
           "duration": 30
         },
         {
-          "exercise_id": "elbow_rotations",
+          "exercise_id": "arm_circles",
           "duration": 30
         },
         {
-          "exercise_id": "dynamic_side_bends",
+          "exercise_id": "side_crunch",
           "duration": 30
         },
         {
-          "exercise_id": "roll_down",
+          "exercise_id": "hamstring_stretch",
           "duration": 30
         },
         {
-          "exercise_id": "hip_rotation_standing",
+          "exercise_id": "hip_circles",
           "duration": 30
         }
       ]
@@ -1072,23 +1028,15 @@
       "total_duration": 150,
       "exercises": [
         {
-          "exercise_id": "wrist_warmup",
-          "duration": 30
+          "exercise_id": "arm_circles",
+          "duration": 60
         },
         {
-          "exercise_id": "elbow_rotations",
-          "duration": 30
+          "exercise_id": "hip_circles",
+          "duration": 60
         },
         {
-          "exercise_id": "hip_rotation_standing_left",
-          "duration": 30
-        },
-        {
-          "exercise_id": "hip_rotation_standing_right",
-          "duration": 30
-        },
-        {
-          "exercise_id": "calf_hamstring_active_stretch",
+          "exercise_id": "hamstring_stretch",
           "duration": 30
         }
       ]
@@ -1099,23 +1047,23 @@
       "total_duration": 150,
       "exercises": [
         {
-          "exercise_id": "cross_body_shoulder_stretch",
+          "exercise_id": "shoulder_stretch",
           "duration": 30
         },
         {
-          "exercise_id": "elbow_rotations",
+          "exercise_id": "arm_circles",
           "duration": 30
         },
         {
-          "exercise_id": "dynamic_side_bends",
+          "exercise_id": "side_crunch",
           "duration": 30
         },
         {
-          "exercise_id": "roll_down",
+          "exercise_id": "hamstring_stretch",
           "duration": 30
         },
         {
-          "exercise_id": "hip_rotation_standing",
+          "exercise_id": "hip_circles",
           "duration": 30
         }
       ]
@@ -1126,23 +1074,23 @@
       "total_duration": 150,
       "exercises": [
         {
-          "exercise_id": "cross_body_shoulder_stretch",
+          "exercise_id": "shoulder_stretch",
           "duration": 30
         },
         {
-          "exercise_id": "roll_down",
+          "exercise_id": "hamstring_stretch",
           "duration": 30
         },
         {
-          "exercise_id": "dynamic_side_bends",
+          "exercise_id": "side_crunch",
           "duration": 30
         },
         {
-          "exercise_id": "hamstring_pendulum_stretch",
+          "exercise_id": "hamstring_stretch",
           "duration": 30
         },
         {
-          "exercise_id": "hip_rotation_standing",
+          "exercise_id": "hip_circles",
           "duration": 30
         }
       ]
@@ -1157,15 +1105,15 @@
           "duration": 30
         },
         {
-          "exercise_id": "wrist_warmup",
+          "exercise_id": "arm_circles",
           "duration": 30
         },
         {
-          "exercise_id": "dynamic_side_bends",
+          "exercise_id": "side_crunch",
           "duration": 30
         },
         {
-          "exercise_id": "hip_rotation_standing",
+          "exercise_id": "hip_circles",
           "duration": 30
         },
         {
@@ -1180,24 +1128,16 @@
       "total_duration": 150,
       "exercises": [
         {
-          "exercise_id": "hip_mobility_9090",
+          "exercise_id": "hip_circles",
           "duration": 30
         },
         {
-          "exercise_id": "elbow_rotations",
-          "duration": 30
+          "exercise_id": "arm_circles",
+          "duration": 60
         },
         {
-          "exercise_id": "wrist_warmup",
-          "duration": 30
-        },
-        {
-          "exercise_id": "lunge_thoracic_rotation_right",
-          "duration": 30
-        },
-        {
-          "exercise_id": "lunge_thoracic_rotation_left",
-          "duration": 30
+          "exercise_id": "lunge_reverse",
+          "duration": 60
         }
       ]
     },
@@ -1207,23 +1147,23 @@
       "total_duration": 150,
       "exercises": [
         {
-          "exercise_id": "elbow_rotations",
+          "exercise_id": "arm_circles",
           "duration": 30
         },
         {
-          "exercise_id": "dynamic_side_bends",
+          "exercise_id": "side_crunch",
           "duration": 30
         },
         {
-          "exercise_id": "roll_down",
+          "exercise_id": "hamstring_stretch",
           "duration": 30
         },
         {
-          "exercise_id": "hip_rotation_standing",
+          "exercise_id": "hip_circles",
           "duration": 30
         },
         {
-          "exercise_id": "lunge_side_to_side_deep",
+          "exercise_id": "lunge_side_to_side",
           "duration": 30
         }
       ]
@@ -1238,19 +1178,19 @@
           "duration": 30
         },
         {
-          "exercise_id": "wrist_warmup",
+          "exercise_id": "arm_circles",
           "duration": 30
         },
         {
-          "exercise_id": "dynamic_side_bends",
+          "exercise_id": "side_crunch",
           "duration": 30
         },
         {
-          "exercise_id": "hip_rotation_standing",
+          "exercise_id": "hip_circles",
           "duration": 30
         },
         {
-          "exercise_id": "calf_hamstring_active_stretch",
+          "exercise_id": "hamstring_stretch",
           "duration": 30
         }
       ]
@@ -1261,19 +1201,19 @@
       "total_duration": 150,
       "exercises": [
         {
-          "exercise_id": "wrist_warmup",
+          "exercise_id": "arm_circles",
           "duration": 30
         },
         {
-          "exercise_id": "dynamic_side_bends",
+          "exercise_id": "side_crunch",
           "duration": 30
         },
         {
-          "exercise_id": "hip_rotation_standing",
+          "exercise_id": "hip_circles",
           "duration": 30
         },
         {
-          "exercise_id": "hip_flexor_stretch",
+          "exercise_id": "lunge_reverse",
           "duration": 30
         },
         {
@@ -1288,23 +1228,23 @@
       "total_duration": 150,
       "exercises": [
         {
-          "exercise_id": "cross_body_shoulder_stretch",
+          "exercise_id": "shoulder_stretch",
           "duration": 30
         },
         {
-          "exercise_id": "elbow_rotations",
+          "exercise_id": "arm_circles",
           "duration": 30
         },
         {
-          "exercise_id": "dynamic_side_bends",
+          "exercise_id": "side_crunch",
           "duration": 30
         },
         {
-          "exercise_id": "wrist_warmup",
+          "exercise_id": "arm_circles",
           "duration": 30
         },
         {
-          "exercise_id": "hip_rotation_standing",
+          "exercise_id": "hip_circles",
           "duration": 30
         }
       ]
@@ -1315,23 +1255,19 @@
       "total_duration": 150,
       "exercises": [
         {
-          "exercise_id": "elbow_rotations",
+          "exercise_id": "arm_circles",
           "duration": 30
         },
         {
-          "exercise_id": "hip_flexor_stretch",
+          "exercise_id": "lunge_reverse",
           "duration": 30
         },
         {
-          "exercise_id": "hip_rotation_standing_left",
-          "duration": 30
+          "exercise_id": "hip_circles",
+          "duration": 60
         },
         {
-          "exercise_id": "hip_rotation_standing_right",
-          "duration": 30
-        },
-        {
-          "exercise_id": "lunge_side_to_side_deep",
+          "exercise_id": "lunge_side_to_side",
           "duration": 30
         }
       ]
@@ -1352,7 +1288,7 @@
           "duration": 40
         },
         {
-          "exercise_id": "glute_stretch",
+          "exercise_id": "figure_4_stretch_left",
           "duration": 40
         },
         {
@@ -1402,7 +1338,7 @@
           "duration": 35
         },
         {
-          "exercise_id": "glute_stretch",
+          "exercise_id": "figure_4_stretch_left",
           "duration": 40
         },
         {
@@ -1576,7 +1512,7 @@
           "duration": 30
         },
         {
-          "exercise_id": "glute_stretch",
+          "exercise_id": "figure_4_stretch_left",
           "duration": 30
         }
       ]
@@ -1591,7 +1527,7 @@
           "duration": 35
         },
         {
-          "exercise_id": "glute_stretch",
+          "exercise_id": "figure_4_stretch_left",
           "duration": 40
         },
         {
@@ -1626,7 +1562,7 @@
           "duration": 40
         },
         {
-          "exercise_id": "glute_stretch",
+          "exercise_id": "figure_4_stretch_left",
           "duration": 35
         },
         {
@@ -1649,7 +1585,7 @@
           "duration": 45
         },
         {
-          "exercise_id": "glute_stretch",
+          "exercise_id": "figure_4_stretch_left",
           "duration": 40
         },
         {
@@ -1684,7 +1620,7 @@
           "duration": 30
         },
         {
-          "exercise_id": "glute_stretch",
+          "exercise_id": "figure_4_stretch_left",
           "duration": 30
         }
       ]
@@ -1734,7 +1670,7 @@
           "duration": 40
         },
         {
-          "exercise_id": "glute_stretch",
+          "exercise_id": "figure_4_stretch_left",
           "duration": 30
         },
         {
@@ -1807,7 +1743,7 @@
           "duration": 45
         },
         {
-          "exercise_id": "glute_stretch",
+          "exercise_id": "figure_4_stretch_left",
           "duration": 35
         },
         {
@@ -1865,7 +1801,7 @@
           "duration": 35
         },
         {
-          "exercise_id": "glute_stretch",
+          "exercise_id": "figure_4_stretch_left",
           "duration": 35
         },
         {
@@ -1884,7 +1820,7 @@
       "total_duration": 120,
       "exercises": [
         {
-          "exercise_id": "hip_flexor_stretch",
+          "exercise_id": "lunge_reverse",
           "duration": 30
         },
         {
@@ -1907,16 +1843,12 @@
       "total_duration": 200,
       "exercises": [
         {
-          "exercise_id": "hamstring_seated_stretch",
+          "exercise_id": "hamstring_stretch",
           "duration": 40
         },
         {
-          "exercise_id": "lower_back_seated_left",
-          "duration": 40
-        },
-        {
-          "exercise_id": "lower_back_seated_right",
-          "duration": 40
+          "exercise_id": "torso_rotation_standing",
+          "duration": 80
         },
         {
           "exercise_id": "cat_cow_stretch",
@@ -1934,7 +1866,7 @@
       "total_duration": 160,
       "exercises": [
         {
-          "exercise_id": "lat_stretch_overhead",
+          "exercise_id": "hamstring_stretch",
           "duration": 40
         },
         {
@@ -1957,28 +1889,20 @@
       "total_duration": 180,
       "exercises": [
         {
-          "exercise_id": "spinal_twist_left",
-          "duration": 30
-        },
-        {
-          "exercise_id": "spinal_twist_right",
-          "duration": 30
+          "exercise_id": "torso_rotation_standing",
+          "duration": 60
         },
         {
           "exercise_id": "cat_cow_stretch",
           "duration": 30
         },
         {
-          "exercise_id": "lat_stretch_overhead",
+          "exercise_id": "hamstring_stretch",
           "duration": 30
         },
         {
-          "exercise_id": "lower_back_seated_left",
-          "duration": 30
-        },
-        {
-          "exercise_id": "lower_back_seated_right",
-          "duration": 30
+          "exercise_id": "torso_rotation_standing",
+          "duration": 60
         }
       ]
     },
@@ -2004,7 +1928,7 @@
           "duration": 30
         },
         {
-          "exercise_id": "hip_flexor_stretch",
+          "exercise_id": "lunge_reverse",
           "duration": 30
         }
       ]
@@ -2027,7 +1951,7 @@
           "duration": 30
         },
         {
-          "exercise_id": "hamstring_seated_stretch",
+          "exercise_id": "hamstring_stretch",
           "duration": 30
         }
       ]
@@ -2065,15 +1989,11 @@
           "duration": 30
         },
         {
-          "exercise_id": "lizard_lunge_right",
-          "duration": 30
+          "exercise_id": "lunge_reverse",
+          "duration": 60
         },
         {
-          "exercise_id": "lizard_lunge_left",
-          "duration": 30
-        },
-        {
-          "exercise_id": "hamstring_seated_stretch",
+          "exercise_id": "hamstring_stretch",
           "duration": 30
         },
         {
@@ -2119,15 +2039,11 @@
           "duration": 30
         },
         {
-          "exercise_id": "lizard_lunge_right",
-          "duration": 30
+          "exercise_id": "lunge_reverse",
+          "duration": 60
         },
         {
-          "exercise_id": "lizard_lunge_left",
-          "duration": 30
-        },
-        {
-          "exercise_id": "hamstring_seated_stretch",
+          "exercise_id": "hamstring_stretch",
           "duration": 30
         },
         {
@@ -2154,7 +2070,7 @@
           "duration": 40
         },
         {
-          "exercise_id": "squat_thoracic_rotation_deep",
+          "exercise_id": "squat_prisoner",
           "duration": 40
         }
       ]
@@ -2165,15 +2081,11 @@
       "total_duration": 160,
       "exercises": [
         {
-          "exercise_id": "spinal_twist_left",
-          "duration": 40
+          "exercise_id": "torso_rotation_standing",
+          "duration": 80
         },
         {
-          "exercise_id": "spinal_twist_right",
-          "duration": 40
-        },
-        {
-          "exercise_id": "lat_stretch_overhead",
+          "exercise_id": "hamstring_stretch",
           "duration": 40
         },
         {
@@ -2200,12 +2112,8 @@
           "duration": 35
         },
         {
-          "exercise_id": "lunge_thoracic_rotation_right",
-          "duration": 35
-        },
-        {
-          "exercise_id": "lunge_thoracic_rotation_left",
-          "duration": 35
+          "exercise_id": "lunge_reverse",
+          "duration": 70
         }
       ]
     },
@@ -2215,19 +2123,15 @@
       "total_duration": 150,
       "exercises": [
         {
-          "exercise_id": "spinal_twist_left",
-          "duration": 30
-        },
-        {
-          "exercise_id": "spinal_twist_right",
-          "duration": 30
+          "exercise_id": "torso_rotation_standing",
+          "duration": 60
         },
         {
           "exercise_id": "knees_to_chest_stretch",
           "duration": 30
         },
         {
-          "exercise_id": "hamstring_seated_stretch",
+          "exercise_id": "hamstring_stretch",
           "duration": 30
         },
         {
@@ -2285,7 +2189,7 @@
           "duration": 30
         },
         {
-          "exercise_id": "hamstring_seated_stretch",
+          "exercise_id": "hamstring_stretch",
           "duration": 30
         },
         {
@@ -2300,15 +2204,11 @@
       "total_duration": 160,
       "exercises": [
         {
-          "exercise_id": "lower_back_seated_left",
-          "duration": 40
+          "exercise_id": "torso_rotation_standing",
+          "duration": 80
         },
         {
-          "exercise_id": "lower_back_seated_right",
-          "duration": 40
-        },
-        {
-          "exercise_id": "lat_stretch_overhead",
+          "exercise_id": "hamstring_stretch",
           "duration": 40
         },
         {
@@ -2335,16 +2235,12 @@
           "duration": 30
         },
         {
-          "exercise_id": "hamstring_seated_stretch",
+          "exercise_id": "hamstring_stretch",
           "duration": 30
         },
         {
-          "exercise_id": "lower_back_seated_left",
-          "duration": 30
-        },
-        {
-          "exercise_id": "lower_back_seated_right",
-          "duration": 30
+          "exercise_id": "torso_rotation_standing",
+          "duration": 60
         }
       ]
     },
@@ -2366,16 +2262,12 @@
           "duration": 30
         },
         {
-          "exercise_id": "hamstring_seated_stretch",
+          "exercise_id": "hamstring_stretch",
           "duration": 30
         },
         {
-          "exercise_id": "lower_back_seated_left",
-          "duration": 30
-        },
-        {
-          "exercise_id": "lower_back_seated_right",
-          "duration": 30
+          "exercise_id": "torso_rotation_standing",
+          "duration": 60
         }
       ]
     },
@@ -2401,7 +2293,7 @@
           "duration": 30
         },
         {
-          "exercise_id": "lat_stretch_overhead",
+          "exercise_id": "hamstring_stretch",
           "duration": 30
         }
       ]
@@ -2420,7 +2312,7 @@
           "duration": 30
         },
         {
-          "exercise_id": "lat_stretch_overhead",
+          "exercise_id": "hamstring_stretch",
           "duration": 30
         },
         {
@@ -2466,16 +2358,12 @@
           "duration": 30
         },
         {
-          "exercise_id": "lat_stretch_overhead",
+          "exercise_id": "hamstring_stretch",
           "duration": 30
         },
         {
-          "exercise_id": "lower_back_seated_left",
-          "duration": 30
-        },
-        {
-          "exercise_id": "lower_back_seated_right",
-          "duration": 30
+          "exercise_id": "torso_rotation_standing",
+          "duration": 60
         }
       ]
     },
@@ -2501,7 +2389,7 @@
           "duration": 30
         },
         {
-          "exercise_id": "hamstring_seated_stretch",
+          "exercise_id": "hamstring_stretch",
           "duration": 30
         }
       ]
@@ -2516,15 +2404,11 @@
           "duration": 30
         },
         {
-          "exercise_id": "lower_back_seated_left",
-          "duration": 30
+          "exercise_id": "torso_rotation_standing",
+          "duration": 60
         },
         {
-          "exercise_id": "lower_back_seated_right",
-          "duration": 30
-        },
-        {
-          "exercise_id": "lat_stretch_overhead",
+          "exercise_id": "hamstring_stretch",
           "duration": 30
         },
         {
@@ -2570,19 +2454,15 @@
           "duration": 30
         },
         {
-          "exercise_id": "lower_back_seated_left",
+          "exercise_id": "torso_rotation_standing",
+          "duration": 60
+        },
+        {
+          "exercise_id": "figure_4_stretch_right",
           "duration": 30
         },
         {
-          "exercise_id": "lower_back_seated_right",
-          "duration": 30
-        },
-        {
-          "exercise_id": "pigeon_pose_right",
-          "duration": 30
-        },
-        {
-          "exercise_id": "pigeon_pose_left",
+          "exercise_id": "figure_4_stretch_left",
           "duration": 30
         }
       ]
@@ -2593,19 +2473,15 @@
       "total_duration": 150,
       "exercises": [
         {
-          "exercise_id": "spinal_twist_left",
-          "duration": 30
-        },
-        {
-          "exercise_id": "spinal_twist_right",
-          "duration": 30
+          "exercise_id": "torso_rotation_standing",
+          "duration": 60
         },
         {
           "exercise_id": "knees_to_chest_stretch",
           "duration": 30
         },
         {
-          "exercise_id": "hamstring_seated_stretch",
+          "exercise_id": "hamstring_stretch",
           "duration": 30
         },
         {

@@ -4236,7 +4236,7 @@ function AppContent() {
         {/* Test di fase: inserimento ripetizioni / secondi */}
         {testEntry && (() => {
           const exId = testEntry.exercise.exercise_id;
-          const isHold = ['plank', 'forearm_plank', 'hollow_body_hold', 'plank_side_left', 'plank_side_right'].includes(exId);
+          const isHold = ['plank', 'hollow_body_hold', 'plank_side_left', 'plank_side_right'].includes(exId);
           const prev = prevTestResults?.[exId];
           return (
             <div className="fixed inset-0 z-50 bg-black/60 flex items-end sm:items-center justify-center p-4">

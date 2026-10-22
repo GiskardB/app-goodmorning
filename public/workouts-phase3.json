@@ -143,27 +143,23 @@
       "day": 4,
       "title": "Anche e schiena sciolte",
       "image": "light",
-      "calories": 55,
-      "duration": 8,
+      "calories": 53,
+      "duration": 7,
       "exercises": [
         {
           "exercise_id": "arm_circles",
           "duration": 45
         },
         {
-          "exercise_id": "lunge_thoracic_rotation_left",
-          "duration": 40
-        },
-        {
-          "exercise_id": "lunge_thoracic_rotation_right",
-          "duration": 40
+          "exercise_id": "lunge_reverse",
+          "duration": 60
         },
         {
           "exercise_id": "march_in_place",
           "duration": 60
         },
         {
-          "exercise_id": "hip_mobility_9090",
+          "exercise_id": "hip_circles",
           "duration": 45
         },
         {
@@ -171,7 +167,7 @@
           "duration": 45
         },
         {
-          "exercise_id": "roll_down",
+          "exercise_id": "hamstring_stretch",
           "duration": 45
         },
         {
@@ -278,11 +274,11 @@
           "duration": 40
         },
         {
-          "exercise_id": "pigeon_pose_left",
+          "exercise_id": "figure_4_stretch_left",
           "duration": 40
         },
         {
-          "exercise_id": "pigeon_pose_right",
+          "exercise_id": "figure_4_stretch_right",
           "duration": 40
         },
         {
@@ -434,27 +430,23 @@
       "day": 11,
       "title": "Anche e schiena sciolte",
       "image": "light",
-      "calories": 55,
-      "duration": 8,
+      "calories": 53,
+      "duration": 7,
       "exercises": [
         {
           "exercise_id": "arm_circles",
           "duration": 45
         },
         {
-          "exercise_id": "lunge_thoracic_rotation_left",
-          "duration": 40
-        },
-        {
-          "exercise_id": "lunge_thoracic_rotation_right",
-          "duration": 40
+          "exercise_id": "lunge_reverse",
+          "duration": 60
         },
         {
           "exercise_id": "march_in_place",
           "duration": 60
         },
         {
-          "exercise_id": "hip_mobility_9090",
+          "exercise_id": "hip_circles",
           "duration": 45
         },
         {
@@ -462,7 +454,7 @@
           "duration": 45
         },
         {
-          "exercise_id": "roll_down",
+          "exercise_id": "hamstring_stretch",
           "duration": 45
         },
         {
@@ -589,11 +581,11 @@
           "duration": 40
         },
         {
-          "exercise_id": "pigeon_pose_left",
+          "exercise_id": "figure_4_stretch_left",
           "duration": 40
         },
         {
-          "exercise_id": "pigeon_pose_right",
+          "exercise_id": "figure_4_stretch_right",
           "duration": 40
         },
         {
@@ -745,27 +737,23 @@
       "day": 18,
       "title": "Anche e schiena sciolte",
       "image": "light",
-      "calories": 55,
-      "duration": 8,
+      "calories": 53,
+      "duration": 7,
       "exercises": [
         {
           "exercise_id": "arm_circles",
           "duration": 45
         },
         {
-          "exercise_id": "lunge_thoracic_rotation_left",
-          "duration": 40
-        },
-        {
-          "exercise_id": "lunge_thoracic_rotation_right",
-          "duration": 40
+          "exercise_id": "lunge_reverse",
+          "duration": 60
         },
         {
           "exercise_id": "march_in_place",
           "duration": 60
         },
         {
-          "exercise_id": "hip_mobility_9090",
+          "exercise_id": "hip_circles",
           "duration": 45
         },
         {
@@ -773,7 +761,7 @@
           "duration": 45
         },
         {
-          "exercise_id": "roll_down",
+          "exercise_id": "hamstring_stretch",
           "duration": 45
         },
         {
@@ -794,7 +782,7 @@
           "duration": 35
         },
         {
-          "exercise_id": "lunge_backward_left",
+          "exercise_id": "lunge_reverse",
           "duration": 35
         },
         {
@@ -814,7 +802,7 @@
           "duration": 35
         },
         {
-          "exercise_id": "lunge_backward_right",
+          "exercise_id": "lunge_reverse",
           "duration": 35
         },
         {
@@ -900,11 +888,11 @@
           "duration": 40
         },
         {
-          "exercise_id": "pigeon_pose_left",
+          "exercise_id": "figure_4_stretch_left",
           "duration": 40
         },
         {
-          "exercise_id": "pigeon_pose_right",
+          "exercise_id": "figure_4_stretch_right",
           "duration": 40
         },
         {
@@ -1056,27 +1044,23 @@
       "day": 25,
       "title": "Anche e schiena sciolte",
       "image": "light",
-      "calories": 55,
-      "duration": 8,
+      "calories": 53,
+      "duration": 7,
       "exercises": [
         {
           "exercise_id": "arm_circles",
           "duration": 45
         },
         {
-          "exercise_id": "lunge_thoracic_rotation_left",
-          "duration": 40
-        },
-        {
-          "exercise_id": "lunge_thoracic_rotation_right",
-          "duration": 40
+          "exercise_id": "lunge_reverse",
+          "duration": 60
         },
         {
           "exercise_id": "march_in_place",
           "duration": 60
         },
         {
-          "exercise_id": "hip_mobility_9090",
+          "exercise_id": "hip_circles",
           "duration": 45
         },
         {
@@ -1084,7 +1068,7 @@
           "duration": 45
         },
         {
-          "exercise_id": "roll_down",
+          "exercise_id": "hamstring_stretch",
           "duration": 45
         },
         {
@@ -1191,11 +1175,11 @@
           "duration": 40
         },
         {
-          "exercise_id": "pigeon_pose_left",
+          "exercise_id": "figure_4_stretch_left",
           "duration": 40
         },
         {
-          "exercise_id": "pigeon_pose_right",
+          "exercise_id": "figure_4_stretch_right",
           "duration": 40
         },
         {

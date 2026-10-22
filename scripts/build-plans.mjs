@@ -22,14 +22,14 @@ const LADDER = {
       push:  { A: V('push_up_wall'), B: V('push_up_incline'), C: V('push_up_wall') },
       squat: { A: V('wall_assisted_squat'), B: V('bodyweight_squat'), C: V('wall_assisted_squat', 'bodyweight_squat') },
       pull:  { A: V('prone_y'), B: V('wall_slide'), C: V('prone_t') },
-      core:  { A: V('dead_bug_basic'), B: V('bird_dog'), C: V('dead_bug') },
+      core:  { A: V('dead_bug'), B: V('bird_dog'), C: V('dead_bug') },
       hinge: { A: V('glute_bridge'), B: V('hip_hinge'), C: V('glute_bridge_isometric') },
     },
     late: {
       push:  { A: V('push_up_incline'), B: V('push_up_knees'), C: V('push_up_incline') },
       squat: { A: V('bodyweight_squat'), B: V('bodyweight_squat'), C: V('lunge_static_left', 'lunge_static_right') },
       pull:  { A: V('prone_t'), B: V('prone_w'), C: V('prone_y') },
-      core:  { A: V('dead_bug'), B: V('forearm_plank'), C: V('bird_dog') },
+      core:  { A: V('dead_bug'), B: V('plank'), C: V('bird_dog') },
       hinge: { A: V('glute_bridge_march'), B: V('hip_hinge'), C: V('glute_bridge') },
     },
   },
@@ -43,7 +43,7 @@ const LADDER = {
     },
     late: {
       push:  { A: V('push_up_knees'), B: V('push_up'), C: V('push_up_knees') },
-      squat: { A: V('deep_squat'), B: V('lunge_backward_left', 'lunge_backward_right'), C: V('lunge_reverse') },
+      squat: { A: V('deep_squat'), B: V('lunge_reverse', 'lunge_reverse'), C: V('lunge_reverse') },
       pull:  { A: V('superman'), B: V('reverse_snow_angel'), C: V('prone_pull') },
       core:  { A: V('plank'), B: V('plank_side_left', 'plank_side_right'), C: V('hollow_body_hold') },
       hinge: { A: V('single_leg_glute_bridge'), B: V('glute_bridge_march'), C: V('reverse_plank_bridge') },
@@ -59,7 +59,7 @@ const LADDER = {
     },
     late: {
       push:  { A: V('push_up'), B: V('close_grip_push_up'), C: V('push_up_archer_left', 'push_up_archer_right') },
-      squat: { A: V('bulgarian_split_squat'), B: V('pistol_squat'), C: V('lunge_backward_left', 'lunge_backward_right') },
+      squat: { A: V('bulgarian_split_squat'), B: V('pistol_squat'), C: V('lunge_reverse', 'lunge_reverse') },
       pull:  { A: V('reverse_plank'), B: V('prone_pull'), C: V('superman_swimmer') },
       core:  { A: V('shoulder_taps'), B: V('hollow_body_hold'), C: V('side_plank_obliques') },
       hinge: { A: V('single_leg_rdl'), B: V('single_leg_glute_bridge'), C: V('reverse_plank_bridge') },
@@ -88,14 +88,14 @@ const THEME = { A: 'totalbody', B: 'upper', C: 'legs' };
 // Giorni leggeri (senza warm-up/cool-down): mobilità + camminata sul posto
 const LIGHT = [
   ['Mobilità e camminata', [['wall_slide', 45], ['cat_cow_stretch', 45], ['hip_circles', 45], ['march_in_place', 60], ['deep_squat_position', 45], ['torso_rotation_standing', 45], ['child_pose', 45], ['breathing_standing', 45]]],
-  ['Anche e schiena sciolte', [['arm_circles', 45], ['lunge_thoracic_rotation_left', 40], ['lunge_thoracic_rotation_right', 40], ['march_in_place', 60], ['hip_mobility_9090', 45], ['standing_overhead_reach', 45], ['roll_down', 45], ['cobra_stretch', 45]]],
+  ['Anche e schiena sciolte', [['arm_circles', 45], ['lunge_reverse', 60], ['march_in_place', 60], ['hip_circles', 45], ['standing_overhead_reach', 45], ['hamstring_stretch', 45], ['cobra_stretch', 45]]],
   ['Scioglimento attivo', [['march_in_place', 60], ['wall_slide', 45], ['hip_circles', 45], ['deep_squat_position', 45], ['cat_cow_stretch', 45], ['figure_4_stretch_left', 40], ['figure_4_stretch_right', 40], ['breathing_standing', 45]]],
 ];
-const RECOVERY = ['Recupero e allungamento profondo', [['child_pose', 40], ['cat_cow_stretch', 40], ['hamstring_stretch', 40], ['quad_stretch', 40], ['chest_stretch', 40], ['pigeon_pose_left', 40], ['pigeon_pose_right', 40], ['breathing_standing', 40]]];
+const RECOVERY = ['Recupero e allungamento profondo', [['child_pose', 40], ['cat_cow_stretch', 40], ['hamstring_stretch', 40], ['quad_stretch', 40], ['chest_stretch', 40], ['figure_4_stretch_left', 40], ['figure_4_stretch_right', 40], ['breathing_standing', 40]]];
 
 // Test di fase (60 s a prova): massimo di ripetizioni pulite / tenuta. Identico in settimana 1 e 4.
 const TEST = {
-  1: [['push_up_incline', 60], ['bodyweight_squat', 60], ['prone_t', 60], ['forearm_plank', 60], ['glute_bridge', 60]],
+  1: [['push_up_incline', 60], ['bodyweight_squat', 60], ['prone_t', 60], ['plank', 60], ['glute_bridge', 60]],
   2: [['push_up_knees', 60], ['bodyweight_squat', 60], ['superman', 60], ['plank', 60], ['single_leg_glute_bridge', 60]],
   3: [['push_up', 60], ['lunge_reverse', 60], ['prone_pull', 60], ['hollow_body_hold', 60], ['single_leg_rdl', 60]],
 };
