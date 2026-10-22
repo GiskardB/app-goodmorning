@@ -39,6 +39,10 @@ _Aggiornato: 2026-10-22. Generatore: `scripts/build-treadmill.mjs` → `public/w
 5. Tratto di corsa iniziale 1′/1′30″; salti del continuo ≤ 5′ a settimana.
 6. Settimana di scarico ogni 4-5 settimane; "ripetere una settimana è previsto".
 7. Pendenza esplicita per segmento (`incline`), letta da calorie, voce e schermata.
+   Al primo ingresso l'app chiede se il tapis ha la pendenza regolabile (impostazione
+   `treadmillIncline`, modificabile con "Cambia"). Se **no**: i tratti in salita diventano tratti
+   più veloci in piano (camminata +0,3 km/h per ogni 1 %, max 6,5 km/h; corsa +0,25 km/h per 1 %,
+   max +1,5) e il programma "Camminata in salita" (`requiresIncline`) resta non selezionabile.
 8. Consigli psicologici per programma (campo `tips`), mostrati sotto la legenda.
 
 ## I 7 programmi

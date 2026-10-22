@@ -259,14 +259,33 @@ const treadmillKcalPerSecond = (speedKmh, weightKg, grade = 0) => {
   return kcalPerMin / 60;
 };
 
-// Sedute tapis roulant: ogni settimana può avere più sedute (A/B/C…); `session` resta come fallback
-const treadmillWeekSessions = (program, week) => {
-  const weekData = program?.weeks?.find(w => w.week === week);
-  if (weekData?.sessions?.length) return weekData.sessions;
-  return weekData?.session ? [weekData.session] : [];
+// Tapis senza pendenza regolabile: un tratto in salita diventa un tratto più veloce in piano.
+// Camminata: +0,3 km/h per ogni 1 % (max 6,5 km/h, resta camminata svelta); corsa: +0,25 km/h per 1 % (max +1,5).
+const flattenTreadmillSegment = (seg) => {
+  if (!seg?.incline) return seg;
+  const half = (x) => Math.round(x * 2) / 2;
+  const speed = seg.speed < 6.4
+    ? Math.min(6.5, half(seg.speed + 0.3 * seg.incline))
+    : half(seg.speed + Math.min(1.5, 0.25 * seg.incline));
+  const kind = speed < 6.4 ? 'Camminata svelta' : speed >= 9.5 ? 'Corsa veloce' : speed >= 8.5 ? 'Corsa' : 'Corsa leggera';
+  return { ...seg, incline: 0, speed, activity: `${kind} (al posto della salita)`, adapted: true };
 };
-const getTreadmillSession = (program, week, idx = 0) => {
-  const sessions = treadmillWeekSessions(program, week);
+const adaptTreadmillSession = (session, hasIncline) => {
+  if (hasIncline || !session?.segments?.some(s => s.incline)) return session;
+  return {
+    ...session,
+    focus: `${session.focus || ''}${session.focus ? ' · ' : ''}senza pendenza: tratti più veloci in piano`,
+    segments: session.segments.map(flattenTreadmillSegment),
+  };
+};
+// Sedute tapis roulant: ogni settimana può avere più sedute (A/B/C…); `session` resta come fallback
+const treadmillWeekSessions = (program, week, hasIncline = true) => {
+  const weekData = program?.weeks?.find(w => w.week === week);
+  const sessions = weekData?.sessions?.length ? weekData.sessions : (weekData?.session ? [weekData.session] : []);
+  return sessions.map(s => adaptTreadmillSession(s, hasIncline));
+};
+const getTreadmillSession = (program, week, idx = 0, hasIncline = true) => {
+  const sessions = treadmillWeekSessions(program, week, hasIncline);
   return sessions[Math.min(idx, sessions.length - 1)] || null;
 };
 const speakTreadmillSegment = (seg) => `${seg.activity}, ${seg.speed} chilometri orari${seg.incline ? `, pendenza ${seg.incline} per cento` : ''}`;
@@ -412,6 +431,7 @@ function AppContent() {
   const [selectedTreadmillProgram, setSelectedTreadmillProgram] = useState(null);
   const [selectedTreadmillWeek, setSelectedTreadmillWeek] = useState(1);
   const [selectedTreadmillSession, setSelectedTreadmillSession] = useState(0); // indice seduta (A/B/C) nella settimana
+  const [treadmillIncline, setTreadmillIncline] = useState(null); // null = non ancora chiesto; true/false = il tapis ha la pendenza regolabile
   const [treadmillActive, setTreadmillActive] = useState(false);
   const [treadmillPaused, setTreadmillPaused] = useState(false);
   const [treadmillSegmentIndex, setTreadmillSegmentIndex] = useState(0);
@@ -736,6 +756,8 @@ function AppContent() {
         const savedMusicEnabled = await getSetting('musicEnabled');
         const savedFullWidthAnimation = await getSetting('fullWidthAnimation');
         const savedMusicFavorites = await getSetting('musicFavorites');
+        const savedTreadmillIncline = await getSetting('treadmillIncline');
+        setTreadmillIncline(typeof savedTreadmillIncline === 'boolean' ? savedTreadmillIncline : null);
 
         // Apply settings (use defaults if not set)
         setVoiceEnabled(savedVoiceEnabled !== undefined ? savedVoiceEnabled : true);
@@ -1193,7 +1215,7 @@ function AppContent() {
         setTreadmillSegmentTimer(prev => {
           // 5-second warning before segment ends
           if (prev === 6 && voiceEnabled && 'speechSynthesis' in window) {
-            const segments = getTreadmillSession(selectedTreadmillProgram, selectedTreadmillWeek, selectedTreadmillSession)?.segments || [];
+            const segments = getTreadmillSession(selectedTreadmillProgram, selectedTreadmillWeek, selectedTreadmillSession, treadmillIncline !== false)?.segments || [];
             if (treadmillSegmentIndex < segments.length - 1) {
               const nextSeg = segments[treadmillSegmentIndex + 1];
               speechSynthesis.speak(new SpeechSynthesisUtterance(`Preparati! Tra 5 secondi: ${nextSeg.speed} chilometri orari${nextSeg.incline ? `, pendenza ${nextSeg.incline} per cento` : ''}`));
@@ -1204,7 +1226,7 @@ function AppContent() {
 
           if (prev <= 1) {
             // Move to next segment
-            const segments = getTreadmillSession(selectedTreadmillProgram, selectedTreadmillWeek, selectedTreadmillSession)?.segments || [];
+            const segments = getTreadmillSession(selectedTreadmillProgram, selectedTreadmillWeek, selectedTreadmillSession, treadmillIncline !== false)?.segments || [];
 
             if (treadmillSegmentIndex < segments.length - 1) {
               const nextIndex = treadmillSegmentIndex + 1;
@@ -1243,7 +1265,7 @@ function AppContent() {
         });
         // Estimate calories with the ACSM metabolic equation (weight + speed + incline)
         setTreadmillCalories(() => {
-          const segments = getTreadmillSession(selectedTreadmillProgram, selectedTreadmillWeek, selectedTreadmillSession)?.segments || [];
+          const segments = getTreadmillSession(selectedTreadmillProgram, selectedTreadmillWeek, selectedTreadmillSession, treadmillIncline !== false)?.segments || [];
           const currentSeg = segments[treadmillSegmentIndex];
           const speed = currentSeg?.speed || 5;
           const grade = (currentSeg?.incline || 0) / 100; // % -> decimal
@@ -1255,7 +1277,7 @@ function AppContent() {
         });
         // Distanza percorsa (km) = velocita(km/h) * (1s / 3600)
         setTreadmillDistance(() => {
-          const segments = getTreadmillSession(selectedTreadmillProgram, selectedTreadmillWeek, selectedTreadmillSession)?.segments || [];
+          const segments = getTreadmillSession(selectedTreadmillProgram, selectedTreadmillWeek, selectedTreadmillSession, treadmillIncline !== false)?.segments || [];
           const speed = segments[treadmillSegmentIndex]?.speed || 0;
           treadmillDistanceRef.current += speed / 3600;
           return treadmillDistanceRef.current;
@@ -1264,7 +1286,7 @@ function AppContent() {
 
       return () => clearInterval(interval);
     }
-  }, [treadmillActive, treadmillPaused, treadmillSegmentTimer, treadmillSegmentIndex, selectedTreadmillProgram, selectedTreadmillWeek, selectedTreadmillSession, voiceEnabled, userProfile?.weight]);
+  }, [treadmillActive, treadmillPaused, treadmillSegmentTimer, treadmillSegmentIndex, selectedTreadmillProgram, selectedTreadmillWeek, selectedTreadmillSession, treadmillIncline, voiceEnabled, userProfile?.weight]);
 
   // Select random warmup/cooldown based on day focus
   const selectWarmupCooldown = useCallback((dayNum, theme) => {
@@ -3535,7 +3557,17 @@ function AppContent() {
     const program = selectedTreadmillProgram || treadmillPrograms[0];
     const weekData = program?.weeks?.find(w => w.week === selectedTreadmillWeek);
     const currentPhaseInfo = program?.phases?.find(p => p.weeks.includes(selectedTreadmillWeek));
-    const weekSessions = treadmillWeekSessions(program, selectedTreadmillWeek);
+    const hasIncline = treadmillIncline !== false;
+    const weekSessions = treadmillWeekSessions(program, selectedTreadmillWeek, hasIncline);
+    const programLocked = (prog) => Boolean(prog?.requiresIncline) && treadmillIncline === false;
+    const saveTreadmillIncline = (value) => {
+      setTreadmillIncline(value);
+      setSetting('treadmillIncline', value).catch(() => {});
+      if (value === false && program?.requiresIncline) {
+        const fallback = treadmillPrograms.find(p => !p.requiresIncline);
+        if (fallback) { setSelectedTreadmillProgram(fallback); setSelectedTreadmillWeek(1); setSelectedTreadmillSession(0); }
+      }
+    };
     const sessionIdx = Math.min(selectedTreadmillSession, Math.max(0, weekSessions.length - 1));
     const sessionData = weekSessions[sessionIdx] || null;
     const sessionSegments = sessionData?.segments || [];
@@ -3544,6 +3576,27 @@ function AppContent() {
 
     return (
       <div className="min-h-screen bg-[var(--bg)]">
+        {/* Domanda iniziale: il tapis ha la pendenza regolabile? */}
+        {treadmillIncline === null && treadmillPrograms.length > 0 && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4">
+            <div className="bg-white rounded-2xl p-5 max-w-sm w-full animate-slide-up">
+              <h2 className="text-lg font-bold mb-1">Il tuo tapis roulant ha la pendenza regolabile?</h2>
+              <p className="text-sm text-[var(--text-secondary)] mb-4">
+                Alcuni programmi usano tratti in salita. Se il tuo tapis regola solo la velocità, li adattiamo con tratti più veloci in piano. Puoi cambiare la scelta in qualsiasi momento.
+              </p>
+              <div className="space-y-2">
+                <button onClick={() => saveTreadmillIncline(true)} className="btn-primary w-full">SÌ, HA LA PENDENZA</button>
+                <button
+                  onClick={() => saveTreadmillIncline(false)}
+                  className="w-full py-3 rounded-full border-2 border-[var(--border)] font-semibold text-[var(--text)]"
+                >
+                  NO, SOLO VELOCITÀ
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* Program Selection Modal */}
         {showTreadmillProgramSelector && (
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4" onClick={() => setShowTreadmillProgramSelector(false)}>
@@ -3560,16 +3613,20 @@ function AppContent() {
               <div className="space-y-2">
                 {treadmillPrograms.map((prog) => {
                   const isCurrent = program?.id === prog.id;
+                  const locked = programLocked(prog);
                   return (
                     <button
                       key={prog.id}
+                      disabled={locked}
                       onClick={() => {
+                        if (locked) return;
                         setSelectedTreadmillProgram(prog);
                         setSelectedTreadmillWeek(1);
                         setSelectedTreadmillSession(0);
                         setShowTreadmillProgramSelector(false);
                       }}
                       className={`w-full flex items-center justify-between p-4 rounded-xl border-2 transition-all ${
+                        locked ? 'opacity-50 border-[var(--border)] cursor-not-allowed' :
                         isCurrent
                           ? 'border-[var(--primary)] bg-[var(--primary)]/10'
                           : 'border-[var(--border)] hover:border-[var(--primary)]/50'
@@ -3584,6 +3641,9 @@ function AppContent() {
                             {prog.difficulty} · {prog.totalWeeks} {prog.totalWeeks === 1 ? 'settimana' : 'settimane'} · {prog.weeks?.[0]?.sessionsPerWeek}x a settimana
                             {prog.prerequisite && prog.prerequisite !== 'Nessuno.' ? ` · Richiede: ${prog.prerequisite}` : ''}
                           </p>
+                          {locked && (
+                            <p className="text-[10px] font-semibold text-[var(--primary)] mt-1">Non disponibile: richiede la pendenza regolabile</p>
+                          )}
                         </div>
                       </div>
                       {isCurrent && (
@@ -3664,6 +3724,12 @@ function AppContent() {
 
             {currentPhaseInfo?.description && (
               <p className="text-xs text-[var(--text-secondary)] mt-1">{currentPhaseInfo.description}</p>
+            )}
+            {treadmillIncline !== null && (
+              <div className="flex items-center justify-between mt-2 text-[11px] text-[var(--text-muted)]">
+                <span>Tapis con pendenza: <strong className="text-[var(--text-secondary)]">{treadmillIncline ? 'sì' : 'no, solo velocità'}</strong></span>
+                <button onClick={() => saveTreadmillIncline(!treadmillIncline)} className="text-[var(--primary)] font-semibold">Cambia</button>
+              </div>
             )}
 
             {/* Session Info */}
@@ -3880,7 +3946,7 @@ function AppContent() {
   // Treadmill Workout Screen
   if (screen === 'treadmillWorkout' && treadmillActive) {
     const program = selectedTreadmillProgram;
-    const sessionData = getTreadmillSession(program, selectedTreadmillWeek, selectedTreadmillSession);
+    const sessionData = getTreadmillSession(program, selectedTreadmillWeek, selectedTreadmillSession, treadmillIncline !== false);
     const segments = sessionData?.segments || [];
     const currentSegment = segments[treadmillSegmentIndex];
 

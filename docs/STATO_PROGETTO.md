@@ -45,3 +45,5 @@ automatico dell'intensità, 7 programmi tapis roulant, libreria esercizi (152 vo
 13. **Tapis roulant 2.0**: 7 programmi (camminata→corsa, camminata attiva, dimagrimento, 5 km, intervalli,
    recupero attivo, salita) con sedute A/B/C per settimana, pendenza, legenda con sensazioni e consigli
    anti-abbandono. Generatore `scripts/build-treadmill.mjs`, metodo in `docs/PIANO_TREADMILL.md`.
+   Domanda "il tapis ha la pendenza?": senza pendenza i tratti in salita diventano tratti più veloci
+   in piano e "Camminata in salita" non è selezionabile.

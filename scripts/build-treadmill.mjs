@@ -370,7 +370,7 @@ const programs = [];
   programs.push({
     id: 'incline_walk', name: 'Camminata in salita', icon: '⛰️',
     description: 'Glutei e fiato senza impatto: la pendenza sale dell’1% a settimana fino all’8%, la velocità resta da camminata.',
-    difficulty: 'Principiante', totalWeeks: 8, sessionsPerWeek: 3,
+    difficulty: 'Principiante', totalWeeks: 8, sessionsPerWeek: 3, requiresIncline: true,
     prerequisite: 'Nessuno. Serve un tapis con pendenza regolabile.',
     phases: [
       { name: 'Pendenza dolce', weeks: [1, 2], description: '3-4% a tratti' },

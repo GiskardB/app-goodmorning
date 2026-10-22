@@ -8139,6 +8139,7 @@
       "description": "Glutei e fiato senza impatto: la pendenza sale dell’1% a settimana fino all’8%, la velocità resta da camminata.",
       "difficulty": "Principiante",
       "totalWeeks": 8,
+      "requiresIncline": true,
       "prerequisite": "Nessuno. Serve un tapis con pendenza regolabile.",
       "phases": [
         {
