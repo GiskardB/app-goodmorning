@@ -71,9 +71,9 @@
   },
   "plank_with_fist": {
     "id": 8,
-    "name": "Sphinx push-up",
-    "description": "Parti in plank sugli avambracci con il corpo in linea retta. Spingi con i palmi a terra estendendo i gomiti fino ad arrivare in plank alto, poi torna con controllo sugli avambracci. Mantieni core e glutei contratti per tutta l'esecuzione.",
-    "muscles": "Tricipiti, Core, Spalle",
+    "name": "Plank commando (sphinx push-up)",
+    "description": "Parti in plank sugli avambracci con il corpo in linea. Appoggia una mano a terra e poi l'altra spingendoti in plank alto, quindi torna sugli avambracci un braccio alla volta. Alterna il braccio che guida e tieni i fianchi fermi.",
+    "muscles": "Core, Spalle, Tricipiti",
     "type": "plank",
     "gif": "assets/sphinx_push_up.gif",
     "wrongImage": false,
@@ -1558,7 +1558,7 @@
     "description": "In posizione di guardia, alterna pugni diretti a vuoto ruotando busto e fianchi, gambe leggermente piegate e sempre in movimento. Cardio a basso impatto che coinvolge spalle e core.",
     "muscles": "Spalle, Core, Cardio",
     "type": "cardio",
-    "gif": "assets/rise2/shadow_boxing.gif",
+    "gif": "assets/boxing_stance.gif",
     "instructions": [
       "Stai in piedi con i piedi alla larghezza dei fianchi",
       "Mantieni le mani rilassate ai lati",
@@ -1830,16 +1830,6 @@
     "gif": "assets/bench_side_plank.gif",
     "wrongImage": false,
     "difficulty": 4
-  },
-  "boxing_stance": {
-    "id": 133,
-    "name": "Posizione di Guardia Boxe",
-    "description": "Posizionati con i piedi alla larghezza delle spalle, un piede leggermente avanti. Piega le ginocchia, tieni le mani alzate a protezione del viso e il mento abbassato. Sposta il peso ritmicamente da un piede all'altro mantenendo la posizione di guardia. Ottimo per riscaldamento e condizionamento cardiovascolare.",
-    "muscles": "Gambe, Core, Spalle, Cardio",
-    "type": "cardio",
-    "gif": "assets/boxing_stance.gif",
-    "wrongImage": false,
-    "difficulty": 2
   },
   "calf_raise": {
     "id": 134,
@@ -2441,16 +2431,6 @@
     "wrongImage": false,
     "difficulty": 2
   },
-  "standing_leg_raise": {
-    "id": 194,
-    "name": "Sollevamento Gamba in Piedi",
-    "description": "In piedi con le braccia tese sopra la testa, solleva una gamba tesa davanti a te con uno slancio controllato, mantenendo il busto eretto. Riporta la gamba a terra e ripeti, alternando i lati. Sviluppa equilibrio, mobilità delle anche e coordinazione.",
-    "muscles": "Spalle, Flessori dell'anca, Core",
-    "type": "balance",
-    "gif": "assets/standing_leg_raise.gif",
-    "wrongImage": false,
-    "difficulty": 2
-  },
   "standing_neck_stretch": {
     "id": 195,
     "name": "Stretching Collo in Piedi",
@@ -2631,16 +2611,6 @@
     "id": 212,
     "wrongImage": false
   },
-  "plank_commando": {
-    "name": "Plank commando",
-    "description": "Dal plank sugli avambracci, sali in plank alto un braccio alla volta e poi torna sugli avambracci, alternando il braccio che guida. Mantieni i fianchi fermi.",
-    "muscles": "Core, Spalle, Tricipiti",
-    "type": "plank",
-    "gif": "assets/rise2/plank_commando.gif",
-    "difficulty": 4,
-    "id": 213,
-    "wrongImage": false
-  },
   "plank_jack": {
     "name": "Plank con salto",
     "description": "In posizione di plank, salta aprendo e chiudendo le gambe come un jumping jack, mantenendo il core contratto e i fianchi stabili.",
@@ -2744,10 +2714,10 @@
   "single_leg_rdl": {
     "id": 224,
     "name": "Stacco rumeno monopodalico",
-    "description": "In equilibrio su una gamba, piega il busto in avanti con la schiena piatta mentre l'altra gamba si estende indietro; la mano scende verso il piede d'appoggio. Torna in piedi contraendo il gluteo. Cambia gamba a meta' tempo.",
+    "description": "In equilibrio su una gamba, braccia tese in avanti, piega il busto in avanti con la schiena piatta mentre l'altra gamba si estende indietro fino a formare una linea; torna in piedi contraendo il gluteo. Cambia gamba a meta' tempo.",
     "muscles": "Glutei, Femorali, Core, Equilibrio",
     "type": "glutes",
-    "gif": "assets/rise2/single_leg_rdl.gif",
+    "gif": "assets/standing_leg_raise.gif",
     "difficulty": 4,
     "wrongImage": false
   },

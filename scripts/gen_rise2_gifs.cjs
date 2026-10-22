@@ -126,9 +126,6 @@ const EX = {
   glute_bridge_abduction: { props: () => mat, bones: topBones, headR: 18, arrow: [[300, 250], [340, 250]],
     A: { ...topBase, elL: [136, 160], elR: [224, 160], wrL: [132, 220], wrR: [228, 220], kneeL: [168, 290], kneeR: [192, 290], ankL: [166, 338], ankR: [194, 338] },
     B: { ...topBase, elL: [136, 160], elR: [224, 160], wrL: [132, 220], wrR: [228, 220], kneeL: [118, 282], kneeR: [242, 282], ankL: [166, 338], ankR: [194, 338] } },
-  plank_commando: { props: () => matSide, bones: sideBones, far: sideFar, arrow: [[70, 300], [70, 250]],
-    A: { head: [66, 250], sh: [104, 262], el: [70, 318], wr: [30, 318], hip: [210, 282], knee: [266, 300], ankle: [326, 322], el2: [78, 322], wr2: [38, 322], knee2: [272, 304], ankle2: [332, 326] },
-    B: { head: [60, 220], sh: [104, 238], el: [84, 280], wr: [66, 318], hip: [210, 270], knee: [266, 294], ankle: [326, 322], el2: [92, 284], wr2: [74, 322], knee2: [272, 298], ankle2: [332, 326] } },
 };
 EX.side_crunch_standing_right = { ...EX.side_crunch_standing_left, A: mirror(EX.side_crunch_standing_left.A), B: mirror(EX.side_crunch_standing_left.B), arrow: [[240, 250], [232, 200]] };
 
