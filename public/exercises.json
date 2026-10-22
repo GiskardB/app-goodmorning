@@ -265,7 +265,7 @@
     "description": "In piedi, piega il busto verso sinistra portando il gomito sinistro verso il ginocchio sinistro sollevato.",
     "muscles": "Obliqui",
     "type": "core",
-    "gif": "assets/Side-Crunch-sx.jpeg",
+    "gif": "assets/rise2/side_crunch_standing_left.gif",
     "wrongImage": false,
     "difficulty": 2
   },
@@ -275,7 +275,7 @@
     "description": "In piedi, piega il busto verso destra portando il gomito destro verso il ginocchio destro sollevato.",
     "muscles": "Obliqui",
     "type": "core",
-    "gif": "assets/Side-Crunch-dx.jpeg",
+    "gif": "assets/rise2/side_crunch_standing_right.gif",
     "wrongImage": false,
     "difficulty": 2
   },
@@ -1510,11 +1510,11 @@
   },
   "cat_cow_stretch": {
     "id": 116,
-    "name": "Posizione del cobra",
-    "description": "Sdraiati a pancia in giù con le mani appoggiate a terra sotto le spalle. Spingi sulle braccia sollevando il petto e inarcando la schiena, portando lo sguardo verso l'alto. Mantieni i fianchi vicini al pavimento e tieni la posizione respirando profondamente.",
-    "muscles": "Erettori spinali, Glutei, Femorali, Mobilità",
-    "type": "stretching",
-    "gif": "assets/cobra.gif",
+    "name": "Gatto-mucca",
+    "description": "A quattro zampe, mani sotto le spalle e ginocchia sotto le anche. Inspira inarcando la schiena verso il basso e guardando avanti (mucca), poi espira arrotondando la schiena verso l'alto e portando il mento al petto (gatto). Movimento lento e continuo.",
+    "muscles": "Colonna vertebrale, Core, Mobilità",
+    "type": "warmup",
+    "gif": "assets/rise2/cat_cow_stretch.gif",
     "instructions": [
       "Inizia il movimento a quattro zampe",
       "Mantieni le ginocchia sotto i fianchi e la schiena in posizione neutra",
@@ -2033,10 +2033,10 @@
   },
   "hip_bridge": {
     "id": 153,
-    "name": "Retroversione del Bacino",
-    "description": "Sdraiati supino con le ginocchia piegate e i piedi appoggiati a terra. Contrai gli addominali inclinando il bacino verso di te e premendo la zona lombare contro il pavimento. Mantieni la contrazione per qualche secondo, poi rilascia lentamente senza sollevare i fianchi.",
-    "muscles": "Addominali, Core",
-    "type": "glutes",
+    "name": "Sollevamento ginocchia da sdraiato",
+    "description": "Sdraiato supino con le ginocchia piegate e le braccia lungo i fianchi. Contrai gli addominali e porta le ginocchia verso il petto sollevando leggermente il bacino, poi riabbassa i piedi con controllo senza appoggiarli del tutto.",
+    "muscles": "Addominali bassi, Flessori dell'anca, Core",
+    "type": "abs",
     "gif": "assets/hip_bridge.gif",
     "wrongImage": false,
     "difficulty": 1
@@ -2596,7 +2596,7 @@
     "description": "Esegui uno squat a corpo libero; risalendo, estendi indietro una gamba contraendo il gluteo. Alterna la gamba a ogni ripetizione mantenendo il core attivo.",
     "muscles": "Glutei, Quadricipiti, Femorali",
     "type": "glutes",
-    "gif": "assets/goblet_squat_position.gif",
+    "gif": "assets/rise2/squat_kickback.gif",
     "difficulty": 3,
     "id": 209,
     "wrongImage": false
@@ -2606,7 +2606,7 @@
     "description": "Scendi in uno squat e, risalendo, sollevati sulle punte dei piedi contraendo i polpacci. Torna con i talloni a terra e ripeti mantenendo l'equilibrio.",
     "muscles": "Quadricipiti, Glutei, Polpacci",
     "type": "quadriceps",
-    "gif": "assets/deep_squat.gif",
+    "gif": "assets/rise2/squat_heel_raise.gif",
     "difficulty": 3,
     "id": 210,
     "wrongImage": false
@@ -2616,7 +2616,7 @@
     "description": "Salta in modo esplosivo spostandoti tra quattro punti immaginari (avanti, indietro e lati), atterrando morbido sulle ginocchia piegate. Mantieni un ritmo controllato.",
     "muscles": "Quadricipiti, Glutei, Polpacci, Core",
     "type": "cardio",
-    "gif": "assets/squat_jump_prep.gif",
+    "gif": "assets/rise2/box_jump_4point.gif",
     "difficulty": 4,
     "id": 211,
     "wrongImage": false
@@ -2626,7 +2626,7 @@
     "description": "In posizione di ponte glutei con i fianchi in alto, apri e chiudi le ginocchia verso l'esterno contro resistenza, mantenendo il bacino sollevato e stabile.",
     "muscles": "Glutei, Abduttori, Femorali",
     "type": "glutes",
-    "gif": "assets/glute_bridge.gif",
+    "gif": "assets/rise2/glute_bridge_abduction.gif",
     "difficulty": 3,
     "id": 212,
     "wrongImage": false
@@ -2636,7 +2636,7 @@
     "description": "Dal plank sugli avambracci, sali in plank alto un braccio alla volta e poi torna sugli avambracci, alternando il braccio che guida. Mantieni i fianchi fermi.",
     "muscles": "Core, Spalle, Tricipiti",
     "type": "plank",
-    "gif": "assets/plank_hold.gif",
+    "gif": "assets/rise2/plank_commando.gif",
     "difficulty": 4,
     "id": 213,
     "wrongImage": false
@@ -2646,7 +2646,7 @@
     "description": "In posizione di plank, salta aprendo e chiudendo le gambe come un jumping jack, mantenendo il core contratto e i fianchi stabili.",
     "muscles": "Core, Spalle, Cardio",
     "type": "core",
-    "gif": "assets/plank_hold.gif",
+    "gif": "assets/rise2/plank_jack.gif",
     "difficulty": 3,
     "id": 214,
     "wrongImage": false
