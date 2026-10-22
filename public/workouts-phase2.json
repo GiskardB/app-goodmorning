@@ -2,271 +2,287 @@
   "days": [
     {
       "day": 1,
-      "title": "Total Body avanzato",
+      "title": "Costruzione Total Body",
       "image": "totalbody",
-      "calories": 56,
-      "duration": 6,
+      "calories": 81,
+      "duration": 7,
       "exercises": [
         {
-          "exercise_id": "squat_prisoner",
-          "duration": 35
+          "exercise_id": "push_up_knees",
+          "duration": 30
         },
         {
-          "exercise_id": "standard_push_up",
-          "duration": 35
+          "exercise_id": "bodyweight_squat",
+          "duration": 30
         },
         {
-          "exercise_id": "lunge_reverse",
-          "duration": 35
+          "exercise_id": "prone_w",
+          "duration": 30
+        },
+        {
+          "exercise_id": "plank",
+          "duration": 30
         },
         {
           "exercise_id": "glute_bridge_march",
-          "duration": 35
+          "duration": 30
         },
         {
-          "exercise_id": "full_body_plank",
-          "duration": 35
+          "exercise_id": "push_up_knees",
+          "duration": 30
         },
         {
-          "exercise_id": "bicycle_crunch",
-          "duration": 35
+          "exercise_id": "bodyweight_squat",
+          "duration": 30
         },
         {
-          "exercise_id": "mountain_climber",
-          "duration": 35
+          "exercise_id": "prone_w",
+          "duration": 30
         },
         {
-          "exercise_id": "russian_twist",
-          "duration": 35
+          "exercise_id": "plank",
+          "duration": 30
+        },
+        {
+          "exercise_id": "glute_bridge_march",
+          "duration": 30
         }
       ]
     },
     {
       "day": 2,
-      "title": "Spinta e stabilità",
-      "image": "upper",
-      "calories": 55,
-      "duration": 6,
+      "title": "Mobilita' e camminata",
+      "image": "light",
+      "calories": 57,
+      "duration": 8,
       "exercises": [
         {
-          "exercise_id": "standard_push_up",
-          "duration": 35
+          "exercise_id": "wall_slide",
+          "duration": 45
         },
         {
-          "exercise_id": "knee_push_up",
-          "duration": 35
+          "exercise_id": "cat_cow_stretch",
+          "duration": 45
         },
         {
-          "exercise_id": "pike_push_up_position",
-          "duration": 35
+          "exercise_id": "hip_circles",
+          "duration": 45
         },
         {
-          "exercise_id": "reverse_table_top",
-          "duration": 35
+          "exercise_id": "march_in_place",
+          "duration": 60
         },
         {
-          "exercise_id": "plank_airplane",
-          "duration": 35
+          "exercise_id": "deep_squat_position",
+          "duration": 45
         },
         {
-          "exercise_id": "shoulder_taps",
-          "duration": 35
+          "exercise_id": "torso_rotation_standing",
+          "duration": 45
         },
         {
-          "exercise_id": "superman_swimmer",
-          "duration": 35
+          "exercise_id": "child_pose",
+          "duration": 45
         },
         {
-          "exercise_id": "forearm_plank_hold",
-          "duration": 30
+          "exercise_id": "breathing_standing",
+          "duration": 45
         }
       ]
     },
     {
       "day": 3,
-      "title": "Gambe potenti",
-      "image": "legs",
-      "calories": 55,
-      "duration": 6,
+      "title": "Parte alta: nuovo gradino",
+      "image": "upper",
+      "calories": 81,
+      "duration": 7,
       "exercises": [
         {
-          "exercise_id": "sumo_squat_deep",
-          "duration": 35
-        },
-        {
-          "exercise_id": "walking_lunge",
-          "duration": 35
-        },
-        {
-          "exercise_id": "backward_lunges_left",
-          "duration": 35
-        },
-        {
-          "exercise_id": "backward_lunges_right",
-          "duration": 35
-        },
-        {
-          "exercise_id": "deep_squat",
-          "duration": 35
-        },
-        {
-          "exercise_id": "single_leg_calf_raise",
-          "duration": 35
-        },
-        {
-          "exercise_id": "wall_sit",
+          "exercise_id": "push_up_knees",
           "duration": 30
         },
         {
-          "exercise_id": "glute_bridge_march",
-          "duration": 35
+          "exercise_id": "lunge_static_left",
+          "duration": 30
+        },
+        {
+          "exercise_id": "superman",
+          "duration": 30
+        },
+        {
+          "exercise_id": "bird_dog_knee_elbow",
+          "duration": 30
+        },
+        {
+          "exercise_id": "single_leg_glute_bridge",
+          "duration": 30
+        },
+        {
+          "exercise_id": "push_up_knees",
+          "duration": 30
+        },
+        {
+          "exercise_id": "lunge_static_right",
+          "duration": 30
+        },
+        {
+          "exercise_id": "superman",
+          "duration": 30
+        },
+        {
+          "exercise_id": "bird_dog_knee_elbow",
+          "duration": 30
+        },
+        {
+          "exercise_id": "single_leg_glute_bridge",
+          "duration": 30
         }
       ]
     },
     {
       "day": 4,
-      "title": "Core intenso",
-      "image": "core",
-      "calories": 56,
-      "duration": 6,
+      "title": "Anche e schiena sciolte",
+      "image": "light",
+      "calories": 55,
+      "duration": 8,
       "exercises": [
         {
-          "exercise_id": "toe_touch_crunch",
-          "duration": 35
+          "exercise_id": "arm_circles",
+          "duration": 45
         },
         {
-          "exercise_id": "russian_twist",
-          "duration": 35
+          "exercise_id": "lunge_thoracic_rotation_left",
+          "duration": 40
         },
         {
-          "exercise_id": "leg_raises",
-          "duration": 35
+          "exercise_id": "lunge_thoracic_rotation_right",
+          "duration": 40
         },
         {
-          "exercise_id": "plank_side_left",
-          "duration": 35
+          "exercise_id": "march_in_place",
+          "duration": 60
         },
         {
-          "exercise_id": "plank_side_right",
-          "duration": 35
+          "exercise_id": "hip_mobility_9090",
+          "duration": 45
         },
         {
-          "exercise_id": "flutter_kicks",
-          "duration": 35
+          "exercise_id": "standing_overhead_reach",
+          "duration": 45
         },
         {
-          "exercise_id": "reverse_crunch",
-          "duration": 35
+          "exercise_id": "roll_down",
+          "duration": 45
         },
         {
-          "exercise_id": "stability_ball_hip_flexor",
-          "duration": 35
+          "exercise_id": "cobra_stretch",
+          "duration": 45
         }
       ]
     },
     {
       "day": 5,
-      "title": "Cardio HIIT",
-      "image": "cardio",
-      "calories": 56,
-      "duration": 6,
+      "title": "Affondi e ponti",
+      "image": "legs",
+      "calories": 81,
+      "duration": 7,
       "exercises": [
         {
-          "exercise_id": "high_knees",
-          "duration": 35
+          "exercise_id": "push_up_incline",
+          "duration": 30
         },
         {
-          "exercise_id": "burpee_walkout",
-          "duration": 35
+          "exercise_id": "lunge_reverse",
+          "duration": 30
         },
         {
-          "exercise_id": "mountain_climber",
-          "duration": 35
+          "exercise_id": "reverse_snow_angel",
+          "duration": 30
         },
         {
-          "exercise_id": "jumping_jacks",
-          "duration": 35
+          "exercise_id": "plank_side_left",
+          "duration": 30
         },
         {
-          "exercise_id": "bear_crawl",
-          "duration": 35
+          "exercise_id": "hip_hinge",
+          "duration": 30
         },
         {
-          "exercise_id": "shadow_boxing",
-          "duration": 35
+          "exercise_id": "push_up_incline",
+          "duration": 30
         },
         {
-          "exercise_id": "running_in_place",
-          "duration": 35
+          "exercise_id": "lunge_reverse",
+          "duration": 30
         },
         {
-          "exercise_id": "wall_knee_drive",
-          "duration": 35
+          "exercise_id": "reverse_snow_angel",
+          "duration": 30
+        },
+        {
+          "exercise_id": "plank_side_right",
+          "duration": 30
+        },
+        {
+          "exercise_id": "hip_hinge",
+          "duration": 30
         }
       ]
     },
     {
       "day": 6,
-      "title": "Glutei di ferro",
-      "image": "glutes",
-      "calories": 56,
-      "duration": 6,
+      "title": "Scioglimento attivo",
+      "image": "light",
+      "calories": 55,
+      "duration": 8,
       "exercises": [
         {
-          "exercise_id": "glute_bridge_march",
-          "duration": 35
+          "exercise_id": "march_in_place",
+          "duration": 60
         },
         {
-          "exercise_id": "donkey_kicks_knee_left",
-          "duration": 35
+          "exercise_id": "wall_slide",
+          "duration": 45
         },
         {
-          "exercise_id": "donkey_kicks_knee_right",
-          "duration": 35
+          "exercise_id": "hip_circles",
+          "duration": 45
         },
         {
-          "exercise_id": "reverse_plank",
-          "duration": 35
+          "exercise_id": "deep_squat_position",
+          "duration": 45
         },
         {
-          "exercise_id": "kneeling_lunge",
-          "duration": 35
+          "exercise_id": "cat_cow_stretch",
+          "duration": 45
         },
         {
-          "exercise_id": "sumo_squat",
-          "duration": 35
+          "exercise_id": "figure_4_stretch_left",
+          "duration": 40
         },
         {
-          "exercise_id": "superman",
-          "duration": 35
+          "exercise_id": "figure_4_stretch_right",
+          "duration": 40
         },
         {
-          "exercise_id": "hip_bridge",
-          "duration": 35
+          "exercise_id": "breathing_standing",
+          "duration": 45
         }
       ]
     },
     {
       "day": 7,
-      "title": "Recupero attivo e mobilità",
+      "title": "Recupero e allungamento profondo",
       "image": "recovery",
-      "calories": 23,
+      "calories": 50,
       "duration": 7,
       "exercises": [
-        {
-          "exercise_id": "cat_cow_stretch",
-          "duration": 40
-        },
         {
           "exercise_id": "child_pose",
           "duration": 40
         },
         {
-          "exercise_id": "pigeon_pose_left",
-          "duration": 40
-        },
-        {
-          "exercise_id": "pigeon_pose_right",
+          "exercise_id": "cat_cow_stretch",
           "duration": 40
         },
         {
@@ -278,557 +294,7 @@
           "duration": 40
         },
         {
-          "exercise_id": "spinal_twist_left",
-          "duration": 40
-        },
-        {
-          "exercise_id": "spinal_twist_right",
-          "duration": 40
-        }
-      ]
-    },
-    {
-      "day": 8,
-      "title": "Total Body potenza",
-      "image": "totalbody",
-      "calories": 64,
-      "duration": 7,
-      "exercises": [
-        {
-          "exercise_id": "jump_squat",
-          "duration": 40
-        },
-        {
-          "exercise_id": "standard_push_up",
-          "duration": 40
-        },
-        {
-          "exercise_id": "walking_lunge",
-          "duration": 40
-        },
-        {
-          "exercise_id": "plank_airplane",
-          "duration": 40
-        },
-        {
-          "exercise_id": "toe_touch_crunch",
-          "duration": 40
-        },
-        {
-          "exercise_id": "burpee_walkout",
-          "duration": 40
-        },
-        {
-          "exercise_id": "superman_swimmer",
-          "duration": 40
-        },
-        {
-          "exercise_id": "russian_twist",
-          "duration": 40
-        }
-      ]
-    },
-    {
-      "day": 9,
-      "title": "Petto, spalle e tricipiti",
-      "image": "upper",
-      "calories": 62,
-      "duration": 7,
-      "exercises": [
-        {
-          "exercise_id": "wide_push_up",
-          "duration": 40
-        },
-        {
-          "exercise_id": "tricep_push_up",
-          "duration": 40
-        },
-        {
-          "exercise_id": "pike_push_up_position",
-          "duration": 40
-        },
-        {
-          "exercise_id": "plank_with_fist",
-          "duration": 35
-        },
-        {
-          "exercise_id": "shoulder_taps",
-          "duration": 40
-        },
-        {
-          "exercise_id": "prone_y_raise",
-          "duration": 40
-        },
-        {
-          "exercise_id": "reverse_table_top",
-          "duration": 40
-        },
-        {
-          "exercise_id": "low_push_up_hold",
-          "duration": 30
-        }
-      ]
-    },
-    {
-      "day": 10,
-      "title": "Gambe esplosive",
-      "image": "legs",
-      "calories": 63,
-      "duration": 7,
-      "exercises": [
-        {
-          "exercise_id": "jump_squat",
-          "duration": 40
-        },
-        {
-          "exercise_id": "walking_lunge",
-          "duration": 40
-        },
-        {
-          "exercise_id": "sumo_squat_deep",
-          "duration": 40
-        },
-        {
-          "exercise_id": "curtsy_lunge_left",
-          "duration": 40
-        },
-        {
-          "exercise_id": "curtsy_lunge_right",
-          "duration": 40
-        },
-        {
-          "exercise_id": "wall_sit",
-          "duration": 35
-        },
-        {
-          "exercise_id": "single_leg_calf_raise",
-          "duration": 40
-        },
-        {
-          "exercise_id": "deep_squat_full",
-          "duration": 40
-        }
-      ]
-    },
-    {
-      "day": 11,
-      "title": "Addominali scolpiti",
-      "image": "core",
-      "calories": 62,
-      "duration": 7,
-      "exercises": [
-        {
-          "exercise_id": "hollow_body_hold",
-          "duration": 30
-        },
-        {
-          "exercise_id": "bicycle_crunch",
-          "duration": 40
-        },
-        {
-          "exercise_id": "leg_lifts_scissor",
-          "duration": 40
-        },
-        {
-          "exercise_id": "spiderman_plank",
-          "duration": 40
-        },
-        {
-          "exercise_id": "plank_side_left",
-          "duration": 40
-        },
-        {
-          "exercise_id": "plank_side_right",
-          "duration": 40
-        },
-        {
-          "exercise_id": "scissor_kicks",
-          "duration": 40
-        },
-        {
-          "exercise_id": "reverse_crunch",
-          "duration": 40
-        }
-      ]
-    },
-    {
-      "day": 12,
-      "title": "Brucia grassi estremo",
-      "image": "cardio",
-      "calories": 64,
-      "duration": 7,
-      "exercises": [
-        {
-          "exercise_id": "burpee",
-          "duration": 40
-        },
-        {
-          "exercise_id": "jump_squat",
-          "duration": 40
-        },
-        {
-          "exercise_id": "mountain_climber",
-          "duration": 40
-        },
-        {
-          "exercise_id": "high_knees",
-          "duration": 40
-        },
-        {
-          "exercise_id": "squat_lateral_step_push_up",
-          "duration": 40
-        },
-        {
-          "exercise_id": "bear_crawl",
-          "duration": 40
-        },
-        {
-          "exercise_id": "running_sprint",
-          "duration": 40
-        },
-        {
-          "exercise_id": "jumping_jacks",
-          "duration": 40
-        }
-      ]
-    },
-    {
-      "day": 13,
-      "title": "Glutei e femorali",
-      "image": "glutes",
-      "calories": 64,
-      "duration": 7,
-      "exercises": [
-        {
-          "exercise_id": "glute_bridge_march",
-          "duration": 40
-        },
-        {
-          "exercise_id": "reverse_plank",
-          "duration": 40
-        },
-        {
-          "exercise_id": "donkey_kicks_knee_left",
-          "duration": 40
-        },
-        {
-          "exercise_id": "donkey_kicks_knee_right",
-          "duration": 40
-        },
-        {
-          "exercise_id": "sumo_squat_deep",
-          "duration": 40
-        },
-        {
-          "exercise_id": "kneeling_lunge",
-          "duration": 40
-        },
-        {
-          "exercise_id": "superman",
-          "duration": 40
-        },
-        {
-          "exercise_id": "single_leg_calf_raise",
-          "duration": 40
-        }
-      ]
-    },
-    {
-      "day": 14,
-      "title": "Recupero attivo e mobilità",
-      "image": "recovery",
-      "calories": 23,
-      "duration": 7,
-      "exercises": [
-        {
-          "exercise_id": "deep_squat_position",
-          "duration": 40
-        },
-        {
-          "exercise_id": "frog_stretch",
-          "duration": 40
-        },
-        {
-          "exercise_id": "figure_4_stretch_left",
-          "duration": 40
-        },
-        {
-          "exercise_id": "figure_4_stretch_right",
-          "duration": 40
-        },
-        {
-          "exercise_id": "cobra_stretch",
-          "duration": 40
-        },
-        {
-          "exercise_id": "lower_back_seated_left",
-          "duration": 40
-        },
-        {
-          "exercise_id": "lower_back_seated_right",
-          "duration": 40
-        },
-        {
-          "exercise_id": "neck_stretch",
-          "duration": 40
-        }
-      ]
-    },
-    {
-      "day": 15,
-      "title": "Titano Total Body",
-      "image": "totalbody",
-      "calories": 65,
-      "duration": 7,
-      "exercises": [
-        {
-          "exercise_id": "burpee_walkout",
-          "duration": 40
-        },
-        {
-          "exercise_id": "standard_push_up",
-          "duration": 40
-        },
-        {
-          "exercise_id": "jump_squat",
-          "duration": 40
-        },
-        {
-          "exercise_id": "walking_lunge",
-          "duration": 40
-        },
-        {
-          "exercise_id": "spiderman_plank",
-          "duration": 40
-        },
-        {
-          "exercise_id": "hollow_body_hold",
-          "duration": 30
-        },
-        {
-          "exercise_id": "mountain_climber",
-          "duration": 40
-        },
-        {
-          "exercise_id": "russian_twist",
-          "duration": 40
-        }
-      ]
-    },
-    {
-      "day": 16,
-      "title": "Spinta avanzata",
-      "image": "upper",
-      "calories": 64,
-      "duration": 7,
-      "exercises": [
-        {
-          "exercise_id": "wide_push_up",
-          "duration": 40
-        },
-        {
-          "exercise_id": "diamond_push_up",
-          "duration": 40
-        },
-        {
-          "exercise_id": "tricep_push_up",
-          "duration": 40
-        },
-        {
-          "exercise_id": "pike_push_up_position",
-          "duration": 40
-        },
-        {
-          "exercise_id": "plank_with_fist",
-          "duration": 35
-        },
-        {
-          "exercise_id": "low_push_up_hold",
-          "duration": 30
-        },
-        {
-          "exercise_id": "prone_y_raise",
-          "duration": 40
-        },
-        {
-          "exercise_id": "shoulder_taps",
-          "duration": 40
-        }
-      ]
-    },
-    {
-      "day": 17,
-      "title": "Gambe da atleta",
-      "image": "legs",
-      "calories": 66,
-      "duration": 7,
-      "exercises": [
-        {
-          "exercise_id": "jump_squat",
-          "duration": 40
-        },
-        {
-          "exercise_id": "pistol_squat",
-          "duration": 40
-        },
-        {
-          "exercise_id": "walking_lunge",
-          "duration": 40
-        },
-        {
-          "exercise_id": "sumo_squat_deep",
-          "duration": 40
-        },
-        {
-          "exercise_id": "wall_sit",
-          "duration": 35
-        },
-        {
-          "exercise_id": "single_leg_calf_raise",
-          "duration": 40
-        },
-        {
-          "exercise_id": "deep_squat_full",
-          "duration": 40
-        },
-        {
-          "exercise_id": "glute_bridge_march",
-          "duration": 40
-        }
-      ]
-    },
-    {
-      "day": 18,
-      "title": "Core da atleta",
-      "image": "core",
-      "calories": 65,
-      "duration": 7,
-      "exercises": [
-        {
-          "exercise_id": "hollow_body_hold",
-          "duration": 30
-        },
-        {
-          "exercise_id": "spiderman_plank",
-          "duration": 40
-        },
-        {
-          "exercise_id": "side_plank_leg_raise",
-          "duration": 40
-        },
-        {
-          "exercise_id": "bicycle_crunch",
-          "duration": 40
-        },
-        {
-          "exercise_id": "leg_raises",
-          "duration": 40
-        },
-        {
-          "exercise_id": "russian_twist",
-          "duration": 40
-        },
-        {
-          "exercise_id": "toe_touch_crunch",
-          "duration": 40
-        },
-        {
-          "exercise_id": "plank_airplane",
-          "duration": 40
-        }
-      ]
-    },
-    {
-      "day": 19,
-      "title": "HIIT totale",
-      "image": "cardio",
-      "calories": 66,
-      "duration": 7,
-      "exercises": [
-        {
-          "exercise_id": "burpee",
-          "duration": 40
-        },
-        {
-          "exercise_id": "running_sprint",
-          "duration": 40
-        },
-        {
-          "exercise_id": "jump_squat",
-          "duration": 40
-        },
-        {
-          "exercise_id": "squat_lateral_step_push_up",
-          "duration": 40
-        },
-        {
-          "exercise_id": "mountain_climber",
-          "duration": 40
-        },
-        {
-          "exercise_id": "high_knees",
-          "duration": 40
-        },
-        {
-          "exercise_id": "bear_crawl",
-          "duration": 40
-        },
-        {
-          "exercise_id": "burpee_walkout",
-          "duration": 40
-        }
-      ]
-    },
-    {
-      "day": 20,
-      "title": "Catena posteriore forte",
-      "image": "glutes",
-      "calories": 66,
-      "duration": 7,
-      "exercises": [
-        {
-          "exercise_id": "glute_bridge_march",
-          "duration": 40
-        },
-        {
-          "exercise_id": "reverse_plank",
-          "duration": 40
-        },
-        {
-          "exercise_id": "donkey_kicks_knee_left",
-          "duration": 40
-        },
-        {
-          "exercise_id": "donkey_kicks_knee_right",
-          "duration": 40
-        },
-        {
-          "exercise_id": "superman_swimmer",
-          "duration": 40
-        },
-        {
-          "exercise_id": "kneeling_lunge",
-          "duration": 40
-        },
-        {
-          "exercise_id": "sumo_squat_deep",
-          "duration": 40
-        },
-        {
-          "exercise_id": "single_leg_calf_raise",
-          "duration": 40
-        }
-      ]
-    },
-    {
-      "day": 21,
-      "title": "Recupero attivo e mobilità",
-      "image": "recovery",
-      "calories": 23,
-      "duration": 7,
-      "exercises": [
-        {
-          "exercise_id": "child_pose",
+          "exercise_id": "chest_stretch",
           "duration": 40
         },
         {
@@ -840,278 +306,286 @@
           "duration": 40
         },
         {
-          "exercise_id": "frog_stretch",
-          "duration": 40
-        },
-        {
-          "exercise_id": "hamstring_seated_stretch",
-          "duration": 40
-        },
-        {
-          "exercise_id": "shoulder_cross_body",
-          "duration": 40
-        },
-        {
-          "exercise_id": "standing_overhead_reach",
-          "duration": 40
-        },
-        {
           "exercise_id": "breathing_standing",
           "duration": 40
         }
       ]
     },
     {
-      "day": 22,
-      "title": "Sfida finale Total Body",
+      "day": 8,
+      "title": "Total Body in crescita",
       "image": "totalbody",
-      "calories": 74,
+      "calories": 87,
       "duration": 8,
       "exercises": [
         {
-          "exercise_id": "burpee",
-          "duration": 45
-        },
-        {
-          "exercise_id": "standard_push_up",
-          "duration": 45
-        },
-        {
-          "exercise_id": "jump_squat",
-          "duration": 45
-        },
-        {
-          "exercise_id": "spiderman_crawl",
-          "duration": 45
-        },
-        {
-          "exercise_id": "hollow_body_hold",
+          "exercise_id": "push_up_knees",
           "duration": 35
         },
         {
-          "exercise_id": "walking_lunge",
-          "duration": 45
-        },
-        {
-          "exercise_id": "russian_twist",
-          "duration": 45
-        },
-        {
-          "exercise_id": "mountain_climber",
-          "duration": 45
-        }
-      ]
-    },
-    {
-      "day": 23,
-      "title": "Spinta massima",
-      "image": "upper",
-      "calories": 70,
-      "duration": 7,
-      "exercises": [
-        {
-          "exercise_id": "diamond_push_up",
-          "duration": 45
-        },
-        {
-          "exercise_id": "wide_push_up",
-          "duration": 45
-        },
-        {
-          "exercise_id": "push_up_archer_left",
-          "duration": 45
-        },
-        {
-          "exercise_id": "push_up_archer_right",
-          "duration": 45
-        },
-        {
-          "exercise_id": "plank_with_fist",
-          "duration": 40
-        },
-        {
-          "exercise_id": "tricep_push_up",
-          "duration": 45
-        },
-        {
-          "exercise_id": "low_push_up_hold",
+          "exercise_id": "bodyweight_squat",
           "duration": 35
         },
         {
-          "exercise_id": "l_sit",
-          "duration": 25
-        }
-      ]
-    },
-    {
-      "day": 24,
-      "title": "Gambe di ferro",
-      "image": "legs",
-      "calories": 75,
-      "duration": 8,
-      "exercises": [
-        {
-          "exercise_id": "pistol_squat",
-          "duration": 45
-        },
-        {
-          "exercise_id": "jump_squat",
-          "duration": 45
-        },
-        {
-          "exercise_id": "walking_lunge",
-          "duration": 45
-        },
-        {
-          "exercise_id": "sumo_squat_deep",
-          "duration": 45
-        },
-        {
-          "exercise_id": "curtsy_lunge_left",
-          "duration": 45
-        },
-        {
-          "exercise_id": "curtsy_lunge_right",
-          "duration": 45
-        },
-        {
-          "exercise_id": "wall_sit",
-          "duration": 40
-        },
-        {
-          "exercise_id": "single_leg_calf_raise",
-          "duration": 45
-        }
-      ]
-    },
-    {
-      "day": 25,
-      "title": "Addome di granito",
-      "image": "core",
-      "calories": 74,
-      "duration": 8,
-      "exercises": [
-        {
-          "exercise_id": "hollow_body_hold",
+          "exercise_id": "prone_w",
           "duration": 35
         },
         {
-          "exercise_id": "side_plank_leg_raise",
-          "duration": 45
+          "exercise_id": "plank",
+          "duration": 35
         },
-        {
-          "exercise_id": "spiderman_plank",
-          "duration": 45
-        },
-        {
-          "exercise_id": "leg_lifts_scissor",
-          "duration": 45
-        },
-        {
-          "exercise_id": "bicycle_crunch",
-          "duration": 45
-        },
-        {
-          "exercise_id": "toe_touch_crunch",
-          "duration": 45
-        },
-        {
-          "exercise_id": "russian_twist",
-          "duration": 45
-        },
-        {
-          "exercise_id": "plank_airplane",
-          "duration": 45
-        }
-      ]
-    },
-    {
-      "day": 26,
-      "title": "Ultima sfida cardio",
-      "image": "cardio",
-      "calories": 75,
-      "duration": 8,
-      "exercises": [
-        {
-          "exercise_id": "burpee",
-          "duration": 45
-        },
-        {
-          "exercise_id": "running_sprint",
-          "duration": 45
-        },
-        {
-          "exercise_id": "jump_squat",
-          "duration": 45
-        },
-        {
-          "exercise_id": "burpee_walkout",
-          "duration": 45
-        },
-        {
-          "exercise_id": "squat_lateral_step_push_up",
-          "duration": 45
-        },
-        {
-          "exercise_id": "mountain_climber",
-          "duration": 45
-        },
-        {
-          "exercise_id": "high_knees",
-          "duration": 45
-        },
-        {
-          "exercise_id": "bear_crawl",
-          "duration": 45
-        }
-      ]
-    },
-    {
-      "day": 27,
-      "title": "Glutei da campione",
-      "image": "glutes",
-      "calories": 75,
-      "duration": 8,
-      "exercises": [
         {
           "exercise_id": "glute_bridge_march",
+          "duration": 35
+        },
+        {
+          "exercise_id": "push_up_knees",
+          "duration": 35
+        },
+        {
+          "exercise_id": "bodyweight_squat",
+          "duration": 35
+        },
+        {
+          "exercise_id": "prone_w",
+          "duration": 35
+        },
+        {
+          "exercise_id": "plank",
+          "duration": 35
+        },
+        {
+          "exercise_id": "glute_bridge_march",
+          "duration": 35
+        }
+      ]
+    },
+    {
+      "day": 9,
+      "title": "Mobilita' e camminata",
+      "image": "light",
+      "calories": 57,
+      "duration": 8,
+      "exercises": [
+        {
+          "exercise_id": "wall_slide",
           "duration": 45
         },
         {
-          "exercise_id": "reverse_plank",
+          "exercise_id": "cat_cow_stretch",
           "duration": 45
         },
         {
-          "exercise_id": "sumo_squat_deep",
+          "exercise_id": "hip_circles",
           "duration": 45
         },
         {
-          "exercise_id": "donkey_kicks_knee_left",
+          "exercise_id": "march_in_place",
+          "duration": 60
+        },
+        {
+          "exercise_id": "deep_squat_position",
           "duration": 45
         },
         {
-          "exercise_id": "donkey_kicks_knee_right",
+          "exercise_id": "torso_rotation_standing",
           "duration": 45
         },
         {
-          "exercise_id": "kneeling_lunge",
+          "exercise_id": "child_pose",
           "duration": 45
         },
         {
-          "exercise_id": "superman_swimmer",
-          "duration": 45
-        },
-        {
-          "exercise_id": "single_leg_calf_raise",
+          "exercise_id": "breathing_standing",
           "duration": 45
         }
       ]
     },
     {
-      "day": 28,
-      "title": "Gran finale: recupero profondo",
+      "day": 10,
+      "title": "Spinta, tirata e core",
+      "image": "upper",
+      "calories": 87,
+      "duration": 8,
+      "exercises": [
+        {
+          "exercise_id": "push_up_knees",
+          "duration": 35
+        },
+        {
+          "exercise_id": "lunge_static_left",
+          "duration": 35
+        },
+        {
+          "exercise_id": "superman",
+          "duration": 35
+        },
+        {
+          "exercise_id": "bird_dog_knee_elbow",
+          "duration": 35
+        },
+        {
+          "exercise_id": "single_leg_glute_bridge",
+          "duration": 35
+        },
+        {
+          "exercise_id": "push_up_knees",
+          "duration": 35
+        },
+        {
+          "exercise_id": "lunge_static_right",
+          "duration": 35
+        },
+        {
+          "exercise_id": "superman",
+          "duration": 35
+        },
+        {
+          "exercise_id": "bird_dog_knee_elbow",
+          "duration": 35
+        },
+        {
+          "exercise_id": "single_leg_glute_bridge",
+          "duration": 35
+        }
+      ]
+    },
+    {
+      "day": 11,
+      "title": "Anche e schiena sciolte",
+      "image": "light",
+      "calories": 55,
+      "duration": 8,
+      "exercises": [
+        {
+          "exercise_id": "arm_circles",
+          "duration": 45
+        },
+        {
+          "exercise_id": "lunge_thoracic_rotation_left",
+          "duration": 40
+        },
+        {
+          "exercise_id": "lunge_thoracic_rotation_right",
+          "duration": 40
+        },
+        {
+          "exercise_id": "march_in_place",
+          "duration": 60
+        },
+        {
+          "exercise_id": "hip_mobility_9090",
+          "duration": 45
+        },
+        {
+          "exercise_id": "standing_overhead_reach",
+          "duration": 45
+        },
+        {
+          "exercise_id": "roll_down",
+          "duration": 45
+        },
+        {
+          "exercise_id": "cobra_stretch",
+          "duration": 45
+        }
+      ]
+    },
+    {
+      "day": 12,
+      "title": "Gambe potenti",
+      "image": "legs",
+      "calories": 87,
+      "duration": 8,
+      "exercises": [
+        {
+          "exercise_id": "push_up_incline",
+          "duration": 35
+        },
+        {
+          "exercise_id": "lunge_reverse",
+          "duration": 35
+        },
+        {
+          "exercise_id": "reverse_snow_angel",
+          "duration": 35
+        },
+        {
+          "exercise_id": "plank_side_left",
+          "duration": 35
+        },
+        {
+          "exercise_id": "hip_hinge",
+          "duration": 35
+        },
+        {
+          "exercise_id": "push_up_incline",
+          "duration": 35
+        },
+        {
+          "exercise_id": "lunge_reverse",
+          "duration": 35
+        },
+        {
+          "exercise_id": "reverse_snow_angel",
+          "duration": 35
+        },
+        {
+          "exercise_id": "plank_side_right",
+          "duration": 35
+        },
+        {
+          "exercise_id": "hip_hinge",
+          "duration": 35
+        }
+      ]
+    },
+    {
+      "day": 13,
+      "title": "Scioglimento attivo",
+      "image": "light",
+      "calories": 55,
+      "duration": 8,
+      "exercises": [
+        {
+          "exercise_id": "march_in_place",
+          "duration": 60
+        },
+        {
+          "exercise_id": "wall_slide",
+          "duration": 45
+        },
+        {
+          "exercise_id": "hip_circles",
+          "duration": 45
+        },
+        {
+          "exercise_id": "deep_squat_position",
+          "duration": 45
+        },
+        {
+          "exercise_id": "cat_cow_stretch",
+          "duration": 45
+        },
+        {
+          "exercise_id": "figure_4_stretch_left",
+          "duration": 40
+        },
+        {
+          "exercise_id": "figure_4_stretch_right",
+          "duration": 40
+        },
+        {
+          "exercise_id": "breathing_standing",
+          "duration": 45
+        }
+      ]
+    },
+    {
+      "day": 14,
+      "title": "Recupero e allungamento profondo",
       "image": "recovery",
-      "calories": 23,
+      "calories": 50,
       "duration": 7,
       "exercises": [
         {
@@ -1123,6 +597,18 @@
           "duration": 40
         },
         {
+          "exercise_id": "hamstring_stretch",
+          "duration": 40
+        },
+        {
+          "exercise_id": "quad_stretch",
+          "duration": 40
+        },
+        {
+          "exercise_id": "chest_stretch",
+          "duration": 40
+        },
+        {
           "exercise_id": "pigeon_pose_left",
           "duration": 40
         },
@@ -1131,15 +617,605 @@
           "duration": 40
         },
         {
-          "exercise_id": "frog_stretch",
+          "exercise_id": "breathing_standing",
+          "duration": 40
+        }
+      ]
+    },
+    {
+      "day": 15,
+      "title": "Total Body solido",
+      "image": "totalbody",
+      "calories": 87,
+      "duration": 8,
+      "exercises": [
+        {
+          "exercise_id": "push_up_knees",
+          "duration": 35
+        },
+        {
+          "exercise_id": "deep_squat",
+          "duration": 35
+        },
+        {
+          "exercise_id": "superman",
+          "duration": 35
+        },
+        {
+          "exercise_id": "plank",
+          "duration": 35
+        },
+        {
+          "exercise_id": "single_leg_glute_bridge",
+          "duration": 35
+        },
+        {
+          "exercise_id": "push_up_knees",
+          "duration": 35
+        },
+        {
+          "exercise_id": "deep_squat",
+          "duration": 35
+        },
+        {
+          "exercise_id": "superman",
+          "duration": 35
+        },
+        {
+          "exercise_id": "plank",
+          "duration": 35
+        },
+        {
+          "exercise_id": "single_leg_glute_bridge",
+          "duration": 35
+        }
+      ]
+    },
+    {
+      "day": 16,
+      "title": "Mobilita' e camminata",
+      "image": "light",
+      "calories": 57,
+      "duration": 8,
+      "exercises": [
+        {
+          "exercise_id": "wall_slide",
+          "duration": 45
+        },
+        {
+          "exercise_id": "cat_cow_stretch",
+          "duration": 45
+        },
+        {
+          "exercise_id": "hip_circles",
+          "duration": 45
+        },
+        {
+          "exercise_id": "march_in_place",
+          "duration": 60
+        },
+        {
+          "exercise_id": "deep_squat_position",
+          "duration": 45
+        },
+        {
+          "exercise_id": "torso_rotation_standing",
+          "duration": 45
+        },
+        {
+          "exercise_id": "child_pose",
+          "duration": 45
+        },
+        {
+          "exercise_id": "breathing_standing",
+          "duration": 45
+        }
+      ]
+    },
+    {
+      "day": 17,
+      "title": "Primo push-up completo",
+      "image": "upper",
+      "calories": 87,
+      "duration": 8,
+      "exercises": [
+        {
+          "exercise_id": "push_up",
+          "duration": 35
+        },
+        {
+          "exercise_id": "lunge_backward_left",
+          "duration": 35
+        },
+        {
+          "exercise_id": "reverse_snow_angel",
+          "duration": 35
+        },
+        {
+          "exercise_id": "plank_side_left",
+          "duration": 35
+        },
+        {
+          "exercise_id": "glute_bridge_march",
+          "duration": 35
+        },
+        {
+          "exercise_id": "push_up",
+          "duration": 35
+        },
+        {
+          "exercise_id": "lunge_backward_right",
+          "duration": 35
+        },
+        {
+          "exercise_id": "reverse_snow_angel",
+          "duration": 35
+        },
+        {
+          "exercise_id": "plank_side_right",
+          "duration": 35
+        },
+        {
+          "exercise_id": "glute_bridge_march",
+          "duration": 35
+        }
+      ]
+    },
+    {
+      "day": 18,
+      "title": "Anche e schiena sciolte",
+      "image": "light",
+      "calories": 55,
+      "duration": 8,
+      "exercises": [
+        {
+          "exercise_id": "arm_circles",
+          "duration": 45
+        },
+        {
+          "exercise_id": "lunge_thoracic_rotation_left",
           "duration": 40
         },
         {
-          "exercise_id": "spinal_twist_left",
+          "exercise_id": "lunge_thoracic_rotation_right",
           "duration": 40
         },
         {
-          "exercise_id": "spinal_twist_right",
+          "exercise_id": "march_in_place",
+          "duration": 60
+        },
+        {
+          "exercise_id": "hip_mobility_9090",
+          "duration": 45
+        },
+        {
+          "exercise_id": "standing_overhead_reach",
+          "duration": 45
+        },
+        {
+          "exercise_id": "roll_down",
+          "duration": 45
+        },
+        {
+          "exercise_id": "cobra_stretch",
+          "duration": 45
+        }
+      ]
+    },
+    {
+      "day": 19,
+      "title": "Gambe e glutei avanzati",
+      "image": "legs",
+      "calories": 87,
+      "duration": 8,
+      "exercises": [
+        {
+          "exercise_id": "push_up_knees",
+          "duration": 35
+        },
+        {
+          "exercise_id": "lunge_reverse",
+          "duration": 35
+        },
+        {
+          "exercise_id": "prone_pull",
+          "duration": 35
+        },
+        {
+          "exercise_id": "hollow_body_hold",
+          "duration": 35
+        },
+        {
+          "exercise_id": "reverse_plank_bridge",
+          "duration": 35
+        },
+        {
+          "exercise_id": "push_up_knees",
+          "duration": 35
+        },
+        {
+          "exercise_id": "lunge_reverse",
+          "duration": 35
+        },
+        {
+          "exercise_id": "prone_pull",
+          "duration": 35
+        },
+        {
+          "exercise_id": "hollow_body_hold",
+          "duration": 35
+        },
+        {
+          "exercise_id": "reverse_plank_bridge",
+          "duration": 35
+        }
+      ]
+    },
+    {
+      "day": 20,
+      "title": "Scioglimento attivo",
+      "image": "light",
+      "calories": 55,
+      "duration": 8,
+      "exercises": [
+        {
+          "exercise_id": "march_in_place",
+          "duration": 60
+        },
+        {
+          "exercise_id": "wall_slide",
+          "duration": 45
+        },
+        {
+          "exercise_id": "hip_circles",
+          "duration": 45
+        },
+        {
+          "exercise_id": "deep_squat_position",
+          "duration": 45
+        },
+        {
+          "exercise_id": "cat_cow_stretch",
+          "duration": 45
+        },
+        {
+          "exercise_id": "figure_4_stretch_left",
+          "duration": 40
+        },
+        {
+          "exercise_id": "figure_4_stretch_right",
+          "duration": 40
+        },
+        {
+          "exercise_id": "breathing_standing",
+          "duration": 45
+        }
+      ]
+    },
+    {
+      "day": 21,
+      "title": "Recupero e allungamento profondo",
+      "image": "recovery",
+      "calories": 50,
+      "duration": 7,
+      "exercises": [
+        {
+          "exercise_id": "child_pose",
+          "duration": 40
+        },
+        {
+          "exercise_id": "cat_cow_stretch",
+          "duration": 40
+        },
+        {
+          "exercise_id": "hamstring_stretch",
+          "duration": 40
+        },
+        {
+          "exercise_id": "quad_stretch",
+          "duration": 40
+        },
+        {
+          "exercise_id": "chest_stretch",
+          "duration": 40
+        },
+        {
+          "exercise_id": "pigeon_pose_left",
+          "duration": 40
+        },
+        {
+          "exercise_id": "pigeon_pose_right",
+          "duration": 40
+        },
+        {
+          "exercise_id": "breathing_standing",
+          "duration": 40
+        }
+      ]
+    },
+    {
+      "day": 22,
+      "title": "Consolida Total Body (scarico)",
+      "image": "totalbody",
+      "calories": 81,
+      "duration": 7,
+      "exercises": [
+        {
+          "exercise_id": "push_up_knees",
+          "duration": 30
+        },
+        {
+          "exercise_id": "deep_squat",
+          "duration": 30
+        },
+        {
+          "exercise_id": "superman",
+          "duration": 30
+        },
+        {
+          "exercise_id": "plank",
+          "duration": 30
+        },
+        {
+          "exercise_id": "single_leg_glute_bridge",
+          "duration": 30
+        },
+        {
+          "exercise_id": "push_up_knees",
+          "duration": 30
+        },
+        {
+          "exercise_id": "deep_squat",
+          "duration": 30
+        },
+        {
+          "exercise_id": "superman",
+          "duration": 30
+        },
+        {
+          "exercise_id": "plank",
+          "duration": 30
+        },
+        {
+          "exercise_id": "single_leg_glute_bridge",
+          "duration": 30
+        }
+      ]
+    },
+    {
+      "day": 23,
+      "title": "Mobilita' e camminata",
+      "image": "light",
+      "calories": 57,
+      "duration": 8,
+      "exercises": [
+        {
+          "exercise_id": "wall_slide",
+          "duration": 45
+        },
+        {
+          "exercise_id": "cat_cow_stretch",
+          "duration": 45
+        },
+        {
+          "exercise_id": "hip_circles",
+          "duration": 45
+        },
+        {
+          "exercise_id": "march_in_place",
+          "duration": 60
+        },
+        {
+          "exercise_id": "deep_squat_position",
+          "duration": 45
+        },
+        {
+          "exercise_id": "torso_rotation_standing",
+          "duration": 45
+        },
+        {
+          "exercise_id": "child_pose",
+          "duration": 45
+        },
+        {
+          "exercise_id": "breathing_standing",
+          "duration": 45
+        }
+      ]
+    },
+    {
+      "day": 24,
+      "title": "Scarico attivo parte alta",
+      "image": "upper",
+      "calories": 81,
+      "duration": 7,
+      "exercises": [
+        {
+          "exercise_id": "push_up",
+          "duration": 30
+        },
+        {
+          "exercise_id": "lunge_backward_left",
+          "duration": 30
+        },
+        {
+          "exercise_id": "reverse_snow_angel",
+          "duration": 30
+        },
+        {
+          "exercise_id": "plank_side_left",
+          "duration": 30
+        },
+        {
+          "exercise_id": "glute_bridge_march",
+          "duration": 30
+        },
+        {
+          "exercise_id": "push_up",
+          "duration": 30
+        },
+        {
+          "exercise_id": "lunge_backward_right",
+          "duration": 30
+        },
+        {
+          "exercise_id": "reverse_snow_angel",
+          "duration": 30
+        },
+        {
+          "exercise_id": "plank_side_right",
+          "duration": 30
+        },
+        {
+          "exercise_id": "glute_bridge_march",
+          "duration": 30
+        }
+      ]
+    },
+    {
+      "day": 25,
+      "title": "Anche e schiena sciolte",
+      "image": "light",
+      "calories": 55,
+      "duration": 8,
+      "exercises": [
+        {
+          "exercise_id": "arm_circles",
+          "duration": 45
+        },
+        {
+          "exercise_id": "lunge_thoracic_rotation_left",
+          "duration": 40
+        },
+        {
+          "exercise_id": "lunge_thoracic_rotation_right",
+          "duration": 40
+        },
+        {
+          "exercise_id": "march_in_place",
+          "duration": 60
+        },
+        {
+          "exercise_id": "hip_mobility_9090",
+          "duration": 45
+        },
+        {
+          "exercise_id": "standing_overhead_reach",
+          "duration": 45
+        },
+        {
+          "exercise_id": "roll_down",
+          "duration": 45
+        },
+        {
+          "exercise_id": "cobra_stretch",
+          "duration": 45
+        }
+      ]
+    },
+    {
+      "day": 26,
+      "title": "Test di fase 2",
+      "image": "test",
+      "calories": 81,
+      "duration": 6,
+      "exercises": [
+        {
+          "exercise_id": "push_up_knees",
+          "duration": 60
+        },
+        {
+          "exercise_id": "bodyweight_squat",
+          "duration": 60
+        },
+        {
+          "exercise_id": "superman",
+          "duration": 60
+        },
+        {
+          "exercise_id": "plank",
+          "duration": 60
+        },
+        {
+          "exercise_id": "single_leg_glute_bridge",
+          "duration": 60
+        }
+      ]
+    },
+    {
+      "day": 27,
+      "title": "Scioglimento attivo",
+      "image": "light",
+      "calories": 55,
+      "duration": 8,
+      "exercises": [
+        {
+          "exercise_id": "march_in_place",
+          "duration": 60
+        },
+        {
+          "exercise_id": "wall_slide",
+          "duration": 45
+        },
+        {
+          "exercise_id": "hip_circles",
+          "duration": 45
+        },
+        {
+          "exercise_id": "deep_squat_position",
+          "duration": 45
+        },
+        {
+          "exercise_id": "cat_cow_stretch",
+          "duration": 45
+        },
+        {
+          "exercise_id": "figure_4_stretch_left",
+          "duration": 40
+        },
+        {
+          "exercise_id": "figure_4_stretch_right",
+          "duration": 40
+        },
+        {
+          "exercise_id": "breathing_standing",
+          "duration": 45
+        }
+      ]
+    },
+    {
+      "day": 28,
+      "title": "Recupero e allungamento profondo",
+      "image": "recovery",
+      "calories": 50,
+      "duration": 7,
+      "exercises": [
+        {
+          "exercise_id": "child_pose",
+          "duration": 40
+        },
+        {
+          "exercise_id": "cat_cow_stretch",
+          "duration": 40
+        },
+        {
+          "exercise_id": "hamstring_stretch",
+          "duration": 40
+        },
+        {
+          "exercise_id": "quad_stretch",
+          "duration": 40
+        },
+        {
+          "exercise_id": "chest_stretch",
+          "duration": 40
+        },
+        {
+          "exercise_id": "pigeon_pose_left",
+          "duration": 40
+        },
+        {
+          "exercise_id": "pigeon_pose_right",
           "duration": 40
         },
         {

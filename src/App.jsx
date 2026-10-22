@@ -47,6 +47,13 @@ const DAY_FOCUS_MAP = {
   25: 'upper_body', 26: 'full_body', 27: 'upper_body', 28: 'cardio'
 };
 
+// Rise 2.0: il riscaldamento/defaticamento si sceglie dal tema del giorno (image),
+// con DAY_FOCUS_MAP come ripiego per piani senza tema
+const THEME_FOCUS = {
+  totalbody: 'full_body', upper: 'upper_body', legs: 'lower_body',
+  glutes: 'lower_body', core: 'core', cardio: 'cardio', test: 'full_body'
+};
+
 // Icons as SVG components
 const PlayIcon = () => (
   <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
@@ -226,7 +233,9 @@ const THEME_LABELS = {
   core: 'Core',
   cardio: 'Cardio',
   glutes: 'Glutei',
-  recovery: 'Recupero attivo'
+  recovery: 'Recupero attivo',
+  light: 'Giorno leggero',
+  test: 'Test di fase'
 };
 
 const getThemeLabel = (slug) => THEME_LABELS[slug] || 'Allenamento';
@@ -1003,6 +1012,13 @@ function AppContent() {
       setPrep(true);
       setPrepTimer(getPrepTime(nextExercise));
     } else if (phase === 'workout') {
+      if (!selectedCooldown?.exercises?.length) {
+        // Nessun defaticamento (giorni leggeri/recupero): fine allenamento
+        setActive(false);
+        audioManager.finishWorkout(elapsedTimeRef.current);
+        setScreen('done');
+        return;
+      }
       // Move to cooldown
       const nextExercise = selectedCooldown?.exercises?.[0];
       setPhase('cooldown');
@@ -1215,10 +1231,10 @@ function AppContent() {
   }, [treadmillActive, treadmillPaused, treadmillSegmentTimer, treadmillSegmentIndex, selectedTreadmillProgram, selectedTreadmillWeek, voiceEnabled, userProfile?.weight]);
 
   // Select random warmup/cooldown based on day focus
-  const selectWarmupCooldown = useCallback((dayNum) => {
+  const selectWarmupCooldown = useCallback((dayNum, theme) => {
     if (!warmupCooldownData) return { warmup: null, cooldown: null };
 
-    const focus = DAY_FOCUS_MAP[dayNum] || 'full_body';
+    const focus = THEME_FOCUS[theme] || DAY_FOCUS_MAP[dayNum] || 'full_body';
 
     const availableWarmups = warmupCooldownData.warmups.filter(w => w.focus === focus);
     const availableCooldowns = warmupCooldownData.cooldowns.filter(c => c.focus === focus);
@@ -1527,6 +1543,11 @@ function AppContent() {
   // Start workout handler - now triggers pre-workout assessment first
   const startWorkout = () => {
     setWorkoutAdjustment(null);
+    // Giorni leggeri/recupero: niente check-in, si parte subito
+    if (curr?.image === 'light' || curr?.image === 'recovery') {
+      beginWorkoutAfterAssessment();
+      return;
+    }
     // If onboarding is completed and user has a profile, show pre-workout assessment
     if (onboardingCompleted && userProfile) {
       startPreWorkoutAssessment();
@@ -1539,15 +1560,19 @@ function AppContent() {
   // Called after pre-workout assessment is complete or skipped
   const beginWorkoutAfterAssessment = () => {
     // Select warmup and cooldown for this day
-    const { warmup, cooldown } = selectWarmupCooldown(day);
+    const theme = curr?.image;
+    const lightDay = theme === 'light' || theme === 'recovery';
+    const { warmup, cooldown } = lightDay
+      ? { warmup: null, cooldown: null }
+      : selectWarmupCooldown(day, theme);
     setSelectedWarmup(warmup);
     setSelectedCooldown(cooldown);
 
-    // Get first warmup exercise to determine prep time
-    const firstExercise = warmup?.exercises?.[0];
+    // Giorni leggeri/recupero: niente riscaldamento/defaticamento, si parte dal blocco principale
+    const firstExercise = lightDay ? curr?.exercises?.[0] : warmup?.exercises?.[0];
 
     setActive(true);
-    setPhase('warmup');
+    setPhase(lightDay ? 'workout' : 'warmup');
     setPrep(true);
     setPrepTimer(getPrepTime(firstExercise));
     setExerciseIdx(0);
@@ -2202,7 +2227,7 @@ function AppContent() {
                 </span>
                 <span className="flex items-center gap-1">
                   <TimerIcon />
-                  ~{(displayWorkout?.duration || 0) + 6} min
+                  ~{(displayWorkout?.duration || 0) + (['light', 'recovery'].includes(displayWorkout?.image) ? 0 : 6)} min
                 </span>
                 <span>{displayWorkout?.exercises?.length} esercizi</span>
                 <DifficultyBadge level={getWorkoutDifficulty(displayWorkout?.exercises)} />
@@ -3297,35 +3322,48 @@ function AppContent() {
               </span>
               <span className="flex items-center gap-1">
                 <TimerIcon />
-                ~{(curr?.duration || 0) + 6} min
+                ~{(curr?.duration || 0) + (['light', 'recovery'].includes(curr?.image) ? 0 : 6)} min
               </span>
               <DifficultyBadge level={getWorkoutDifficulty(curr?.exercises)} />
             </div>
 
             {/* Workout structure info */}
             <div className="bg-[var(--surface-hover)] rounded-lg p-3 mb-5 text-sm">
-              <div className="flex items-center gap-2 mb-2">
-                <div className="w-3 h-3 rounded-full bg-amber-400"></div>
-                <span>Riscaldamento (~3 min)</span>
-              </div>
-              <div className="flex items-center gap-2 mb-2">
-                <div className="w-3 h-3 rounded-full bg-[var(--primary)]"></div>
-                <span>Allenamento ({curr?.exercises?.length} esercizi)</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="w-3 h-3 rounded-full bg-orange-900"></div>
-                <span>Defaticamento (~3 min)</span>
-              </div>
+              {['light', 'recovery'].includes(curr?.image) ? (
+                <div className="flex items-center gap-2">
+                  <div className="w-3 h-3 rounded-full bg-[var(--primary)]"></div>
+                  <span>
+                    {curr?.image === 'recovery' ? 'Allungamento profondo' : 'Mobilità leggera'} ({curr?.exercises?.length} esercizi) — senza riscaldamento né check-in
+                  </span>
+                </div>
+              ) : (
+                <>
+                  <div className="flex items-center gap-2 mb-2">
+                    <div className="w-3 h-3 rounded-full bg-amber-400"></div>
+                    <span>Riscaldamento (~3 min)</span>
+                  </div>
+                  <div className="flex items-center gap-2 mb-2">
+                    <div className="w-3 h-3 rounded-full bg-[var(--primary)]"></div>
+                    <span>Allenamento ({curr?.exercises?.length} esercizi)</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="w-3 h-3 rounded-full bg-orange-900"></div>
+                    <span>Defaticamento (~3 min)</span>
+                  </div>
+                </>
+              )}
             </div>
 
             {/* Show start button only if day can be started and not completed */}
             {canStartThisDay && !isDayCompleted && (
               <>
                 <button onClick={startWorkout} className="btn-primary w-full mb-5">
-                  {onboardingCompleted && userProfile ? 'INIZIA CHECK-IN' : 'VAI ALL\'ALLENAMENTO'}
+                  {['light', 'recovery'].includes(curr?.image)
+                    ? 'INIZIA'
+                    : (onboardingCompleted && userProfile ? 'INIZIA CHECK-IN' : 'VAI ALL\'ALLENAMENTO')}
                 </button>
 
-                {onboardingCompleted && userProfile && (
+                {onboardingCompleted && userProfile && !['light', 'recovery'].includes(curr?.image) && (
                   <div className="bg-[var(--primary)]/10 rounded-lg p-3 mb-5 text-sm">
                     <div className="flex items-center gap-2">
                       <span className="text-lg">📋</span>

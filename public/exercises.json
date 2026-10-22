@@ -204,7 +204,7 @@
     "name": "Superman",
     "description": "Sdraiati a pancia in giù con braccia distese. Solleva contemporaneamente braccia e gambe da terra, contraendo la schiena.",
     "muscles": "Lower Back, Schiena, Glutei",
-    "type": "core",
+    "type": "back",
     "gif": "assets/superman-exercice-dos.gif",
     "wrongImage": false,
     "difficulty": 3
@@ -214,7 +214,7 @@
     "name": "Superman nuotatore",
     "description": "Nella posizione superman, alterna il movimento di braccia e gambe come se stessi nuotando.",
     "muscles": "Schiena, Spalle, Glutei",
-    "type": "core",
+    "type": "back",
     "gif": "assets/swimming_exercise.gif",
     "wrongImage": false,
     "difficulty": 3
@@ -1554,11 +1554,11 @@
   },
   "shadow_boxing": {
     "id": 118,
-    "name": "High Knees",
-    "description": "In piedi con i piedi alla larghezza dei fianchi, corri sul posto sollevando alternativamente le ginocchia fino all'altezza dei fianchi. Mantieni il core attivo e le braccia piegate che accompagnano il movimento. Aumenta il ritmo per alzare la frequenza cardiaca.",
-    "muscles": "Quadricipiti, Flessori dell'anca, Polpacci, Cardio",
+    "name": "Pugilato a vuoto",
+    "description": "In posizione di guardia, alterna pugni diretti a vuoto ruotando busto e fianchi, gambe leggermente piegate e sempre in movimento. Cardio a basso impatto che coinvolge spalle e core.",
+    "muscles": "Spalle, Core, Cardio",
     "type": "cardio",
-    "gif": "assets/high_knees.gif",
+    "gif": "assets/rise2/shadow_boxing.gif",
     "instructions": [
       "Stai in piedi con i piedi alla larghezza dei fianchi",
       "Mantieni le mani rilassate ai lati",
@@ -1663,11 +1663,11 @@
   },
   "butt_kicks": {
     "id": 123,
-    "name": "High Knees",
-    "description": "In piedi con i piedi alla larghezza dei fianchi, corri sul posto sollevando alternativamente le ginocchia fino all'altezza dei fianchi. Mantieni il core attivo e le braccia piegate che accompagnano il movimento. Aumenta il ritmo per alzare la frequenza cardiaca.",
-    "muscles": "Quadricipiti, Flessori dell'anca, Polpacci, Cardio",
-    "type": "warmup",
-    "gif": "assets/high_knees.gif",
+    "name": "Calci al sedere",
+    "description": "Corsa sul posto portando i talloni verso i glutei a ritmo sostenuto, busto eretto e braccia che accompagnano. Riscalda femorali e polpacci.",
+    "muscles": "Femorali, Polpacci, Cardio",
+    "type": "cardio",
+    "gif": "assets/rise2/butt_kicks.gif",
     "instructions": [
       "Stai in piedi con i piedi alla larghezza dei fianchi",
       "Mantieni le mani all'altezza del petto, pugni alzati",
@@ -2196,7 +2196,7 @@
     "name": "V-Up",
     "description": "Sdraiati supino con le braccia distese oltre la testa e le gambe tese. Solleva contemporaneamente busto e gambe piegandoti a V e portando le mani verso i piedi. Torna giù con controllo mantenendo gli addominali contratti e la zona lombare aderente al pavimento.",
     "muscles": "Addominali, Flessori dell'anca, Quadricipiti",
-    "type": "back",
+    "type": "abs",
     "gif": "assets/prone_y_raise.gif",
     "wrongImage": false,
     "difficulty": 4
@@ -2649,6 +2649,126 @@
     "gif": "assets/plank_hold.gif",
     "difficulty": 3,
     "id": 214,
+    "wrongImage": false
+  },
+  "push_up_wall": {
+    "id": 215,
+    "name": "Push-up al muro",
+    "description": "In piedi di fronte a un muro, mani alla larghezza delle spalle all'altezza del petto, corpo in linea. Piega i gomiti avvicinando il petto al muro, poi spingi via. Primo gradino della scaletta delle spinte.",
+    "muscles": "Petto, Spalle, Tricipiti",
+    "type": "push",
+    "gif": "assets/rise2/push_up_wall.gif",
+    "difficulty": 1,
+    "wrongImage": false
+  },
+  "push_up_incline": {
+    "id": 216,
+    "name": "Push-up inclinato",
+    "description": "Mani su un tavolo o divano stabile, corpo in linea dalla testa ai talloni. Scendi col petto verso il bordo mantenendo il core attivo, poi risali. Piu' basso e' l'appoggio, piu' e' difficile.",
+    "muscles": "Petto, Spalle, Tricipiti, Core",
+    "type": "push",
+    "gif": "assets/rise2/push_up_incline.gif",
+    "difficulty": 2,
+    "wrongImage": false
+  },
+  "prone_y": {
+    "id": 217,
+    "name": "Sollevamento a Y prono",
+    "description": "Sdraiato a pancia in giu', braccia tese in avanti a formare una Y, pollici verso l'alto. Solleva le braccia di pochi centimetri stringendo le scapole verso il basso, tieni 1-2 secondi e riabbassa. Lavora trapezio inferiore e postura.",
+    "muscles": "Dorsali, Trapezio, Spalle",
+    "type": "back",
+    "gif": "assets/rise2/prone_y.gif",
+    "difficulty": 1,
+    "wrongImage": false
+  },
+  "prone_t": {
+    "id": 218,
+    "name": "Sollevamento a T prono",
+    "description": "A pancia in giu', braccia aperte a T, pollici in alto. Solleva le braccia stringendo le scapole, tieni 1-2 secondi e riabbassa con controllo. Rinforza i romboidi e il trapezio medio.",
+    "muscles": "Dorsali, Trapezio, Deltoidi posteriori",
+    "type": "back",
+    "gif": "assets/rise2/prone_t.gif",
+    "difficulty": 2,
+    "wrongImage": false
+  },
+  "prone_w": {
+    "id": 219,
+    "name": "Sollevamento a W prono",
+    "description": "A pancia in giu', gomiti piegati e braccia a formare una W. Solleva gomiti e mani portando le scapole indietro e in basso, tieni e riabbassa. Ottimo per spalle e postura.",
+    "muscles": "Dorsali, Trapezio, Deltoidi posteriori",
+    "type": "back",
+    "gif": "assets/rise2/prone_w.gif",
+    "difficulty": 2,
+    "wrongImage": false
+  },
+  "reverse_snow_angel": {
+    "id": 220,
+    "name": "Angelo di neve inverso",
+    "description": "A pancia in giu', braccia lungo i fianchi sollevate da terra. Porta lentamente le braccia sopra la testa descrivendo un arco, senza toccare terra, poi torna ai fianchi. Movimento continuo e controllato.",
+    "muscles": "Dorsali, Trapezio, Deltoidi posteriori, Lombari",
+    "type": "back",
+    "gif": "assets/rise2/reverse_snow_angel.gif",
+    "difficulty": 3,
+    "wrongImage": false
+  },
+  "wall_slide": {
+    "id": 221,
+    "name": "Scivolamento scapolare al muro",
+    "description": "Schiena, testa e braccia a 'porta' contro il muro. Fai scivolare le braccia verso l'alto mantenendo gomiti e polsi a contatto con la parete, poi riscendi. Attiva il trapezio inferiore e apre le spalle.",
+    "muscles": "Trapezio, Spalle, Dorsali",
+    "type": "back",
+    "gif": "assets/rise2/wall_slide.gif",
+    "difficulty": 1,
+    "wrongImage": false
+  },
+  "hip_hinge": {
+    "id": 222,
+    "name": "Hip hinge a corpo libero",
+    "description": "In piedi, ginocchia leggermente piegate. Spingi i fianchi indietro facendo scendere il busto con la schiena piatta, mani che scivolano sulle cosce, fino a sentire tensione dietro le cosce; torna su stringendo i glutei.",
+    "muscles": "Glutei, Femorali, Lombari",
+    "type": "glutes",
+    "gif": "assets/rise2/hip_hinge.gif",
+    "difficulty": 2,
+    "wrongImage": false
+  },
+  "single_leg_glute_bridge": {
+    "id": 223,
+    "name": "Ponte glutei monopodalico",
+    "description": "Sdraiato supino, un piede a terra e l'altra gamba tesa. Spingi col tallone a terra sollevando il bacino finche' spalle, fianchi e ginocchio sono in linea, tieni un istante e scendi. Cambia gamba a meta' tempo.",
+    "muscles": "Glutei, Femorali, Core",
+    "type": "glutes",
+    "gif": "assets/rise2/single_leg_glute_bridge.gif",
+    "difficulty": 3,
+    "wrongImage": false
+  },
+  "single_leg_rdl": {
+    "id": 224,
+    "name": "Stacco rumeno monopodalico",
+    "description": "In equilibrio su una gamba, piega il busto in avanti con la schiena piatta mentre l'altra gamba si estende indietro; la mano scende verso il piede d'appoggio. Torna in piedi contraendo il gluteo. Cambia gamba a meta' tempo.",
+    "muscles": "Glutei, Femorali, Core, Equilibrio",
+    "type": "glutes",
+    "gif": "assets/rise2/single_leg_rdl.gif",
+    "difficulty": 4,
+    "wrongImage": false
+  },
+  "bulgarian_split_squat": {
+    "id": 225,
+    "name": "Split squat bulgaro",
+    "description": "Piede posteriore appoggiato su sedia o divano, gamba anteriore avanti. Scendi piegando il ginocchio anteriore fino a circa 90 gradi, busto eretto, poi risali. Cambia gamba a meta' tempo.",
+    "muscles": "Quadricipiti, Glutei, Femorali",
+    "type": "squat",
+    "gif": "assets/rise2/bulgarian_split_squat.gif",
+    "difficulty": 4,
+    "wrongImage": false
+  },
+  "prone_pull": {
+    "id": 226,
+    "name": "Trazione prona",
+    "description": "A pancia in giu' con braccia tese in avanti e petto leggermente sollevato. Tira i gomiti indietro verso i fianchi come in una trazione, stringendo le scapole, poi estendi di nuovo le braccia. Simula la tirata senza attrezzi.",
+    "muscles": "Dorsali, Trapezio, Bicipiti, Lombari",
+    "type": "back",
+    "gif": "assets/rise2/prone_pull.gif",
+    "difficulty": 3,
     "wrongImage": false
   }
 }

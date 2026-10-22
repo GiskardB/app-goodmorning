@@ -35,5 +35,9 @@ automatico dell'intensità, programma tapis roulant, libreria esercizi (214 voci
 - Play Store: creare repo `giskardb.github.io` con `.well-known/assetlinks.json` (serve il
   fingerprint SHA-256 da Bubblewrap/Play Console); account Play Console; AAB.
 - GIF reali per i 6 esercizi placeholder della Fase 3.
-- **In corso**: studio approfondito dei piani (fasi 1–3) in ottica risultati + motivazione,
-  basato su letteratura calisthenics e psicologia dell'aderenza.
+10. **Rise 2.0 (ridisegno piani)**: studio su letteratura + audit → 3 fasi riscritte con
+   settimana "3 forza + 3 leggeri + 1 recupero", 5 pattern fissi × 2 giri, tirata in ogni seduta,
+   scalette a gradini, scarico + test in settimana 4, sedute sempre ≤ 15 min. 12 esercizi nuovi
+   con GIF generate (`assets/rise2/`), generatori in `scripts/`. Dettagli: `docs/PIANO_RISE2.md`.
+   Giorni leggeri/recupero senza check-in né warm-up/cool-down; warm-up scelto dal tema del giorno.
+- Prossimi: registrazione ripetizioni nel Test di fase, streak settimanale, "minimo vitale".
