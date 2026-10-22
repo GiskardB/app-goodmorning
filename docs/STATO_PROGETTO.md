@@ -5,7 +5,7 @@ _Aggiornato: 2026-10-22_
 ## Cos'è
 PWA React/Vite "Rise – 28 Giorni Calisthenics": allenamenti giornalieri a corpo libero
 in 3 fasi da 28 giorni, con check-in pre-allenamento (readiness), adattamento
-automatico dell'intensità, programma tapis roulant, libreria esercizi (214 voci con GIF).
+automatico dell'intensità, 7 programmi tapis roulant, libreria esercizi (152 voci con GIF).
 
 - **Live**: https://giskardb.github.io/app-goodmorning/ (deploy automatico da `main` via GitHub Pages)
 - **Branch di lavoro**: solo `main`. Il vecchio `claude/exercise-db-review-weights-ul3y2k` è stato
@@ -40,4 +40,8 @@ automatico dell'intensità, programma tapis roulant, libreria esercizi (214 voci
    scalette a gradini, scarico + test in settimana 4, sedute sempre ≤ 15 min. 12 esercizi nuovi
    con GIF generate (`assets/rise2/`), generatori in `scripts/`. Dettagli: `docs/PIANO_RISE2.md`.
    Giorni leggeri/recupero senza check-in né warm-up/cool-down; warm-up scelto dal tema del giorno.
-- Prossimi: registrazione ripetizioni nel Test di fase, streak settimanale, "minimo vitale".
+11. **Test di fase con ripetizioni**, **streak settimanale** (2 sedute di forza su 3 = settimana valida), **minimo vitale** (~8 min).
+12. **Catalogo consolidato**: 71 voci doppie unite (226 → 152), riscaldamenti/defaticamenti rimappati.
+13. **Tapis roulant 2.0**: 7 programmi (camminata→corsa, camminata attiva, dimagrimento, 5 km, intervalli,
+   recupero attivo, salita) con sedute A/B/C per settimana, pendenza, legenda con sensazioni e consigli
+   anti-abbandono. Generatore `scripts/build-treadmill.mjs`, metodo in `docs/PIANO_TREADMILL.md`.

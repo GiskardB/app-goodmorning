@@ -259,6 +259,18 @@ const treadmillKcalPerSecond = (speedKmh, weightKg, grade = 0) => {
   return kcalPerMin / 60;
 };
 
+// Sedute tapis roulant: ogni settimana può avere più sedute (A/B/C…); `session` resta come fallback
+const treadmillWeekSessions = (program, week) => {
+  const weekData = program?.weeks?.find(w => w.week === week);
+  if (weekData?.sessions?.length) return weekData.sessions;
+  return weekData?.session ? [weekData.session] : [];
+};
+const getTreadmillSession = (program, week, idx = 0) => {
+  const sessions = treadmillWeekSessions(program, week);
+  return sessions[Math.min(idx, sessions.length - 1)] || null;
+};
+const speakTreadmillSegment = (seg) => `${seg.activity}, ${seg.speed} chilometri orari${seg.incline ? `, pendenza ${seg.incline} per cento` : ''}`;
+
 // Difficulty scale (1-5) shared by exercises and workouts
 const DIFFICULTY_LEVELS = {
   1: { label: 'Molto facile', color: '#FCD34D' },
@@ -399,6 +411,7 @@ function AppContent() {
   const [treadmillPrograms, setTreadmillPrograms] = useState([]);
   const [selectedTreadmillProgram, setSelectedTreadmillProgram] = useState(null);
   const [selectedTreadmillWeek, setSelectedTreadmillWeek] = useState(1);
+  const [selectedTreadmillSession, setSelectedTreadmillSession] = useState(0); // indice seduta (A/B/C) nella settimana
   const [treadmillActive, setTreadmillActive] = useState(false);
   const [treadmillPaused, setTreadmillPaused] = useState(false);
   const [treadmillSegmentIndex, setTreadmillSegmentIndex] = useState(0);
@@ -1180,12 +1193,10 @@ function AppContent() {
         setTreadmillSegmentTimer(prev => {
           // 5-second warning before segment ends
           if (prev === 6 && voiceEnabled && 'speechSynthesis' in window) {
-            const program = selectedTreadmillProgram;
-            const weekData = program?.weeks?.find(w => w.week === selectedTreadmillWeek);
-            const segments = weekData?.session?.segments || [];
+            const segments = getTreadmillSession(selectedTreadmillProgram, selectedTreadmillWeek, selectedTreadmillSession)?.segments || [];
             if (treadmillSegmentIndex < segments.length - 1) {
               const nextSeg = segments[treadmillSegmentIndex + 1];
-              speechSynthesis.speak(new SpeechSynthesisUtterance(`Preparati! Tra 5 secondi: ${nextSeg.speed} chilometri orari`));
+              speechSynthesis.speak(new SpeechSynthesisUtterance(`Preparati! Tra 5 secondi: ${nextSeg.speed} chilometri orari${nextSeg.incline ? `, pendenza ${nextSeg.incline} per cento` : ''}`));
             } else {
               speechSynthesis.speak(new SpeechSynthesisUtterance('Ultimi 5 secondi! Stai per finire'));
             }
@@ -1193,17 +1204,14 @@ function AppContent() {
 
           if (prev <= 1) {
             // Move to next segment
-            const program = selectedTreadmillProgram;
-            const weekData = program?.weeks?.find(w => w.week === selectedTreadmillWeek);
-            const segments = weekData?.session?.segments || [];
+            const segments = getTreadmillSession(selectedTreadmillProgram, selectedTreadmillWeek, selectedTreadmillSession)?.segments || [];
 
             if (treadmillSegmentIndex < segments.length - 1) {
               const nextIndex = treadmillSegmentIndex + 1;
               setTreadmillSegmentIndex(nextIndex);
               // Announce next segment
               if (voiceEnabled && 'speechSynthesis' in window) {
-                const nextSeg = segments[nextIndex];
-                speechSynthesis.speak(new SpeechSynthesisUtterance(`${nextSeg.activity}, ${nextSeg.speed} chilometri orari`));
+                speechSynthesis.speak(new SpeechSynthesisUtterance(speakTreadmillSegment(segments[nextIndex])));
               }
               return segments[nextIndex].duration;
             } else {
@@ -1235,9 +1243,7 @@ function AppContent() {
         });
         // Estimate calories with the ACSM metabolic equation (weight + speed + incline)
         setTreadmillCalories(() => {
-          const program = selectedTreadmillProgram;
-          const weekData = program?.weeks?.find(w => w.week === selectedTreadmillWeek);
-          const segments = weekData?.session?.segments || [];
+          const segments = getTreadmillSession(selectedTreadmillProgram, selectedTreadmillWeek, selectedTreadmillSession)?.segments || [];
           const currentSeg = segments[treadmillSegmentIndex];
           const speed = currentSeg?.speed || 5;
           const grade = (currentSeg?.incline || 0) / 100; // % -> decimal
@@ -1249,9 +1255,7 @@ function AppContent() {
         });
         // Distanza percorsa (km) = velocita(km/h) * (1s / 3600)
         setTreadmillDistance(() => {
-          const program = selectedTreadmillProgram;
-          const weekData = program?.weeks?.find(w => w.week === selectedTreadmillWeek);
-          const segments = weekData?.session?.segments || [];
+          const segments = getTreadmillSession(selectedTreadmillProgram, selectedTreadmillWeek, selectedTreadmillSession)?.segments || [];
           const speed = segments[treadmillSegmentIndex]?.speed || 0;
           treadmillDistanceRef.current += speed / 3600;
           return treadmillDistanceRef.current;
@@ -1260,7 +1264,7 @@ function AppContent() {
 
       return () => clearInterval(interval);
     }
-  }, [treadmillActive, treadmillPaused, treadmillSegmentTimer, treadmillSegmentIndex, selectedTreadmillProgram, selectedTreadmillWeek, voiceEnabled, userProfile?.weight]);
+  }, [treadmillActive, treadmillPaused, treadmillSegmentTimer, treadmillSegmentIndex, selectedTreadmillProgram, selectedTreadmillWeek, selectedTreadmillSession, voiceEnabled, userProfile?.weight]);
 
   // Select random warmup/cooldown based on day focus
   const selectWarmupCooldown = useCallback((dayNum, theme) => {
@@ -3531,6 +3535,12 @@ function AppContent() {
     const program = selectedTreadmillProgram || treadmillPrograms[0];
     const weekData = program?.weeks?.find(w => w.week === selectedTreadmillWeek);
     const currentPhaseInfo = program?.phases?.find(p => p.weeks.includes(selectedTreadmillWeek));
+    const weekSessions = treadmillWeekSessions(program, selectedTreadmillWeek);
+    const sessionIdx = Math.min(selectedTreadmillSession, Math.max(0, weekSessions.length - 1));
+    const sessionData = weekSessions[sessionIdx] || null;
+    const sessionSegments = sessionData?.segments || [];
+    const sessionMinutes = sessionData ? (sessionData.totalDuration || Math.round(sessionSegments.reduce((a, s) => a + s.duration, 0) / 60)) : 0;
+    const fmtSeg = (seg) => `${seg.speed} km/h${seg.incline ? ` · ${seg.incline}%` : ''}`;
 
     return (
       <div className="min-h-screen bg-[var(--bg)]">
@@ -3556,6 +3566,7 @@ function AppContent() {
                       onClick={() => {
                         setSelectedTreadmillProgram(prog);
                         setSelectedTreadmillWeek(1);
+                        setSelectedTreadmillSession(0);
                         setShowTreadmillProgramSelector(false);
                       }}
                       className={`w-full flex items-center justify-between p-4 rounded-xl border-2 transition-all ${
@@ -3569,6 +3580,10 @@ function AppContent() {
                         <div className="text-left">
                           <p className="font-semibold">{prog.name}</p>
                           <p className="text-xs text-[var(--text-secondary)]">{prog.description}</p>
+                          <p className="text-[10px] text-[var(--text-muted)] mt-1">
+                            {prog.difficulty} · {prog.totalWeeks} {prog.totalWeeks === 1 ? 'settimana' : 'settimane'} · {prog.weeks?.[0]?.sessionsPerWeek}x a settimana
+                            {prog.prerequisite && prog.prerequisite !== 'Nessuno.' ? ` · Richiede: ${prog.prerequisite}` : ''}
+                          </p>
                         </div>
                       </div>
                       {isCurrent && (
@@ -3635,7 +3650,7 @@ function AppContent() {
               {Array.from({ length: program?.totalWeeks || 12 }, (_, i) => i + 1).map(week => (
                 <button
                   key={week}
-                  onClick={() => setSelectedTreadmillWeek(week)}
+                  onClick={() => { setSelectedTreadmillWeek(week); setSelectedTreadmillSession(0); }}
                   className={`flex-shrink-0 w-8 h-8 rounded-full text-xs font-medium transition-all ${
                     week === selectedTreadmillWeek
                       ? 'bg-[var(--primary)] text-white'
@@ -3647,13 +3662,17 @@ function AppContent() {
               ))}
             </div>
 
+            {currentPhaseInfo?.description && (
+              <p className="text-xs text-[var(--text-secondary)] mt-1">{currentPhaseInfo.description}</p>
+            )}
+
             {/* Session Info */}
-            {weekData && weekData.session && weekData.session.segments && weekData.session.segments.length > 0 && (
+            {weekData && sessionSegments.length > 0 && (
               <div className="mt-4 pt-4 border-t border-[var(--border)]">
-                <div className="flex gap-4 text-sm text-[var(--text-secondary)] mb-4">
+                <div className="flex gap-4 text-sm text-[var(--text-secondary)] mb-3">
                   <span className="flex items-center gap-1">
                     <TimerIcon />
-                    {weekData.totalDuration} min
+                    {sessionMinutes} min
                   </span>
                   <span className="flex items-center gap-1">
                     <FlameIcon />
@@ -3661,20 +3680,51 @@ function AppContent() {
                   </span>
                 </div>
 
+                {/* Sedute della settimana (A/B/C) */}
+                {weekSessions.length > 1 && (
+                  <div className="flex gap-1.5 mb-3">
+                    {weekSessions.map((s, i) => (
+                      <button
+                        key={i}
+                        onClick={() => setSelectedTreadmillSession(i)}
+                        className={`flex-1 min-w-0 rounded-xl px-2 py-2 text-left border transition-all ${
+                          i === sessionIdx
+                            ? 'border-[var(--primary)] bg-[var(--primary)]/10'
+                            : 'border-[var(--border)] bg-[var(--surface-hover)]'
+                        }`}
+                      >
+                        {(() => {
+                          const [letter, ...rest] = (s.name || `Seduta ${i + 1}`).split(' · ');
+                          const mins = s.totalDuration || Math.round((s.segments || []).reduce((a, x) => a + x.duration, 0) / 60);
+                          return (
+                            <>
+                              <p className={`text-sm font-bold leading-none ${i === sessionIdx ? 'text-[var(--primary)]' : ''}`}>{letter} <span className="text-[10px] font-normal text-[var(--text-muted)]">{mins} min</span></p>
+                              <p className="text-[11px] leading-tight mt-1 text-[var(--text-secondary)]">{rest.join(' · ') || ' '}</p>
+                            </>
+                          );
+                        })()}
+                      </button>
+                    ))}
+                  </div>
+                )}
+                {sessionData?.focus && (
+                  <p className="text-sm font-medium mb-3">{sessionData.focus}</p>
+                )}
+
                 {/* Segments Preview */}
                 <div className="space-y-2 mb-4">
-                  {weekData.session.segments.slice(0, 4).map((seg, i) => (
+                  {sessionSegments.slice(0, 5).map((seg, i) => (
                     <div key={i} className="flex items-center justify-between text-sm">
                       <span className="text-[var(--text-secondary)]">{seg.activity}</span>
                       <div className="flex items-center gap-3">
-                        <span className="text-[var(--primary)] font-medium">{seg.speed} km/h</span>
+                        <span className="text-[var(--primary)] font-medium">{fmtSeg(seg)}</span>
                         <span className="text-[var(--text-muted)] text-xs">{Math.floor(seg.duration / 60)}:{(seg.duration % 60).toString().padStart(2, '0')}</span>
                       </div>
                     </div>
                   ))}
-                  {weekData.session.segments.length > 4 && (
+                  {sessionSegments.length > 5 && (
                     <p className="text-xs text-[var(--text-muted)] text-center">
-                      +{weekData.session.segments.length - 4} altri segmenti
+                      +{sessionSegments.length - 5} altri segmenti
                     </p>
                   )}
                 </div>
@@ -3682,7 +3732,7 @@ function AppContent() {
                 <button
                   onClick={() => {
                     try {
-                      const segments = weekData?.session?.segments;
+                      const segments = sessionSegments;
                       if (!segments || segments.length === 0) {
                         console.error('No segments found');
                         return;
@@ -3693,6 +3743,7 @@ function AppContent() {
                         return;
                       }
                       setSelectedTreadmillProgram(programToUse);
+                      setSelectedTreadmillSession(sessionIdx);
                       setTreadmillSegmentIndex(0);
                       setTreadmillSegmentTimer(segments[0].duration);
                       setTreadmillTotalElapsed(0);
@@ -3727,14 +3778,33 @@ function AppContent() {
               <h3 className="text-sm font-semibold mb-3">Legenda Velocità</h3>
               <div className="space-y-2">
                 {program.speedLegend.map((item, i) => (
-                  <div key={i} className="flex items-center justify-between text-sm">
-                    <span className="text-[var(--text-secondary)]">{item.level}</span>
-                    <div className="flex items-center gap-2">
-                      <span className="font-medium">{item.speed} km/h</span>
+                  <div key={i} className="flex items-center justify-between gap-3 text-sm">
+                    <div className="min-w-0">
+                      <span className="text-[var(--text-secondary)]">{item.level}</span>
+                      {item.feeling && <p className="text-[11px] text-[var(--text-muted)] leading-snug">{item.feeling}</p>}
                     </div>
+                    <span className="font-medium flex-shrink-0">{item.speed} km/h</span>
                   </div>
                 ))}
               </div>
+              <p className="text-[11px] text-[var(--text-muted)] mt-3 leading-snug">
+                Le velocità sono un punto di partenza: regolale a tuo piacere. Se riesci a parlare a frasi intere, il ritmo è quello giusto.
+              </p>
+            </div>
+          )}
+
+          {/* Consigli del programma */}
+          {program?.tips?.length > 0 && (
+            <div className="card p-4 mb-4">
+              <h3 className="text-sm font-semibold mb-2">Per non mollare</h3>
+              <ul className="space-y-1.5">
+                {program.tips.map((tip, i) => (
+                  <li key={i} className="flex gap-2 text-xs text-[var(--text-secondary)] leading-snug">
+                    <span className="text-[var(--primary)] flex-shrink-0">●</span>
+                    <span>{tip}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
           )}
 
@@ -3810,8 +3880,8 @@ function AppContent() {
   // Treadmill Workout Screen
   if (screen === 'treadmillWorkout' && treadmillActive) {
     const program = selectedTreadmillProgram;
-    const weekData = program?.weeks?.find(w => w.week === selectedTreadmillWeek);
-    const segments = weekData?.session?.segments || [];
+    const sessionData = getTreadmillSession(program, selectedTreadmillWeek, selectedTreadmillSession);
+    const segments = sessionData?.segments || [];
     const currentSegment = segments[treadmillSegmentIndex];
 
     // Calculate total duration and elapsed time per segment
@@ -3982,7 +4052,10 @@ function AppContent() {
               <div className="flex items-center justify-between">
                 <div>
                   <h3 className="font-medium text-sm">{currentSegment?.activity}</h3>
-                  <p className="text-xl font-bold text-[var(--primary)]">{currentSegment?.speed} km/h</p>
+                  <p className="text-xl font-bold text-[var(--primary)]">
+                    {currentSegment?.speed} km/h
+                    {currentSegment?.incline ? <span className="text-sm font-semibold text-[var(--text-secondary)] ml-2">↗ {currentSegment.incline}%</span> : null}
+                  </p>
                 </div>
                 <div className="text-right">
                   <span className="text-2xl font-bold">{formatTimeMinSec(treadmillSegmentTimer)}</span>
