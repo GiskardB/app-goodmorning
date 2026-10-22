@@ -51,7 +51,7 @@
     },
     {
       "day": 2,
-      "title": "Mobilita' e camminata",
+      "title": "Mobilità e camminata",
       "image": "light",
       "calories": 57,
       "duration": 8,
@@ -182,50 +182,30 @@
     },
     {
       "day": 5,
-      "title": "Gambe: equilibrio e forza",
-      "image": "legs",
-      "calories": 87,
-      "duration": 8,
+      "title": "Test iniziale",
+      "image": "test",
+      "calories": 81,
+      "duration": 6,
       "exercises": [
         {
           "exercise_id": "push_up",
-          "duration": 35
+          "duration": 60
         },
         {
-          "exercise_id": "deep_squat",
-          "duration": 35
+          "exercise_id": "lunge_reverse",
+          "duration": 60
         },
         {
-          "exercise_id": "reverse_snow_angel",
-          "duration": 35
+          "exercise_id": "prone_pull",
+          "duration": 60
         },
         {
-          "exercise_id": "plank_side_left",
-          "duration": 35
+          "exercise_id": "hollow_body_hold",
+          "duration": 60
         },
         {
-          "exercise_id": "glute_bridge_march",
-          "duration": 35
-        },
-        {
-          "exercise_id": "push_up",
-          "duration": 35
-        },
-        {
-          "exercise_id": "deep_squat",
-          "duration": 35
-        },
-        {
-          "exercise_id": "reverse_snow_angel",
-          "duration": 35
-        },
-        {
-          "exercise_id": "plank_side_right",
-          "duration": 35
-        },
-        {
-          "exercise_id": "glute_bridge_march",
-          "duration": 35
+          "exercise_id": "single_leg_rdl",
+          "duration": 60
         }
       ]
     },
@@ -362,7 +342,7 @@
     },
     {
       "day": 9,
-      "title": "Mobilita' e camminata",
+      "title": "Mobilità e camminata",
       "image": "light",
       "calories": 57,
       "duration": 8,
@@ -673,7 +653,7 @@
     },
     {
       "day": 16,
-      "title": "Mobilita' e camminata",
+      "title": "Mobilità e camminata",
       "image": "light",
       "calories": 57,
       "duration": 8,
@@ -984,7 +964,7 @@
     },
     {
       "day": 23,
-      "title": "Mobilita' e camminata",
+      "title": "Mobilità e camminata",
       "image": "light",
       "calories": 57,
       "duration": 8,

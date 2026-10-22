@@ -371,6 +371,11 @@ function AppContent() {
   const [selectedCooldown, setSelectedCooldown] = useState(null);
   // Adattamento del workout in base al readiness score (null = piano standard)
   const [workoutAdjustment, setWorkoutAdjustment] = useState(null);
+  // Test di fase: registrazione ripetizioni/secondi per esercizio
+  const [testEntry, setTestEntry] = useState(null);        // { exercise, hasNext, nextIdx }
+  const [testInput, setTestInput] = useState(10);
+  const [testResults, setTestResults] = useState({});      // { exercise_id: valore } del test in corso
+  const [prevTestResults, setPrevTestResults] = useState(null); // test di confronto (iniziale o fase precedente)
   const [workoutHistory, setWorkoutHistory] = useState([]);
   const [selectedHistorySession, setSelectedHistorySession] = useState(null);
   const [completedExercises, setCompletedExercises] = useState({ warmup: [], workout: [], cooldown: [] });
@@ -1053,6 +1058,13 @@ function AppContent() {
               }));
             }
 
+            // Test di fase: fermati e chiedi quante ripetizioni/secondi (l'avanzamento avviene al salvataggio)
+            if (phase === 'workout' && curr?.image === 'test' && completedEx) {
+              setTestInput(prevTestResults?.[completedEx.exercise_id] ?? 10);
+              setTestEntry({ exercise: completedEx, hasNext: exerciseIdx < currentExercises.length - 1, nextIdx: exerciseIdx + 1 });
+              return 0;
+            }
+
             const hasNext = exerciseIdx < currentExercises.length - 1;
             if (hasNext) {
               const nextIdx = exerciseIdx + 1;
@@ -1080,7 +1092,27 @@ function AppContent() {
       }, 1000);
       return () => clearInterval(interval);
     }
-  }, [active, prep, paused, timer, exerciseIdx, currentExercises, moveToNextPhase, phase, midWorkoutRestTaken, wrongImageExercises]);
+  }, [active, prep, paused, timer, exerciseIdx, currentExercises, moveToNextPhase, phase, midWorkoutRestTaken, wrongImageExercises, curr, prevTestResults]);
+
+  // Salva il valore del test e avanza all'esercizio successivo
+  const submitTestEntry = () => {
+    if (!testEntry) return;
+    const value = Math.max(0, Math.round(Number(testInput) || 0));
+    const next = { ...testResults, [testEntry.exercise.exercise_id]: value };
+    setTestResults(next);
+    setSetting(`phaseTest-${currentPhaseNumber}-${day}`, next).catch(() => {});
+    const { hasNext, nextIdx } = testEntry;
+    setTestEntry(null);
+    if (hasNext) {
+      const nx = currentExercises[nextIdx];
+      setExerciseIdx(nextIdx);
+      setPrep(true);
+      setPrepTimer(getPrepTime(nx));
+      setTimer(nx?.duration || 60);
+    } else {
+      moveToNextPhase();
+    }
+  };
 
   // Rest timer for mid-workout pause
   useEffect(() => {
@@ -1541,6 +1573,20 @@ function AppContent() {
   };
 
   // Start workout handler - now triggers pre-workout assessment first
+  // Minimo vitale: 1 giro dei 5 pattern, senza check-in né defaticamento (~8 min)
+  const startMinimalWorkout = () => {
+    setWorkoutAdjustment({
+      level: 'minimal',
+      label: 'Minimo vitale',
+      icon: '',
+      description: 'Versione ridotta: 1 giro dei 5 pattern',
+      durationFactor: 1,
+      exercises: (curr?.exercises || []).slice(0, 5),
+      changes: []
+    });
+    beginWorkoutAfterAssessment(true);
+  };
+
   const startWorkout = () => {
     setWorkoutAdjustment(null);
     // Giorni leggeri/recupero: niente check-in, si parte subito
@@ -1558,7 +1604,7 @@ function AppContent() {
   };
 
   // Called after pre-workout assessment is complete or skipped
-  const beginWorkoutAfterAssessment = () => {
+  const beginWorkoutAfterAssessment = (minimal) => {
     // Select warmup and cooldown for this day
     const theme = curr?.image;
     const lightDay = theme === 'light' || theme === 'recovery';
@@ -1566,7 +1612,19 @@ function AppContent() {
       ? { warmup: null, cooldown: null }
       : selectWarmupCooldown(day, theme);
     setSelectedWarmup(warmup);
-    setSelectedCooldown(cooldown);
+    // Minimo vitale: niente defaticamento, si chiude subito dopo il giro
+    setSelectedCooldown(minimal === true ? null : cooldown);
+
+    // Test di fase: carica il test di confronto (iniziale della stessa fase, o finale della fase precedente)
+    setTestResults({});
+    setTestEntry(null);
+    setPrevTestResults(null);
+    if (theme === 'test') {
+      const cmpKey = day === 5
+        ? (currentPhaseNumber > 1 ? `phaseTest-${currentPhaseNumber - 1}-26` : null)
+        : `phaseTest-${currentPhaseNumber}-5`;
+      if (cmpKey) getSetting(cmpKey).then(v => setPrevTestResults(v || null)).catch(() => {});
+    }
 
     // Giorni leggeri/recupero: niente riscaldamento/defaticamento, si parte dal blocco principale
     const firstExercise = lightDay ? curr?.exercises?.[0] : warmup?.exercises?.[0];
@@ -2090,6 +2148,24 @@ function AppContent() {
                 style={{ width: `${progressPercent}%` }}
               />
             </div>
+            {/* Serie settimanale (Rise 2.0): 3 sedute di forza a settimana, con 1 jolly */}
+            {workouts.some(w => w.image === 'light') && (() => {
+              // settimana corrente = quella del primo giorno non ancora completato
+              let nextDay = 1;
+              while (nextDay < 28 && completed.includes(nextDay)) nextDay++;
+              const currentWeek = Math.floor((nextDay - 1) / 7) + 1;
+              const doneIn = w => [1, 3, 5].map(o => (w - 1) * 7 + o).filter(d => completed.includes(d)).length;
+              let weekStreak = 0;
+              for (let w = 1; w < currentWeek; w++) weekStreak = doneIn(w) >= 2 ? weekStreak + 1 : 0;
+              const doneNow = doneIn(currentWeek);
+              const note = doneNow >= 3 ? ' — settimana completa!' : doneNow === 2 ? ' — ne manca 1 (hai il jolly)' : '';
+              return (
+                <div className="mt-3 pt-3 border-t border-white/15 flex items-center justify-between gap-2 text-xs">
+                  <span className="text-white/85">Settimana {currentWeek}: <strong>{doneNow}/3</strong> sedute di forza{note}</span>
+                  {weekStreak > 0 && <span className="bg-white/20 rounded-full px-2 py-0.5 flex-shrink-0">{weekStreak} sett. di fila</span>}
+                </div>
+              );
+            })()}
           </div>
         </div>
 
@@ -3357,11 +3433,17 @@ function AppContent() {
             {/* Show start button only if day can be started and not completed */}
             {canStartThisDay && !isDayCompleted && (
               <>
-                <button onClick={startWorkout} className="btn-primary w-full mb-5">
+                <button onClick={startWorkout} className="btn-primary w-full mb-3">
                   {['light', 'recovery'].includes(curr?.image)
                     ? 'INIZIA'
                     : (onboardingCompleted && userProfile ? 'INIZIA CHECK-IN' : 'VAI ALL\'ALLENAMENTO')}
                 </button>
+
+                {['totalbody', 'upper', 'legs'].includes(curr?.image) && (
+                  <button onClick={startMinimalWorkout} className="btn-secondary w-full mb-5 text-sm">
+                    Poco tempo? Minimo vitale (~8 min)
+                  </button>
+                )}
 
                 {onboardingCompleted && userProfile && !['light', 'recovery'].includes(curr?.image) && (
                   <div className="bg-[var(--primary)]/10 rounded-lg p-3 mb-5 text-sm">
@@ -4034,7 +4116,7 @@ function AppContent() {
           {phase === 'workout' && workoutAdjustment && (
             <div className="bg-white/15 rounded-full px-3 py-1 mb-2 text-xs flex items-center gap-1.5">
               <span>{workoutAdjustment.icon}</span>
-              <span>Workout {workoutAdjustment.label.toLowerCase()} in base al tuo check-in</span>
+              <span>{workoutAdjustment.level === 'minimal' ? 'Minimo vitale: 1 giro dei 5 pattern' : `Workout ${workoutAdjustment.label.toLowerCase()} in base al tuo check-in`}</span>
             </div>
           )}
           <p className="text-white/60 uppercase tracking-wider text-xs mb-1">
@@ -4151,6 +4233,33 @@ function AppContent() {
 
     return (
       <div className={`workout-screen ${bgColor} text-white flex flex-col`}>
+        {/* Test di fase: inserimento ripetizioni / secondi */}
+        {testEntry && (() => {
+          const exId = testEntry.exercise.exercise_id;
+          const isHold = ['plank', 'forearm_plank', 'hollow_body_hold', 'plank_side_left', 'plank_side_right'].includes(exId);
+          const prev = prevTestResults?.[exId];
+          return (
+            <div className="fixed inset-0 z-50 bg-black/60 flex items-end sm:items-center justify-center p-4">
+              <div className="bg-[var(--surface)] text-[var(--text)] rounded-2xl p-5 w-full max-w-sm shadow-xl">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[var(--text-muted)]">Test · {testEntry.exercise.name}</p>
+                <h3 className="text-lg font-bold mt-1 mb-3">{isHold ? 'Quanti secondi hai tenuto?' : 'Quante ripetizioni pulite in 60 s?'}</h3>
+                {prev != null && (
+                  <p className="text-sm text-[var(--text-secondary)] mb-3">Test precedente: <strong>{prev}</strong> {isHold ? 's' : 'rip.'}</p>
+                )}
+                <div className="flex items-center justify-center gap-4 mb-5">
+                  <button onClick={() => setTestInput(v => Math.max(0, (Number(v) || 0) - 1))} className="w-12 h-12 rounded-full btn-secondary text-xl font-bold">−</button>
+                  <input
+                    type="number" inputMode="numeric" min="0" value={testInput}
+                    onChange={e => setTestInput(e.target.value)}
+                    className="w-24 text-center text-4xl font-bold bg-transparent border-b-2 border-[var(--primary)] focus:outline-none"
+                  />
+                  <button onClick={() => setTestInput(v => (Number(v) || 0) + 1)} className="w-12 h-12 rounded-full btn-secondary text-xl font-bold">+</button>
+                </div>
+                <button onClick={submitTestEntry} className="btn-primary w-full">Salva e continua</button>
+              </div>
+            </div>
+          );
+        })()}
         {showExitConfirm && <ExitConfirmModal />}
         <div className="p-3 flex items-center justify-between flex-shrink-0">
           <div className="flex flex-col">
@@ -4304,10 +4413,35 @@ function AppContent() {
               <div className="text-xs text-white/60">tempo</div>
             </div>
             <div className="stat-card">
-              <div className="text-2xl font-bold">{curr?.exercises?.length}</div>
+              <div className="text-2xl font-bold">{(workoutAdjustment?.exercises || curr?.exercises)?.length}</div>
               <div className="text-xs text-white/60">esercizi</div>
             </div>
           </div>
+
+          {/* Test di fase: confronto con il test precedente */}
+          {curr?.image === 'test' && Object.keys(testResults).length > 0 && (
+            <div className="bg-white/10 rounded-xl p-4 mb-8 text-left text-sm">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-white/70 mb-2">
+                {prevTestResults ? (day === 5 ? 'Fase precedente → oggi' : 'Test iniziale → oggi') : 'Punto di partenza registrato'}
+              </p>
+              {curr.exercises.map((ex, i) => {
+                const now = testResults[ex.exercise_id];
+                const prev = prevTestResults?.[ex.exercise_id];
+                const delta = prev != null && now != null ? now - prev : null;
+                return (
+                  <div key={i} className="flex items-center justify-between py-1.5 border-b border-white/10 last:border-0">
+                    <span className="truncate pr-2">{ex.name}</span>
+                    <span className="flex items-center gap-2 flex-shrink-0 font-semibold">
+                      {prev != null && <span className="text-white/60 font-normal">{prev} →</span>}
+                      <span>{now ?? '–'}</span>
+                      {delta != null && <span className={`text-xs px-1.5 py-0.5 rounded-full ${delta > 0 ? 'bg-white/25' : 'bg-white/10 text-white/70'}`}>{delta > 0 ? '+' : ''}{delta}</span>}
+                    </span>
+                  </div>
+                );
+              })}
+              {!prevTestResults && <p className="text-xs text-white/70 mt-2">Al prossimo test vedrai di quanto sei migliorato.</p>}
+            </div>
+          )}
 
           {readinessScore !== null && (
             <div className="bg-white/10 rounded-xl px-4 py-3 mb-8 flex items-center justify-center gap-2 text-sm">
