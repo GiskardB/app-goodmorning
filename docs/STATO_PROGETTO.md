@@ -47,3 +47,9 @@ automatico dell'intensità, 7 programmi tapis roulant, libreria esercizi (152 vo
    anti-abbandono. Generatore `scripts/build-treadmill.mjs`, metodo in `docs/PIANO_TREADMILL.md`.
    Domanda "il tapis ha la pendenza?": senza pendenza i tratti in salita diventano tratti più veloci
    in piano e "Camminata in salita" non è selezionabile.
+14. **Coach motivazionale** (`src/utils/coach.js`): frasi brevi nei momenti chiave (avvio del blocco
+   principale, esercizio più difficile, ultimi 10 s delle tenute, riposo a metà, ultimo esercizio,
+   chiusura; sul tapis: metà dei tratti lunghi, ultimo minuto di corsa, traguardi 5/10/15/20/30 min).
+   Massimo una frase ogni 2 min e 6 per seduta, nessuna ripetizione; tono morbido con check-in basso,
+   solo frase finale nel minimo vitale, silenzio nei giorni leggeri/recupero. Interruttore in
+   Impostazioni → Audio ("Coach motivazionale"); letto dalla voce se attiva.

@@ -34,6 +34,8 @@ import PreWorkoutAssessment from './components/assessment/PreWorkoutAssessment';
 import PostWorkoutFeedback from './components/assessment/PostWorkoutFeedback';
 import ProfileScreen from './components/profile/ProfileScreen';
 import { adaptWorkoutToReadiness } from './utils/workoutAdaptation';
+import { getReadinessLevel } from './utils/calculations';
+import { createCoach, runMilestone, isHoldExercise, COACH_SHOW_SECONDS } from './utils/coach';
 import { DISCLAIMER_TITLE, DISCLAIMER_INTRO, DISCLAIMER_POINTS } from './utils/disclaimer';
 
 // Day to focus mapping (from GUIDA_MAPPATURA_WARMUP_COOLDOWN.md)
@@ -383,6 +385,11 @@ function AppContent() {
   const [audioEnabled, setAudioEnabled] = useState(true);
   const [voiceEnabled, setVoiceEnabled] = useState(true);
   const [countdownEnabled, setCountdownEnabled] = useState(true);
+  // Coach motivazionale: poche frasi nei momenti chiave (interruttore, messaggio a schermo, frase finale)
+  const [coachEnabled, setCoachEnabled] = useState(true);
+  const [coachMessage, setCoachMessage] = useState(null); // { text, id }
+  const [coachEndText, setCoachEndText] = useState(null);
+  const coachRef = useRef(null);
   const [musicEnabled, setMusicEnabled] = useState(true);
   const [fullWidthAnimation, setFullWidthAnimation] = useState(false);
   const [availableVoices, setAvailableVoices] = useState([]);
@@ -758,6 +765,8 @@ function AppContent() {
         const savedMusicFavorites = await getSetting('musicFavorites');
         const savedTreadmillIncline = await getSetting('treadmillIncline');
         setTreadmillIncline(typeof savedTreadmillIncline === 'boolean' ? savedTreadmillIncline : null);
+        const savedCoachEnabled = await getSetting('coachEnabled');
+        setCoachEnabled(savedCoachEnabled !== undefined ? savedCoachEnabled : true);
 
         // Apply settings (use defaults if not set)
         setVoiceEnabled(savedVoiceEnabled !== undefined ? savedVoiceEnabled : true);
@@ -999,6 +1008,39 @@ function AppContent() {
     }
   }, [active, prep, ex, wrongImageExercises]);
 
+  // Mostra (e, se la voce è attiva, legge) una frase del coach per il momento indicato
+  const coachSay = useCallback((trigger, opts = {}) => {
+    const text = coachRef.current?.say(trigger, { elapsed: elapsedTimeRef.current, ...opts });
+    if (!text) return null;
+    setCoachMessage({ text, id: Date.now() });
+    audioManager.sayCoach(text);
+    return text;
+  }, []);
+
+  // Il messaggio del coach sparisce da solo
+  useEffect(() => {
+    if (!coachMessage) return undefined;
+    const t = setTimeout(() => setCoachMessage(null), COACH_SHOW_SECONDS * 1000);
+    return () => clearTimeout(t);
+  }, [coachMessage]);
+
+  // Coach: all'inizio della preparazione di un esercizio del blocco principale
+  const coachPrepRef = useRef(null);
+  useEffect(() => {
+    if (!active || !prep || phase !== 'workout' || !ex) return;
+    const key = `${phase}-${exerciseIdx}`;
+    if (coachPrepRef.current === key) return;
+    coachPrepRef.current = key;
+    const list = currentExercises;
+    const diff = (e) => e?.difficulty ?? exercises?.[e?.exercise_id]?.difficulty ?? 0;
+    const maxDiff = Math.max(0, ...list.map(diff));
+    // "più difficile": il primo con difficoltà massima escludendo primo e ultimo esercizio (hanno già la loro frase)
+    const hardestIdx = list.findIndex((e, i) => i > 0 && i < list.length - 1 && diff(e) === maxDiff);
+    if (exerciseIdx === 0) coachSay('start');
+    else if (exerciseIdx === list.length - 1 && list.length > 1) coachSay('lastExercise');
+    else if (maxDiff >= 3 && exerciseIdx === hardestIdx) coachSay('hardest');
+  }, [active, prep, phase, exerciseIdx, ex, currentExercises, exercises, coachSay]);
+
   // Speak exercise description when exercise starts (prep ends)
   const exerciseStartedRef = useRef(false);
   useEffect(() => {
@@ -1055,6 +1097,8 @@ function AppContent() {
       if (!selectedCooldown?.exercises?.length) {
         // Nessun defaticamento (giorni leggeri/recupero): fine allenamento
         setActive(false);
+        setCoachMessage(null);
+        setCoachEndText(coachRef.current?.end({ test: curr?.image === 'test' }) || null);
         audioManager.finishWorkout(elapsedTimeRef.current);
         setScreen('done');
         return;
@@ -1068,6 +1112,8 @@ function AppContent() {
     } else if (phase === 'cooldown') {
       // Finish workout
       setActive(false);
+      setCoachMessage(null);
+      setCoachEndText(coachRef.current?.end({ test: curr?.image === 'test' }) || null);
       audioManager.finishWorkout(elapsedTimeRef.current);
       setScreen('done');
     }
@@ -1081,6 +1127,10 @@ function AppContent() {
           // Play beep for last 4 seconds
           if (p <= 4 && p >= 1) {
             audioManager.onExerciseTick(p);
+          }
+          // Coach: ultimi 10 secondi di una tenuta (solo blocco principale, tenute da almeno 25 s)
+          if (p === 11 && phase === 'workout' && isHoldExercise(ex) && (ex?.duration || 0) >= 25 && exerciseIdx < currentExercises.length - 2) {
+            coachSay('holdLast10', { key: `hold-${exerciseIdx}` });
           }
 
           if (p <= 1) {
@@ -1110,6 +1160,7 @@ function AppContent() {
                 setPhase('rest');
                 setRestTimer(30);
                 audioManager.onRestStart();
+                coachSay('halfway', { force: true });
                 return currentExercises[nextIdx]?.duration || 40;
               }
               const nextExercise = currentExercises[nextIdx];
@@ -1127,7 +1178,7 @@ function AppContent() {
       }, 1000);
       return () => clearInterval(interval);
     }
-  }, [active, prep, paused, timer, exerciseIdx, currentExercises, moveToNextPhase, phase, midWorkoutRestTaken, wrongImageExercises, curr, prevTestResults]);
+  }, [active, prep, paused, timer, exerciseIdx, currentExercises, moveToNextPhase, phase, midWorkoutRestTaken, wrongImageExercises, curr, prevTestResults, ex, coachSay]);
 
   // Salva il valore del test e avanza all'esercizio successivo
   const submitTestEntry = () => {
@@ -1213,6 +1264,21 @@ function AppContent() {
     if (treadmillActive && !treadmillPaused && treadmillSegmentTimer > 0) {
       const interval = setInterval(() => {
         setTreadmillSegmentTimer(prev => {
+          // Coach: metà di un tratto lungo, ultimo minuto di corsa, traguardi di corsa continua
+          const coachSeg = getTreadmillSession(selectedTreadmillProgram, selectedTreadmillWeek, selectedTreadmillSession, treadmillIncline !== false)?.segments?.[treadmillSegmentIndex];
+          if (coachSeg) {
+            const isRun = /Corsa/.test(coachSeg.activity);
+            const milestone = isRun ? runMilestone(coachSeg.duration) : null;
+            const el = treadmillElapsedRef.current;
+            if (prev === Math.ceil(coachSeg.duration / 2) && coachSeg.duration >= 480) {
+              coachSay(isRun ? 'runMid' : 'walkMid', { elapsed: el, key: `mid-${treadmillSegmentIndex}` });
+            } else if (prev === 61 && isRun && coachSeg.duration >= 180 && !milestone) {
+              coachSay('runLastMinute', { elapsed: el, key: `last-${treadmillSegmentIndex}` });
+            } else if (prev === 2 && milestone) {
+              coachSay('milestone', { elapsed: el, force: true, key: `milestone-${milestone}`, variant: milestone });
+            }
+          }
+
           // 5-second warning before segment ends
           if (prev === 6 && voiceEnabled && 'speechSynthesis' in window) {
             const segments = getTreadmillSession(selectedTreadmillProgram, selectedTreadmillWeek, selectedTreadmillSession, treadmillIncline !== false)?.segments || [];
@@ -1286,7 +1352,7 @@ function AppContent() {
 
       return () => clearInterval(interval);
     }
-  }, [treadmillActive, treadmillPaused, treadmillSegmentTimer, treadmillSegmentIndex, selectedTreadmillProgram, selectedTreadmillWeek, selectedTreadmillSession, treadmillIncline, voiceEnabled, userProfile?.weight]);
+  }, [treadmillActive, treadmillPaused, treadmillSegmentTimer, treadmillSegmentIndex, selectedTreadmillProgram, selectedTreadmillWeek, selectedTreadmillSession, treadmillIncline, voiceEnabled, userProfile?.weight, coachSay]);
 
   // Select random warmup/cooldown based on day focus
   const selectWarmupCooldown = useCallback((dayNum, theme) => {
@@ -1465,6 +1531,12 @@ function AppContent() {
     await setSetting('countdownEnabled', newState);
   }, [countdownEnabled]);
 
+  const toggleCoach = useCallback(async () => {
+    const newState = !coachEnabled;
+    setCoachEnabled(newState);
+    await setSetting('coachEnabled', newState);
+  }, [coachEnabled]);
+
   const toggleMusic = useCallback(async () => {
     const newState = !musicEnabled;
     setMusicEnabled(newState);
@@ -1630,10 +1702,19 @@ function AppContent() {
   };
 
   // Called after pre-workout assessment is complete or skipped
-  const beginWorkoutAfterAssessment = (minimal) => {
+  const beginWorkoutAfterAssessment = (minimal, tone = 'normal') => {
     // Select warmup and cooldown for this day
     const theme = curr?.image;
     const lightDay = theme === 'light' || theme === 'recovery';
+
+    // Coach: tace nei giorni leggeri/recupero; "minimo vitale" solo frase finale; energia bassa = tono morbido
+    coachRef.current = createCoach({
+      enabled: coachEnabled && !lightDay,
+      tone: minimal === true ? 'minimal' : tone,
+      name: userProfile?.name || '',
+    });
+    setCoachMessage(null);
+    setCoachEndText(null);
     const { warmup, cooldown } = lightDay
       ? { warmup: null, cooldown: null }
       : selectWarmupCooldown(day, theme);
@@ -1675,7 +1756,7 @@ function AppContent() {
     // Adapt today's workout to the readiness score using difficulty weights
     const score = assessmentData?.readinessScore ?? result?.score;
     setWorkoutAdjustment(adaptWorkoutToReadiness(curr?.exercises, exercises, score, assessmentData?.domsAreas));
-    beginWorkoutAfterAssessment();
+    beginWorkoutAfterAssessment(false, score != null && getReadinessLevel(score) === 'low' ? 'soft' : 'normal');
   };
 
   // Handle pre-workout assessment skip
@@ -1700,6 +1781,7 @@ function AppContent() {
   const confirmExit = () => {
     setShowExitConfirm(false);
     setActive(false);
+    setCoachMessage(null);
     setWorkoutAdjustment(null);
     audioManager.exitWorkout();
     setScreen('detail');
@@ -3254,6 +3336,27 @@ function AppContent() {
               </div>
             </button>
 
+            {/* Coach motivazionale */}
+            <button
+              onClick={toggleCoach}
+              className="w-full flex items-center justify-between py-3 border-b border-[var(--border)]"
+            >
+              <div className="flex items-center gap-3">
+                <span className="text-xl">💬</span>
+                <div className="text-left">
+                  <div className="font-medium text-sm">Coach motivazionale</div>
+                  <div className="text-xs text-[var(--text-secondary)]">Qualche frase nei momenti chiave, mai a raffica</div>
+                </div>
+              </div>
+              <div className={`w-11 h-6 rounded-full transition-colors flex items-center ${
+                coachEnabled ? 'bg-[var(--primary)]' : 'bg-[var(--border)]'
+              }`}>
+                <div className={`w-4 h-4 rounded-full bg-white shadow transition-transform mx-1 ${
+                  coachEnabled ? 'translate-x-5' : ''
+                }`} />
+              </div>
+            </button>
+
             {/* Music */}
             <button
               onClick={toggleMusic}
@@ -3810,6 +3913,8 @@ function AppContent() {
                       }
                       setSelectedTreadmillProgram(programToUse);
                       setSelectedTreadmillSession(sessionIdx);
+                      coachRef.current = createCoach({ enabled: coachEnabled, tone: 'normal', name: userProfile?.name || '' });
+                      setCoachMessage(null);
                       setTreadmillSegmentIndex(0);
                       setTreadmillSegmentTimer(segments[0].duration);
                       setTreadmillTotalElapsed(0);
@@ -4093,6 +4198,11 @@ function AppContent() {
 
         {/* Current Phase */}
         <div className="px-3 mb-2 flex-shrink-0">
+          {coachMessage && (
+            <div key={coachMessage.id} className="bg-[var(--primary)]/10 text-[var(--primary)] px-4 py-2 rounded-2xl text-sm font-medium text-center mb-2 animate-slide-up">
+              {coachMessage.text}
+            </div>
+          )}
           <p className="text-[10px] text-[var(--text-muted)] uppercase tracking-wider mb-1 font-medium text-center">Fase attuale</p>
           <div className="flex items-center gap-2">
             {/* Prev arrow */}
@@ -4265,6 +4375,13 @@ function AppContent() {
 
           <div className={`text-5xl font-bold mb-3 ${prepTimer <= 3 ? 'text-yellow-300 animate-pulse-soft' : ''}`}>{prepTimer}</div>
 
+          {/* Coach */}
+          {coachMessage && phase === 'workout' && (
+            <div key={coachMessage.id} className="bg-white/20 text-white px-4 py-2 rounded-2xl text-sm font-medium text-center mb-3 max-w-xs animate-slide-up">
+              {coachMessage.text}
+            </div>
+          )}
+
           <div className="mb-3 overflow-hidden rounded-2xl flex-shrink-0">
             {hasWrongImage ? (
               <img
@@ -4320,7 +4437,7 @@ function AppContent() {
           <div className="timer-display text-[var(--primary)] mb-6">{restTimer}</div>
 
           <p className="text-[var(--text-secondary)] text-center mb-6 max-w-xs text-sm">
-            Prenditi un momento per riprendere fiato prima di continuare
+            {coachMessage?.text || 'Prenditi un momento per riprendere fiato prima di continuare'}
           </p>
 
           <div className="flex flex-col gap-3">
@@ -4459,6 +4576,13 @@ function AppContent() {
             <div className="progress-bar-fill" style={{ width: `${progress}%` }} />
           </div>
 
+          {/* Coach */}
+          {coachMessage && (
+            <div key={coachMessage.id} className="bg-white/20 text-white px-4 py-2 rounded-2xl text-sm font-medium text-center mb-2 max-w-xs animate-slide-up">
+              {coachMessage.text}
+            </div>
+          )}
+
           {/* Tip - only show if there's a specific tip */}
           {getTipText(ex?.type || phase) && (
             <div className="bg-white/15 text-white/90 px-3 py-1 rounded-full text-xs mb-1">
@@ -4540,7 +4664,10 @@ function AppContent() {
           </div>
           <span className="text-xs font-semibold uppercase tracking-[0.3em] text-white/70">Giorno {day} completato</span>
           <h1 className="text-3xl font-bold tracking-tight mt-1 mb-1">Fantastico!</h1>
-          <p className="text-base text-white/80 mb-8">{curr?.title}</p>
+          <p className={`text-base text-white/80 ${coachEndText ? 'mb-3' : 'mb-8'}`}>{curr?.title}</p>
+          {coachEndText && (
+            <p className="text-sm text-white/90 italic mb-8 max-w-xs mx-auto">“{coachEndText}”</p>
+          )}
 
           <div className="grid grid-cols-3 gap-3 mb-8">
             <div className="stat-card">

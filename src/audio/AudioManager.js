@@ -491,6 +491,14 @@ class AudioManager {
     }, 600);
   }
 
+  // Frase del coach motivazionale (letta solo se la voce è attiva)
+  sayCoach(text) {
+    if (!this.enabled || !this.voiceEnabled || !text) return;
+    setTimeout(() => {
+      this.voice.speak(text, { rate: 0.95 });
+    }, 300);
+  }
+
   onRestStart() {
     if (!this.enabled || !this.voiceEnabled) return;
 
