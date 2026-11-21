@@ -482,7 +482,7 @@ export async function resolveAntiPattern(id) {
 // ============ Treadmill Sessions Functions (profile-specific) ============
 
 // `week` è il livello del programma (nell'app è mostrato come "Livello"); `sessionName` la seduta scelta (es. "B · Due da 8")
-export async function saveTreadmillSession(programId, programName, week, duration, calories, distance = 0, completed = true, sessionName = null) {
+export async function saveTreadmillSession(programId, programName, week, duration, calories, distance = 0, completed = true, sessionName = null, extra = {}) {
   const db = await initDB();
   const profileId = await getActiveProfileId();
   return await db.add('sessions', {
@@ -496,7 +496,9 @@ export async function saveTreadmillSession(programId, programName, week, duratio
     calories,
     distance,
     completed,
-    date: new Date().toISOString()
+    startedAt: extra.startedAt || null,   // identifica la sessione (evita doppioni al recupero)
+    recovered: extra.recovered || false,  // true se recuperata dopo una chiusura improvvisa dell'app
+    date: extra.date || new Date().toISOString()
   });
 }
 

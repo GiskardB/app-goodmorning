@@ -303,6 +303,7 @@ const treadmillIntensity = (session) => {
   const level = score < 3.6 ? 1 : score < 5 ? 2 : score < 6.3 ? 3 : score < 7.4 ? 4 : 5;
   return { level, label: TREADMILL_INTENSITY_LABELS[level], score };
 };
+const TREADMILL_MIN_SAVE_SECONDS = 30; // sotto questa soglia una sessione interrotta non viene registrata
 const IntensityBars = ({ level = 0, className = '' }) => (
   <span className={`inline-flex items-end gap-[2px] ${className}`} role="img" aria-label={`Intensità ${level} su 5`}>
     {[1, 2, 3, 4, 5].map(i => (
@@ -459,6 +460,12 @@ function AppContent() {
   const [selectedTreadmillWeek, setSelectedTreadmillWeek] = useState(1);
   const [selectedTreadmillSession, setSelectedTreadmillSession] = useState(0); // indice seduta (A/B/C) nel livello
   const [showAllTreadmillSessions, setShowAllTreadmillSessions] = useState(false); // storico tapis: elenco completo
+  const [showTreadmillExitConfirm, setShowTreadmillExitConfirm] = useState(false); // conferma di uscita anticipata
+  const [treadmillNotice, setTreadmillNotice] = useState(null); // esito dell'ultima sessione: { kind, duration, distance }
+  const treadmillStartedAtRef = useRef(null);            // inizio della sessione in corso (ISO)
+  const treadmillPausedBeforeExitRef = useRef(false);    // era già in pausa quando si è aperta la conferma
+  const treadmillRecoveringRef = useRef(false);          // recupero in corso (evita doppi salvataggi)
+  const treadmillSelRef = useRef({});                    // programma/livello/seduta correnti, per il checkpoint
   const [treadmillIncline, setTreadmillIncline] = useState(null); // null = non ancora chiesto; true/false = il tapis ha la pendenza regolabile
   const [treadmillActive, setTreadmillActive] = useState(false);
   const [treadmillPaused, setTreadmillPaused] = useState(false);
@@ -522,8 +529,10 @@ function AppContent() {
     const handlePopState = (event) => {
       // If in a workout, don't allow back navigation (show exit confirm instead)
       if (active || treadmillActive) {
-        // Re-push current state to prevent exit
+        // Re-push current state to prevent exit, then ask what to do
         window.history.pushState({ screen }, '', '');
+        if (treadmillActive) requestTreadmillExitRef.current?.();
+        else { setPaused(true); setShowExitConfirm(true); }
         return;
       }
 
@@ -1275,15 +1284,138 @@ function AppContent() {
             treadmillPrograms.find(p => p.id === treadmillSessionToSave.programId),
             treadmillSessionToSave.week,
             treadmillSessionToSave.sessionIndex ?? 0
-          )?.name || null
+          )?.name || null,
+          { startedAt: treadmillSessionToSave.startedAt }
         );
         const updated = await getTreadmillSessions();
         setTreadmillCompletedSessions(updated);
+        setTreadmillNotice({
+          kind: treadmillSessionToSave.completed !== false ? 'completed' : 'partial',
+          duration: treadmillSessionToSave.duration,
+          distance: treadmillSessionToSave.distance || 0
+        });
         setTreadmillSessionToSave(null);
       };
       saveAndReload();
     }
   }, [treadmillSessionToSave]);
+
+  // ===== Tapis: uscita anticipata, checkpoint e recupero =====
+  treadmillSelRef.current = {
+    programId: selectedTreadmillProgram?.id,
+    programName: selectedTreadmillProgram?.name,
+    week: selectedTreadmillWeek,
+    sessionIndex: selectedTreadmillSession
+  };
+
+  // Apre la conferma di uscita mettendo in pausa (tasto X o tasto indietro del telefono)
+  const requestTreadmillExit = () => {
+    if (showTreadmillExitConfirm) return;
+    treadmillPausedBeforeExitRef.current = treadmillPaused;
+    if (!treadmillPaused) {
+      setTreadmillPaused(true);
+      audioManager.onPause();
+    }
+    setShowTreadmillExitConfirm(true);
+  };
+  const requestTreadmillExitRef = useRef(null);
+  requestTreadmillExitRef.current = requestTreadmillExit;
+
+  const cancelTreadmillExit = () => {
+    setShowTreadmillExitConfirm(false);
+    if (!treadmillPausedBeforeExitRef.current) {
+      setTreadmillPaused(false);
+      audioManager.onResume();
+    }
+  };
+
+  // Termina in anticipo: quello che è stato fatto resta nello storico come sessione parziale
+  const endTreadmillEarly = () => {
+    const elapsed = treadmillElapsedRef.current;
+    if (elapsed >= TREADMILL_MIN_SAVE_SECONDS) {
+      setTreadmillSessionToSave({
+        ...treadmillSelRef.current,
+        startedAt: treadmillStartedAtRef.current,
+        duration: elapsed,
+        calories: treadmillCaloriesRef.current,
+        distance: treadmillDistanceRef.current,
+        completed: false
+      });
+    } else {
+      setTreadmillNotice({ kind: 'tooShort', duration: elapsed, distance: 0 });
+    }
+    setShowTreadmillExitConfirm(false);
+    setTreadmillActive(false);
+    setTreadmillPaused(false);
+    setCoachMessage(null);
+    audioManager.music.stop();
+    setScreen('treadmill');
+  };
+
+  // Checkpoint: durante la sessione il progresso viene scritto ogni 5 secondi (e quando l'app va in
+  // background), così se l'app viene chiusa o il telefono la termina il lavoro fatto non si perde.
+  const writeTreadmillCheckpoint = useCallback(() => {
+    if (!treadmillStartedAtRef.current) return;
+    setSetting('treadmillInProgress', {
+      ...treadmillSelRef.current,
+      startedAt: treadmillStartedAtRef.current,
+      updatedAt: new Date().toISOString(),
+      duration: treadmillElapsedRef.current,
+      calories: treadmillCaloriesRef.current,
+      distance: treadmillDistanceRef.current
+    }).catch(() => {});
+  }, []);
+
+  useEffect(() => {
+    if (!treadmillActive) return undefined;
+    writeTreadmillCheckpoint();
+    const interval = setInterval(writeTreadmillCheckpoint, 5000);
+    const onHide = () => { if (document.visibilityState === 'hidden') writeTreadmillCheckpoint(); };
+    document.addEventListener('visibilitychange', onHide);
+    window.addEventListener('pagehide', writeTreadmillCheckpoint);
+    return () => {
+      // Fine regolare (completata o terminata dall'utente): il checkpoint non serve più
+      clearInterval(interval);
+      document.removeEventListener('visibilitychange', onHide);
+      window.removeEventListener('pagehide', writeTreadmillCheckpoint);
+      treadmillStartedAtRef.current = null;
+      setSetting('treadmillInProgress', null).catch(() => {});
+    };
+  }, [treadmillActive, writeTreadmillCheckpoint]);
+
+  // Recupero all'avvio: un checkpoint rimasto significa che l'app si è chiusa a metà sessione
+  useEffect(() => {
+    if (treadmillPrograms.length === 0 || treadmillStartedAtRef.current || treadmillRecoveringRef.current) return;
+    treadmillRecoveringRef.current = true;
+    (async () => {
+      try {
+        const cp = await getSetting('treadmillInProgress');
+        if (!cp) return;
+        await setSetting('treadmillInProgress', null);
+        if (!cp.startedAt || (cp.duration || 0) < TREADMILL_MIN_SAVE_SECONDS) return;
+        const existing = await getTreadmillSessions();
+        if (existing.some(x => x.startedAt && x.startedAt === cp.startedAt)) return; // già registrata
+        const program = treadmillPrograms.find(p => p.id === cp.programId);
+        await saveTreadmillSession(
+          cp.programId,
+          cp.programName || program?.name,
+          cp.week,
+          cp.duration,
+          cp.calories || 0,
+          cp.distance || 0,
+          false,
+          getTreadmillSession(program, cp.week, cp.sessionIndex ?? 0)?.name || null,
+          { startedAt: cp.startedAt, date: cp.updatedAt, recovered: true }
+        );
+        setTreadmillCompletedSessions(await getTreadmillSessions());
+        setTreadmillNotice({ kind: 'recovered', duration: cp.duration, distance: cp.distance || 0 });
+      } catch (e) {
+        console.error('Recupero sessione tapis non riuscito:', e);
+      } finally {
+        treadmillRecoveringRef.current = false;
+      }
+    })();
+  }, [treadmillPrograms, userProfile?.id]);
 
   // Treadmill workout timer
   useEffect(() => {
@@ -1336,7 +1468,8 @@ function AppContent() {
                 programName: programToSave?.name,
                 week: selectedTreadmillWeek,
                 sessionIndex: selectedTreadmillSession,
-                duration: treadmillElapsedRef.current,
+                startedAt: treadmillStartedAtRef.current,
+                duration: treadmillElapsedRef.current + 1, // il secondo in corso è l'ultimo
                 calories: treadmillCaloriesRef.current,
                 distance: treadmillDistanceRef.current,
                 completed: true
@@ -3831,6 +3964,32 @@ function AppContent() {
         </div>
 
         <div className="px-4 max-w-2xl mx-auto mt-4 relative z-10">
+          {/* Esito dell'ultima sessione (completata, parziale, recuperata) */}
+          {treadmillNotice && (() => {
+            const t = formatTime(treadmillNotice.duration || 0);
+            const km = treadmillNotice.distance > 0 ? ` · ${treadmillNotice.distance.toFixed(2)} km` : '';
+            const copy = {
+              completed: ['Sessione completata', `${t}${km} registrati nel tuo storico.`],
+              partial: ['Sessione salvata', `Ti sei fermato a ${t}${km}: è nel tuo storico come parziale. Ogni minuto conta.`],
+              recovered: ['Sessione recuperata', `L’app si era chiusa durante l’allenamento: abbiamo registrato ${t}${km}.`],
+              tooShort: ['Sessione non registrata', `Meno di ${TREADMILL_MIN_SAVE_SECONDS} secondi di attività.`],
+            }[treadmillNotice.kind] || ['Sessione salvata', `${t}${km}`];
+            return (
+              <div className="card p-3 mb-4 flex items-start gap-3 animate-slide-up" role="status">
+                <div className={`w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0 ${treadmillNotice.kind === 'tooShort' ? 'bg-[var(--border)]' : 'bg-[var(--primary)]'}`}>
+                  <CheckIcon />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-semibold">{copy[0]}</p>
+                  <p className="text-xs text-[var(--text-secondary)] leading-snug">{copy[1]}</p>
+                </div>
+                <button onClick={() => setTreadmillNotice(null)} aria-label="Chiudi avviso" className="w-7 h-7 flex items-center justify-center flex-shrink-0 text-[var(--text-muted)]">
+                  <CloseIcon />
+                </button>
+              </div>
+            );
+          })()}
+
           {/* Week Selector Card */}
           <div className="card p-4 mb-4 animate-slide-up">
             <div className="flex items-center justify-between mb-3">
@@ -3978,6 +4137,9 @@ function AppContent() {
                       setSelectedTreadmillSession(sessionIdx);
                       coachRef.current = createCoach({ enabled: coachEnabled, tone: 'normal', name: userProfile?.name || '' });
                       setCoachMessage(null);
+                      treadmillStartedAtRef.current = new Date().toISOString();
+                      setTreadmillNotice(null);
+                      setShowTreadmillExitConfirm(false);
                       setTreadmillSegmentIndex(0);
                       setTreadmillSegmentTimer(segments[0].duration);
                       setTreadmillTotalElapsed(0);
@@ -4177,28 +4339,36 @@ function AppContent() {
 
     return (
       <div className="workout-screen bg-[var(--bg)] flex flex-col">
+        {/* Conferma di uscita anticipata: il lavoro fatto viene sempre registrato */}
+        {showTreadmillExitConfirm && (
+          <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+            <div className="bg-[var(--surface)] rounded-2xl p-6 max-w-sm w-full animate-slide-up text-center">
+              <h3 className="text-lg font-semibold mb-2">Vuoi fermarti qui?</h3>
+              {treadmillTotalElapsed >= TREADMILL_MIN_SAVE_SECONDS ? (
+                <p className="text-[var(--text-secondary)] text-sm mb-6">
+                  Hai fatto <strong className="text-[var(--text)]">{formatTime(treadmillTotalElapsed)}</strong>
+                  {treadmillDistance > 0 && <> e <strong className="text-[var(--text)]">{treadmillDistance.toFixed(2)} km</strong></>}.
+                  {' '}Vengono registrati nel tuo storico: ogni minuto conta.
+                </p>
+              ) : (
+                <p className="text-[var(--text-secondary)] text-sm mb-6">
+                  Meno di {TREADMILL_MIN_SAVE_SECONDS} secondi: la sessione non verrà registrata.
+                </p>
+              )}
+              <div className="flex flex-col gap-2">
+                <button onClick={cancelTreadmillExit} className="btn-primary w-full">Continua</button>
+                <button onClick={endTreadmillEarly} className="btn-secondary w-full py-3">
+                  {treadmillTotalElapsed >= TREADMILL_MIN_SAVE_SECONDS ? 'Termina e salva' : 'Esci'}
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
         {/* Top bar */}
         <div className="p-3 flex justify-end flex-shrink-0">
           <button
-            onClick={() => {
-              // Salva comunque la corsa parziale se ha corso almeno 30s
-              if (treadmillElapsedRef.current >= 30) {
-                const prog = selectedTreadmillProgram;
-                setTreadmillSessionToSave({
-                  programId: prog?.id,
-                  programName: prog?.name,
-                  week: selectedTreadmillWeek,
-                  sessionIndex: selectedTreadmillSession,
-                  duration: treadmillElapsedRef.current,
-                  calories: treadmillCaloriesRef.current,
-                  distance: treadmillDistanceRef.current,
-                  completed: false
-                });
-              }
-              setTreadmillActive(false);
-              audioManager.music.stop();
-              setScreen('treadmill');
-            }}
+            onClick={requestTreadmillExit}
+            aria-label="Termina sessione"
             className="w-10 h-10 rounded-full flex items-center justify-center"
           >
             <CloseIcon />
@@ -4392,6 +4562,7 @@ function AppContent() {
                   programName: program?.name,
                   week: selectedTreadmillWeek,
                   sessionIndex: selectedTreadmillSession,
+                  startedAt: treadmillStartedAtRef.current,
                   duration: treadmillElapsedRef.current || treadmillTotalElapsed,
                   calories: treadmillCaloriesRef.current || treadmillCalories,
                   distance: treadmillDistanceRef.current || treadmillDistance,

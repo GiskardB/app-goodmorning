@@ -63,3 +63,9 @@ automatico dell'intensità, 7 programmi tapis roulant, libreria esercizi (152 vo
    con lunga fino a 40′ e ripetute da 3′, riga "Perché" su ogni seduta, calorie coerenti con l'intensità.
    Regole verificate dal generatore. Corretti il selettore programmi (ora scorre) e gli interruttori
    delle impostazioni (stessa dimensione anche con testo su due righe).
+17. **Tapis: sessioni interrotte sempre registrate**. Il tasto X e il tasto indietro del telefono aprono
+   "Vuoi fermarti qui?" (timer in pausa) e "Termina e salva" registra la sessione come parziale. Durante
+   l'allenamento un checkpoint (`treadmillInProgress`) viene scritto ogni 5 s e quando l'app va in
+   background: se l'app viene chiusa, al riavvio la sessione è recuperata nello storico (una volta sola,
+   grazie a `startedAt`). Un avviso conferma l'esito: completata, salvata, recuperata o non registrata
+   (sotto i 30 s). Il tasto indietro ora apre la conferma anche negli allenamenti a corpo libero.
