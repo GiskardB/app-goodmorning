@@ -226,6 +226,12 @@ h1, h2, h3 {
   background: linear-gradient(135deg, #2E241B 0%, #6B3A24 70%, #9A5A38 100%);
 }
 
+.hero-ochre {
+  background:
+    var(--sunburst) center top / 100% auto no-repeat,
+    linear-gradient(135deg, #5A3A1E 0%, #9A6A2A 70%, #C6902F 100%);
+}
+
 /* Phase backgrounds: soft dawn -> sunrise -> warm dusk */
 .bg-warmup {
   background:

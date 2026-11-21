@@ -222,7 +222,7 @@ export async function setCurrentDay(day) {
 
 // ============ History functions (profile-specific) ============
 
-export async function addWorkoutHistory(day, duration, workoutTitle, exerciseDetails) {
+export async function addWorkoutHistory(day, duration, workoutTitle, exerciseDetails, theme = null) {
   const db = await initDB();
   const profileId = await getActiveProfileId();
   await db.add('history', {
@@ -231,6 +231,7 @@ export async function addWorkoutHistory(day, duration, workoutTitle, exerciseDet
     duration,
     workoutTitle,
     exerciseDetails,
+    theme,
     completedAt: new Date().toISOString()
   });
 }
@@ -360,6 +361,11 @@ export async function resetOnboarding() {
 
 // ============ Sessions Functions (profile-specific) ============
 
+// Lo store `sessions` contiene anche le sessioni di tapis roulant e le sessioni extra (campo `type`).
+// Le funzioni qui sotto riguardano solo le sedute del piano a corpo libero (senza `type`): check-in,
+// sforzo percepito e statistiche non devono essere diluiti dalle altre attività.
+const isPlanSession = (s) => !s.type;
+
 export async function saveSession(sessionData) {
   const db = await initDB();
   const profileId = await getActiveProfileId();
@@ -381,6 +387,7 @@ export async function getSessions(limit = 20) {
   const profileId = await getActiveProfileId();
   const all = await db.getAllFromIndex('sessions', 'profileId', profileId);
   return all
+    .filter(isPlanSession)
     .sort((a, b) => new Date(b.date) - new Date(a.date))
     .slice(0, limit);
 }
@@ -389,7 +396,7 @@ export async function getSessionsByDay(day) {
   const db = await initDB();
   const profileId = await getActiveProfileId();
   const all = await db.getAllFromIndex('sessions', 'profileId', profileId);
-  return all.filter(s => s.day === day);
+  return all.filter(s => isPlanSession(s) && s.day === day);
 }
 
 export async function getRecentSessions(days = 7) {
@@ -400,7 +407,7 @@ export async function getRecentSessions(days = 7) {
   cutoff.setDate(cutoff.getDate() - days);
 
   return all
-    .filter(s => new Date(s.date) >= cutoff)
+    .filter(s => isPlanSession(s) && new Date(s.date) >= cutoff)
     .sort((a, b) => new Date(b.date) - new Date(a.date));
 }
 
@@ -520,12 +527,40 @@ export async function getTreadmillSessionsByProgram(programId) {
     .sort((a, b) => new Date(b.date) - new Date(a.date));
 }
 
+// ============ Sessioni extra (cardio a corpo libero, pause attive, respiro) ============
+
+export async function saveExtraSession({ extraId, familyId, title, duration, calories = 0, countsAsActive = true, completed = true }) {
+  const db = await initDB();
+  const profileId = await getActiveProfileId();
+  return await db.add('sessions', {
+    type: 'extra',
+    profileId,
+    extraId,
+    familyId,
+    title,
+    duration,
+    calories,
+    countsAsActive,
+    completed,
+    date: new Date().toISOString()
+  });
+}
+
+export async function getExtraSessions() {
+  const db = await initDB();
+  const profileId = await getActiveProfileId();
+  const all = await db.getAllFromIndex('sessions', 'profileId', profileId);
+  return all
+    .filter(s => s.type === 'extra')
+    .sort((a, b) => new Date(b.date) - new Date(a.date));
+}
+
 // ============ Statistics Functions (profile-specific) ============
 
 export async function getTrainingStats() {
   const db = await initDB();
   const profileId = await getActiveProfileId();
-  const sessions = await db.getAllFromIndex('sessions', 'profileId', profileId);
+  const sessions = (await db.getAllFromIndex('sessions', 'profileId', profileId)).filter(isPlanSession);
   const painEvents = await db.getAllFromIndex('painEvents', 'profileId', profileId);
 
   if (sessions.length === 0) {

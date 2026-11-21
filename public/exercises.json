@@ -1287,7 +1287,7 @@
   "single_leg_stand": {
     "id": 187,
     "name": "Equilibrio su Una Gamba",
-    "description": "Stai in piedi su una gamba sola mantenendo l'equilibrio. Puoi tenere la gamba sollevata piegata o tesa. Questo esercizio migliora la propriocezione, la stabilità della caviglia e attiva i muscoli stabilizzatori. Chiudi gli occhi per aumentare la difficoltà.",
+    "description": "Stai in piedi su una gamba sola mantenendo l'equilibrio. Puoi tenere la gamba sollevata piegata o tesa. Questo esercizio migliora la propriocezione, la stabilità della caviglia e attiva i muscoli stabilizzatori. Chiudi gli occhi per aumentare la difficoltà. Cambia gamba a metà tempo; tieniti vicino a un appoggio.",
     "muscles": "Stabilizzatori caviglia, Core, Glutei",
     "type": "balance",
     "gif": "assets/single_leg_stand.gif",
@@ -1613,5 +1613,105 @@
     "gif": "assets/rise2/prone_pull.gif",
     "difficulty": 3,
     "wrongImage": false
+  },
+  "step_jack": {
+    "id": 227,
+    "name": "Jack senza salto",
+    "description": "Apri una gamba di lato portando le braccia sopra la testa, poi richiudi e cambia lato. Stesso lavoro del jumping jack, senza salto e senza rumore.",
+    "muscles": "Spalle, Glutei, Cardio",
+    "type": "cardio",
+    "instructions": [
+      "Parti in piedi, piedi uniti e braccia lungo i fianchi",
+      "Fai un passo laterale con una gamba e alza le braccia sopra la testa",
+      "Richiudi e ripeti dal lato opposto a ritmo regolare"
+    ],
+    "common_mistakes": [
+      "Alzare le spalle verso le orecchie",
+      "Passi troppo corti: apri fino a sentire lavorare i glutei"
+    ],
+    "tips": "Più apri e più veloce alterni, più sale l’intensità: sei tu a regolarla.",
+    "difficulty": 2,
+    "gif": "assets/rise2/step_jack.gif",
+    "wrongImage": false
+  },
+  "skater_step": {
+    "id": 228,
+    "name": "Pattinatore senza salto",
+    "description": "Passo laterale ampio portando l’altra gamba dietro, busto leggermente in avanti, poi cambia lato come un pattinatore. Niente salti: il piede d’appoggio resta a terra.",
+    "muscles": "Glutei, Quadricipiti, Cardio",
+    "type": "cardio",
+    "instructions": [
+      "Fai un passo ampio di lato e piega il ginocchio d’appoggio",
+      "Porta l’altra gamba dietro, sfiorando il pavimento con la punta",
+      "Allunga la mano opposta verso il piede d’appoggio e cambia lato"
+    ],
+    "common_mistakes": [
+      "Ginocchio che cede verso l’interno",
+      "Schiena curva: resta lungo con il busto"
+    ],
+    "tips": "Movimento ampio e controllato: è l’ampiezza a far salire il battito, non la fretta.",
+    "difficulty": 3,
+    "gif": "assets/rise2/skater_step.gif",
+    "wrongImage": false
+  },
+  "front_kick": {
+    "id": 229,
+    "name": "Calci frontali alternati",
+    "description": "In guardia con i pugni al mento, solleva il ginocchio e stendi la gamba in avanti all’altezza che ti viene naturale, poi cambia lato. Il piede d’appoggio resta a terra.",
+    "muscles": "Quadricipiti, Flessori dell’anca, Core, Cardio",
+    "type": "cardio",
+    "instructions": [
+      "Mani in guardia, addominali attivi",
+      "Solleva il ginocchio e distendi la gamba in avanti",
+      "Riappoggia con controllo e alterna le gambe"
+    ],
+    "common_mistakes": [
+      "Inclinarsi molto indietro con il busto",
+      "Lanciare la gamba senza controllo"
+    ],
+    "tips": "Calcio basso va benissimo: conta il ritmo, non l’altezza.",
+    "difficulty": 3,
+    "gif": "assets/rise2/front_kick.gif",
+    "wrongImage": false
+  },
+  "chair_squat": {
+    "id": 230,
+    "name": "Alzarsi dalla sedia",
+    "description": "Seduto sul bordo di una sedia stabile, piedi ben appoggiati: alzati in piedi senza aiutarti con le mani e risiediti lentamente, sfiorando appena la seduta.",
+    "muscles": "Quadricipiti, Glutei",
+    "type": "squat",
+    "instructions": [
+      "Siediti sul bordo, piedi alla larghezza dei fianchi",
+      "Porta il busto in avanti e spingi sui talloni per alzarti",
+      "Scendi lentamente contando fino a tre e riparti"
+    ],
+    "common_mistakes": [
+      "Lasciarsi cadere sulla sedia",
+      "Ginocchia che si chiudono verso l’interno"
+    ],
+    "tips": "La discesa lenta è la parte che rinforza di più.",
+    "difficulty": 1,
+    "gif": "assets/rise2/chair_squat.gif",
+    "wrongImage": false
+  },
+  "breathing_seated": {
+    "id": 231,
+    "name": "Respiro lento da seduti",
+    "description": "Seduto con la schiena dritta e le mani sulle cosce: inspira dal naso per quattro secondi gonfiando la pancia, espira lentamente per sei. Circa sei respiri al minuto.",
+    "muscles": "Diaframma",
+    "type": "recovery",
+    "instructions": [
+      "Siediti comodo, piedi a terra e spalle morbide",
+      "Inspira dal naso per quattro secondi",
+      "Espira lentamente per sei secondi, senza forzare"
+    ],
+    "common_mistakes": [
+      "Alzare le spalle inspirando",
+      "Forzare il respiro fino a sentire la testa leggera"
+    ],
+    "tips": "Se ti gira la testa, torna al tuo respiro normale per qualche atto.",
+    "gif": "assets/rise2/breathing_seated.gif",
+    "wrongImage": false,
+    "difficulty": 1
   }
 }

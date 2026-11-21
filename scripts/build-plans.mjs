@@ -85,11 +85,11 @@ const TITLES = {
 };
 const THEME = { A: 'totalbody', B: 'upper', C: 'legs' };
 
-// Giorni leggeri (senza warm-up/cool-down): mobilità + camminata sul posto
+// Giorni leggeri (senza warm-up/cool-down): mobilità + camminata sul posto + equilibrio su una gamba
 const LIGHT = [
-  ['Mobilità e camminata', [['wall_slide', 45], ['cat_cow_stretch', 45], ['hip_circles', 45], ['march_in_place', 60], ['deep_squat_position', 45], ['torso_rotation_standing', 45], ['child_pose', 45], ['breathing_standing', 45]]],
-  ['Anche e schiena sciolte', [['arm_circles', 45], ['lunge_reverse', 60], ['march_in_place', 60], ['hip_circles', 45], ['standing_overhead_reach', 45], ['hamstring_stretch', 45], ['cobra_stretch', 45]]],
-  ['Scioglimento attivo', [['march_in_place', 60], ['wall_slide', 45], ['hip_circles', 45], ['deep_squat_position', 45], ['cat_cow_stretch', 45], ['figure_4_stretch_left', 40], ['figure_4_stretch_right', 40], ['breathing_standing', 45]]],
+  ['Mobilità e camminata', [['wall_slide', 45], ['cat_cow_stretch', 45], ['hip_circles', 45], ['march_in_place', 60], ['single_leg_stand', 45], ['deep_squat_position', 45], ['torso_rotation_standing', 45], ['child_pose', 45], ['breathing_standing', 45]]],
+  ['Anche e schiena sciolte', [['arm_circles', 45], ['lunge_reverse', 60], ['march_in_place', 60], ['single_leg_stand', 45], ['hip_circles', 45], ['standing_overhead_reach', 45], ['hamstring_stretch', 45], ['cobra_stretch', 45]]],
+  ['Scioglimento attivo', [['march_in_place', 60], ['single_leg_stand', 45], ['wall_slide', 45], ['hip_circles', 45], ['deep_squat_position', 45], ['cat_cow_stretch', 45], ['figure_4_stretch_left', 40], ['figure_4_stretch_right', 40], ['breathing_standing', 45]]],
 ];
 const RECOVERY = ['Recupero e allungamento profondo', [['child_pose', 40], ['cat_cow_stretch', 40], ['hamstring_stretch', 40], ['quad_stretch', 40], ['chest_stretch', 40], ['figure_4_stretch_left', 40], ['figure_4_stretch_right', 40], ['breathing_standing', 40]]];
 

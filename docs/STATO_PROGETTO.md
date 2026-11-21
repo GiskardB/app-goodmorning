@@ -5,7 +5,7 @@ _Aggiornato: 2026-10-22_
 ## Cos'è
 PWA React/Vite "Rise – 28 Giorni Calisthenics": allenamenti giornalieri a corpo libero
 in 3 fasi da 28 giorni, con check-in pre-allenamento (readiness), adattamento
-automatico dell'intensità, 7 programmi tapis roulant, libreria esercizi (152 voci con GIF).
+automatico dell'intensità, 7 programmi tapis roulant, libreria esercizi (157 voci con GIF), sessioni extra (cardio a corpo libero, pause attive, respiro).
 
 - **Live**: https://giskardb.github.io/app-goodmorning/ (deploy automatico da `main` via GitHub Pages)
 - **Branch di lavoro**: solo `main`. Il vecchio `claude/exercise-db-review-weights-ul3y2k` è stato
@@ -69,3 +69,9 @@ automatico dell'intensità, 7 programmi tapis roulant, libreria esercizi (152 vo
    background: se l'app viene chiusa, al riavvio la sessione è recuperata nello storico (una volta sola,
    grazie a `startedAt`). Un avviso conferma l'esito: completata, salvata, recuperata o non registrata
    (sotto i 30 s). Il tasto indietro ora apre la conferma anche negli allenamenti a corpo libero.
+18. **Valutazione complessiva e sessioni extra** (`docs/VALUTAZIONE_APP.md`): nuovo allenamento "Cardio a
+   corpo libero" a basso impatto (3 livelli), "Pause attive" (4 sessioni da 3-4 min), "Respiro e
+   rilassamento" con respiro guidato; card "La tua settimana" con minuti di cardio a obiettivo graduale
+   (30 → 150), giorni di forza e giorni attivi; equilibrio nei giorni leggeri; indicazione di sforzo nei
+   giorni di forza; statistiche del piano ripulite da tapis ed extra. Catalogo a 157 esercizi.
+   Generatore `scripts/build-extras.mjs` → `public/extra_sessions.json`.

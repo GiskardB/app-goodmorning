@@ -1,0 +1,628 @@
+{
+  "families": [
+    {
+      "id": "cardio",
+      "name": "Cardio a corpo libero",
+      "theme": "cardio",
+      "coach": true,
+      "countsAsActive": true,
+      "description": "Cardio in casa senza attrezzi e senza salti: un piede resta sempre a terra, quindi niente rumore e poco impatto sulle articolazioni.",
+      "why": "Il piano di forza da solo non copre i 150 minuti settimanali di attività aerobica indicati dall’OMS. Due o tre sedute nei giorni leggeri colmano il vuoto.",
+      "hint": "Sei tu a regolare l’intensità con ampiezza e velocità del movimento. Devi riuscire a parlare a frasi: se ansimi, rallenta.",
+      "sessions": [
+        {
+          "id": "cardio_1",
+          "name": "Livello 1 · Dolce",
+          "level": 1,
+          "met": 4,
+          "effort": "Sforzo 4-5 su 10",
+          "focus": "8 tratti da 30 secondi, con 30 secondi di recupero",
+          "why": "Lavoro e recupero alla pari: il modo più sicuro di iniziare e di finire con la voglia di rifarlo.",
+          "exercises": [
+            {
+              "exercise_id": "march_in_place",
+              "duration": 60,
+              "label": "Marcia sul posto (riscaldamento)"
+            },
+            {
+              "exercise_id": "step_jack",
+              "duration": 30,
+              "prep": 10,
+              "prepLabel": "Recupera camminando sul posto"
+            },
+            {
+              "exercise_id": "standing_high_knee",
+              "duration": 30,
+              "prep": 30,
+              "prepLabel": "Recupera camminando sul posto"
+            },
+            {
+              "exercise_id": "shadow_boxing",
+              "duration": 30,
+              "prep": 30,
+              "prepLabel": "Recupera camminando sul posto"
+            },
+            {
+              "exercise_id": "bodyweight_squat",
+              "duration": 30,
+              "prep": 30,
+              "prepLabel": "Recupera camminando sul posto",
+              "label": "Mezzo squat a ritmo",
+              "cue": "Scendi solo fin dove ti è comodo e risali subito, a ritmo regolare. Le braccia accompagnano il movimento."
+            },
+            {
+              "exercise_id": "step_jack",
+              "duration": 30,
+              "prep": 30,
+              "prepLabel": "Recupera camminando sul posto"
+            },
+            {
+              "exercise_id": "standing_high_knee",
+              "duration": 30,
+              "prep": 30,
+              "prepLabel": "Recupera camminando sul posto"
+            },
+            {
+              "exercise_id": "shadow_boxing",
+              "duration": 30,
+              "prep": 30,
+              "prepLabel": "Recupera camminando sul posto"
+            },
+            {
+              "exercise_id": "bodyweight_squat",
+              "duration": 30,
+              "prep": 30,
+              "prepLabel": "Recupera camminando sul posto",
+              "label": "Mezzo squat a ritmo",
+              "cue": "Scendi solo fin dove ti è comodo e risali subito, a ritmo regolare. Le braccia accompagnano il movimento."
+            },
+            {
+              "exercise_id": "march_in_place",
+              "duration": 40,
+              "prep": 10,
+              "label": "Marcia lenta (defaticamento)",
+              "cue": "Cammina piano sul posto lasciando scendere il respiro."
+            },
+            {
+              "exercise_id": "standing_overhead_reach",
+              "duration": 20,
+              "prep": 5
+            }
+          ],
+          "minutes": 10,
+          "countsAsActive": true
+        },
+        {
+          "id": "cardio_2",
+          "name": "Livello 2 · Medio",
+          "level": 2,
+          "met": 5,
+          "effort": "Sforzo 5-6 su 10",
+          "focus": "2 giri di 5 esercizi: 40 secondi di lavoro, 20 di recupero",
+          "why": "Il recupero si accorcia e compaiono movimenti più ampi: il battito resta alto più a lungo, senza salti.",
+          "exercises": [
+            {
+              "exercise_id": "march_in_place",
+              "duration": 60,
+              "label": "Marcia sul posto (riscaldamento)"
+            },
+            {
+              "exercise_id": "arm_circles",
+              "duration": 30,
+              "prep": 5
+            },
+            {
+              "exercise_id": "bodyweight_squat",
+              "duration": 30,
+              "prep": 5,
+              "label": "Mezzo squat lento",
+              "cue": "Mezzo squat lento e controllato per scaldare ginocchia e anche."
+            },
+            {
+              "exercise_id": "step_jack",
+              "duration": 40,
+              "prep": 20,
+              "prepLabel": "Recupera camminando sul posto"
+            },
+            {
+              "exercise_id": "front_kick",
+              "duration": 40,
+              "prep": 20,
+              "prepLabel": "Recupera camminando sul posto"
+            },
+            {
+              "exercise_id": "skater_step",
+              "duration": 40,
+              "prep": 20,
+              "prepLabel": "Recupera camminando sul posto"
+            },
+            {
+              "exercise_id": "shadow_boxing",
+              "duration": 40,
+              "prep": 20,
+              "prepLabel": "Recupera camminando sul posto"
+            },
+            {
+              "exercise_id": "squat_heel_raise",
+              "duration": 40,
+              "prep": 20,
+              "prepLabel": "Recupera camminando sul posto"
+            },
+            {
+              "exercise_id": "step_jack",
+              "duration": 40,
+              "prep": 20,
+              "prepLabel": "Recupera camminando sul posto"
+            },
+            {
+              "exercise_id": "front_kick",
+              "duration": 40,
+              "prep": 20,
+              "prepLabel": "Recupera camminando sul posto"
+            },
+            {
+              "exercise_id": "skater_step",
+              "duration": 40,
+              "prep": 20,
+              "prepLabel": "Recupera camminando sul posto"
+            },
+            {
+              "exercise_id": "shadow_boxing",
+              "duration": 40,
+              "prep": 20,
+              "prepLabel": "Recupera camminando sul posto"
+            },
+            {
+              "exercise_id": "squat_heel_raise",
+              "duration": 40,
+              "prep": 20,
+              "prepLabel": "Recupera camminando sul posto"
+            },
+            {
+              "exercise_id": "march_in_place",
+              "duration": 60,
+              "prep": 10,
+              "label": "Marcia lenta (defaticamento)",
+              "cue": "Cammina piano sul posto lasciando scendere il respiro."
+            },
+            {
+              "exercise_id": "standing_overhead_reach",
+              "duration": 30,
+              "prep": 5
+            },
+            {
+              "exercise_id": "chest_stretch",
+              "duration": 20,
+              "prep": 5
+            }
+          ],
+          "minutes": 15,
+          "countsAsActive": true
+        },
+        {
+          "id": "cardio_3",
+          "name": "Livello 3 · Vivace",
+          "level": 3,
+          "met": 5.8,
+          "effort": "Sforzo 6-7 su 10, mai al massimo",
+          "focus": "3 giri di 4 esercizi: 45 secondi di lavoro, 15 di recupero",
+          "why": "Tre giri con un minuto di marcia in mezzo: il lavoro più impegnativo, sempre a un ritmo che controlli tu.",
+          "exercises": [
+            {
+              "exercise_id": "march_in_place",
+              "duration": 60,
+              "label": "Marcia sul posto (riscaldamento)"
+            },
+            {
+              "exercise_id": "arm_circles",
+              "duration": 30,
+              "prep": 5
+            },
+            {
+              "exercise_id": "bodyweight_squat",
+              "duration": 30,
+              "prep": 5,
+              "label": "Mezzo squat lento",
+              "cue": "Mezzo squat lento e controllato per scaldare ginocchia e anche."
+            },
+            {
+              "exercise_id": "skater_step",
+              "duration": 45,
+              "prep": 15,
+              "prepLabel": "Recupera camminando sul posto"
+            },
+            {
+              "exercise_id": "squat_kickback",
+              "duration": 45,
+              "prep": 15,
+              "prepLabel": "Recupera camminando sul posto"
+            },
+            {
+              "exercise_id": "front_kick",
+              "duration": 45,
+              "prep": 15,
+              "prepLabel": "Recupera camminando sul posto"
+            },
+            {
+              "exercise_id": "shadow_boxing",
+              "duration": 45,
+              "prep": 15,
+              "prepLabel": "Recupera camminando sul posto"
+            },
+            {
+              "exercise_id": "march_in_place",
+              "duration": 60,
+              "prep": 5,
+              "label": "Marcia sul posto (recupero)",
+              "cue": "Un minuto di marcia tranquilla prima del prossimo giro."
+            },
+            {
+              "exercise_id": "skater_step",
+              "duration": 45,
+              "prep": 15,
+              "prepLabel": "Recupera camminando sul posto"
+            },
+            {
+              "exercise_id": "squat_kickback",
+              "duration": 45,
+              "prep": 15,
+              "prepLabel": "Recupera camminando sul posto"
+            },
+            {
+              "exercise_id": "front_kick",
+              "duration": 45,
+              "prep": 15,
+              "prepLabel": "Recupera camminando sul posto"
+            },
+            {
+              "exercise_id": "shadow_boxing",
+              "duration": 45,
+              "prep": 15,
+              "prepLabel": "Recupera camminando sul posto"
+            },
+            {
+              "exercise_id": "march_in_place",
+              "duration": 60,
+              "prep": 5,
+              "label": "Marcia sul posto (recupero)",
+              "cue": "Un minuto di marcia tranquilla prima dell’ultimo giro."
+            },
+            {
+              "exercise_id": "skater_step",
+              "duration": 45,
+              "prep": 15,
+              "prepLabel": "Recupera camminando sul posto"
+            },
+            {
+              "exercise_id": "squat_kickback",
+              "duration": 45,
+              "prep": 15,
+              "prepLabel": "Recupera camminando sul posto"
+            },
+            {
+              "exercise_id": "front_kick",
+              "duration": 45,
+              "prep": 15,
+              "prepLabel": "Recupera camminando sul posto"
+            },
+            {
+              "exercise_id": "shadow_boxing",
+              "duration": 45,
+              "prep": 15,
+              "prepLabel": "Recupera camminando sul posto"
+            },
+            {
+              "exercise_id": "march_in_place",
+              "duration": 60,
+              "prep": 10,
+              "label": "Marcia lenta (defaticamento)",
+              "cue": "Cammina piano sul posto lasciando scendere il respiro."
+            },
+            {
+              "exercise_id": "standing_overhead_reach",
+              "duration": 30,
+              "prep": 5
+            },
+            {
+              "exercise_id": "chest_stretch",
+              "duration": 20,
+              "prep": 5
+            }
+          ],
+          "minutes": 19,
+          "countsAsActive": true
+        }
+      ]
+    },
+    {
+      "id": "pausa",
+      "name": "Pause attive",
+      "theme": "light",
+      "coach": false,
+      "countsAsActive": false,
+      "description": "Tre o quattro minuti per spezzare le ore seduti. In abiti normali, accanto alla scrivania, senza sudare.",
+      "why": "Interrompere la sedentarietà con brevi pause migliora la risposta di zuccheri e insulina dopo i pasti, e ogni minuto di movimento conta.",
+      "hint": "Una pausa ogni ora seduti è già un ottimo ritmo. Non sostituisce l’allenamento: lo affianca.",
+      "sessions": [
+        {
+          "id": "pausa_sedia",
+          "name": "Sblocca-sedia",
+          "level": 1,
+          "met": 3,
+          "effort": "Sforzo 3 su 10",
+          "focus": "Marcia, alzate dalla sedia, polpacci e spalle",
+          "why": "Riattiva gambe e schiena dopo un’ora seduti.",
+          "exercises": [
+            {
+              "exercise_id": "march_in_place",
+              "duration": 60,
+              "prep": 5
+            },
+            {
+              "exercise_id": "chair_squat",
+              "duration": 30,
+              "prep": 5
+            },
+            {
+              "exercise_id": "calf_raise",
+              "duration": 30,
+              "prep": 5
+            },
+            {
+              "exercise_id": "wall_slide",
+              "duration": 30,
+              "prep": 5
+            },
+            {
+              "exercise_id": "standing_overhead_reach",
+              "duration": 30,
+              "prep": 5
+            }
+          ],
+          "minutes": 3,
+          "countsAsActive": false
+        },
+        {
+          "id": "pausa_energia",
+          "name": "Snack energia",
+          "level": 2,
+          "met": 5,
+          "effort": "Tre spunti vivaci da 20 secondi",
+          "countsAsActive": true,
+          "focus": "3 × (20 secondi vivaci / 40 lenti)",
+          "why": "Brevi spunti vivaci ripetuti nella giornata migliorano la forma cardiorespiratoria anche in chi non si allena.",
+          "exercises": [
+            {
+              "exercise_id": "march_in_place",
+              "duration": 30,
+              "prep": 5
+            },
+            {
+              "exercise_id": "step_jack",
+              "duration": 20,
+              "prep": 5,
+              "label": "Jack senza salto, veloce"
+            },
+            {
+              "exercise_id": "march_in_place",
+              "duration": 30,
+              "prep": 5,
+              "label": "Marcia lenta"
+            },
+            {
+              "exercise_id": "standing_high_knee",
+              "duration": 20,
+              "prep": 5,
+              "label": "Ginocchia alte, veloce"
+            },
+            {
+              "exercise_id": "march_in_place",
+              "duration": 30,
+              "prep": 5,
+              "label": "Marcia lenta"
+            },
+            {
+              "exercise_id": "shadow_boxing",
+              "duration": 20,
+              "prep": 5,
+              "label": "Pugilato a vuoto, veloce"
+            },
+            {
+              "exercise_id": "march_in_place",
+              "duration": 30,
+              "prep": 5,
+              "label": "Marcia lenta"
+            }
+          ],
+          "minutes": 4
+        },
+        {
+          "id": "pausa_forza",
+          "name": "Forza-snack",
+          "level": 2,
+          "met": 3.8,
+          "effort": "Sforzo 5 su 10",
+          "focus": "2 giri: alzate dalla sedia, push-up al muro, hip hinge",
+          "why": "Sei serie brevi che si sommano al lavoro di forza della settimana.",
+          "exercises": [
+            {
+              "exercise_id": "chair_squat",
+              "duration": 30,
+              "prep": 5
+            },
+            {
+              "exercise_id": "push_up_wall",
+              "duration": 30,
+              "prep": 10
+            },
+            {
+              "exercise_id": "hip_hinge",
+              "duration": 30,
+              "prep": 10
+            },
+            {
+              "exercise_id": "chair_squat",
+              "duration": 30,
+              "prep": 10
+            },
+            {
+              "exercise_id": "push_up_wall",
+              "duration": 30,
+              "prep": 10
+            },
+            {
+              "exercise_id": "hip_hinge",
+              "duration": 30,
+              "prep": 10
+            }
+          ],
+          "minutes": 4,
+          "countsAsActive": false
+        },
+        {
+          "id": "pausa_equilibrio",
+          "name": "Equilibrio e respiro",
+          "level": 1,
+          "met": 2,
+          "effort": "Sforzo 2 su 10",
+          "focus": "Equilibrio su una gamba, poi 2 minuti di respiro lento",
+          "why": "L’equilibrio si allena in pochi minuti e con l’età diventa prezioso. Il respiro lento chiude la pausa a mente più calma.",
+          "exercises": [
+            {
+              "exercise_id": "single_leg_stand",
+              "duration": 30,
+              "prep": 5,
+              "label": "Equilibrio su una gamba (sinistra)",
+              "cue": "Stai su una gamba sola vicino a un appoggio. Sguardo su un punto fisso."
+            },
+            {
+              "exercise_id": "single_leg_stand",
+              "duration": 30,
+              "prep": 5,
+              "label": "Equilibrio su una gamba (destra)",
+              "cue": "Cambia gamba. Se è facile, prova a non toccare l’appoggio."
+            },
+            {
+              "exercise_id": "single_leg_stand",
+              "duration": 30,
+              "prep": 5,
+              "label": "Equilibrio su una gamba (sinistra)",
+              "cue": "Ancora la sinistra: prova a muovere lentamente la gamba sollevata."
+            },
+            {
+              "exercise_id": "single_leg_stand",
+              "duration": 30,
+              "prep": 5,
+              "label": "Equilibrio su una gamba (destra)",
+              "cue": "Ultimo lato. Respira tranquillo."
+            },
+            {
+              "exercise_id": "breathing_seated",
+              "duration": 120,
+              "prep": 8,
+              "label": "Respiro lento",
+              "cue": "Inspira dal naso per quattro secondi, espira lentamente per sei. Spalle morbide, pancia che si gonfia. Segui il cerchio.",
+              "pace": {
+                "in": 4,
+                "out": 6
+              }
+            }
+          ],
+          "minutes": 4,
+          "countsAsActive": false
+        }
+      ]
+    },
+    {
+      "id": "respiro",
+      "name": "Respiro e rilassamento",
+      "theme": "recovery",
+      "coach": false,
+      "countsAsActive": false,
+      "description": "Per la sera o dopo una giornata tesa: respiro lento e allungamenti dolci, da fare anche a letto.",
+      "why": "Respirare a circa sei atti al minuto aumenta la variabilità cardiaca e il senso di rilassamento. Non è una cura per l’insonnia: è un modo per chiudere la giornata.",
+      "hint": "Non conta nei minuti di cardio, ma conta per te. Nessun obiettivo: solo il respiro.",
+      "sessions": [
+        {
+          "id": "respiro_5",
+          "name": "Respiro lento",
+          "level": 1,
+          "met": 1.3,
+          "effort": "Nessuno sforzo",
+          "focus": "5 minuti a 6 respiri al minuto, seguendo il cerchio",
+          "why": "Cinque minuti bastano per sentire il battito scendere.",
+          "exercises": [
+            {
+              "exercise_id": "breathing_seated",
+              "duration": 300,
+              "prep": 8,
+              "label": "Respiro lento",
+              "cue": "Inspira dal naso per quattro secondi, espira lentamente per sei. Spalle morbide, pancia che si gonfia. Segui il cerchio.",
+              "pace": {
+                "in": 4,
+                "out": 6
+              }
+            }
+          ],
+          "minutes": 5,
+          "countsAsActive": false
+        },
+        {
+          "id": "respiro_sera",
+          "name": "Scarico serale",
+          "level": 1,
+          "met": 1.8,
+          "effort": "Nessuno sforzo",
+          "focus": "Allungamenti a terra e respiro lento da sdraiati",
+          "why": "Scioglie schiena e anche prima di dormire, poi lascia la parola al respiro.",
+          "exercises": [
+            {
+              "exercise_id": "child_pose",
+              "duration": 45,
+              "prep": 8
+            },
+            {
+              "exercise_id": "cat_cow_stretch",
+              "duration": 45,
+              "prep": 5
+            },
+            {
+              "exercise_id": "knees_to_chest_stretch",
+              "duration": 45,
+              "prep": 6
+            },
+            {
+              "exercise_id": "lying_leg_twist",
+              "duration": 45,
+              "prep": 5,
+              "cue": "Lascia cadere lentamente le ginocchia da un lato e dall’altro, spalle a terra."
+            },
+            {
+              "exercise_id": "figure_4_stretch_left",
+              "duration": 40,
+              "prep": 6
+            },
+            {
+              "exercise_id": "figure_4_stretch_right",
+              "duration": 40,
+              "prep": 6
+            },
+            {
+              "exercise_id": "breathing_standing",
+              "duration": 150,
+              "prep": 8,
+              "label": "Respiro lento da sdraiato",
+              "cue": "Inspira dal naso per quattro secondi, espira lentamente per sei. Spalle morbide, pancia che si gonfia. Segui il cerchio.",
+              "pace": {
+                "in": 4,
+                "out": 6
+              }
+            }
+          ],
+          "minutes": 8,
+          "countsAsActive": false
+        }
+      ]
+    }
+  ]
+}

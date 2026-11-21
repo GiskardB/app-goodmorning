@@ -53,8 +53,8 @@
       "day": 2,
       "title": "Mobilità e camminata",
       "image": "light",
-      "calories": 57,
-      "duration": 8,
+      "calories": 63,
+      "duration": 9,
       "exercises": [
         {
           "exercise_id": "wall_slide",
@@ -71,6 +71,10 @@
         {
           "exercise_id": "march_in_place",
           "duration": 60
+        },
+        {
+          "exercise_id": "single_leg_stand",
+          "duration": 45
         },
         {
           "exercise_id": "deep_squat_position",
@@ -143,8 +147,8 @@
       "day": 4,
       "title": "Anche e schiena sciolte",
       "image": "light",
-      "calories": 53,
-      "duration": 7,
+      "calories": 59,
+      "duration": 8,
       "exercises": [
         {
           "exercise_id": "arm_circles",
@@ -157,6 +161,10 @@
         {
           "exercise_id": "march_in_place",
           "duration": 60
+        },
+        {
+          "exercise_id": "single_leg_stand",
+          "duration": 45
         },
         {
           "exercise_id": "hip_circles",
@@ -209,12 +217,16 @@
       "day": 6,
       "title": "Scioglimento attivo",
       "image": "light",
-      "calories": 55,
-      "duration": 8,
+      "calories": 61,
+      "duration": 9,
       "exercises": [
         {
           "exercise_id": "march_in_place",
           "duration": 60
+        },
+        {
+          "exercise_id": "single_leg_stand",
+          "duration": 45
         },
         {
           "exercise_id": "wall_slide",
@@ -340,8 +352,8 @@
       "day": 9,
       "title": "Mobilità e camminata",
       "image": "light",
-      "calories": 57,
-      "duration": 8,
+      "calories": 63,
+      "duration": 9,
       "exercises": [
         {
           "exercise_id": "wall_slide",
@@ -358,6 +370,10 @@
         {
           "exercise_id": "march_in_place",
           "duration": 60
+        },
+        {
+          "exercise_id": "single_leg_stand",
+          "duration": 45
         },
         {
           "exercise_id": "deep_squat_position",
@@ -430,8 +446,8 @@
       "day": 11,
       "title": "Anche e schiena sciolte",
       "image": "light",
-      "calories": 53,
-      "duration": 7,
+      "calories": 59,
+      "duration": 8,
       "exercises": [
         {
           "exercise_id": "arm_circles",
@@ -444,6 +460,10 @@
         {
           "exercise_id": "march_in_place",
           "duration": 60
+        },
+        {
+          "exercise_id": "single_leg_stand",
+          "duration": 45
         },
         {
           "exercise_id": "hip_circles",
@@ -516,12 +536,16 @@
       "day": 13,
       "title": "Scioglimento attivo",
       "image": "light",
-      "calories": 55,
-      "duration": 8,
+      "calories": 61,
+      "duration": 9,
       "exercises": [
         {
           "exercise_id": "march_in_place",
           "duration": 60
+        },
+        {
+          "exercise_id": "single_leg_stand",
+          "duration": 45
         },
         {
           "exercise_id": "wall_slide",
@@ -647,8 +671,8 @@
       "day": 16,
       "title": "Mobilità e camminata",
       "image": "light",
-      "calories": 57,
-      "duration": 8,
+      "calories": 63,
+      "duration": 9,
       "exercises": [
         {
           "exercise_id": "wall_slide",
@@ -665,6 +689,10 @@
         {
           "exercise_id": "march_in_place",
           "duration": 60
+        },
+        {
+          "exercise_id": "single_leg_stand",
+          "duration": 45
         },
         {
           "exercise_id": "deep_squat_position",
@@ -737,8 +765,8 @@
       "day": 18,
       "title": "Anche e schiena sciolte",
       "image": "light",
-      "calories": 53,
-      "duration": 7,
+      "calories": 59,
+      "duration": 8,
       "exercises": [
         {
           "exercise_id": "arm_circles",
@@ -751,6 +779,10 @@
         {
           "exercise_id": "march_in_place",
           "duration": 60
+        },
+        {
+          "exercise_id": "single_leg_stand",
+          "duration": 45
         },
         {
           "exercise_id": "hip_circles",
@@ -823,12 +855,16 @@
       "day": 20,
       "title": "Scioglimento attivo",
       "image": "light",
-      "calories": 55,
-      "duration": 8,
+      "calories": 61,
+      "duration": 9,
       "exercises": [
         {
           "exercise_id": "march_in_place",
           "duration": 60
+        },
+        {
+          "exercise_id": "single_leg_stand",
+          "duration": 45
         },
         {
           "exercise_id": "wall_slide",
@@ -954,8 +990,8 @@
       "day": 23,
       "title": "Mobilità e camminata",
       "image": "light",
-      "calories": 57,
-      "duration": 8,
+      "calories": 63,
+      "duration": 9,
       "exercises": [
         {
           "exercise_id": "wall_slide",
@@ -972,6 +1008,10 @@
         {
           "exercise_id": "march_in_place",
           "duration": 60
+        },
+        {
+          "exercise_id": "single_leg_stand",
+          "duration": 45
         },
         {
           "exercise_id": "deep_squat_position",
@@ -1044,8 +1084,8 @@
       "day": 25,
       "title": "Anche e schiena sciolte",
       "image": "light",
-      "calories": 53,
-      "duration": 7,
+      "calories": 59,
+      "duration": 8,
       "exercises": [
         {
           "exercise_id": "arm_circles",
@@ -1058,6 +1098,10 @@
         {
           "exercise_id": "march_in_place",
           "duration": 60
+        },
+        {
+          "exercise_id": "single_leg_stand",
+          "duration": 45
         },
         {
           "exercise_id": "hip_circles",
@@ -1110,12 +1154,16 @@
       "day": 27,
       "title": "Scioglimento attivo",
       "image": "light",
-      "calories": 55,
-      "duration": 8,
+      "calories": 61,
+      "duration": 9,
       "exercises": [
         {
           "exercise_id": "march_in_place",
           "duration": 60
+        },
+        {
+          "exercise_id": "single_leg_stand",
+          "duration": 45
         },
         {
           "exercise_id": "wall_slide",

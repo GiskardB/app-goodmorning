@@ -129,6 +129,23 @@ const EX = {
 };
 EX.side_crunch_standing_right = { ...EX.side_crunch_standing_left, A: mirror(EX.side_crunch_standing_left.A), B: mirror(EX.side_crunch_standing_left.B), arrow: [[240, 250], [232, 200]] };
 
+// --- Cardio a basso impatto e pause attive (senza salti) ---
+// specchio che scambia anche destra e sinistra (vista frontale)
+const swapMirror = (p) => { const o = {}; for (const k in p) { const k2 = /L$/.test(k) ? k.slice(0, -1) + 'R' : /R$/.test(k) ? k.slice(0, -1) + 'L' : k; o[k2] = [360 - p[k][0], p[k][1]]; } return o; };
+EX.step_jack = { props: () => ground(340), bones: topBones, headR: 20, arrow: [[212, 318], [262, 318]],
+  A: { ...frontBase, elL: [140, 160], wrL: [136, 206], elR: [220, 160], wrR: [224, 206] },
+  B: { ...frontBase, kneeR: [224, 272], ankR: [252, 338], elL: [122, 86], wrL: [108, 42], elR: [238, 86], wrR: [252, 42] } };
+{ const A = { head: [146, 86], neck: [152, 114], hip: [172, 216], shL: [126, 132], shR: [180, 122], kneeL: [150, 274], ankL: [142, 338], kneeR: [140, 270], ankR: [98, 318], elR: [170, 168], wrR: [142, 208], elL: [106, 152], wrL: [94, 190] };
+  EX.skater_step = { props: () => ground(340), bones: topBones, headR: 20, arrow: [[140, 30], [220, 30]], A, B: swapMirror(A) }; }
+EX.front_kick = { props: () => ground(340), bones: sideBones, far: sideFar, arrow: [[240, 300], [286, 268]],
+  A: { head: [180, 92], sh: [180, 130], el: [200, 168], wr: [208, 130], hip: [180, 212], knee: [182, 276], ankle: [184, 338], el2: [192, 168], wr2: [200, 132], knee2: [178, 276], ankle2: [176, 338] },
+  B: { head: [168, 92], sh: [170, 130], el: [192, 166], wr: [202, 130], hip: [176, 212], knee: [232, 232], ankle: [292, 240], el2: [184, 168], wr2: [194, 132], knee2: [176, 276], ankle2: [174, 338] } };
+EX.chair_squat = { props: () => chair, bones: sideBones, far: sideFar, arrow: [[300, 200], [300, 150]],
+  A: { head: [254, 116], sh: [260, 154], el: [234, 184], wr: [206, 176], hip: [272, 226], knee: [208, 236], ankle: [204, 338], el2: [238, 188], wr2: [210, 180], knee2: [214, 238], ankle2: [212, 338] },
+  B: { head: [222, 92], sh: [224, 130], el: [198, 160], wr: [170, 152], hip: [228, 212], knee: [214, 276], ankle: [206, 338], el2: [202, 164], wr2: [174, 156], knee2: [220, 276], ankle2: [214, 338] } };
+EX.breathing_seated = { props: () => chair, bones: sideBones, far: sideFar, arrow: [[196, 190], [196, 150]],
+  A: { head: [258, 120], sh: [264, 158], el: [250, 200], wr: [222, 228], hip: [272, 226], knee: [208, 236], ankle: [204, 338], el2: [254, 204], wr2: [226, 232], knee2: [214, 238], ankle2: [212, 338] },
+  B: { head: [260, 108], sh: [268, 146], el: [252, 192], wr: [222, 228], hip: [272, 226], knee: [208, 236], ankle: [204, 338], el2: [256, 196], wr2: [226, 232], knee2: [214, 238], ankle2: [212, 338] } };
 
 // Muscoli evidenziati in rosso (segmenti del corpo) per esercizio
 const ACTIVE = {
@@ -144,6 +161,13 @@ const ACTIVE = {
   box_jump_4point: [['hip','kneeL'],['hip','kneeR'],['kneeL','ankL'],['kneeR','ankR']], glute_bridge_abduction: [['hip','kneeL'],['hip','kneeR']],
   plank_commando: [['sh','hip'],['sh','el'],['el','wr']],
 };
+Object.assign(ACTIVE, {
+  step_jack: [['shL','elL'],['shR','elR'],['hip','kneeR'],['hip','kneeL']],
+  skater_step: [['hip','kneeL'],['hip','kneeR'],['kneeL','ankL'],['kneeR','ankR']],
+  front_kick: [['hip','knee'],['knee','ankle'],['sh','hip']],
+  chair_squat: [['hip','knee'],['knee','ankle'],['hip','knee2']],
+  breathing_seated: [['sh','hip']],
+});
 for (const k in ACTIVE) if (EX[k]) EX[k].active = ACTIVE[k];
 
 const only = process.argv[4] ? process.argv[4].split(',') : null;

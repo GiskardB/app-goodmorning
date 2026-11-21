@@ -25,7 +25,9 @@ import {
   getCompletedDaysForPhase,
   saveSession,
   saveTreadmillSession,
-  getTreadmillSessions
+  getTreadmillSessions,
+  saveExtraSession,
+  getExtraSessions
 } from './db';
 import audioManager from './audio/AudioManager';
 import { TrainingProvider, useTraining } from './context/TrainingContext';
@@ -303,6 +305,45 @@ const treadmillIntensity = (session) => {
   const level = score < 3.6 ? 1 : score < 5 ? 2 : score < 6.3 ? 3 : score < 7.4 ? 4 : 5;
   return { level, label: TREADMILL_INTENSITY_LABELS[level], score };
 };
+// ===== Riepilogo settimanale =====
+// Due indicatori distinti (OMS 2020): minuti di cardio e giorni di forza. L'obiettivo di cardio è graduale
+// (30 → 150 min): il gradino successivo a quanto fatto la settimana scorsa, così dopo una settimana storta
+// l'obiettivo torna alla portata invece di restare un rimprovero.
+const CARDIO_GOAL_STEPS = [30, 60, 90, 120, 150];
+const STRENGTH_DAYS_GOAL = 2;
+const startOfWeek = (d = new Date()) => {
+  const x = new Date(d);
+  x.setHours(0, 0, 0, 0);
+  x.setDate(x.getDate() - ((x.getDay() + 6) % 7)); // lunedì
+  return x;
+};
+const isStrengthHistory = (h) => (h.theme
+  ? !['light', 'recovery'].includes(h.theme)
+  : !/mobilit|sciolt|scioglimento|recupero|allungamento/i.test(h.workoutTitle || ''));
+const weeklySummary = (history = [], treadmill = [], extras = [], now = new Date()) => {
+  const ws = startOfWeek(now);
+  const end = new Date(ws); end.setDate(end.getDate() + 7);
+  const prev = new Date(ws); prev.setDate(prev.getDate() - 7);
+  const within = (iso, a, b) => { const t = new Date(iso); return t >= a && t < b; };
+  const cardioSeconds = (a, b) =>
+    treadmill.filter(x => within(x.date, a, b)).reduce((sum, x) => sum + (x.duration || 0), 0) +
+    extras.filter(x => x.countsAsActive && within(x.date, a, b)).reduce((sum, x) => sum + (x.duration || 0), 0);
+  const minutes = Math.round(cardioSeconds(ws, end) / 60);
+  const lastWeek = Math.round(cardioSeconds(prev, ws) / 60);
+  const goal = CARDIO_GOAL_STEPS.find(step => step > lastWeek) || 150;
+  const nextGoal = CARDIO_GOAL_STEPS.find(step => step > Math.max(minutes, lastWeek)) || 150;
+  const dayKey = (iso) => new Date(iso).toDateString();
+  const weekHistory = history.filter(h => within(h.completedAt, ws, end));
+  const strengthDays = new Set(weekHistory.filter(isStrengthHistory).map(h => dayKey(h.completedAt))).size;
+  const weekExtras = extras.filter(x => within(x.date, ws, end));
+  const breaks = weekExtras.filter(x => x.familyId === 'pausa').length;
+  const activeDays = new Set([
+    ...weekHistory.map(h => dayKey(h.completedAt)),
+    ...treadmill.filter(x => within(x.date, ws, end)).map(x => dayKey(x.date)),
+    ...weekExtras.map(x => dayKey(x.date))
+  ]).size;
+  return { minutes, lastWeek, goal, nextGoal, strengthDays, breaks, activeDays };
+};
 const TREADMILL_MIN_SAVE_SECONDS = 30; // sotto questa soglia una sessione interrotta non viene registrata
 const IntensityBars = ({ level = 0, className = '' }) => (
   <span className={`inline-flex items-end gap-[2px] ${className}`} role="img" aria-label={`Intensità ${level} su 5`}>
@@ -456,6 +497,11 @@ function AppContent() {
 
   // Treadmill state
   const [treadmillPrograms, setTreadmillPrograms] = useState([]);
+  // Sessioni extra (cardio a corpo libero, pause attive, respiro): riprodotte dal motore degli allenamenti
+  const [extraFamilies, setExtraFamilies] = useState([]);
+  const [extraSession, setExtraSession] = useState(null);            // sessione extra in corso (prende il posto del giorno del piano)
+  const [extraCompletedSessions, setExtraCompletedSessions] = useState([]);
+  const [extraNotice, setExtraNotice] = useState(null);              // esito dell'ultima sessione extra
   const [selectedTreadmillProgram, setSelectedTreadmillProgram] = useState(null);
   const [selectedTreadmillWeek, setSelectedTreadmillWeek] = useState(1);
   const [selectedTreadmillSession, setSelectedTreadmillSession] = useState(0); // indice seduta (A/B/C) nel livello
@@ -724,6 +770,15 @@ function AppContent() {
           console.warn('Treadmill programs not loaded:', e);
         }
 
+        // Sessioni extra
+        try {
+          const extraRes = await fetch(`${import.meta.env.BASE_URL}extra_sessions.json`);
+          if (extraRes.ok) setExtraFamilies((await extraRes.json()).families || []);
+          setExtraCompletedSessions(await getExtraSessions());
+        } catch (e) {
+          console.warn('Extra sessions not loaded:', e);
+        }
+
         // Enrich workouts with exercise data
         const enrichedWorkouts = workoutsData.days.map(workout => ({
           ...workout,
@@ -744,7 +799,7 @@ function AppContent() {
         setDay(savedDay);
 
         // Load workout history
-        const history = await getWorkoutHistory(10);
+        const history = await getWorkoutHistory(60);
         setWorkoutHistory(history);
 
         setScreen('home');
@@ -784,8 +839,10 @@ function AppContent() {
         setCompleted(completedDays);
 
         // Reload workout history for this profile
-        const history = await getWorkoutHistory(10);
+        const history = await getWorkoutHistory(60);
         setWorkoutHistory(history);
+        setTreadmillCompletedSessions(await getTreadmillSessions());
+        setExtraCompletedSessions(await getExtraSessions());
 
         // Reload profile-specific settings
         const savedVoiceEnabled = await getSetting('voiceEnabled');
@@ -972,8 +1029,8 @@ function AppContent() {
     };
   }, [active, paused, prep, phase]);
 
-  // Get current workout
-  const curr = workouts.find(w => w.day === day);
+  // Get current workout (una sessione extra in corso prende il posto del giorno del piano)
+  const curr = extraSession || workouts.find(w => w.day === day);
 
   // Get current exercise list based on phase
   const getCurrentExercises = () => {
@@ -1022,6 +1079,7 @@ function AppContent() {
   // Get prep time based on whether exercise has wrong image (7 extra seconds if wrongImage)
   const getPrepTime = (exercise) => {
     if (!exercise?.exercise_id) return 10;
+    if (exercise.prep) return exercise.prep; // sessioni extra: transizioni più brevi tra un esercizio e l'altro
     const hasWrongImage = wrongImageExercises.includes(exercise.exercise_id);
     return hasWrongImage ? 17 : 10;
   };
@@ -1591,6 +1649,11 @@ function AppContent() {
 
   // Mark day as completed - now triggers post-workout feedback
   const handleComplete = useCallback(async () => {
+    // Sessione extra: nessun feedback, non tocca il piano dei 28 giorni
+    if (extraSession) {
+      await finishExtraSessionRef.current?.(true);
+      return;
+    }
     // If onboarding is completed, show post-workout feedback first
     if (onboardingCompleted && userProfile) {
       startPostWorkoutFeedback();
@@ -1598,16 +1661,16 @@ function AppContent() {
       // Skip feedback if no profile (legacy behavior)
       await finishWorkoutAfterFeedback();
     }
-  }, [onboardingCompleted, userProfile, startPostWorkoutFeedback]);
+  }, [onboardingCompleted, userProfile, startPostWorkoutFeedback, extraSession]);
 
   // Called after post-workout feedback is complete or skipped
   const finishWorkoutAfterFeedback = useCallback(async () => {
     // Save workout to history with exercise details
     const workoutTitle = curr?.title || `Giorno ${day}`;
-    await addWorkoutHistory(day, elapsedTimeRef.current, workoutTitle, completedExercises);
+    await addWorkoutHistory(day, elapsedTimeRef.current, workoutTitle, completedExercises, curr?.image || null);
 
     // Update history state
-    const history = await getWorkoutHistory(10);
+    const history = await getWorkoutHistory(60);
     setWorkoutHistory(history);
 
     // Save complete session to new DB if profile exists
@@ -1758,7 +1821,9 @@ function AppContent() {
     const tips = {
       plank: 'Mantieni il corpo in linea retta',
       push: 'Scendi lentamente, spingi con forza',
-      squat: 'Ginocchia dietro le punte dei piedi',
+      squat: 'Scendi in 3 secondi, ginocchia in linea con i piedi',
+      quadriceps: 'Scendi in 3 secondi, risali deciso',
+      back: 'Stacca piano, tieni un secondo in alto',
       core: 'Mantieni il core contratto',
       cardio: 'Mantieni un ritmo costante',
       glutes: 'Stringi i glutei in alto',
@@ -1908,6 +1973,99 @@ function AppContent() {
     setScreen('workout');
   };
 
+  // ===== Sessioni extra =====
+  // Avvia una sessione extra: niente check-in, riscaldamento/defaticamento già inclusi nella sequenza
+  const startExtraSession = (family, session) => {
+    const list = (session.exercises || [])
+      .filter(ex => exercises[ex.exercise_id])
+      .map(ex => ({
+        ...exercises[ex.exercise_id],
+        exercise_id: ex.exercise_id,
+        duration: ex.duration,
+        ...(ex.prep ? { prep: ex.prep } : {}),
+        ...(ex.label ? { name: ex.label } : {}),
+        ...(ex.cue ? { description: ex.cue } : {}),
+        ...(ex.prepLabel ? { prepLabel: ex.prepLabel } : {}),
+        ...(ex.pace ? { pace: ex.pace } : {})
+      }));
+    if (list.length === 0) return;
+    setExtraSession({
+      isExtra: true,
+      id: session.id,
+      familyId: family.id,
+      familyName: family.name,
+      title: session.name,
+      image: family.theme || 'cardio',
+      met: session.met || family.met || 4,
+      countsAsActive: (session.countsAsActive ?? family.countsAsActive) !== false,
+      exercises: list
+    });
+    setWorkoutAdjustment(null);
+    setSelectedWarmup(null);
+    setSelectedCooldown(null);
+    setTestResults({});
+    setTestEntry(null);
+    setPrevTestResults(null);
+    setExtraNotice(null);
+    coachRef.current = createCoach({ enabled: coachEnabled && family.coach === true, tone: 'normal', name: userProfile?.name || '' });
+    setCoachMessage(null);
+    setCoachEndText(null);
+    setActive(true);
+    setPhase('workout');
+    setPrep(true);
+    setPrepTimer(getPrepTime(list[0]));
+    setExerciseIdx(0);
+    setElapsedTime(0);
+    elapsedTimeRef.current = 0;
+    setCompletedExercises({ warmup: [], workout: [], cooldown: [] });
+    setMidWorkoutRestTaken(true); // nessuna pausa automatica a metà: i recuperi sono già nella sequenza
+    setRestTimer(30);
+    setPaused(false);
+    setScreen('workout');
+  };
+
+  // Chiude una sessione extra (completata o interrotta) e la registra senza toccare il piano dei 28 giorni
+  const finishExtraSession = async (completedAll) => {
+    const session = extraSession;
+    const elapsed = elapsedTimeRef.current;
+    if (session && (completedAll || elapsed >= 30)) {
+      const weight = userProfile?.weight > 0 ? userProfile.weight : 70;
+      const calories = Math.round((session.met * 3.5 * weight) / 200 * (elapsed / 60));
+      try {
+        await saveExtraSession({
+          extraId: session.id,
+          familyId: session.familyId,
+          title: session.title,
+          duration: elapsed,
+          calories,
+          countsAsActive: session.countsAsActive,
+          completed: completedAll
+        });
+        setExtraCompletedSessions(await getExtraSessions());
+        setExtraNotice({ kind: completedAll ? 'completed' : 'partial', title: session.title, duration: elapsed });
+      } catch (error) {
+        console.error('Errore nel salvataggio della sessione extra:', error);
+      }
+    } else if (session) {
+      setExtraNotice({ kind: 'tooShort', title: session.title, duration: elapsed });
+    }
+    setActive(false);
+    setPaused(false);
+    setCoachMessage(null);
+    setCoachEndText(null);
+    setExtraSession(null);
+    setScreen('extras');
+    setExerciseIdx(0);
+    setElapsedTime(0);
+    elapsedTimeRef.current = 0;
+    setPhase('warmup');
+    setCompletedExercises({ warmup: [], workout: [], cooldown: [] });
+    setMidWorkoutRestTaken(false);
+    setRestTimer(30);
+  };
+  const finishExtraSessionRef = useRef(null);
+  finishExtraSessionRef.current = finishExtraSession;
+
   // Handle pre-workout assessment completion
   const handlePreWorkoutComplete = (assessmentData) => {
     const result = completePreWorkoutAssessment(assessmentData);
@@ -1937,6 +2095,13 @@ function AppContent() {
 
   // Confirm exit workout
   const confirmExit = () => {
+    if (extraSession) {
+      // Sessione extra interrotta: quello che è stato fatto viene registrato
+      setShowExitConfirm(false);
+      audioManager.exitWorkout();
+      finishExtraSessionRef.current?.(false);
+      return;
+    }
     setShowExitConfirm(false);
     setActive(false);
     setCoachMessage(null);
@@ -2021,7 +2186,9 @@ function AppContent() {
           </div>
           <h3 className="text-lg font-semibold mb-2">Vuoi uscire dall'allenamento?</h3>
           <p className="text-[var(--text-secondary)] text-sm">
-            I progressi di questa sessione non verranno salvati.
+            {extraSession
+              ? (elapsedTime >= 30 ? 'Quello che hai fatto finora viene registrato.' : 'Meno di 30 secondi: la sessione non verrà registrata.')
+              : 'I progressi di questa sessione non verranno salvati.'}
           </p>
         </div>
         <div className="flex gap-3">
@@ -2509,7 +2676,7 @@ function AppContent() {
                           await addWorkoutHistory(viewingDay, randomDuration, workoutTitle, exerciseDetails);
 
                           // Update history state
-                          const history = await getWorkoutHistory(10);
+                          const history = await getWorkoutHistory(60);
                           setWorkoutHistory(history);
 
                           // Save complete session if profile exists
@@ -2587,6 +2754,87 @@ function AppContent() {
           </div>
         </div>
 
+        {/* La tua settimana: cardio (obiettivo graduale) e forza, due indicatori distinti */}
+        {(() => {
+          const wk = weeklySummary(workoutHistory, treadmillCompletedSessions, extraCompletedSessions);
+          const pct = Math.min(100, Math.round((wk.minutes / wk.goal) * 100));
+          const reached = wk.minutes >= wk.goal;
+          const missing = wk.goal - wk.minutes;
+          const message = reached
+            ? (wk.goal >= 150
+              ? 'Hai raggiunto i 150 minuti indicati dall’OMS. Mantieni questo ritmo.'
+              : `Obiettivo raggiunto. La prossima settimana si sale a ${wk.nextGoal} minuti.`)
+            : wk.minutes === 0
+              ? `Obiettivo di questa settimana: ${wk.goal} minuti di cardio, cioè ${Math.round(wk.goal / 3)} minuti in tre giorni.`
+              : `Ti mancano ${missing} minuti: ${missing <= 12 ? 'una seduta di cardio e ci sei.' : 'ogni minuto conta.'}`;
+          return (
+            <div className="px-4 max-w-2xl mx-auto mt-6 animate-fade-in">
+              <h3 className="text-xs font-medium text-[var(--text-muted)] uppercase tracking-wide mb-3">La tua settimana</h3>
+              <div className="card p-4">
+                <div className="flex items-baseline justify-between mb-1.5">
+                  <span className="text-sm font-semibold">Cardio</span>
+                  <span className="text-sm"><strong>{wk.minutes}</strong><span className="text-[var(--text-muted)]"> / {wk.goal} min</span></span>
+                </div>
+                <div className="h-2 rounded-full bg-[var(--surface-hover)] overflow-hidden mb-2">
+                  <div className="h-full rounded-full bg-[var(--primary)] transition-all" style={{ width: `${pct}%` }} />
+                </div>
+                <p className="text-xs text-[var(--text-secondary)] leading-snug mb-3">{message}</p>
+                <div className="grid grid-cols-3 gap-2 text-center">
+                  <div className="bg-[var(--surface-hover)] rounded-xl py-2">
+                    <div className="text-base font-bold">{wk.strengthDays}<span className="text-xs font-normal text-[var(--text-muted)]">/{STRENGTH_DAYS_GOAL}</span></div>
+                    <div className="text-[10px] text-[var(--text-secondary)]">{wk.strengthDays >= STRENGTH_DAYS_GOAL ? 'forza: fatto' : 'giorni di forza'}</div>
+                  </div>
+                  <div className="bg-[var(--surface-hover)] rounded-xl py-2">
+                    <div className="text-base font-bold">{wk.activeDays}<span className="text-xs font-normal text-[var(--text-muted)]">/7</span></div>
+                    <div className="text-[10px] text-[var(--text-secondary)]">giorni attivi</div>
+                  </div>
+                  <div className="bg-[var(--surface-hover)] rounded-xl py-2">
+                    <div className="text-base font-bold">{wk.breaks}</div>
+                    <div className="text-[10px] text-[var(--text-secondary)]">pause attive</div>
+                  </div>
+                </div>
+                <p className="text-[10px] text-[var(--text-muted)] leading-snug mt-3">
+                  Contano come cardio il tapis roulant e le sessioni di cardio a corpo libero. L’obiettivo cresce per gradini fino ai 150 minuti a settimana.
+                </p>
+              </div>
+            </div>
+          );
+        })()}
+
+        {/* Sessioni extra */}
+        {extraFamilies.length > 0 && (
+          <div className="px-4 max-w-2xl mx-auto mt-6 animate-fade-in">
+            <div className="card overflow-hidden">
+              <div className="relative h-20 flex items-center justify-center hero-ochre">
+                <div className="relative z-10 flex items-center gap-3">
+                  <span className="w-10 h-10 rounded-full bg-white/15 flex items-center justify-center text-white">
+                    <FlameIcon />
+                  </span>
+                  <div className="flex flex-col items-start">
+                    <span className="text-white text-sm font-bold">Sessioni extra</span>
+                    <span className="text-white/80 text-xs">Cardio senza attrezzi, pause attive, respiro</span>
+                  </div>
+                </div>
+              </div>
+              <div className="p-4">
+                <div className="flex gap-3 mb-4 text-sm text-[var(--text-secondary)]">
+                  <span className="flex items-center gap-1"><TimerIcon />3-19 min</span>
+                  <span>{extraFamilies.reduce((n, fam) => n + fam.sessions.length, 0)} sessioni</span>
+                  <span>quando vuoi</span>
+                </div>
+                <div className="flex justify-center">
+                  <button
+                    onClick={() => navigateTo('extras')}
+                    className="bg-[var(--primary)] text-white text-[11px] font-semibold py-1.5 px-4 rounded-full"
+                  >
+                    VAI ALLE SESSIONI EXTRA
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* Treadmill Journey Card */}
         {treadmillPrograms.length > 0 && (() => {
           // Calculate dynamic stats from programs
@@ -2640,7 +2888,7 @@ function AppContent() {
         })()}
 
         {/* Bar Chart - Last 7 Days Activity */}
-        {(workoutHistory.length > 0 || treadmillCompletedSessions.length > 0) && (
+        {(workoutHistory.length > 0 || treadmillCompletedSessions.length > 0 || extraCompletedSessions.length > 0) && (
           <div className="px-4 max-w-2xl mx-auto mt-6 animate-fade-in">
             <h3 className="text-xs font-medium text-[var(--text-muted)] uppercase tracking-wide mb-3">
               Attività ultimi 7 giorni
@@ -2660,18 +2908,22 @@ function AppContent() {
                 const dayData = days.map(date => {
                   const dateStr = date.toDateString();
 
-                  // Find daily workout for this day
-                  const dailyWorkout = workoutHistory.find(s => {
-                    const sDate = new Date(s.completedAt);
-                    return sDate.toDateString() === dateStr;
-                  });
+                  // Sedute del piano in questo giorno (possono essere più di una)
+                  const dailyWorkout = {
+                    duration: workoutHistory
+                      .filter(s => new Date(s.completedAt).toDateString() === dateStr)
+                      .reduce((sum, s) => sum + (s.duration || 0), 0)
+                  };
 
                   // Find treadmill sessions for this day
                   const treadmillSessions = treadmillCompletedSessions.filter(s => {
                     const sDate = new Date(s.date);
                     return sDate.toDateString() === dateStr;
                   });
-                  const treadmillDuration = treadmillSessions.reduce((sum, s) => sum + (s.duration || 0), 0);
+                  const treadmillDuration = treadmillSessions.reduce((sum, s) => sum + (s.duration || 0), 0) +
+                    extraCompletedSessions
+                      .filter(s => new Date(s.date).toDateString() === dateStr)
+                      .reduce((sum, s) => sum + (s.duration || 0), 0);
 
                   return {
                     date,
@@ -2693,11 +2945,11 @@ function AppContent() {
                     <div className="flex items-center justify-center gap-4 text-xs">
                       <div className="flex items-center gap-1">
                         <div className="w-3 h-3 rounded bg-[var(--primary)]" />
-                        <span className="text-[var(--text-secondary)]">Quotidiano</span>
+                        <span className="text-[var(--text-secondary)]">Piano</span>
                       </div>
                       <div className="flex items-center gap-1">
                         <div className="w-3 h-3 rounded bg-[var(--success)]" />
-                        <span className="text-[var(--text-secondary)]">Tapis roulant</span>
+                        <span className="text-[var(--text-secondary)]">Cardio ed extra</span>
                       </div>
                     </div>
 
@@ -2772,7 +3024,7 @@ function AppContent() {
             </h3>
             <div className="card p-4">
               <div className="space-y-3">
-                {workoutHistory.map((session, index) => {
+                {workoutHistory.slice(0, 10).map((session, index) => {
                   const sessionDate = new Date(session.completedAt);
                   const formattedDate = sessionDate.toLocaleDateString('it-IT', {
                     day: 'numeric',
@@ -3732,6 +3984,22 @@ function AppContent() {
                   </button>
                 )}
 
+                {['totalbody', 'upper', 'legs', 'core', 'glutes'].includes(curr?.image) && (
+                  <div className="bg-[var(--surface-hover)] rounded-lg p-3 mb-5 text-sm">
+                    <p className="font-medium">Come lavorare oggi</p>
+                    <p className="text-[var(--text-secondary)] text-xs leading-snug mt-0.5">
+                      Scendi in 2-3 secondi, risali deciso. A fine esercizio dovresti avere ancora 2-3 ripetizioni di margine:
+                      se ne avresti molte di più, rallenta la discesa. È lo sforzo, non la durata, a far crescere la forza.
+                    </p>
+                  </div>
+                )}
+
+                {['light', 'recovery'].includes(curr?.image) && extraFamilies.some(fam => fam.id === 'cardio') && (
+                  <button onClick={() => navigateTo('extras')} className="btn-secondary w-full mb-5 text-sm">
+                    Hai 10 minuti in più? Aggiungi il cardio
+                  </button>
+                )}
+
                 {onboardingCompleted && userProfile && !['light', 'recovery'].includes(curr?.image) && (
                   <div className="bg-[var(--primary)]/10 rounded-lg p-3 mb-5 text-sm">
                     <div className="flex items-center gap-2">
@@ -3813,6 +4081,119 @@ function AppContent() {
   }
 
   // Treadmill Journey Screen
+  if (screen === 'extras') {
+    const doneCount = (id) => extraCompletedSessions.filter(x => x.extraId === id && x.completed !== false).length;
+    const thisYear = new Date().getFullYear();
+    return (
+      <div className="min-h-screen bg-[var(--bg)]">
+        <div className="relative">
+          <div className="absolute top-4 left-4 z-10">
+            <button
+              onClick={() => window.history.back()}
+              className="w-10 h-10 bg-[var(--surface)] rounded-full flex items-center justify-center border border-[var(--border)]"
+              aria-label="Indietro"
+            >
+              <BackIcon />
+            </button>
+          </div>
+          <div className="h-28 flex items-center justify-center relative hero-ochre">
+            <div className="text-center relative z-10 px-14">
+              <h1 className="text-white text-base font-bold">Sessioni extra</h1>
+              <p className="text-white/85 text-xs mt-0.5">Da aggiungere al piano quando vuoi: non cambiano i tuoi 28 giorni</p>
+            </div>
+          </div>
+        </div>
+
+        <div className="px-4 max-w-2xl mx-auto mt-4">
+          {extraNotice && (
+            <div className="card p-3 mb-4 flex items-start gap-3 animate-slide-up" role="status">
+              <div className={`w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0 ${extraNotice.kind === 'tooShort' ? 'bg-[var(--border)]' : 'bg-[var(--primary)]'}`}>
+                <CheckIcon />
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-semibold">
+                  {extraNotice.kind === 'completed' ? 'Sessione completata' : extraNotice.kind === 'partial' ? 'Sessione salvata' : 'Sessione non registrata'}
+                </p>
+                <p className="text-xs text-[var(--text-secondary)] leading-snug">
+                  {extraNotice.kind === 'tooShort'
+                    ? 'Meno di 30 secondi di attività.'
+                    : `${extraNotice.title} · ${formatTime(extraNotice.duration || 0)}${extraNotice.kind === 'partial' ? ' (parziale): ogni minuto conta.' : ' registrati nella tua settimana.'}`}
+                </p>
+              </div>
+              <button onClick={() => setExtraNotice(null)} aria-label="Chiudi avviso" className="w-7 h-7 flex items-center justify-center flex-shrink-0 text-[var(--text-muted)]">
+                <CloseIcon />
+              </button>
+            </div>
+          )}
+
+          {extraFamilies.map(family => (
+            <div key={family.id} className="card p-4 mb-4">
+              <h2 className="text-base font-bold">{family.name}</h2>
+              <p className="text-xs text-[var(--text-secondary)] leading-snug mt-1">{family.description}</p>
+              <p className="text-xs text-[var(--text-secondary)] leading-snug mt-2">
+                <span className="font-semibold text-[var(--primary)]">Perché: </span>{family.why}
+              </p>
+              <div className="space-y-2 mt-3">
+                {family.sessions.map(session => {
+                  const n = doneCount(session.id);
+                  return (
+                    <div key={session.id} className="bg-[var(--surface-hover)] rounded-xl p-3">
+                      <div className="flex items-start justify-between gap-3">
+                        <div className="min-w-0">
+                          <p className="text-sm font-semibold">{session.name}</p>
+                          <p className="text-[11px] text-[var(--text-muted)] mt-0.5">
+                            {session.minutes} min · {session.effort}{n > 0 ? ` · fatta ${n} ${n === 1 ? 'volta' : 'volte'}` : ''}
+                          </p>
+                          <p className="text-xs text-[var(--text-secondary)] leading-snug mt-1">{session.focus}</p>
+                        </div>
+                        <button
+                          onClick={() => startExtraSession(family, session)}
+                          className="bg-[var(--primary)] text-white text-[11px] font-semibold py-2 px-4 rounded-full flex-shrink-0"
+                          aria-label={`Inizia ${session.name}`}
+                        >
+                          INIZIA
+                        </button>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+              {family.hint && <p className="text-[11px] text-[var(--text-muted)] leading-snug mt-3">{family.hint}</p>}
+            </div>
+          ))}
+
+          {extraCompletedSessions.length > 0 && (
+            <div className="card p-4 mb-4">
+              <div className="flex items-baseline justify-between mb-2">
+                <h3 className="text-sm font-semibold">Le tue sessioni extra</h3>
+                <span className="text-[11px] text-[var(--text-muted)]">dalla più recente</span>
+              </div>
+              <div className="divide-y divide-[var(--border)]">
+                {extraCompletedSessions.slice(0, 8).map((x, i) => {
+                  const d = new Date(x.date);
+                  const date = d.toLocaleDateString('it-IT', { weekday: 'short', day: 'numeric', month: 'short', ...(d.getFullYear() !== thisYear ? { year: 'numeric' } : {}) });
+                  return (
+                    <div key={x.id ?? i} className="flex items-center justify-between gap-2 py-2 text-xs">
+                      <div className="flex items-center gap-2 min-w-0">
+                        <span className="font-medium min-w-[5.5rem] whitespace-nowrap flex-shrink-0">{date}</span>
+                        <span className="text-[var(--text-secondary)] truncate">{x.title}</span>
+                        {x.completed === false && (
+                          <span className="text-[10px] bg-amber-100 text-amber-700 px-1.5 py-0.5 rounded-full flex-shrink-0">parziale</span>
+                        )}
+                      </div>
+                      <span className="text-[var(--text-secondary)] flex-shrink-0">{formatTime(x.duration || 0)}</span>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+        </div>
+        <div className="h-6"></div>
+      </div>
+    );
+  }
+
   if (screen === 'treadmill') {
     // Use selected program or default to first one
     const program = selectedTreadmillProgram || treadmillPrograms[0];
@@ -4615,7 +4996,7 @@ function AppContent() {
             </div>
           )}
           <p className="text-white/60 uppercase tracking-wider text-xs mb-1">
-            {hasWrongImage ? 'Ascolta la descrizione' : 'Preparati'}
+            {hasWrongImage ? 'Ascolta la descrizione' : (ex?.prepLabel || 'Preparati')}
           </p>
           <h2 className="text-xl font-bold text-center mb-2">{ex?.name}</h2>
 
@@ -4812,6 +5193,23 @@ function AppContent() {
             )}
           </div>
 
+          {/* Ritmo del respiro: il cerchio si allarga inspirando e si stringe espirando */}
+          {ex?.pace && (() => {
+            const cycle = ex.pace.in + ex.pace.out;
+            const inhale = (((ex.duration || 0) - timer) % cycle + cycle) % cycle < ex.pace.in;
+            return (
+              <div className="flex flex-col items-center mb-2" aria-live="off">
+                <div className="w-24 h-24 flex items-center justify-center">
+                  <div
+                    className="w-24 h-24 rounded-full bg-white/25 border border-white/40"
+                    style={{ transform: `scale(${inhale ? 1 : 0.55})`, transition: `transform ${inhale ? ex.pace.in : ex.pace.out}s ease-in-out` }}
+                  />
+                </div>
+                <span className="text-sm font-semibold mt-1">{paused ? 'In pausa' : inhale ? 'Inspira' : 'Espira'}</span>
+              </div>
+            );
+          })()}
+
           {/* Timer */}
           <div className={`text-4xl font-bold mb-1 ${timer <= 3 ? 'text-amber-100 animate-pulse-soft' : ''}`}>
             {timer}
@@ -4889,7 +5287,7 @@ function AppContent() {
           {!next && phase !== 'cooldown' && (
             <div className="bg-white/10 rounded-xl p-3 w-full text-center">
               <p className="text-xs text-white/50">
-                Dopo: {phase === 'warmup' ? 'Allenamento principale' : 'Defaticamento'}
+                {phase === 'warmup' ? 'Dopo: Allenamento principale' : selectedCooldown?.exercises?.length ? 'Dopo: Defaticamento' : 'Ultimo esercizio: poi hai finito'}
               </p>
             </div>
           )}
@@ -4908,7 +5306,7 @@ function AppContent() {
           <div className="w-24 h-24 mx-auto mb-5 rounded-full bg-white/15 flex items-center justify-center">
             <MedalIcon size={56} />
           </div>
-          <span className="text-xs font-semibold uppercase tracking-[0.3em] text-white/70">Giorno {day} completato</span>
+          <span className="text-xs font-semibold uppercase tracking-[0.3em] text-white/70">{extraSession ? `${extraSession.familyName} · fatto` : `Giorno ${day} completato`}</span>
           <h1 className="text-3xl font-bold tracking-tight mt-1 mb-1">Fantastico!</h1>
           <p className={`text-base text-white/80 ${coachEndText ? 'mb-3' : 'mb-8'}`}>{curr?.title}</p>
           {coachEndText && (
@@ -4917,7 +5315,7 @@ function AppContent() {
 
           <div className="grid grid-cols-3 gap-3 mb-8">
             <div className="stat-card">
-              <div className="text-2xl font-bold">{curr?.calories}</div>
+              <div className="text-2xl font-bold">{extraSession ? Math.round((extraSession.met * 3.5 * (userProfile?.weight > 0 ? userProfile.weight : 70)) / 200 * (elapsedTime / 60)) : curr?.calories}</div>
               <div className="text-xs text-white/60">kcal</div>
             </div>
             <div className="stat-card">
@@ -4955,7 +5353,7 @@ function AppContent() {
             </div>
           )}
 
-          {readinessScore !== null && (
+          {readinessScore !== null && !extraSession && (
             <div className="bg-white/10 rounded-xl px-4 py-3 mb-8 flex items-center justify-center gap-2 text-sm">
               <span className="text-white/70">Readiness di oggi</span>
               <span className="font-bold">{readinessScore}/100</span>
@@ -4966,7 +5364,7 @@ function AppContent() {
             onClick={handleComplete}
             className="bg-white text-[var(--success)] w-full py-4 rounded-full font-semibold shadow-lg"
           >
-            {onboardingCompleted && userProfile ? 'Dai il tuo feedback' : 'Continua'}
+            {!extraSession && onboardingCompleted && userProfile ? 'Dai il tuo feedback' : 'Continua'}
           </button>
         </div>
       </div>
