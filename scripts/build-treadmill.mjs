@@ -104,7 +104,7 @@ const programs = [];
   ];
   programs.push({
     id: 'soft_couch_to_run', name: 'Da camminata a corsa', icon: '🚶‍♂️',
-    description: 'Dal divano a 30 minuti di corsa continua in 10 settimane, con pause di cammino programmate.',
+    description: 'Dal divano a 30 minuti di corsa continua in 10 livelli progressivi, con pause di cammino programmate.',
     difficulty: 'Principiante', totalWeeks: 10, sessionsPerWeek: 3,
     prerequisite: 'Nessuno: si parte camminando.',
     phases: [
@@ -116,7 +116,7 @@ const programs = [];
     tips: [
       'Le pause di cammino sono parte del piano, non un fallimento.',
       'Velocità giusta = riesci a parlare a frasi intere. Se ansimi, rallenta.',
-      'Ripetere una settimana è previsto: passa alla successiva solo quando le 3 sedute ti sono sembrate gestibili.',
+      'Ripetere un livello è previsto: passa al successivo solo quando le sedute ti sono sembrate gestibili.',
       'Tre sedute a settimana, mai in giorni consecutivi.',
     ],
     speedLegend: LEGEND_RUN, weeks,
@@ -153,19 +153,19 @@ const programs = [];
   ];
   programs.push({
     id: 'active_walk', name: 'Camminata attiva', icon: '🥾',
-    description: 'Da 20 a 40 minuti di camminata svelta in 8 settimane, senza mai correre. Ideale per ricominciare a muoversi.',
+    description: 'Da 20 a 40 minuti di camminata svelta in 8 livelli, senza mai correre. Ideale per ricominciare a muoversi.',
     difficulty: 'Principiante', totalWeeks: 8, sessionsPerWeek: 3,
     prerequisite: 'Nessuno.',
     phases: [
       { name: 'Base', weeks: [1, 2], description: 'Abitudine prima dell’intensità' },
-      { name: 'Ritmo', weeks: [3, 4], description: 'Tratti svelti, poi settimana di scarico' },
+      { name: 'Ritmo', weeks: [3, 4], description: 'Tratti svelti, poi un livello di scarico' },
       { name: 'Svelta', weeks: [5, 6], description: 'Camminata svelta continua e prime salite' },
       { name: 'Svelta e salita', weeks: [7, 8], description: '30 minuti svelti, salita a tratti' },
     ],
     tips: [
       'Cadenza da camminata svelta: circa 100 passi al minuto, braccia che oscillano.',
       'In salita mani libere: aggrapparsi al corrimano annulla il lavoro.',
-      'Se una seduta è sembrata dura, ripeti la settimana: la progressione non scappa.',
+      'Se una seduta è sembrata dura, ripeti il livello: la progressione non scappa.',
     ],
     speedLegend: LEGEND_WALK, weeks,
   });
@@ -216,7 +216,7 @@ const programs = [];
     prerequisite: 'Nessuno. Se corri già, alza la zona 2 a 7-8 km/h.',
     phases: [
       { name: 'Avvio', weeks: [1, 2], description: '120-150 minuti a settimana, tutto facile' },
-      { name: 'Costruzione', weeks: [3, 4], description: '170 minuti, poi settimana di scarico' },
+      { name: 'Costruzione', weeks: [3, 4], description: '170 minuti a settimana, poi un livello di scarico' },
       { name: 'Volume', weeks: [5, 6, 7], description: '180-210 minuti a settimana' },
       { name: 'Consolidamento', weeks: [8], description: 'Scarico: mantieni l’abitudine' },
     ],
@@ -260,7 +260,7 @@ const programs = [];
   ];
   programs.push({
     id: 'endurance_5k', name: 'Resistenza: 5 km', icon: '🏃',
-    description: 'Per chi corre già 20-30 minuti: una lunga che cresce di 3′ a settimana, una seduta di ritmo e una facile. Arrivi a 45′ e 5-6 km.',
+    description: 'Per chi corre già 20-30 minuti: una lunga che cresce di 3′ a ogni livello, una seduta di ritmo e una facile. Arrivi a 45′ e 5-6 km.',
     difficulty: 'Intermedio', totalWeeks: 8, sessionsPerWeek: 3,
     prerequisite: 'Correre 20-25 minuti di fila (fine di “Da camminata a corsa”).',
     phases: [
@@ -369,7 +369,7 @@ const programs = [];
   ];
   programs.push({
     id: 'incline_walk', name: 'Camminata in salita', icon: '⛰️',
-    description: 'Glutei e fiato senza impatto: la pendenza sale dell’1% a settimana fino all’8%, la velocità resta da camminata.',
+    description: 'Glutei e fiato senza impatto: la pendenza sale dell’1% a ogni livello fino all’8%, la velocità resta da camminata.',
     difficulty: 'Principiante', totalWeeks: 8, sessionsPerWeek: 3, requiresIncline: true,
     prerequisite: 'Nessuno. Serve un tapis con pendenza regolabile.',
     phases: [
@@ -381,12 +381,13 @@ const programs = [];
     tips: [
       'Spalle sopra i fianchi, mani libere: aggrapparsi al corrimano dimezza il lavoro.',
       'Aumenta la velocità solo quando tieni la pendenza senza appoggiarti.',
-      'Polpacci e tendini si adattano piano: se tirano, resta una settimana in più sulla stessa pendenza.',
+      'Polpacci e tendini si adattano piano: se tirano, resta ancora qualche seduta sullo stesso livello.',
     ],
     speedLegend: LEGEND_WALK.slice(0, 3), weeks,
   });
 }
 
+// Nell'app ogni `week` è presentato come "Livello" (l'utente sceglie per tempo e intensità, non per calendario).
 // Normalizzazione nel formato letto dall'app: weeks[{week, sessionsPerWeek, totalDuration, sessions[], session}]
 const out = programs.map(p => {
   const weeks = p.weeks.map((sessions, i) => ({
@@ -396,7 +397,7 @@ const out = programs.map(p => {
     sessions,
     session: sessions[0], // retrocompatibilità
   }));
-  if (weeks.length !== p.totalWeeks) throw new Error(`${p.id}: ${weeks.length} settimane ≠ totalWeeks ${p.totalWeeks}`);
+  if (weeks.length !== p.totalWeeks) throw new Error(`${p.id}: ${weeks.length} livelli ≠ totalWeeks ${p.totalWeeks}`);
   const { sessionsPerWeek, ...rest } = p;
   return { ...rest, weeks };
 });

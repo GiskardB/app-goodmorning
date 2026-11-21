@@ -290,6 +290,35 @@ const getTreadmillSession = (program, week, idx = 0, hasIncline = true) => {
   const sessions = treadmillWeekSessions(program, week, hasIncline);
   return sessions[Math.min(idx, sessions.length - 1)] || null;
 };
+// Intensità di una seduta (1-5): MET medio pesato sul tempo, corretto verso il picco dei tratti di almeno 1 minuto.
+// Camminata: equazione ACSM fino a 6 km/h, poi raccordo verso i valori del Compendium (7 MET a 7,2 km/h).
+const TREADMILL_INTENSITY_LABELS = ['', 'Leggera', 'Moderata', 'Sostenuta', 'Impegnativa', 'Intensa'];
+const treadmillSegmentMet = (seg) => {
+  const speed = seg?.speed || 0;
+  if (speed <= 0) return 1;
+  const m = speed * (1000 / 60);
+  const g = (seg.incline || 0) / 100;
+  if (/Corsa/.test(seg.activity || '') || speed > 7.2) return (3.5 + 0.2 * m + 0.9 * m * g) / 3.5;
+  const flat = speed <= 6 ? (3.5 + 0.1 * m) / 3.5 : 3.86 + (speed - 6) * (7.0 - 3.86) / 1.2;
+  return flat + (1.8 * m * g) / 3.5;
+};
+const treadmillIntensity = (session) => {
+  const segs = session?.segments || [];
+  const total = segs.reduce((a, s) => a + s.duration, 0);
+  if (!total) return null;
+  const avg = segs.reduce((a, s) => a + treadmillSegmentMet(s) * s.duration, 0) / total;
+  const peak = Math.max(...segs.filter(s => s.duration >= 60).map(treadmillSegmentMet), avg);
+  const score = avg + 0.3 * (peak - avg);
+  const level = score < 3.6 ? 1 : score < 5 ? 2 : score < 6.3 ? 3 : score < 7.4 ? 4 : 5;
+  return { level, label: TREADMILL_INTENSITY_LABELS[level], score };
+};
+const IntensityBars = ({ level = 0, className = '' }) => (
+  <span className={`inline-flex items-end gap-[2px] ${className}`} role="img" aria-label={`Intensità ${level} su 5`}>
+    {[1, 2, 3, 4, 5].map(i => (
+      <span key={i} className="w-[3px] rounded-sm" style={{ height: 3 + i * 2, background: i <= level ? 'var(--primary)' : 'var(--border)' }} />
+    ))}
+  </span>
+);
 const speakTreadmillSegment = (seg) => `${seg.activity}, ${seg.speed} chilometri orari${seg.incline ? `, pendenza ${seg.incline} per cento` : ''}`;
 
 // Difficulty scale (1-5) shared by exercises and workouts
@@ -437,7 +466,8 @@ function AppContent() {
   const [treadmillPrograms, setTreadmillPrograms] = useState([]);
   const [selectedTreadmillProgram, setSelectedTreadmillProgram] = useState(null);
   const [selectedTreadmillWeek, setSelectedTreadmillWeek] = useState(1);
-  const [selectedTreadmillSession, setSelectedTreadmillSession] = useState(0); // indice seduta (A/B/C) nella settimana
+  const [selectedTreadmillSession, setSelectedTreadmillSession] = useState(0); // indice seduta (A/B/C) nel livello
+  const [showAllTreadmillSessions, setShowAllTreadmillSessions] = useState(false); // storico tapis: elenco completo
   const [treadmillIncline, setTreadmillIncline] = useState(null); // null = non ancora chiesto; true/false = il tapis ha la pendenza regolabile
   const [treadmillActive, setTreadmillActive] = useState(false);
   const [treadmillPaused, setTreadmillPaused] = useState(false);
@@ -1249,7 +1279,12 @@ function AppContent() {
           treadmillSessionToSave.duration,
           treadmillSessionToSave.calories,
           treadmillSessionToSave.distance || 0,
-          treadmillSessionToSave.completed !== false
+          treadmillSessionToSave.completed !== false,
+          getTreadmillSession(
+            treadmillPrograms.find(p => p.id === treadmillSessionToSave.programId),
+            treadmillSessionToSave.week,
+            treadmillSessionToSave.sessionIndex ?? 0
+          )?.name || null
         );
         const updated = await getTreadmillSessions();
         setTreadmillCompletedSessions(updated);
@@ -1309,6 +1344,7 @@ function AppContent() {
                 programId: programToSave?.id,
                 programName: programToSave?.name,
                 week: selectedTreadmillWeek,
+                sessionIndex: selectedTreadmillSession,
                 duration: treadmillElapsedRef.current,
                 calories: treadmillCaloriesRef.current,
                 distance: treadmillDistanceRef.current,
@@ -3676,6 +3712,15 @@ function AppContent() {
     const sessionSegments = sessionData?.segments || [];
     const sessionMinutes = sessionData ? (sessionData.totalDuration || Math.round(sessionSegments.reduce((a, s) => a + s.duration, 0) / 60)) : 0;
     const fmtSeg = (seg) => `${seg.speed} km/h${seg.incline ? ` · ${seg.incline}%` : ''}`;
+    const sessionIntensity = treadmillIntensity(sessionData);
+    // Riepilogo del livello: intervallo di durata e intensità più alta tra le sue sedute
+    const levelSummary = (() => {
+      if (!weekSessions.length) return null;
+      const mins = weekSessions.map(s => s.totalDuration || Math.round((s.segments || []).reduce((a, x) => a + x.duration, 0) / 60));
+      const lo = Math.min(...mins), hi = Math.max(...mins);
+      const intensity = weekSessions.map(treadmillIntensity).filter(Boolean).sort((a, b) => b.score - a.score)[0];
+      return intensity ? { minutes: lo === hi ? `${lo}` : `${lo}-${hi}`, intensity } : null;
+    })();
 
     return (
       <div className="min-h-screen bg-[var(--bg)]">
@@ -3741,7 +3786,7 @@ function AppContent() {
                           <p className="font-semibold">{prog.name}</p>
                           <p className="text-xs text-[var(--text-secondary)]">{prog.description}</p>
                           <p className="text-[10px] text-[var(--text-muted)] mt-1">
-                            {prog.difficulty} · {prog.totalWeeks} {prog.totalWeeks === 1 ? 'settimana' : 'settimane'} · {prog.weeks?.[0]?.sessionsPerWeek}x a settimana
+                            {prog.difficulty} · {prog.totalWeeks} {prog.totalWeeks === 1 ? 'livello' : 'livelli'} · consigliato {prog.weeks?.[0]?.sessionsPerWeek}x a settimana
                             {prog.prerequisite && prog.prerequisite !== 'Nessuno.' ? ` · Richiede: ${prog.prerequisite}` : ''}
                           </p>
                           {locked && (
@@ -3800,7 +3845,17 @@ function AppContent() {
           {/* Week Selector Card */}
           <div className="card p-4 mb-4 animate-slide-up">
             <div className="flex items-center justify-between mb-3">
-              <h2 className="text-base font-bold">Settimana {selectedTreadmillWeek}</h2>
+              <div>
+                <h2 className="text-base font-bold">Livello {selectedTreadmillWeek}<span className="text-xs font-normal text-[var(--text-muted)]"> di {program?.totalWeeks || 1}</span></h2>
+                {levelSummary && (
+                  <p className="text-[11px] text-[var(--text-secondary)] flex items-center gap-1.5 mt-0.5">
+                    <span>{levelSummary.minutes} min</span>
+                    <span className="text-[var(--text-muted)]">·</span>
+                    <IntensityBars level={levelSummary.intensity.level} />
+                    <span>{levelSummary.intensity.label}</span>
+                  </p>
+                )}
+              </div>
               {currentPhaseInfo && (
                 <span className="text-[10px] bg-[var(--primary)]/10 text-[var(--primary)] px-2 py-1 rounded-full font-medium">
                   {currentPhaseInfo.name}
@@ -3808,11 +3863,12 @@ function AppContent() {
               )}
             </div>
 
-            {/* Week Pills */}
+            {/* Pillole dei livelli */}
             <div className="flex gap-1.5 overflow-x-auto pb-2 -mx-1 px-1">
               {Array.from({ length: program?.totalWeeks || 12 }, (_, i) => i + 1).map(week => (
                 <button
                   key={week}
+                  aria-label={`Livello ${week}`}
                   onClick={() => { setSelectedTreadmillWeek(week); setSelectedTreadmillSession(0); }}
                   className={`flex-shrink-0 w-8 h-8 rounded-full text-xs font-medium transition-all ${
                     week === selectedTreadmillWeek
@@ -3827,6 +3883,11 @@ function AppContent() {
 
             {currentPhaseInfo?.description && (
               <p className="text-xs text-[var(--text-secondary)] mt-1">{currentPhaseInfo.description}</p>
+            )}
+            {(program?.totalWeeks || 1) > 1 && (
+              <p className="text-[11px] text-[var(--text-muted)] mt-1 leading-snug">
+                I livelli crescono per durata e intensità: scegli quello adatto a oggi, non serve seguirli in ordine.
+              </p>
             )}
             {treadmillIncline !== null && (
               <div className="flex items-center justify-between mt-2 text-[11px] text-[var(--text-muted)]">
@@ -3843,13 +3904,16 @@ function AppContent() {
                     <TimerIcon />
                     {sessionMinutes} min
                   </span>
-                  <span className="flex items-center gap-1">
-                    <FlameIcon />
-                    {weekData.sessionsPerWeek}x a settimana
-                  </span>
+                  {sessionIntensity && (
+                    <span className="flex items-center gap-1.5">
+                      <FlameIcon />
+                      <IntensityBars level={sessionIntensity.level} />
+                      {sessionIntensity.label}
+                    </span>
+                  )}
                 </div>
 
-                {/* Sedute della settimana (A/B/C) */}
+                {/* Sedute del livello (A/B/C) */}
                 {weekSessions.length > 1 && (
                   <div className="flex gap-1.5 mb-3">
                     {weekSessions.map((s, i) => (
@@ -3865,9 +3929,14 @@ function AppContent() {
                         {(() => {
                           const [letter, ...rest] = (s.name || `Seduta ${i + 1}`).split(' · ');
                           const mins = s.totalDuration || Math.round((s.segments || []).reduce((a, x) => a + x.duration, 0) / 60);
+                          const inten = treadmillIntensity(s);
                           return (
                             <>
-                              <p className={`text-sm font-bold leading-none ${i === sessionIdx ? 'text-[var(--primary)]' : ''}`}>{letter} <span className="text-[10px] font-normal text-[var(--text-muted)]">{mins} min</span></p>
+                              <p className={`text-sm font-bold leading-none flex items-center gap-1 ${i === sessionIdx ? 'text-[var(--primary)]' : ''}`}>
+                                {letter}
+                                <span className="text-[10px] font-normal text-[var(--text-muted)]">{mins} min</span>
+                                {inten && <IntensityBars level={inten.level} className="ml-auto" />}
+                              </p>
                               <p className="text-[11px] leading-tight mt-1 text-[var(--text-secondary)]">{rest.join(' · ') || ' '}</p>
                             </>
                           );
@@ -3939,6 +4008,11 @@ function AppContent() {
                 >
                   INIZIA SESSIONE
                 </button>
+                {weekData.sessionsPerWeek > 0 && (
+                  <p className="text-[11px] text-[var(--text-muted)] text-center mt-2">
+                    Frequenza consigliata: {weekData.sessionsPerWeek} sedute a settimana
+                  </p>
+                )}
               </div>
             )}
           </div>
@@ -3985,59 +4059,64 @@ function AppContent() {
             const programSessions = treadmillCompletedSessions.filter(s => s.programId === program?.id);
             if (programSessions.length === 0) return null;
 
-            // Group by week
-            const byWeek = {};
-            programSessions.forEach(session => {
-              const week = session.week || 1;
-              if (!byWeek[week]) byWeek[week] = [];
-              byWeek[week].push(session);
-            });
-
-            // Get week numbers and sort
-            const weeks = Object.keys(byWeek).map(Number).sort((a, b) => a - b);
+            // Elenco unico, dalla più recente alla più vecchia
+            const sorted = [...programSessions].sort((a, b) => new Date(b.date) - new Date(a.date));
+            const LIMIT = 8;
+            const visible = showAllTreadmillSessions ? sorted : sorted.slice(0, LIMIT);
+            const thisYear = new Date().getFullYear();
+            const totalKm = sorted.reduce((a, s) => a + (s.distance || 0), 0);
+            const totalMin = Math.round(sorted.reduce((a, s) => a + (s.duration || 0), 0) / 60);
+            const fmtTotal = totalMin >= 60 ? `${Math.floor(totalMin / 60)} h ${totalMin % 60} min` : `${totalMin} min`;
 
             return (
               <div className="card p-4 mb-4">
-                <h3 className="text-sm font-semibold mb-3">Le tue sessioni</h3>
-                <div className="space-y-3">
-                  {weeks.map(week => {
-                    const sessions = byWeek[week];
+                <div className="flex items-baseline justify-between mb-1">
+                  <h3 className="text-sm font-semibold">Le tue sessioni</h3>
+                  <span className="text-[11px] text-[var(--text-muted)]">dalla più recente</span>
+                </div>
+                <p className="text-xs text-[var(--text-secondary)] mb-3">
+                  {sorted.length} {sorted.length === 1 ? 'sessione' : 'sessioni'} · {fmtTotal}{totalKm > 0 ? ` · ${totalKm.toFixed(1)} km` : ''}
+                </p>
+                <div className="divide-y divide-[var(--border)]">
+                  {visible.map((s, i) => {
+                    const d = new Date(s.date);
+                    const date = d.toLocaleDateString('it-IT', {
+                      weekday: 'short', day: 'numeric', month: 'short',
+                      ...(d.getFullYear() !== thisYear ? { year: 'numeric' } : {})
+                    });
+                    const letter = s.sessionName ? s.sessionName.split(' · ')[0] : null;
                     return (
-                      <div key={week} className="bg-[var(--surface-hover)] rounded-xl p-3">
-                        <div className="flex items-center gap-2 mb-2">
-                          <span className="text-[var(--primary)] font-semibold">Settimana {week}</span>
-                          <span className="text-xs bg-[var(--primary)]/10 text-[var(--primary)] px-2 py-0.5 rounded-full">
-                            {sessions.length} {sessions.length === 1 ? 'sessione' : 'sessioni'}
+                      <div key={s.id ?? i} className="flex items-center justify-between gap-2 py-2 text-xs">
+                        <div className="flex items-center gap-2 min-w-0">
+                          <span className="text-[var(--text)] font-medium min-w-[5.5rem] whitespace-nowrap flex-shrink-0">{date}</span>
+                          <span className="text-[10px] bg-[var(--primary)]/10 text-[var(--primary)] px-2 py-0.5 rounded-full font-medium flex-shrink-0">
+                            Livello {s.week || 1}{letter ? ` · ${letter}` : ''}
                           </span>
+                          {s.completed === false && (
+                            <span className="text-[10px] bg-amber-100 text-amber-700 px-1.5 py-0.5 rounded-full flex-shrink-0">parziale</span>
+                          )}
                         </div>
-                        <div className="space-y-1.5">
-                          {sessions.map((s, i) => {
-                            const date = new Date(s.date).toLocaleDateString('it-IT', { weekday: 'short', day: 'numeric', month: 'short' });
-                            return (
-                              <div key={i} className="flex items-center justify-between text-xs">
-                                <div className="flex items-center gap-2 min-w-0">
-                                  <span className="text-[var(--text-secondary)] truncate">{date}</span>
-                                  {s.completed === false && (
-                                    <span className="text-[10px] bg-amber-100 text-amber-700 px-1.5 py-0.5 rounded-full flex-shrink-0">parziale</span>
-                                  )}
-                                </div>
-                                <div className="flex items-center gap-1.5 text-[var(--text-secondary)] flex-shrink-0">
-                                  <span>{formatTime(s.duration || 0)}</span>
-                                  {s.distance > 0 && (
-                                    <>
-                                      <span className="text-[var(--text-muted)]">·</span>
-                                      <span>{s.distance.toFixed(2)} km</span>
-                                    </>
-                                  )}
-                                </div>
-                              </div>
-                            );
-                          })}
+                        <div className="flex items-center gap-1.5 text-[var(--text-secondary)] flex-shrink-0">
+                          <span>{formatTime(s.duration || 0)}</span>
+                          {s.distance > 0 && (
+                            <>
+                              <span className="text-[var(--text-muted)]">·</span>
+                              <span>{s.distance.toFixed(2)} km</span>
+                            </>
+                          )}
                         </div>
                       </div>
                     );
                   })}
                 </div>
+                {sorted.length > LIMIT && (
+                  <button
+                    onClick={() => setShowAllTreadmillSessions(v => !v)}
+                    className="w-full mt-2 pt-2 text-xs font-semibold text-[var(--primary)]"
+                  >
+                    {showAllTreadmillSessions ? 'Mostra meno' : `Mostra tutte (${sorted.length})`}
+                  </button>
+                )}
               </div>
             );
           })()}
@@ -4115,6 +4194,7 @@ function AppContent() {
                   programId: prog?.id,
                   programName: prog?.name,
                   week: selectedTreadmillWeek,
+                  sessionIndex: selectedTreadmillSession,
                   duration: treadmillElapsedRef.current,
                   calories: treadmillCaloriesRef.current,
                   distance: treadmillDistanceRef.current,
@@ -4317,6 +4397,7 @@ function AppContent() {
                   programId: program?.id,
                   programName: program?.name,
                   week: selectedTreadmillWeek,
+                  sessionIndex: selectedTreadmillSession,
                   duration: treadmillElapsedRef.current || treadmillTotalElapsed,
                   calories: treadmillCaloriesRef.current || treadmillCalories,
                   distance: treadmillDistanceRef.current || treadmillDistance,

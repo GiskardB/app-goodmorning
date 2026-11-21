@@ -53,3 +53,8 @@ automatico dell'intensità, 7 programmi tapis roulant, libreria esercizi (152 vo
    Massimo una frase ogni 2 min e 6 per seduta, nessuna ripetizione; tono morbido con check-in basso,
    solo frase finale nel minimo vitale, silenzio nei giorni leggeri/recupero. Interruttore in
    Impostazioni → Audio ("Coach motivazionale"); letto dalla voce se attiva.
+15. **Tapis roulant a livelli**: le "settimane" dei programmi sono presentate come **Livelli** (i campi
+   dati restano `week`/`totalWeeks`), perché si scelgono per tempo e intensità e non per calendario.
+   Ogni livello e ogni seduta mostra durata e **indicatore di intensità** a 5 tacche (Leggera →
+   Intensa), calcolato dal MET medio corretto verso il picco. Lo storico "Le tue sessioni" è un
+   elenco unico dalla più recente, con totali, etichetta "Livello N · seduta" e "Mostra tutte".

@@ -4,7 +4,7 @@
       "id": "soft_couch_to_run",
       "name": "Da camminata a corsa",
       "icon": "🚶‍♂️",
-      "description": "Dal divano a 30 minuti di corsa continua in 10 settimane, con pause di cammino programmate.",
+      "description": "Dal divano a 30 minuti di corsa continua in 10 livelli progressivi, con pause di cammino programmate.",
       "difficulty": "Principiante",
       "totalWeeks": 10,
       "prerequisite": "Nessuno: si parte camminando.",
@@ -47,7 +47,7 @@
       "tips": [
         "Le pause di cammino sono parte del piano, non un fallimento.",
         "Velocità giusta = riesci a parlare a frasi intere. Se ansimi, rallenta.",
-        "Ripetere una settimana è previsto: passa alla successiva solo quando le 3 sedute ti sono sembrate gestibili.",
+        "Ripetere un livello è previsto: passa al successivo solo quando le sedute ti sono sembrate gestibili.",
         "Tre sedute a settimana, mai in giorni consecutivi."
       ],
       "speedLegend": [
@@ -2159,7 +2159,7 @@
       "id": "active_walk",
       "name": "Camminata attiva",
       "icon": "🥾",
-      "description": "Da 20 a 40 minuti di camminata svelta in 8 settimane, senza mai correre. Ideale per ricominciare a muoversi.",
+      "description": "Da 20 a 40 minuti di camminata svelta in 8 livelli, senza mai correre. Ideale per ricominciare a muoversi.",
       "difficulty": "Principiante",
       "totalWeeks": 8,
       "prerequisite": "Nessuno.",
@@ -2178,7 +2178,7 @@
             3,
             4
           ],
-          "description": "Tratti svelti, poi settimana di scarico"
+          "description": "Tratti svelti, poi un livello di scarico"
         },
         {
           "name": "Svelta",
@@ -2200,7 +2200,7 @@
       "tips": [
         "Cadenza da camminata svelta: circa 100 passi al minuto, braccia che oscillano.",
         "In salita mani libere: aggrapparsi al corrimano annulla il lavoro.",
-        "Se una seduta è sembrata dura, ripeti la settimana: la progressione non scappa."
+        "Se una seduta è sembrata dura, ripeti il livello: la progressione non scappa."
       ],
       "speedLegend": [
         {
@@ -3342,7 +3342,7 @@
             3,
             4
           ],
-          "description": "170 minuti, poi settimana di scarico"
+          "description": "170 minuti a settimana, poi un livello di scarico"
         },
         {
           "name": "Volume",
@@ -4865,7 +4865,7 @@
       "id": "endurance_5k",
       "name": "Resistenza: 5 km",
       "icon": "🏃",
-      "description": "Per chi corre già 20-30 minuti: una lunga che cresce di 3′ a settimana, una seduta di ritmo e una facile. Arrivi a 45′ e 5-6 km.",
+      "description": "Per chi corre già 20-30 minuti: una lunga che cresce di 3′ a ogni livello, una seduta di ritmo e una facile. Arrivi a 45′ e 5-6 km.",
       "difficulty": "Intermedio",
       "totalWeeks": 8,
       "prerequisite": "Correre 20-25 minuti di fila (fine di “Da camminata a corsa”).",
@@ -8136,7 +8136,7 @@
       "id": "incline_walk",
       "name": "Camminata in salita",
       "icon": "⛰️",
-      "description": "Glutei e fiato senza impatto: la pendenza sale dell’1% a settimana fino all’8%, la velocità resta da camminata.",
+      "description": "Glutei e fiato senza impatto: la pendenza sale dell’1% a ogni livello fino all’8%, la velocità resta da camminata.",
       "difficulty": "Principiante",
       "totalWeeks": 8,
       "requiresIncline": true,
@@ -8178,7 +8178,7 @@
       "tips": [
         "Spalle sopra i fianchi, mani libere: aggrapparsi al corrimano dimezza il lavoro.",
         "Aumenta la velocità solo quando tieni la pendenza senza appoggiarti.",
-        "Polpacci e tendini si adattano piano: se tirano, resta una settimana in più sulla stessa pendenza."
+        "Polpacci e tendini si adattano piano: se tirano, resta ancora qualche seduta sullo stesso livello."
       ],
       "speedLegend": [
         {

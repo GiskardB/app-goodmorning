@@ -45,6 +45,14 @@ _Aggiornato: 2026-10-22. Generatore: `scripts/build-treadmill.mjs` → `public/w
    max +1,5) e il programma "Camminata in salita" (`requiresIncline`) resta non selezionabile.
 8. Consigli psicologici per programma (campo `tips`), mostrati sotto la legenda.
 
+## Livelli e intensità
+Nell'app le settimane del piano si chiamano **Livelli**: chi si allena sceglie per tempo disponibile e
+intensità, non per calendario, e può ripetere o saltare livelli liberamente. I campi dati restano
+`week` e `totalWeeks`. Ogni seduta ha un indicatore di intensità da 1 a 5 (Leggera, Moderata,
+Sostenuta, Impegnativa, Intensa) calcolato in `treadmillIntensity` (App.jsx): MET medio pesato sul
+tempo più il 30 % della distanza dal picco dei tratti di almeno un minuto; soglie 3,6 / 5 / 6,3 / 7,4.
+La frequenza ("3 sedute a settimana") resta solo come consiglio.
+
 ## I 7 programmi
 | Programma | Sett. | Sedute | Durata | Per chi |
 |---|---|---|---|---|
