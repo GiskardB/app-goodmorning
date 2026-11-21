@@ -58,3 +58,8 @@ automatico dell'intensità, 7 programmi tapis roulant, libreria esercizi (152 vo
    Ogni livello e ogni seduta mostra durata e **indicatore di intensità** a 5 tacche (Leggera →
    Intensa), calcolato dal MET medio corretto verso il picco. Lo storico "Le tue sessioni" è un
    elenco unico dalla più recente, con totali, etichetta "Livello N · seduta" e "Mostra tutte".
+16. **Revisione scientifica dei livelli tapis**: progressione della corsa mai oltre +30 %, camminata
+   continua mai oltre 6 km/h (intensità con la pendenza), dimagrimento entro 45′ a seduta, resistenza
+   con lunga fino a 40′ e ripetute da 3′, riga "Perché" su ogni seduta, calorie coerenti con l'intensità.
+   Regole verificate dal generatore. Corretti il selettore programmi (ora scorre) e gli interruttori
+   delle impostazioni (stessa dimensione anche con testo su due righe).

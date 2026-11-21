@@ -7,7 +7,7 @@
       "description": "Dal divano a 30 minuti di corsa continua in 10 livelli progressivi, con pause di cammino programmate.",
       "difficulty": "Principiante",
       "totalWeeks": 10,
-      "prerequisite": "Nessuno: si parte camminando.",
+      "prerequisite": "Nessuno.",
       "phases": [
         {
           "name": "Ingresso",
@@ -158,7 +158,8 @@
                   "speed": 4.5,
                   "duration": 240
                 }
-              ]
+              ],
+              "why": "I cambi di ritmo allenano cuore e fiato in meno tempo e spezzano la monotonia."
             },
             {
               "name": "B · Cammino continuo",
@@ -180,7 +181,8 @@
                   "speed": 4.5,
                   "duration": 240
                 }
-              ]
+              ],
+              "why": "Prima di correre si prende confidenza col tapis: finisci con la voglia di rifarlo."
             },
             {
               "name": "C · Tratti svelti +",
@@ -277,7 +279,8 @@
                   "speed": 4.5,
                   "duration": 240
                 }
-              ]
+              ],
+              "why": "I cambi di ritmo allenano cuore e fiato in meno tempo e spezzano la monotonia."
             }
           ],
           "session": {
@@ -355,7 +358,8 @@
                 "speed": 4.5,
                 "duration": 240
               }
-            ]
+            ],
+            "why": "I cambi di ritmo allenano cuore e fiato in meno tempo e spezzano la monotonia."
           }
         },
         {
@@ -448,7 +452,8 @@
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "Alternare corsa e cammino abitua tendini e fiato senza strafare: ogni tratto finito è un successo."
             },
             {
               "name": "B · Versione corta",
@@ -525,7 +530,8 @@
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "Versione breve per i giorni pieni: mantiene il filo senza pesare."
             },
             {
               "name": "C · Versione lunga",
@@ -622,7 +628,8 @@
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "Alternare corsa e cammino abitua tendini e fiato senza strafare: ogni tratto finito è un successo."
             }
           ],
           "session": {
@@ -710,7 +717,8 @@
                 "speed": 4.5,
                 "duration": 300
               }
-            ]
+            ],
+            "why": "Alternare corsa e cammino abitua tendini e fiato senza strafare: ogni tratto finito è un successo."
           }
         },
         {
@@ -793,7 +801,8 @@
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "Alternare corsa e cammino abitua tendini e fiato senza strafare: ogni tratto finito è un successo."
             },
             {
               "name": "B · Versione corta",
@@ -860,7 +869,8 @@
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "Versione breve per i giorni pieni: mantiene il filo senza pesare."
             },
             {
               "name": "C · Versione lunga",
@@ -937,7 +947,8 @@
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "Alternare corsa e cammino abitua tendini e fiato senza strafare: ogni tratto finito è un successo."
             }
           ],
           "session": {
@@ -1015,17 +1026,139 @@
                 "speed": 4.5,
                 "duration": 300
               }
-            ]
+            ],
+            "why": "Alternare corsa e cammino abitua tendini e fiato senza strafare: ogni tratto finito è un successo."
           }
         },
         {
           "week": 4,
           "sessionsPerWeek": 3,
-          "totalDuration": 27,
+          "totalDuration": 28,
           "sessions": [
             {
-              "name": "A · Primi 3 minuti",
-              "focus": "2 × (1′30″ corsa, 3′ corsa)",
+              "name": "A · Blocchi da 2 e 3",
+              "focus": "2′, 3′, 2′, 3′ di corsa",
+              "totalDuration": 26,
+              "segments": [
+                {
+                  "activity": "Camminata",
+                  "speed": 5,
+                  "duration": 300
+                },
+                {
+                  "activity": "Corsa leggera",
+                  "speed": 7.5,
+                  "duration": 120
+                },
+                {
+                  "activity": "Camminata",
+                  "speed": 5.5,
+                  "duration": 120
+                },
+                {
+                  "activity": "Corsa leggera",
+                  "speed": 7.5,
+                  "duration": 180
+                },
+                {
+                  "activity": "Camminata",
+                  "speed": 5.5,
+                  "duration": 120
+                },
+                {
+                  "activity": "Corsa leggera",
+                  "speed": 7.5,
+                  "duration": 120
+                },
+                {
+                  "activity": "Camminata",
+                  "speed": 5.5,
+                  "duration": 120
+                },
+                {
+                  "activity": "Corsa leggera",
+                  "speed": 7.5,
+                  "duration": 180
+                },
+                {
+                  "activity": "Camminata",
+                  "speed": 4.5,
+                  "duration": 300
+                }
+              ],
+              "why": "Alternare corsa e cammino abitua tendini e fiato senza strafare: ogni tratto finito è un successo."
+            },
+            {
+              "name": "B · Versione regolare",
+              "focus": "5 × (2′ corsa / 2′ cammino)",
+              "totalDuration": 30,
+              "segments": [
+                {
+                  "activity": "Camminata",
+                  "speed": 5,
+                  "duration": 300
+                },
+                {
+                  "activity": "Corsa leggera",
+                  "speed": 7.5,
+                  "duration": 120
+                },
+                {
+                  "activity": "Camminata",
+                  "speed": 5.5,
+                  "duration": 120
+                },
+                {
+                  "activity": "Corsa leggera",
+                  "speed": 7.5,
+                  "duration": 120
+                },
+                {
+                  "activity": "Camminata",
+                  "speed": 5.5,
+                  "duration": 120
+                },
+                {
+                  "activity": "Corsa leggera",
+                  "speed": 7.5,
+                  "duration": 120
+                },
+                {
+                  "activity": "Camminata",
+                  "speed": 5.5,
+                  "duration": 120
+                },
+                {
+                  "activity": "Corsa leggera",
+                  "speed": 7.5,
+                  "duration": 120
+                },
+                {
+                  "activity": "Camminata",
+                  "speed": 5.5,
+                  "duration": 120
+                },
+                {
+                  "activity": "Corsa leggera",
+                  "speed": 7.5,
+                  "duration": 120
+                },
+                {
+                  "activity": "Camminata",
+                  "speed": 5.5,
+                  "duration": 120
+                },
+                {
+                  "activity": "Camminata",
+                  "speed": 4.5,
+                  "duration": 300
+                }
+              ],
+              "why": "Alternare corsa e cammino abitua tendini e fiato senza strafare: ogni tratto finito è un successo."
+            },
+            {
+              "name": "C · Primi 4 minuti",
+              "focus": "1′30″, 3′, 3′, 4′ di corsa",
               "totalDuration": 28,
               "segments": [
                 {
@@ -1051,17 +1184,7 @@
                 {
                   "activity": "Camminata",
                   "speed": 5.5,
-                  "duration": 180
-                },
-                {
-                  "activity": "Corsa leggera",
-                  "speed": 7.5,
-                  "duration": 90
-                },
-                {
-                  "activity": "Camminata",
-                  "speed": 5.5,
-                  "duration": 90
+                  "duration": 150
                 },
                 {
                   "activity": "Corsa leggera",
@@ -1071,111 +1194,7 @@
                 {
                   "activity": "Camminata",
                   "speed": 5.5,
-                  "duration": 180
-                },
-                {
-                  "activity": "Camminata",
-                  "speed": 4.5,
-                  "duration": 300
-                }
-              ]
-            },
-            {
-              "name": "B · Versione corta",
-              "focus": "4 × (2′ corsa / 2′ cammino)",
-              "totalDuration": 26,
-              "segments": [
-                {
-                  "activity": "Camminata",
-                  "speed": 5,
-                  "duration": 300
-                },
-                {
-                  "activity": "Corsa leggera",
-                  "speed": 7.5,
-                  "duration": 120
-                },
-                {
-                  "activity": "Camminata",
-                  "speed": 5.5,
-                  "duration": 120
-                },
-                {
-                  "activity": "Corsa leggera",
-                  "speed": 7.5,
-                  "duration": 120
-                },
-                {
-                  "activity": "Camminata",
-                  "speed": 5.5,
-                  "duration": 120
-                },
-                {
-                  "activity": "Corsa leggera",
-                  "speed": 7.5,
-                  "duration": 120
-                },
-                {
-                  "activity": "Camminata",
-                  "speed": 5.5,
-                  "duration": 120
-                },
-                {
-                  "activity": "Corsa leggera",
-                  "speed": 7.5,
-                  "duration": 120
-                },
-                {
-                  "activity": "Camminata",
-                  "speed": 5.5,
-                  "duration": 120
-                },
-                {
-                  "activity": "Camminata",
-                  "speed": 4.5,
-                  "duration": 300
-                }
-              ]
-            },
-            {
-              "name": "C · Versione lunga",
-              "focus": "1′30″, 3′, 1′30″, 4′ di corsa",
-              "totalDuration": 26,
-              "segments": [
-                {
-                  "activity": "Camminata",
-                  "speed": 5,
-                  "duration": 300
-                },
-                {
-                  "activity": "Corsa leggera",
-                  "speed": 7.5,
-                  "duration": 90
-                },
-                {
-                  "activity": "Camminata",
-                  "speed": 5.5,
-                  "duration": 90
-                },
-                {
-                  "activity": "Corsa leggera",
-                  "speed": 7.5,
-                  "duration": 180
-                },
-                {
-                  "activity": "Camminata",
-                  "speed": 5.5,
-                  "duration": 180
-                },
-                {
-                  "activity": "Corsa leggera",
-                  "speed": 7.5,
-                  "duration": 90
-                },
-                {
-                  "activity": "Camminata",
-                  "speed": 5.5,
-                  "duration": 90
+                  "duration": 150
                 },
                 {
                   "activity": "Corsa leggera",
@@ -1187,13 +1206,14 @@
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "Alternare corsa e cammino abitua tendini e fiato senza strafare: ogni tratto finito è un successo."
             }
           ],
           "session": {
-            "name": "A · Primi 3 minuti",
-            "focus": "2 × (1′30″ corsa, 3′ corsa)",
-            "totalDuration": 28,
+            "name": "A · Blocchi da 2 e 3",
+            "focus": "2′, 3′, 2′, 3′ di corsa",
+            "totalDuration": 26,
             "segments": [
               {
                 "activity": "Camminata",
@@ -1203,12 +1223,12 @@
               {
                 "activity": "Corsa leggera",
                 "speed": 7.5,
-                "duration": 90
+                "duration": 120
               },
               {
                 "activity": "Camminata",
                 "speed": 5.5,
-                "duration": 90
+                "duration": 120
               },
               {
                 "activity": "Corsa leggera",
@@ -1218,26 +1238,21 @@
               {
                 "activity": "Camminata",
                 "speed": 5.5,
-                "duration": 180
+                "duration": 120
               },
               {
                 "activity": "Corsa leggera",
                 "speed": 7.5,
-                "duration": 90
+                "duration": 120
               },
               {
                 "activity": "Camminata",
                 "speed": 5.5,
-                "duration": 90
+                "duration": 120
               },
               {
                 "activity": "Corsa leggera",
                 "speed": 7.5,
-                "duration": 180
-              },
-              {
-                "activity": "Camminata",
-                "speed": 5.5,
                 "duration": 180
               },
               {
@@ -1245,7 +1260,8 @@
                 "speed": 4.5,
                 "duration": 300
               }
-            ]
+            ],
+            "why": "Alternare corsa e cammino abitua tendini e fiato senza strafare: ogni tratto finito è un successo."
           }
         },
         {
@@ -1303,7 +1319,8 @@
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "Alternare corsa e cammino abitua tendini e fiato senza strafare: ogni tratto finito è un successo."
             },
             {
               "name": "B · Versione corta",
@@ -1360,12 +1377,13 @@
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "Versione breve per i giorni pieni: mantiene il filo senza pesare."
             },
             {
               "name": "C · Primi 5 minuti",
-              "focus": "3′, 5′, 3′, 5′ di corsa",
-              "totalDuration": 32,
+              "focus": "3′, 5′, 3′, 4′ di corsa",
+              "totalDuration": 31,
               "segments": [
                 {
                   "activity": "Camminata",
@@ -1405,14 +1423,15 @@
                 {
                   "activity": "Corsa leggera",
                   "speed": 7.5,
-                  "duration": 300
+                  "duration": 240
                 },
                 {
                   "activity": "Camminata",
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "Alternare corsa e cammino abitua tendini e fiato senza strafare: ogni tratto finito è un successo."
             }
           ],
           "session": {
@@ -1465,13 +1484,14 @@
                 "speed": 4.5,
                 "duration": 300
               }
-            ]
+            ],
+            "why": "Alternare corsa e cammino abitua tendini e fiato senza strafare: ogni tratto finito è un successo."
           }
         },
         {
           "week": 6,
           "sessionsPerWeek": 3,
-          "totalDuration": 34,
+          "totalDuration": 33,
           "sessions": [
             {
               "name": "A · Tre da 5",
@@ -1518,7 +1538,8 @@
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "Alternare corsa e cammino abitua tendini e fiato senza strafare: ogni tratto finito è un successo."
             },
             {
               "name": "B · Due da 8",
@@ -1555,12 +1576,13 @@
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "Alternare corsa e cammino abitua tendini e fiato senza strafare: ogni tratto finito è un successo."
             },
             {
               "name": "C · Primi 10 minuti",
-              "focus": "10′ corsa, 3′ cammino, 8′ corsa",
-              "totalDuration": 31,
+              "focus": "10′ corsa, 3′ cammino, 6′ corsa",
+              "totalDuration": 29,
               "segments": [
                 {
                   "activity": "Camminata",
@@ -1580,14 +1602,15 @@
                 {
                   "activity": "Corsa leggera",
                   "speed": 7.5,
-                  "duration": 480
+                  "duration": 360
                 },
                 {
                   "activity": "Camminata",
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "Alternare corsa e cammino abitua tendini e fiato senza strafare: ogni tratto finito è un successo."
             }
           ],
           "session": {
@@ -1635,7 +1658,8 @@
                 "speed": 4.5,
                 "duration": 300
               }
-            ]
+            ],
+            "why": "Alternare corsa e cammino abitua tendini e fiato senza strafare: ogni tratto finito è un successo."
           }
         },
         {
@@ -1683,7 +1707,8 @@
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "I cambi di ritmo allenano cuore e fiato in meno tempo e spezzano la monotonia."
             },
             {
               "name": "B · Due da 10",
@@ -1720,7 +1745,8 @@
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "Alternare corsa e cammino abitua tendini e fiato senza strafare: ogni tratto finito è un successo."
             },
             {
               "name": "C · Primi 15 minuti",
@@ -1752,7 +1778,8 @@
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "Alternare corsa e cammino abitua tendini e fiato senza strafare: ogni tratto finito è un successo."
             }
           ],
           "session": {
@@ -1795,7 +1822,8 @@
                 "speed": 4.5,
                 "duration": 300
               }
-            ]
+            ],
+            "why": "I cambi di ritmo allenano cuore e fiato in meno tempo e spezzano la monotonia."
           }
         },
         {
@@ -1838,7 +1866,8 @@
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "Scarico: è riposando che il corpo assimila il lavoro dei livelli precedenti."
             },
             {
               "name": "B · 12 + 8",
@@ -1870,7 +1899,8 @@
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "Alternare corsa e cammino abitua tendini e fiato senza strafare: ogni tratto finito è un successo."
             },
             {
               "name": "C · Traguardo: 20 minuti",
@@ -1892,7 +1922,8 @@
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "Un traguardo misurabile: la prova concreta di quanto sei cresciuto."
             }
           ],
           "session": {
@@ -1930,7 +1961,8 @@
                 "speed": 4.5,
                 "duration": 300
               }
-            ]
+            ],
+            "why": "Scarico: è riposando che il corpo assimila il lavoro dei livelli precedenti."
           }
         },
         {
@@ -1958,7 +1990,8 @@
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "Correre senza pause a ritmo facile: è la base su cui si costruisce tutto il resto."
             },
             {
               "name": "B · Due da 12",
@@ -1995,11 +2028,12 @@
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "Alternare corsa e cammino abitua tendini e fiato senza strafare: ogni tratto finito è un successo."
             },
             {
               "name": "C · 25 continui",
-              "focus": "25′ di corsa continua (1% opzionale)",
+              "focus": "25′ di corsa continua",
               "totalDuration": 35,
               "segments": [
                 {
@@ -2017,7 +2051,8 @@
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "Correre senza pause a ritmo facile: è la base su cui si costruisce tutto il resto."
             }
           ],
           "session": {
@@ -2040,7 +2075,8 @@
                 "speed": 4.5,
                 "duration": 300
               }
-            ]
+            ],
+            "why": "Correre senza pause a ritmo facile: è la base su cui si costruisce tutto il resto."
           }
         },
         {
@@ -2068,7 +2104,8 @@
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "Correre senza pause a ritmo facile: è la base su cui si costruisce tutto il resto."
             },
             {
               "name": "B · Due da 14",
@@ -2105,7 +2142,8 @@
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "Alternare corsa e cammino abitua tendini e fiato senza strafare: ogni tratto finito è un successo."
             },
             {
               "name": "C · Traguardo: 30 minuti",
@@ -2127,7 +2165,8 @@
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "Un traguardo misurabile: la prova concreta di quanto sei cresciuto."
             }
           ],
           "session": {
@@ -2150,7 +2189,8 @@
                 "speed": 4.5,
                 "duration": 300
               }
-            ]
+            ],
+            "why": "Correre senza pause a ritmo facile: è la base su cui si costruisce tutto il resto."
           }
         }
       ]
@@ -2194,13 +2234,14 @@
             7,
             8
           ],
-          "description": "30 minuti svelti, salita a tratti"
+          "description": "30 minuti svelti: lo sforzo cresce con la pendenza, non con la velocità"
         }
       ],
       "tips": [
         "Cadenza da camminata svelta: circa 100 passi al minuto, braccia che oscillano.",
         "In salita mani libere: aggrapparsi al corrimano annulla il lavoro.",
-        "Se una seduta è sembrata dura, ripeti il livello: la progressione non scappa."
+        "Se una seduta è sembrata dura, ripeti il livello: la progressione non scappa.",
+        "Tre sedute coprono 100-120 minuti: una passeggiata libera nel weekend ti porta ai 150 consigliati dall’OMS."
       ],
       "speedLegend": [
         {
@@ -2221,7 +2262,7 @@
         {
           "level": "Camminata svelta +",
           "speed": 6.5,
-          "feeling": "Respiro più profondo, frasi brevi"
+          "feeling": "Solo a tratti brevi: respiro profondo, frasi corte"
         }
       ],
       "weeks": [
@@ -2250,7 +2291,8 @@
                   "speed": 4,
                   "duration": 180
                 }
-              ]
+              ],
+              "why": "Camminare a passo deciso è già allenamento: conta la regolarità, non la fatica."
             },
             {
               "name": "B · Corta",
@@ -2272,7 +2314,8 @@
                   "speed": 4,
                   "duration": 180
                 }
-              ]
+              ],
+              "why": "Versione breve per i giorni pieni: mantiene il filo senza pesare."
             },
             {
               "name": "C · Lunga",
@@ -2294,7 +2337,8 @@
                   "speed": 4,
                   "duration": 180
                 }
-              ]
+              ],
+              "why": "La seduta più lunga costruisce la resistenza: va fatta piano, parlando."
             }
           ],
           "session": {
@@ -2317,7 +2361,8 @@
                 "speed": 4,
                 "duration": 180
               }
-            ]
+            ],
+            "why": "Camminare a passo deciso è già allenamento: conta la regolarità, non la fatica."
           }
         },
         {
@@ -2345,7 +2390,8 @@
                   "speed": 4,
                   "duration": 180
                 }
-              ]
+              ],
+              "why": "Camminare a passo deciso è già allenamento: conta la regolarità, non la fatica."
             },
             {
               "name": "B · Corta",
@@ -2367,7 +2413,8 @@
                   "speed": 4,
                   "duration": 180
                 }
-              ]
+              ],
+              "why": "Versione breve per i giorni pieni: mantiene il filo senza pesare."
             },
             {
               "name": "C · Lunga",
@@ -2389,7 +2436,8 @@
                   "speed": 4,
                   "duration": 180
                 }
-              ]
+              ],
+              "why": "La seduta più lunga costruisce la resistenza: va fatta piano, parlando."
             }
           ],
           "session": {
@@ -2412,7 +2460,8 @@
                 "speed": 4,
                 "duration": 180
               }
-            ]
+            ],
+            "why": "Camminare a passo deciso è già allenamento: conta la regolarità, non la fatica."
           }
         },
         {
@@ -2495,7 +2544,8 @@
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "I cambi di ritmo allenano cuore e fiato in meno tempo e spezzano la monotonia."
             },
             {
               "name": "B · Media",
@@ -2517,7 +2567,8 @@
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "Camminare a passo deciso è già allenamento: conta la regolarità, non la fatica."
             },
             {
               "name": "C · Lunga",
@@ -2539,7 +2590,8 @@
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "La seduta più lunga costruisce la resistenza: va fatta piano, parlando."
             }
           ],
           "session": {
@@ -2617,7 +2669,8 @@
                 "speed": 4.5,
                 "duration": 300
               }
-            ]
+            ],
+            "why": "I cambi di ritmo allenano cuore e fiato in meno tempo e spezzano la monotonia."
           }
         },
         {
@@ -2645,7 +2698,8 @@
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "Scarico: è riposando che il corpo assimila il lavoro dei livelli precedenti."
             },
             {
               "name": "B · Scarico",
@@ -2667,7 +2721,8 @@
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "Scarico: è riposando che il corpo assimila il lavoro dei livelli precedenti."
             },
             {
               "name": "C · Scarico lunga",
@@ -2689,7 +2744,8 @@
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "Scarico: è riposando che il corpo assimila il lavoro dei livelli precedenti."
             }
           ],
           "session": {
@@ -2712,7 +2768,8 @@
                 "speed": 4.5,
                 "duration": 300
               }
-            ]
+            ],
+            "why": "Scarico: è riposando che il corpo assimila il lavoro dei livelli precedenti."
           }
         },
         {
@@ -2740,7 +2797,8 @@
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "Camminare a passo deciso è già allenamento: conta la regolarità, non la fatica."
             },
             {
               "name": "B · Tratti svelti",
@@ -2837,7 +2895,8 @@
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "I cambi di ritmo allenano cuore e fiato in meno tempo e spezzano la monotonia."
             },
             {
               "name": "C · Svelta in leggera salita",
@@ -2860,7 +2919,8 @@
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "La pendenza alza lo sforzo senza impatto sulle articolazioni e fa lavorare glutei e polpacci."
             }
           ],
           "session": {
@@ -2883,7 +2943,8 @@
                 "speed": 4.5,
                 "duration": 300
               }
-            ]
+            ],
+            "why": "Camminare a passo deciso è già allenamento: conta la regolarità, non la fatica."
           }
         },
         {
@@ -2911,7 +2972,8 @@
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "Camminare a passo deciso è già allenamento: conta la regolarità, non la fatica."
             },
             {
               "name": "B · Tratti svelti",
@@ -2988,7 +3050,8 @@
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "I cambi di ritmo allenano cuore e fiato in meno tempo e spezzano la monotonia."
             },
             {
               "name": "C · Svelta in salita",
@@ -3011,7 +3074,8 @@
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "La pendenza alza lo sforzo senza impatto sulle articolazioni e fa lavorare glutei e polpacci."
             }
           ],
           "session": {
@@ -3034,13 +3098,14 @@
                 "speed": 4.5,
                 "duration": 300
               }
-            ]
+            ],
+            "why": "Camminare a passo deciso è già allenamento: conta la regolarità, non la fatica."
           }
         },
         {
           "week": 7,
           "sessionsPerWeek": 3,
-          "totalDuration": 38,
+          "totalDuration": 36,
           "sessions": [
             {
               "name": "A · Traguardo: 30 svelti",
@@ -3054,7 +3119,7 @@
                 },
                 {
                   "activity": "Camminata svelta",
-                  "speed": 6.5,
+                  "speed": 6,
                   "duration": 1800
                 },
                 {
@@ -3062,7 +3127,8 @@
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "Un traguardo misurabile: la prova concreta di quanto sei cresciuto."
             },
             {
               "name": "B · Salita a tratti",
@@ -3123,12 +3189,13 @@
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "La pendenza alza lo sforzo senza impatto sulle articolazioni e fa lavorare glutei e polpacci."
             },
             {
-              "name": "C · Svelta continua",
-              "focus": "30′ di camminata svelta",
-              "totalDuration": 40,
+              "name": "C · Svelta in salita",
+              "focus": "25′ svelta al 3%",
+              "totalDuration": 35,
               "segments": [
                 {
                   "activity": "Camminata",
@@ -3138,14 +3205,16 @@
                 {
                   "activity": "Camminata svelta",
                   "speed": 6,
-                  "duration": 1800
+                  "duration": 1500,
+                  "incline": 3
                 },
                 {
                   "activity": "Camminata",
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "La pendenza alza lo sforzo senza impatto sulle articolazioni e fa lavorare glutei e polpacci."
             }
           ],
           "session": {
@@ -3160,7 +3229,7 @@
               },
               {
                 "activity": "Camminata svelta",
-                "speed": 6.5,
+                "speed": 6,
                 "duration": 1800
               },
               {
@@ -3168,7 +3237,8 @@
                 "speed": 4.5,
                 "duration": 300
               }
-            ]
+            ],
+            "why": "Un traguardo misurabile: la prova concreta di quanto sei cresciuto."
           }
         },
         {
@@ -3177,101 +3247,7 @@
           "totalDuration": 40,
           "sessions": [
             {
-              "name": "A · Svelta continua",
-              "focus": "30′ di camminata svelta",
-              "totalDuration": 40,
-              "segments": [
-                {
-                  "activity": "Camminata",
-                  "speed": 4.5,
-                  "duration": 300
-                },
-                {
-                  "activity": "Camminata svelta",
-                  "speed": 6.5,
-                  "duration": 1800
-                },
-                {
-                  "activity": "Camminata",
-                  "speed": 4.5,
-                  "duration": 300
-                }
-              ]
-            },
-            {
-              "name": "B · Salita a tratti",
-              "focus": "5 × (3′ al 4% / 3′ in piano)",
-              "totalDuration": 40,
-              "segments": [
-                {
-                  "activity": "Camminata",
-                  "speed": 4.5,
-                  "duration": 300
-                },
-                {
-                  "activity": "Camminata svelta",
-                  "speed": 6,
-                  "duration": 180,
-                  "incline": 4
-                },
-                {
-                  "activity": "Camminata",
-                  "speed": 5.5,
-                  "duration": 180
-                },
-                {
-                  "activity": "Camminata svelta",
-                  "speed": 6,
-                  "duration": 180,
-                  "incline": 4
-                },
-                {
-                  "activity": "Camminata",
-                  "speed": 5.5,
-                  "duration": 180
-                },
-                {
-                  "activity": "Camminata svelta",
-                  "speed": 6,
-                  "duration": 180,
-                  "incline": 4
-                },
-                {
-                  "activity": "Camminata",
-                  "speed": 5.5,
-                  "duration": 180
-                },
-                {
-                  "activity": "Camminata svelta",
-                  "speed": 6,
-                  "duration": 180,
-                  "incline": 4
-                },
-                {
-                  "activity": "Camminata",
-                  "speed": 5.5,
-                  "duration": 180
-                },
-                {
-                  "activity": "Camminata svelta",
-                  "speed": 6,
-                  "duration": 180,
-                  "incline": 4
-                },
-                {
-                  "activity": "Camminata",
-                  "speed": 5.5,
-                  "duration": 180
-                },
-                {
-                  "activity": "Camminata",
-                  "speed": 4.5,
-                  "duration": 300
-                }
-              ]
-            },
-            {
-              "name": "C · Svelta in salita",
+              "name": "A · Svelta in leggera salita",
               "focus": "30′ svelta al 2%",
               "totalDuration": 40,
               "segments": [
@@ -3282,7 +3258,7 @@
                 },
                 {
                   "activity": "Camminata svelta",
-                  "speed": 6.5,
+                  "speed": 6,
                   "duration": 1800,
                   "incline": 2
                 },
@@ -3291,12 +3267,110 @@
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "La pendenza alza lo sforzo senza impatto sulle articolazioni e fa lavorare glutei e polpacci."
+            },
+            {
+              "name": "B · Salita a tratti",
+              "focus": "5 × (3′ al 5% / 3′ in piano)",
+              "totalDuration": 40,
+              "segments": [
+                {
+                  "activity": "Camminata",
+                  "speed": 4.5,
+                  "duration": 300
+                },
+                {
+                  "activity": "Camminata svelta",
+                  "speed": 6,
+                  "duration": 180,
+                  "incline": 5
+                },
+                {
+                  "activity": "Camminata",
+                  "speed": 5.5,
+                  "duration": 180
+                },
+                {
+                  "activity": "Camminata svelta",
+                  "speed": 6,
+                  "duration": 180,
+                  "incline": 5
+                },
+                {
+                  "activity": "Camminata",
+                  "speed": 5.5,
+                  "duration": 180
+                },
+                {
+                  "activity": "Camminata svelta",
+                  "speed": 6,
+                  "duration": 180,
+                  "incline": 5
+                },
+                {
+                  "activity": "Camminata",
+                  "speed": 5.5,
+                  "duration": 180
+                },
+                {
+                  "activity": "Camminata svelta",
+                  "speed": 6,
+                  "duration": 180,
+                  "incline": 5
+                },
+                {
+                  "activity": "Camminata",
+                  "speed": 5.5,
+                  "duration": 180
+                },
+                {
+                  "activity": "Camminata svelta",
+                  "speed": 6,
+                  "duration": 180,
+                  "incline": 5
+                },
+                {
+                  "activity": "Camminata",
+                  "speed": 5.5,
+                  "duration": 180
+                },
+                {
+                  "activity": "Camminata",
+                  "speed": 4.5,
+                  "duration": 300
+                }
+              ],
+              "why": "La pendenza alza lo sforzo senza impatto sulle articolazioni e fa lavorare glutei e polpacci."
+            },
+            {
+              "name": "C · Svelta in salita",
+              "focus": "30′ svelta al 3%",
+              "totalDuration": 40,
+              "segments": [
+                {
+                  "activity": "Camminata",
+                  "speed": 4.5,
+                  "duration": 300
+                },
+                {
+                  "activity": "Camminata svelta",
+                  "speed": 6,
+                  "duration": 1800,
+                  "incline": 3
+                },
+                {
+                  "activity": "Camminata",
+                  "speed": 4.5,
+                  "duration": 300
+                }
+              ],
+              "why": "La pendenza alza lo sforzo senza impatto sulle articolazioni e fa lavorare glutei e polpacci."
             }
           ],
           "session": {
-            "name": "A · Svelta continua",
-            "focus": "30′ di camminata svelta",
+            "name": "A · Svelta in leggera salita",
+            "focus": "30′ svelta al 2%",
             "totalDuration": 40,
             "segments": [
               {
@@ -3306,15 +3380,17 @@
               },
               {
                 "activity": "Camminata svelta",
-                "speed": 6.5,
-                "duration": 1800
+                "speed": 6,
+                "duration": 1800,
+                "incline": 2
               },
               {
                 "activity": "Camminata",
                 "speed": 4.5,
                 "duration": 300
               }
-            ]
+            ],
+            "why": "La pendenza alza lo sforzo senza impatto sulle articolazioni e fa lavorare glutei e polpacci."
           }
         }
       ]
@@ -3323,10 +3399,10 @@
       "id": "fat_loss",
       "name": "Dimagrimento",
       "icon": "🔥",
-      "description": "Minuti settimanali in crescita (120 → 210) a intensità piacevole: 3 sedute in zona 2 + 1 variata. È la costanza che fa dimagrire.",
+      "description": "Da 120 a 180 minuti a settimana senza mai superare i 45 minuti a seduta: cresce l’intensità, non la fatica. 3 sedute in zona 2 + 1 variata.",
       "difficulty": "Principiante",
       "totalWeeks": 8,
-      "prerequisite": "Nessuno. Se corri già, alza la zona 2 a 7-8 km/h.",
+      "prerequisite": "Nessuno.",
       "phases": [
         {
           "name": "Avvio",
@@ -3334,7 +3410,7 @@
             1,
             2
           ],
-          "description": "120-150 minuti a settimana, tutto facile"
+          "description": "120-140 minuti a settimana, tutto a basso impatto"
         },
         {
           "name": "Costruzione",
@@ -3342,16 +3418,16 @@
             3,
             4
           ],
-          "description": "170 minuti a settimana, poi un livello di scarico"
+          "description": "150 minuti e primi tratti di corsa leggera, poi un livello di scarico"
         },
         {
-          "name": "Volume",
+          "name": "Intensità",
           "weeks": [
             5,
             6,
             7
           ],
-          "description": "180-210 minuti a settimana"
+          "description": "165-180 minuti: stessa durata, più pendenza e intervalli"
         },
         {
           "name": "Consolidamento",
@@ -3365,7 +3441,9 @@
         "La “zona brucia-grassi” non esiste: contano le calorie totali della settimana, e le fai solo se continui.",
         "Zona 2 = parli a frasi intere. Se non riesci, rallenta: non è un cedimento, è il metodo.",
         "Obiettivo settimanale, non giornaliero: se salti una seduta, fanne una da 15′ entro due giorni. Mai saltarne due di fila.",
-        "Intervalli e salita: al massimo una seduta impegnativa a settimana."
+        "Se correre non fa per te, nei tratti di corsa cammina svelto: il lavoro resta valido.",
+        "Intervalli e salita: al massimo una seduta impegnativa a settimana.",
+        "Se corri già con facilità, puoi fare la zona 2 di corsa leggera a 7-8 km/h."
       ],
       "speedLegend": [
         {
@@ -3420,11 +3498,12 @@
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "Ritmo “chiacchierabile”: è l’intensità che riesci a ripetere ogni settimana, ed è la costanza a fare la differenza."
             },
             {
-              "name": "B · Intervalli dolci",
-              "focus": "6 × (1′ corsa leggera / 2′ cammino)",
+              "name": "B · Intervalli di passo",
+              "focus": "6 × (1′ svelta+ / 2′ normale)",
               "totalDuration": 28,
               "segments": [
                 {
@@ -3433,8 +3512,8 @@
                   "duration": 300
                 },
                 {
-                  "activity": "Corsa leggera",
-                  "speed": 7.5,
+                  "activity": "Camminata svelta",
+                  "speed": 6.5,
                   "duration": 60
                 },
                 {
@@ -3443,8 +3522,8 @@
                   "duration": 120
                 },
                 {
-                  "activity": "Corsa leggera",
-                  "speed": 7.5,
+                  "activity": "Camminata svelta",
+                  "speed": 6.5,
                   "duration": 60
                 },
                 {
@@ -3453,8 +3532,8 @@
                   "duration": 120
                 },
                 {
-                  "activity": "Corsa leggera",
-                  "speed": 7.5,
+                  "activity": "Camminata svelta",
+                  "speed": 6.5,
                   "duration": 60
                 },
                 {
@@ -3463,8 +3542,8 @@
                   "duration": 120
                 },
                 {
-                  "activity": "Corsa leggera",
-                  "speed": 7.5,
+                  "activity": "Camminata svelta",
+                  "speed": 6.5,
                   "duration": 60
                 },
                 {
@@ -3473,8 +3552,8 @@
                   "duration": 120
                 },
                 {
-                  "activity": "Corsa leggera",
-                  "speed": 7.5,
+                  "activity": "Camminata svelta",
+                  "speed": 6.5,
                   "duration": 60
                 },
                 {
@@ -3483,8 +3562,8 @@
                   "duration": 120
                 },
                 {
-                  "activity": "Corsa leggera",
-                  "speed": 7.5,
+                  "activity": "Camminata svelta",
+                  "speed": 6.5,
                   "duration": 60
                 },
                 {
@@ -3497,7 +3576,8 @@
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "I cambi di ritmo allenano cuore e fiato in meno tempo e spezzano la monotonia."
             },
             {
               "name": "C · Zona 2 lunga",
@@ -3519,7 +3599,8 @@
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "Ritmo “chiacchierabile”: è l’intensità che riesci a ripetere ogni settimana, ed è la costanza a fare la differenza."
             },
             {
               "name": "D · Salita dolce",
@@ -3542,7 +3623,8 @@
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "La pendenza alza lo sforzo senza impatto sulle articolazioni e fa lavorare glutei e polpacci."
             }
           ],
           "session": {
@@ -3565,13 +3647,14 @@
                 "speed": 4.5,
                 "duration": 300
               }
-            ]
+            ],
+            "why": "Ritmo “chiacchierabile”: è l’intensità che riesci a ripetere ogni settimana, ed è la costanza a fare la differenza."
           }
         },
         {
           "week": 2,
           "sessionsPerWeek": 4,
-          "totalDuration": 36,
+          "totalDuration": 35,
           "sessions": [
             {
               "name": "A · Zona 2",
@@ -3593,7 +3676,206 @@
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "Ritmo “chiacchierabile”: è l’intensità che riesci a ripetere ogni settimana, ed è la costanza a fare la differenza."
+            },
+            {
+              "name": "B · Intervalli di passo",
+              "focus": "8 × (1′ svelta+ / 2′ normale)",
+              "totalDuration": 34,
+              "segments": [
+                {
+                  "activity": "Camminata",
+                  "speed": 5,
+                  "duration": 300
+                },
+                {
+                  "activity": "Camminata svelta",
+                  "speed": 6.5,
+                  "duration": 60
+                },
+                {
+                  "activity": "Camminata",
+                  "speed": 5.5,
+                  "duration": 120
+                },
+                {
+                  "activity": "Camminata svelta",
+                  "speed": 6.5,
+                  "duration": 60
+                },
+                {
+                  "activity": "Camminata",
+                  "speed": 5.5,
+                  "duration": 120
+                },
+                {
+                  "activity": "Camminata svelta",
+                  "speed": 6.5,
+                  "duration": 60
+                },
+                {
+                  "activity": "Camminata",
+                  "speed": 5.5,
+                  "duration": 120
+                },
+                {
+                  "activity": "Camminata svelta",
+                  "speed": 6.5,
+                  "duration": 60
+                },
+                {
+                  "activity": "Camminata",
+                  "speed": 5.5,
+                  "duration": 120
+                },
+                {
+                  "activity": "Camminata svelta",
+                  "speed": 6.5,
+                  "duration": 60
+                },
+                {
+                  "activity": "Camminata",
+                  "speed": 5.5,
+                  "duration": 120
+                },
+                {
+                  "activity": "Camminata svelta",
+                  "speed": 6.5,
+                  "duration": 60
+                },
+                {
+                  "activity": "Camminata",
+                  "speed": 5.5,
+                  "duration": 120
+                },
+                {
+                  "activity": "Camminata svelta",
+                  "speed": 6.5,
+                  "duration": 60
+                },
+                {
+                  "activity": "Camminata",
+                  "speed": 5.5,
+                  "duration": 120
+                },
+                {
+                  "activity": "Camminata svelta",
+                  "speed": 6.5,
+                  "duration": 60
+                },
+                {
+                  "activity": "Camminata",
+                  "speed": 5.5,
+                  "duration": 120
+                },
+                {
+                  "activity": "Camminata",
+                  "speed": 4.5,
+                  "duration": 300
+                }
+              ],
+              "why": "I cambi di ritmo allenano cuore e fiato in meno tempo e spezzano la monotonia."
+            },
+            {
+              "name": "C · Zona 2 lunga",
+              "focus": "30′ a ritmo “chiacchierabile”",
+              "totalDuration": 40,
+              "segments": [
+                {
+                  "activity": "Camminata",
+                  "speed": 5,
+                  "duration": 300
+                },
+                {
+                  "activity": "Camminata svelta",
+                  "speed": 6,
+                  "duration": 1800
+                },
+                {
+                  "activity": "Camminata",
+                  "speed": 4.5,
+                  "duration": 300
+                }
+              ],
+              "why": "Ritmo “chiacchierabile”: è l’intensità che riesci a ripetere ogni settimana, ed è la costanza a fare la differenza."
+            },
+            {
+              "name": "D · Salita dolce",
+              "focus": "20′ al 4%",
+              "totalDuration": 30,
+              "segments": [
+                {
+                  "activity": "Camminata",
+                  "speed": 5,
+                  "duration": 300
+                },
+                {
+                  "activity": "Salita 4%",
+                  "speed": 5,
+                  "duration": 1200,
+                  "incline": 4
+                },
+                {
+                  "activity": "Camminata",
+                  "speed": 4.5,
+                  "duration": 300
+                }
+              ],
+              "why": "La pendenza alza lo sforzo senza impatto sulle articolazioni e fa lavorare glutei e polpacci."
+            }
+          ],
+          "session": {
+            "name": "A · Zona 2",
+            "focus": "25′ a ritmo “chiacchierabile”",
+            "totalDuration": 35,
+            "segments": [
+              {
+                "activity": "Camminata",
+                "speed": 5,
+                "duration": 300
+              },
+              {
+                "activity": "Camminata svelta",
+                "speed": 6,
+                "duration": 1500
+              },
+              {
+                "activity": "Camminata",
+                "speed": 4.5,
+                "duration": 300
+              }
+            ],
+            "why": "Ritmo “chiacchierabile”: è l’intensità che riesci a ripetere ogni settimana, ed è la costanza a fare la differenza."
+          }
+        },
+        {
+          "week": 3,
+          "sessionsPerWeek": 4,
+          "totalDuration": 39,
+          "sessions": [
+            {
+              "name": "A · Zona 2",
+              "focus": "30′ a ritmo “chiacchierabile”",
+              "totalDuration": 40,
+              "segments": [
+                {
+                  "activity": "Camminata",
+                  "speed": 5,
+                  "duration": 300
+                },
+                {
+                  "activity": "Camminata svelta",
+                  "speed": 6,
+                  "duration": 1800
+                },
+                {
+                  "activity": "Camminata",
+                  "speed": 4.5,
+                  "duration": 300
+                }
+              ],
+              "why": "Ritmo “chiacchierabile”: è l’intensità che riesci a ripetere ogni settimana, ed è la costanza a fare la differenza."
             },
             {
               "name": "B · Intervalli dolci",
@@ -3690,12 +3972,13 @@
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "I cambi di ritmo allenano cuore e fiato in meno tempo e spezzano la monotonia."
             },
             {
               "name": "C · Zona 2 lunga",
-              "focus": "30′ a ritmo “chiacchierabile”",
-              "totalDuration": 40,
+              "focus": "35′ a ritmo “chiacchierabile”",
+              "totalDuration": 45,
               "segments": [
                 {
                   "activity": "Camminata",
@@ -3705,18 +3988,19 @@
                 {
                   "activity": "Camminata svelta",
                   "speed": 6,
-                  "duration": 1800
+                  "duration": 2100
                 },
                 {
                   "activity": "Camminata",
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "Ritmo “chiacchierabile”: è l’intensità che riesci a ripetere ogni settimana, ed è la costanza a fare la differenza."
             },
             {
-              "name": "D · Salita dolce",
-              "focus": "25′ al 4%",
+              "name": "D · Salita",
+              "focus": "25′ al 5%",
               "totalDuration": 35,
               "segments": [
                 {
@@ -3725,23 +4009,24 @@
                   "duration": 300
                 },
                 {
-                  "activity": "Salita 4%",
+                  "activity": "Salita 5%",
                   "speed": 5,
                   "duration": 1500,
-                  "incline": 4
+                  "incline": 5
                 },
                 {
                   "activity": "Camminata",
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "La pendenza alza lo sforzo senza impatto sulle articolazioni e fa lavorare glutei e polpacci."
             }
           ],
           "session": {
             "name": "A · Zona 2",
-            "focus": "25′ a ritmo “chiacchierabile”",
-            "totalDuration": 35,
+            "focus": "30′ a ritmo “chiacchierabile”",
+            "totalDuration": 40,
             "segments": [
               {
                 "activity": "Camminata",
@@ -3751,24 +4036,148 @@
               {
                 "activity": "Camminata svelta",
                 "speed": 6,
-                "duration": 1500
+                "duration": 1800
               },
               {
                 "activity": "Camminata",
                 "speed": 4.5,
                 "duration": 300
               }
-            ]
+            ],
+            "why": "Ritmo “chiacchierabile”: è l’intensità che riesci a ripetere ogni settimana, ed è la costanza a fare la differenza."
           }
         },
         {
-          "week": 3,
+          "week": 4,
+          "sessionsPerWeek": 4,
+          "totalDuration": 33,
+          "sessions": [
+            {
+              "name": "A · Scarico",
+              "focus": "20′ zona 2",
+              "totalDuration": 30,
+              "segments": [
+                {
+                  "activity": "Camminata",
+                  "speed": 5,
+                  "duration": 300
+                },
+                {
+                  "activity": "Camminata svelta",
+                  "speed": 6,
+                  "duration": 1200
+                },
+                {
+                  "activity": "Camminata",
+                  "speed": 4.5,
+                  "duration": 300
+                }
+              ],
+              "why": "Scarico: è riposando che il corpo assimila il lavoro dei livelli precedenti."
+            },
+            {
+              "name": "B · Scarico",
+              "focus": "25′ zona 2, niente intervalli",
+              "totalDuration": 35,
+              "segments": [
+                {
+                  "activity": "Camminata",
+                  "speed": 5,
+                  "duration": 300
+                },
+                {
+                  "activity": "Camminata svelta",
+                  "speed": 6,
+                  "duration": 1500
+                },
+                {
+                  "activity": "Camminata",
+                  "speed": 4.5,
+                  "duration": 300
+                }
+              ],
+              "why": "Scarico: è riposando che il corpo assimila il lavoro dei livelli precedenti."
+            },
+            {
+              "name": "C · Scarico",
+              "focus": "25′ zona 2",
+              "totalDuration": 35,
+              "segments": [
+                {
+                  "activity": "Camminata",
+                  "speed": 5,
+                  "duration": 300
+                },
+                {
+                  "activity": "Camminata svelta",
+                  "speed": 6,
+                  "duration": 1500
+                },
+                {
+                  "activity": "Camminata",
+                  "speed": 4.5,
+                  "duration": 300
+                }
+              ],
+              "why": "Scarico: è riposando che il corpo assimila il lavoro dei livelli precedenti."
+            },
+            {
+              "name": "D · Scarico in salita",
+              "focus": "20′ al 3%",
+              "totalDuration": 30,
+              "segments": [
+                {
+                  "activity": "Camminata",
+                  "speed": 5,
+                  "duration": 300
+                },
+                {
+                  "activity": "Salita 3%",
+                  "speed": 5,
+                  "duration": 1200,
+                  "incline": 3
+                },
+                {
+                  "activity": "Camminata",
+                  "speed": 4.5,
+                  "duration": 300
+                }
+              ],
+              "why": "Scarico: è riposando che il corpo assimila il lavoro dei livelli precedenti."
+            }
+          ],
+          "session": {
+            "name": "A · Scarico",
+            "focus": "20′ zona 2",
+            "totalDuration": 30,
+            "segments": [
+              {
+                "activity": "Camminata",
+                "speed": 5,
+                "duration": 300
+              },
+              {
+                "activity": "Camminata svelta",
+                "speed": 6,
+                "duration": 1200
+              },
+              {
+                "activity": "Camminata",
+                "speed": 4.5,
+                "duration": 300
+              }
+            ],
+            "why": "Scarico: è riposando che il corpo assimila il lavoro dei livelli precedenti."
+          }
+        },
+        {
+          "week": 5,
           "sessionsPerWeek": 4,
           "totalDuration": 41,
           "sessions": [
             {
-              "name": "A · Zona 2",
-              "focus": "30′ a ritmo “chiacchierabile”",
+              "name": "A · Zona 2 in leggera salita",
+              "focus": "30′ svelta al 2%",
               "totalDuration": 40,
               "segments": [
                 {
@@ -3779,14 +4188,16 @@
                 {
                   "activity": "Camminata svelta",
                   "speed": 6,
-                  "duration": 1800
+                  "duration": 1800,
+                  "incline": 2
                 },
                 {
                   "activity": "Camminata",
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "La pendenza alza lo sforzo senza impatto sulle articolazioni e fa lavorare glutei e polpacci."
             },
             {
               "name": "B · Intervalli dolci",
@@ -3903,11 +4314,12 @@
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "I cambi di ritmo allenano cuore e fiato in meno tempo e spezzano la monotonia."
             },
             {
               "name": "C · Zona 2 lunga",
-              "focus": "35′ a ritmo “chiacchierabile”",
+              "focus": "35′ svelta all’1%",
               "totalDuration": 45,
               "segments": [
                 {
@@ -3918,14 +4330,16 @@
                 {
                   "activity": "Camminata svelta",
                   "speed": 6,
-                  "duration": 2100
+                  "duration": 2100,
+                  "incline": 1
                 },
                 {
                   "activity": "Camminata",
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "Ritmo “chiacchierabile”: è l’intensità che riesci a ripetere ogni settimana, ed è la costanza a fare la differenza."
             },
             {
               "name": "D · Salita",
@@ -3948,12 +4362,13 @@
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "La pendenza alza lo sforzo senza impatto sulle articolazioni e fa lavorare glutei e polpacci."
             }
           ],
           "session": {
-            "name": "A · Zona 2",
-            "focus": "30′ a ritmo “chiacchierabile”",
+            "name": "A · Zona 2 in leggera salita",
+            "focus": "30′ svelta al 2%",
             "totalDuration": 40,
             "segments": [
               {
@@ -3964,25 +4379,27 @@
               {
                 "activity": "Camminata svelta",
                 "speed": 6,
-                "duration": 1800
+                "duration": 1800,
+                "incline": 2
               },
               {
                 "activity": "Camminata",
                 "speed": 4.5,
                 "duration": 300
               }
-            ]
+            ],
+            "why": "La pendenza alza lo sforzo senza impatto sulle articolazioni e fa lavorare glutei e polpacci."
           }
         },
         {
-          "week": 4,
+          "week": 6,
           "sessionsPerWeek": 4,
-          "totalDuration": 33,
+          "totalDuration": 42,
           "sessions": [
             {
-              "name": "A · Scarico",
-              "focus": "20′ zona 2",
-              "totalDuration": 30,
+              "name": "A · Zona 2 in leggera salita",
+              "focus": "32′ svelta al 2%",
+              "totalDuration": 42,
               "segments": [
                 {
                   "activity": "Camminata",
@@ -3992,132 +4409,16 @@
                 {
                   "activity": "Camminata svelta",
                   "speed": 6,
-                  "duration": 1200
+                  "duration": 1920,
+                  "incline": 2
                 },
                 {
                   "activity": "Camminata",
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
-            },
-            {
-              "name": "B · Scarico",
-              "focus": "25′ zona 2, niente intervalli",
-              "totalDuration": 35,
-              "segments": [
-                {
-                  "activity": "Camminata",
-                  "speed": 5,
-                  "duration": 300
-                },
-                {
-                  "activity": "Camminata svelta",
-                  "speed": 6,
-                  "duration": 1500
-                },
-                {
-                  "activity": "Camminata",
-                  "speed": 4.5,
-                  "duration": 300
-                }
-              ]
-            },
-            {
-              "name": "C · Scarico",
-              "focus": "25′ zona 2",
-              "totalDuration": 35,
-              "segments": [
-                {
-                  "activity": "Camminata",
-                  "speed": 5,
-                  "duration": 300
-                },
-                {
-                  "activity": "Camminata svelta",
-                  "speed": 6,
-                  "duration": 1500
-                },
-                {
-                  "activity": "Camminata",
-                  "speed": 4.5,
-                  "duration": 300
-                }
-              ]
-            },
-            {
-              "name": "D · Scarico in salita",
-              "focus": "20′ al 3%",
-              "totalDuration": 30,
-              "segments": [
-                {
-                  "activity": "Camminata",
-                  "speed": 5,
-                  "duration": 300
-                },
-                {
-                  "activity": "Salita 3%",
-                  "speed": 5,
-                  "duration": 1200,
-                  "incline": 3
-                },
-                {
-                  "activity": "Camminata",
-                  "speed": 4.5,
-                  "duration": 300
-                }
-              ]
-            }
-          ],
-          "session": {
-            "name": "A · Scarico",
-            "focus": "20′ zona 2",
-            "totalDuration": 30,
-            "segments": [
-              {
-                "activity": "Camminata",
-                "speed": 5,
-                "duration": 300
-              },
-              {
-                "activity": "Camminata svelta",
-                "speed": 6,
-                "duration": 1200
-              },
-              {
-                "activity": "Camminata",
-                "speed": 4.5,
-                "duration": 300
-              }
-            ]
-          }
-        },
-        {
-          "week": 5,
-          "sessionsPerWeek": 4,
-          "totalDuration": 45,
-          "sessions": [
-            {
-              "name": "A · Zona 2",
-              "focus": "35′ a ritmo “chiacchierabile”",
-              "totalDuration": 45,
-              "segments": [
-                {
-                  "activity": "Camminata",
-                  "speed": 5,
-                  "duration": 300
-                },
-                {
-                  "activity": "Camminata svelta",
-                  "speed": 6.5,
-                  "duration": 2100
-                },
-                {
-                  "activity": "Camminata",
-                  "speed": 4.5,
-                  "duration": 300
-                }
-              ]
+              ],
+              "why": "La pendenza alza lo sforzo senza impatto sulle articolazioni e fa lavorare glutei e polpacci."
             },
             {
               "name": "B · Intervalli",
@@ -4234,33 +4535,12 @@
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "I cambi di ritmo allenano cuore e fiato in meno tempo e spezzano la monotonia."
             },
             {
               "name": "C · Zona 2 lunga",
-              "focus": "40′ a ritmo “chiacchierabile”",
-              "totalDuration": 50,
-              "segments": [
-                {
-                  "activity": "Camminata",
-                  "speed": 5,
-                  "duration": 300
-                },
-                {
-                  "activity": "Camminata svelta",
-                  "speed": 6.5,
-                  "duration": 2400
-                },
-                {
-                  "activity": "Camminata",
-                  "speed": 4.5,
-                  "duration": 300
-                }
-              ]
-            },
-            {
-              "name": "D · Salita",
-              "focus": "35′ al 5%",
+              "focus": "35′ svelta al 2%",
               "totalDuration": 45,
               "segments": [
                 {
@@ -4269,22 +4549,248 @@
                   "duration": 300
                 },
                 {
-                  "activity": "Salita 5%",
-                  "speed": 5,
+                  "activity": "Camminata svelta",
+                  "speed": 6,
                   "duration": 2100,
-                  "incline": 5
+                  "incline": 2
                 },
                 {
                   "activity": "Camminata",
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "Ritmo “chiacchierabile”: è l’intensità che riesci a ripetere ogni settimana, ed è la costanza a fare la differenza."
+            },
+            {
+              "name": "D · Salita",
+              "focus": "30′ al 6%",
+              "totalDuration": 40,
+              "segments": [
+                {
+                  "activity": "Camminata",
+                  "speed": 5,
+                  "duration": 300
+                },
+                {
+                  "activity": "Salita 6%",
+                  "speed": 5,
+                  "duration": 1800,
+                  "incline": 6
+                },
+                {
+                  "activity": "Camminata",
+                  "speed": 4.5,
+                  "duration": 300
+                }
+              ],
+              "why": "La pendenza alza lo sforzo senza impatto sulle articolazioni e fa lavorare glutei e polpacci."
             }
           ],
           "session": {
-            "name": "A · Zona 2",
-            "focus": "35′ a ritmo “chiacchierabile”",
+            "name": "A · Zona 2 in leggera salita",
+            "focus": "32′ svelta al 2%",
+            "totalDuration": 42,
+            "segments": [
+              {
+                "activity": "Camminata",
+                "speed": 5,
+                "duration": 300
+              },
+              {
+                "activity": "Camminata svelta",
+                "speed": 6,
+                "duration": 1920,
+                "incline": 2
+              },
+              {
+                "activity": "Camminata",
+                "speed": 4.5,
+                "duration": 300
+              }
+            ],
+            "why": "La pendenza alza lo sforzo senza impatto sulle articolazioni e fa lavorare glutei e polpacci."
+          }
+        },
+        {
+          "week": 7,
+          "sessionsPerWeek": 4,
+          "totalDuration": 44,
+          "sessions": [
+            {
+              "name": "A · Zona 2 in leggera salita",
+              "focus": "35′ svelta al 2%",
+              "totalDuration": 45,
+              "segments": [
+                {
+                  "activity": "Camminata",
+                  "speed": 5,
+                  "duration": 300
+                },
+                {
+                  "activity": "Camminata svelta",
+                  "speed": 6,
+                  "duration": 2100,
+                  "incline": 2
+                },
+                {
+                  "activity": "Camminata",
+                  "speed": 4.5,
+                  "duration": 300
+                }
+              ],
+              "why": "La pendenza alza lo sforzo senza impatto sulle articolazioni e fa lavorare glutei e polpacci."
+            },
+            {
+              "name": "B · Intervalli",
+              "focus": "8 × (2′ corsa / 2′ cammino)",
+              "totalDuration": 42,
+              "segments": [
+                {
+                  "activity": "Camminata",
+                  "speed": 5,
+                  "duration": 300
+                },
+                {
+                  "activity": "Corsa leggera",
+                  "speed": 8,
+                  "duration": 120
+                },
+                {
+                  "activity": "Camminata",
+                  "speed": 5.5,
+                  "duration": 120
+                },
+                {
+                  "activity": "Corsa leggera",
+                  "speed": 8,
+                  "duration": 120
+                },
+                {
+                  "activity": "Camminata",
+                  "speed": 5.5,
+                  "duration": 120
+                },
+                {
+                  "activity": "Corsa leggera",
+                  "speed": 8,
+                  "duration": 120
+                },
+                {
+                  "activity": "Camminata",
+                  "speed": 5.5,
+                  "duration": 120
+                },
+                {
+                  "activity": "Corsa leggera",
+                  "speed": 8,
+                  "duration": 120
+                },
+                {
+                  "activity": "Camminata",
+                  "speed": 5.5,
+                  "duration": 120
+                },
+                {
+                  "activity": "Corsa leggera",
+                  "speed": 8,
+                  "duration": 120
+                },
+                {
+                  "activity": "Camminata",
+                  "speed": 5.5,
+                  "duration": 120
+                },
+                {
+                  "activity": "Corsa leggera",
+                  "speed": 8,
+                  "duration": 120
+                },
+                {
+                  "activity": "Camminata",
+                  "speed": 5.5,
+                  "duration": 120
+                },
+                {
+                  "activity": "Corsa leggera",
+                  "speed": 8,
+                  "duration": 120
+                },
+                {
+                  "activity": "Camminata",
+                  "speed": 5.5,
+                  "duration": 120
+                },
+                {
+                  "activity": "Corsa leggera",
+                  "speed": 8,
+                  "duration": 120
+                },
+                {
+                  "activity": "Camminata",
+                  "speed": 5.5,
+                  "duration": 120
+                },
+                {
+                  "activity": "Camminata",
+                  "speed": 4.5,
+                  "duration": 300
+                }
+              ],
+              "why": "I cambi di ritmo allenano cuore e fiato in meno tempo e spezzano la monotonia."
+            },
+            {
+              "name": "C · Zona 2 lunga",
+              "focus": "35′ svelta al 3%",
+              "totalDuration": 45,
+              "segments": [
+                {
+                  "activity": "Camminata",
+                  "speed": 5,
+                  "duration": 300
+                },
+                {
+                  "activity": "Camminata svelta",
+                  "speed": 6,
+                  "duration": 2100,
+                  "incline": 3
+                },
+                {
+                  "activity": "Camminata",
+                  "speed": 4.5,
+                  "duration": 300
+                }
+              ],
+              "why": "Ritmo “chiacchierabile”: è l’intensità che riesci a ripetere ogni settimana, ed è la costanza a fare la differenza."
+            },
+            {
+              "name": "D · Salita",
+              "focus": "35′ al 6%",
+              "totalDuration": 45,
+              "segments": [
+                {
+                  "activity": "Camminata",
+                  "speed": 5,
+                  "duration": 300
+                },
+                {
+                  "activity": "Salita 6%",
+                  "speed": 5,
+                  "duration": 2100,
+                  "incline": 6
+                },
+                {
+                  "activity": "Camminata",
+                  "speed": 4.5,
+                  "duration": 300
+                }
+              ],
+              "why": "La pendenza alza lo sforzo senza impatto sulle articolazioni e fa lavorare glutei e polpacci."
+            }
+          ],
+          "session": {
+            "name": "A · Zona 2 in leggera salita",
+            "focus": "35′ svelta al 2%",
             "totalDuration": 45,
             "segments": [
               {
@@ -4294,457 +4800,23 @@
               },
               {
                 "activity": "Camminata svelta",
-                "speed": 6.5,
-                "duration": 2100
+                "speed": 6,
+                "duration": 2100,
+                "incline": 2
               },
               {
                 "activity": "Camminata",
                 "speed": 4.5,
                 "duration": 300
               }
-            ]
-          }
-        },
-        {
-          "week": 6,
-          "sessionsPerWeek": 4,
-          "totalDuration": 50,
-          "sessions": [
-            {
-              "name": "A · Zona 2",
-              "focus": "38′ a ritmo “chiacchierabile”",
-              "totalDuration": 48,
-              "segments": [
-                {
-                  "activity": "Camminata",
-                  "speed": 5,
-                  "duration": 300
-                },
-                {
-                  "activity": "Camminata svelta",
-                  "speed": 6.5,
-                  "duration": 2280
-                },
-                {
-                  "activity": "Camminata",
-                  "speed": 4.5,
-                  "duration": 300
-                }
-              ]
-            },
-            {
-              "name": "B · Intervalli",
-              "focus": "12 × (1′30″ corsa leggera / 1′30″ cammino)",
-              "totalDuration": 46,
-              "segments": [
-                {
-                  "activity": "Camminata",
-                  "speed": 5,
-                  "duration": 300
-                },
-                {
-                  "activity": "Corsa leggera",
-                  "speed": 7.5,
-                  "duration": 90
-                },
-                {
-                  "activity": "Camminata",
-                  "speed": 5.5,
-                  "duration": 90
-                },
-                {
-                  "activity": "Corsa leggera",
-                  "speed": 7.5,
-                  "duration": 90
-                },
-                {
-                  "activity": "Camminata",
-                  "speed": 5.5,
-                  "duration": 90
-                },
-                {
-                  "activity": "Corsa leggera",
-                  "speed": 7.5,
-                  "duration": 90
-                },
-                {
-                  "activity": "Camminata",
-                  "speed": 5.5,
-                  "duration": 90
-                },
-                {
-                  "activity": "Corsa leggera",
-                  "speed": 7.5,
-                  "duration": 90
-                },
-                {
-                  "activity": "Camminata",
-                  "speed": 5.5,
-                  "duration": 90
-                },
-                {
-                  "activity": "Corsa leggera",
-                  "speed": 7.5,
-                  "duration": 90
-                },
-                {
-                  "activity": "Camminata",
-                  "speed": 5.5,
-                  "duration": 90
-                },
-                {
-                  "activity": "Corsa leggera",
-                  "speed": 7.5,
-                  "duration": 90
-                },
-                {
-                  "activity": "Camminata",
-                  "speed": 5.5,
-                  "duration": 90
-                },
-                {
-                  "activity": "Corsa leggera",
-                  "speed": 7.5,
-                  "duration": 90
-                },
-                {
-                  "activity": "Camminata",
-                  "speed": 5.5,
-                  "duration": 90
-                },
-                {
-                  "activity": "Corsa leggera",
-                  "speed": 7.5,
-                  "duration": 90
-                },
-                {
-                  "activity": "Camminata",
-                  "speed": 5.5,
-                  "duration": 90
-                },
-                {
-                  "activity": "Corsa leggera",
-                  "speed": 7.5,
-                  "duration": 90
-                },
-                {
-                  "activity": "Camminata",
-                  "speed": 5.5,
-                  "duration": 90
-                },
-                {
-                  "activity": "Corsa leggera",
-                  "speed": 7.5,
-                  "duration": 90
-                },
-                {
-                  "activity": "Camminata",
-                  "speed": 5.5,
-                  "duration": 90
-                },
-                {
-                  "activity": "Corsa leggera",
-                  "speed": 7.5,
-                  "duration": 90
-                },
-                {
-                  "activity": "Camminata",
-                  "speed": 5.5,
-                  "duration": 90
-                },
-                {
-                  "activity": "Corsa leggera",
-                  "speed": 7.5,
-                  "duration": 90
-                },
-                {
-                  "activity": "Camminata",
-                  "speed": 5.5,
-                  "duration": 90
-                },
-                {
-                  "activity": "Camminata",
-                  "speed": 4.5,
-                  "duration": 300
-                }
-              ]
-            },
-            {
-              "name": "C · Zona 2 lunga",
-              "focus": "45′ a ritmo “chiacchierabile”",
-              "totalDuration": 55,
-              "segments": [
-                {
-                  "activity": "Camminata",
-                  "speed": 5,
-                  "duration": 300
-                },
-                {
-                  "activity": "Camminata svelta",
-                  "speed": 6.5,
-                  "duration": 2700
-                },
-                {
-                  "activity": "Camminata",
-                  "speed": 4.5,
-                  "duration": 300
-                }
-              ]
-            },
-            {
-              "name": "D · Salita",
-              "focus": "40′ al 6%",
-              "totalDuration": 50,
-              "segments": [
-                {
-                  "activity": "Camminata",
-                  "speed": 5,
-                  "duration": 300
-                },
-                {
-                  "activity": "Salita 6%",
-                  "speed": 5,
-                  "duration": 2400,
-                  "incline": 6
-                },
-                {
-                  "activity": "Camminata",
-                  "speed": 4.5,
-                  "duration": 300
-                }
-              ]
-            }
-          ],
-          "session": {
-            "name": "A · Zona 2",
-            "focus": "38′ a ritmo “chiacchierabile”",
-            "totalDuration": 48,
-            "segments": [
-              {
-                "activity": "Camminata",
-                "speed": 5,
-                "duration": 300
-              },
-              {
-                "activity": "Camminata svelta",
-                "speed": 6.5,
-                "duration": 2280
-              },
-              {
-                "activity": "Camminata",
-                "speed": 4.5,
-                "duration": 300
-              }
-            ]
-          }
-        },
-        {
-          "week": 7,
-          "sessionsPerWeek": 4,
-          "totalDuration": 52,
-          "sessions": [
-            {
-              "name": "A · Zona 2",
-              "focus": "40′ a ritmo “chiacchierabile”",
-              "totalDuration": 50,
-              "segments": [
-                {
-                  "activity": "Camminata",
-                  "speed": 5,
-                  "duration": 300
-                },
-                {
-                  "activity": "Camminata svelta",
-                  "speed": 6.5,
-                  "duration": 2400
-                },
-                {
-                  "activity": "Camminata",
-                  "speed": 4.5,
-                  "duration": 300
-                }
-              ]
-            },
-            {
-              "name": "B · Intervalli",
-              "focus": "9 × (2′ corsa / 2′ cammino)",
-              "totalDuration": 46,
-              "segments": [
-                {
-                  "activity": "Camminata",
-                  "speed": 5,
-                  "duration": 300
-                },
-                {
-                  "activity": "Corsa leggera",
-                  "speed": 8,
-                  "duration": 120
-                },
-                {
-                  "activity": "Camminata",
-                  "speed": 5.5,
-                  "duration": 120
-                },
-                {
-                  "activity": "Corsa leggera",
-                  "speed": 8,
-                  "duration": 120
-                },
-                {
-                  "activity": "Camminata",
-                  "speed": 5.5,
-                  "duration": 120
-                },
-                {
-                  "activity": "Corsa leggera",
-                  "speed": 8,
-                  "duration": 120
-                },
-                {
-                  "activity": "Camminata",
-                  "speed": 5.5,
-                  "duration": 120
-                },
-                {
-                  "activity": "Corsa leggera",
-                  "speed": 8,
-                  "duration": 120
-                },
-                {
-                  "activity": "Camminata",
-                  "speed": 5.5,
-                  "duration": 120
-                },
-                {
-                  "activity": "Corsa leggera",
-                  "speed": 8,
-                  "duration": 120
-                },
-                {
-                  "activity": "Camminata",
-                  "speed": 5.5,
-                  "duration": 120
-                },
-                {
-                  "activity": "Corsa leggera",
-                  "speed": 8,
-                  "duration": 120
-                },
-                {
-                  "activity": "Camminata",
-                  "speed": 5.5,
-                  "duration": 120
-                },
-                {
-                  "activity": "Corsa leggera",
-                  "speed": 8,
-                  "duration": 120
-                },
-                {
-                  "activity": "Camminata",
-                  "speed": 5.5,
-                  "duration": 120
-                },
-                {
-                  "activity": "Corsa leggera",
-                  "speed": 8,
-                  "duration": 120
-                },
-                {
-                  "activity": "Camminata",
-                  "speed": 5.5,
-                  "duration": 120
-                },
-                {
-                  "activity": "Corsa leggera",
-                  "speed": 8,
-                  "duration": 120
-                },
-                {
-                  "activity": "Camminata",
-                  "speed": 5.5,
-                  "duration": 120
-                },
-                {
-                  "activity": "Camminata",
-                  "speed": 4.5,
-                  "duration": 300
-                }
-              ]
-            },
-            {
-              "name": "C · Zona 2 lunga",
-              "focus": "45′ a ritmo “chiacchierabile”",
-              "totalDuration": 55,
-              "segments": [
-                {
-                  "activity": "Camminata",
-                  "speed": 5,
-                  "duration": 300
-                },
-                {
-                  "activity": "Camminata svelta",
-                  "speed": 6.5,
-                  "duration": 2700
-                },
-                {
-                  "activity": "Camminata",
-                  "speed": 4.5,
-                  "duration": 300
-                }
-              ]
-            },
-            {
-              "name": "D · Salita",
-              "focus": "45′ al 6%",
-              "totalDuration": 55,
-              "segments": [
-                {
-                  "activity": "Camminata",
-                  "speed": 5,
-                  "duration": 300
-                },
-                {
-                  "activity": "Salita 6%",
-                  "speed": 5,
-                  "duration": 2700,
-                  "incline": 6
-                },
-                {
-                  "activity": "Camminata",
-                  "speed": 4.5,
-                  "duration": 300
-                }
-              ]
-            }
-          ],
-          "session": {
-            "name": "A · Zona 2",
-            "focus": "40′ a ritmo “chiacchierabile”",
-            "totalDuration": 50,
-            "segments": [
-              {
-                "activity": "Camminata",
-                "speed": 5,
-                "duration": 300
-              },
-              {
-                "activity": "Camminata svelta",
-                "speed": 6.5,
-                "duration": 2400
-              },
-              {
-                "activity": "Camminata",
-                "speed": 4.5,
-                "duration": 300
-              }
-            ]
+            ],
+            "why": "La pendenza alza lo sforzo senza impatto sulle articolazioni e fa lavorare glutei e polpacci."
           }
         },
         {
           "week": 8,
           "sessionsPerWeek": 4,
-          "totalDuration": 36,
+          "totalDuration": 35,
           "sessions": [
             {
               "name": "A · Scarico",
@@ -4758,7 +4830,7 @@
                 },
                 {
                   "activity": "Camminata svelta",
-                  "speed": 6.5,
+                  "speed": 6,
                   "duration": 1500
                 },
                 {
@@ -4766,11 +4838,12 @@
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "Scarico: è riposando che il corpo assimila il lavoro dei livelli precedenti."
             },
             {
               "name": "B · Scarico",
-              "focus": "25′ zona 2, niente intervalli",
+              "focus": "25′ svelta all’1%, niente intervalli",
               "totalDuration": 35,
               "segments": [
                 {
@@ -4780,15 +4853,17 @@
                 },
                 {
                   "activity": "Camminata svelta",
-                  "speed": 6.5,
-                  "duration": 1500
+                  "speed": 6,
+                  "duration": 1500,
+                  "incline": 1
                 },
                 {
                   "activity": "Camminata",
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "Scarico: è riposando che il corpo assimila il lavoro dei livelli precedenti."
             },
             {
               "name": "C · Scarico",
@@ -4802,7 +4877,7 @@
                 },
                 {
                   "activity": "Camminata svelta",
-                  "speed": 6.5,
+                  "speed": 6,
                   "duration": 1800
                 },
                 {
@@ -4810,12 +4885,13 @@
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "Scarico: è riposando che il corpo assimila il lavoro dei livelli precedenti."
             },
             {
               "name": "D · Scarico in salita",
-              "focus": "25′ al 4%",
-              "totalDuration": 35,
+              "focus": "20′ al 4%",
+              "totalDuration": 30,
               "segments": [
                 {
                   "activity": "Camminata",
@@ -4825,7 +4901,7 @@
                 {
                   "activity": "Salita 4%",
                   "speed": 5,
-                  "duration": 1500,
+                  "duration": 1200,
                   "incline": 4
                 },
                 {
@@ -4833,7 +4909,8 @@
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "Scarico: è riposando che il corpo assimila il lavoro dei livelli precedenti."
             }
           ],
           "session": {
@@ -4848,7 +4925,7 @@
               },
               {
                 "activity": "Camminata svelta",
-                "speed": 6.5,
+                "speed": 6,
                 "duration": 1500
               },
               {
@@ -4856,7 +4933,8 @@
                 "speed": 4.5,
                 "duration": 300
               }
-            ]
+            ],
+            "why": "Scarico: è riposando che il corpo assimila il lavoro dei livelli precedenti."
           }
         }
       ]
@@ -4865,7 +4943,7 @@
       "id": "endurance_5k",
       "name": "Resistenza: 5 km",
       "icon": "🏃",
-      "description": "Per chi corre già 20-30 minuti: una lunga che cresce di 3′ a ogni livello, una seduta di ritmo e una facile. Arrivi a 45′ e 5-6 km.",
+      "description": "Per chi corre già 20-30 minuti: una lunga che cresce di 2′ a ogni livello, una seduta di ritmo e una facile. Arrivi a 40′ e 5 km abbondanti.",
       "difficulty": "Intermedio",
       "totalWeeks": 8,
       "prerequisite": "Correre 20-25 minuti di fila (fine di “Da camminata a corsa”).",
@@ -4900,11 +4978,12 @@
             7,
             8
           ],
-          "description": "Fino a 45 minuti e 5 km"
+          "description": "Ripetute da 3 minuti e lunga fino a 40 minuti: 5 km"
         }
       ],
       "tips": [
         "L’80% dei minuti resta facile: la lunga va corsa “chiacchierando”.",
+        "Le ripetute vanno corse “dure ma controllate”: l’ultima deve somigliare alla prima.",
         "La lunga non supera il 40% dei minuti settimanali: non allungarla per recuperare sedute perse.",
         "1% di pendenza simula il costo dell’aria aperta sopra i 9 km/h; sotto è inutile."
       ],
@@ -4939,6 +5018,105 @@
         {
           "week": 1,
           "sessionsPerWeek": 3,
+          "totalDuration": 36,
+          "sessions": [
+            {
+              "name": "A · Corsa facile",
+              "focus": "22′ di corsa",
+              "totalDuration": 32,
+              "segments": [
+                {
+                  "activity": "Camminata",
+                  "speed": 5,
+                  "duration": 300
+                },
+                {
+                  "activity": "Corsa leggera",
+                  "speed": 8,
+                  "duration": 1320
+                },
+                {
+                  "activity": "Camminata",
+                  "speed": 4.5,
+                  "duration": 300
+                }
+              ],
+              "why": "Corsa facile: gran parte dei progressi di resistenza nasce da qui."
+            },
+            {
+              "name": "B · Corsa facile",
+              "focus": "25′ di corsa",
+              "totalDuration": 35,
+              "segments": [
+                {
+                  "activity": "Camminata",
+                  "speed": 5,
+                  "duration": 300
+                },
+                {
+                  "activity": "Corsa leggera",
+                  "speed": 8,
+                  "duration": 1500
+                },
+                {
+                  "activity": "Camminata",
+                  "speed": 4.5,
+                  "duration": 300
+                }
+              ],
+              "why": "Corsa facile: gran parte dei progressi di resistenza nasce da qui."
+            },
+            {
+              "name": "C · Lunga",
+              "focus": "30′ di corsa leggera",
+              "totalDuration": 40,
+              "segments": [
+                {
+                  "activity": "Camminata",
+                  "speed": 5,
+                  "duration": 300
+                },
+                {
+                  "activity": "Corsa leggera",
+                  "speed": 7.5,
+                  "duration": 1800
+                },
+                {
+                  "activity": "Camminata",
+                  "speed": 4.5,
+                  "duration": 300
+                }
+              ],
+              "why": "La seduta più lunga costruisce la resistenza: va fatta piano, parlando."
+            }
+          ],
+          "session": {
+            "name": "A · Corsa facile",
+            "focus": "22′ di corsa",
+            "totalDuration": 32,
+            "segments": [
+              {
+                "activity": "Camminata",
+                "speed": 5,
+                "duration": 300
+              },
+              {
+                "activity": "Corsa leggera",
+                "speed": 8,
+                "duration": 1320
+              },
+              {
+                "activity": "Camminata",
+                "speed": 4.5,
+                "duration": 300
+              }
+            ],
+            "why": "Corsa facile: gran parte dei progressi di resistenza nasce da qui."
+          }
+        },
+        {
+          "week": 2,
+          "sessionsPerWeek": 3,
           "totalDuration": 38,
           "sessions": [
             {
@@ -4961,7 +5139,8 @@
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "Corsa facile: gran parte dei progressi di resistenza nasce da qui."
             },
             {
               "name": "B · Corsa facile",
@@ -4983,12 +5162,13 @@
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "Corsa facile: gran parte dei progressi di resistenza nasce da qui."
             },
             {
               "name": "C · Lunga",
-              "focus": "30′ di corsa leggera",
-              "totalDuration": 40,
+              "focus": "32′ di corsa leggera",
+              "totalDuration": 42,
               "segments": [
                 {
                   "activity": "Camminata",
@@ -4998,14 +5178,15 @@
                 {
                   "activity": "Corsa leggera",
                   "speed": 7.5,
-                  "duration": 1800
+                  "duration": 1920
                 },
                 {
                   "activity": "Camminata",
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "La seduta più lunga costruisce la resistenza: va fatta piano, parlando."
             }
           ],
           "session": {
@@ -5028,108 +5209,14 @@
                 "speed": 4.5,
                 "duration": 300
               }
-            ]
-          }
-        },
-        {
-          "week": 2,
-          "sessionsPerWeek": 3,
-          "totalDuration": 39,
-          "sessions": [
-            {
-              "name": "A · Corsa facile",
-              "focus": "25′ di corsa",
-              "totalDuration": 35,
-              "segments": [
-                {
-                  "activity": "Camminata",
-                  "speed": 5,
-                  "duration": 300
-                },
-                {
-                  "activity": "Corsa leggera",
-                  "speed": 8,
-                  "duration": 1500
-                },
-                {
-                  "activity": "Camminata",
-                  "speed": 4.5,
-                  "duration": 300
-                }
-              ]
-            },
-            {
-              "name": "B · Corsa facile",
-              "focus": "30′ di corsa",
-              "totalDuration": 40,
-              "segments": [
-                {
-                  "activity": "Camminata",
-                  "speed": 5,
-                  "duration": 300
-                },
-                {
-                  "activity": "Corsa leggera",
-                  "speed": 8,
-                  "duration": 1800
-                },
-                {
-                  "activity": "Camminata",
-                  "speed": 4.5,
-                  "duration": 300
-                }
-              ]
-            },
-            {
-              "name": "C · Lunga",
-              "focus": "33′ di corsa leggera",
-              "totalDuration": 43,
-              "segments": [
-                {
-                  "activity": "Camminata",
-                  "speed": 5,
-                  "duration": 300
-                },
-                {
-                  "activity": "Corsa leggera",
-                  "speed": 7.5,
-                  "duration": 1980
-                },
-                {
-                  "activity": "Camminata",
-                  "speed": 4.5,
-                  "duration": 300
-                }
-              ]
-            }
-          ],
-          "session": {
-            "name": "A · Corsa facile",
-            "focus": "25′ di corsa",
-            "totalDuration": 35,
-            "segments": [
-              {
-                "activity": "Camminata",
-                "speed": 5,
-                "duration": 300
-              },
-              {
-                "activity": "Corsa leggera",
-                "speed": 8,
-                "duration": 1500
-              },
-              {
-                "activity": "Camminata",
-                "speed": 4.5,
-                "duration": 300
-              }
-            ]
+            ],
+            "why": "Corsa facile: gran parte dei progressi di resistenza nasce da qui."
           }
         },
         {
           "week": 3,
           "sessionsPerWeek": 3,
-          "totalDuration": 40,
+          "totalDuration": 39,
           "sessions": [
             {
               "name": "A · Variazioni di ritmo",
@@ -5206,12 +5293,13 @@
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "I cambi di ritmo allenano cuore e fiato in meno tempo e spezzano la monotonia."
             },
             {
               "name": "B · Corsa all’1%",
-              "focus": "30′ di corsa con 1% di pendenza",
-              "totalDuration": 40,
+              "focus": "28′ di corsa con 1% di pendenza",
+              "totalDuration": 38,
               "segments": [
                 {
                   "activity": "Camminata",
@@ -5221,7 +5309,7 @@
                 {
                   "activity": "Corsa leggera",
                   "speed": 8,
-                  "duration": 1800,
+                  "duration": 1680,
                   "incline": 1
                 },
                 {
@@ -5229,12 +5317,13 @@
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "L’1% di pendenza riproduce il costo della corsa all’aperto: stessa velocità, lavoro più realistico."
             },
             {
               "name": "C · Lunga",
-              "focus": "35′ di corsa leggera",
-              "totalDuration": 45,
+              "focus": "34′ di corsa leggera",
+              "totalDuration": 44,
               "segments": [
                 {
                   "activity": "Camminata",
@@ -5244,14 +5333,15 @@
                 {
                   "activity": "Corsa leggera",
                   "speed": 7.5,
-                  "duration": 2100
+                  "duration": 2040
                 },
                 {
                   "activity": "Camminata",
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "La seduta più lunga costruisce la resistenza: va fatta piano, parlando."
             }
           ],
           "session": {
@@ -5329,13 +5419,14 @@
                 "speed": 4.5,
                 "duration": 300
               }
-            ]
+            ],
+            "why": "I cambi di ritmo allenano cuore e fiato in meno tempo e spezzano la monotonia."
           }
         },
         {
           "week": 4,
           "sessionsPerWeek": 3,
-          "totalDuration": 42,
+          "totalDuration": 41,
           "sessions": [
             {
               "name": "A · Variazioni di ritmo",
@@ -5422,7 +5513,8 @@
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "I cambi di ritmo allenano cuore e fiato in meno tempo e spezzano la monotonia."
             },
             {
               "name": "B · Corsa all’1%",
@@ -5445,12 +5537,13 @@
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "L’1% di pendenza riproduce il costo della corsa all’aperto: stessa velocità, lavoro più realistico."
             },
             {
               "name": "C · Lunga",
-              "focus": "38′ di corsa leggera",
-              "totalDuration": 48,
+              "focus": "36′ di corsa leggera",
+              "totalDuration": 46,
               "segments": [
                 {
                   "activity": "Camminata",
@@ -5460,14 +5553,15 @@
                 {
                   "activity": "Corsa leggera",
                   "speed": 7.5,
-                  "duration": 2280
+                  "duration": 2160
                 },
                 {
                   "activity": "Camminata",
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "La seduta più lunga costruisce la resistenza: va fatta piano, parlando."
             }
           ],
           "session": {
@@ -5555,13 +5649,14 @@
                 "speed": 4.5,
                 "duration": 300
               }
-            ]
+            ],
+            "why": "I cambi di ritmo allenano cuore e fiato in meno tempo e spezzano la monotonia."
           }
         },
         {
           "week": 5,
           "sessionsPerWeek": 3,
-          "totalDuration": 33,
+          "totalDuration": 32,
           "sessions": [
             {
               "name": "A · Scarico",
@@ -5583,12 +5678,13 @@
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "Scarico: è riposando che il corpo assimila il lavoro dei livelli precedenti."
             },
             {
               "name": "B · Scarico",
-              "focus": "25′ di corsa leggera",
-              "totalDuration": 35,
+              "focus": "22′ di corsa leggera",
+              "totalDuration": 32,
               "segments": [
                 {
                   "activity": "Camminata",
@@ -5598,14 +5694,15 @@
                 {
                   "activity": "Corsa leggera",
                   "speed": 7.5,
-                  "duration": 1500
+                  "duration": 1320
                 },
                 {
                   "activity": "Camminata",
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "Scarico: è riposando che il corpo assimila il lavoro dei livelli precedenti."
             },
             {
               "name": "C · Scarico",
@@ -5627,7 +5724,8 @@
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "Scarico: è riposando che il corpo assimila il lavoro dei livelli precedenti."
             }
           ],
           "session": {
@@ -5650,18 +5748,19 @@
                 "speed": 4.5,
                 "duration": 300
               }
-            ]
+            ],
+            "why": "Scarico: è riposando che il corpo assimila il lavoro dei livelli precedenti."
           }
         },
         {
           "week": 6,
           "sessionsPerWeek": 3,
-          "totalDuration": 43,
+          "totalDuration": 40,
           "sessions": [
             {
-              "name": "A · Ritmo",
-              "focus": "8 × (2′ veloce / 1′30″ leggera)",
-              "totalDuration": 38,
+              "name": "A · Ripetute da 3′",
+              "focus": "5 × (3′ veloce / 2′ leggera)",
+              "totalDuration": 35,
               "segments": [
                 {
                   "activity": "Camminata",
@@ -5671,89 +5770,60 @@
                 {
                   "activity": "Corsa veloce",
                   "speed": 9.5,
-                  "duration": 120
+                  "duration": 180
                 },
                 {
                   "activity": "Corsa leggera",
                   "speed": 7.5,
-                  "duration": 90
+                  "duration": 120
                 },
                 {
                   "activity": "Corsa veloce",
                   "speed": 9.5,
-                  "duration": 120
+                  "duration": 180
                 },
                 {
                   "activity": "Corsa leggera",
                   "speed": 7.5,
-                  "duration": 90
+                  "duration": 120
                 },
                 {
                   "activity": "Corsa veloce",
                   "speed": 9.5,
-                  "duration": 120
+                  "duration": 180
                 },
                 {
                   "activity": "Corsa leggera",
                   "speed": 7.5,
-                  "duration": 90
+                  "duration": 120
                 },
                 {
                   "activity": "Corsa veloce",
                   "speed": 9.5,
-                  "duration": 120
+                  "duration": 180
                 },
                 {
                   "activity": "Corsa leggera",
                   "speed": 7.5,
-                  "duration": 90
+                  "duration": 120
                 },
                 {
                   "activity": "Corsa veloce",
                   "speed": 9.5,
-                  "duration": 120
+                  "duration": 180
                 },
                 {
                   "activity": "Corsa leggera",
                   "speed": 7.5,
-                  "duration": 90
-                },
-                {
-                  "activity": "Corsa veloce",
-                  "speed": 9.5,
                   "duration": 120
-                },
-                {
-                  "activity": "Corsa leggera",
-                  "speed": 7.5,
-                  "duration": 90
-                },
-                {
-                  "activity": "Corsa veloce",
-                  "speed": 9.5,
-                  "duration": 120
-                },
-                {
-                  "activity": "Corsa leggera",
-                  "speed": 7.5,
-                  "duration": 90
-                },
-                {
-                  "activity": "Corsa veloce",
-                  "speed": 9.5,
-                  "duration": 120
-                },
-                {
-                  "activity": "Corsa leggera",
-                  "speed": 7.5,
-                  "duration": 90
                 },
                 {
                   "activity": "Camminata",
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "I cambi di ritmo allenano cuore e fiato in meno tempo e spezzano la monotonia."
             },
             {
               "name": "B · Finale in crescendo",
@@ -5780,262 +5850,13 @@
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "I cambi di ritmo allenano cuore e fiato in meno tempo e spezzano la monotonia."
             },
             {
               "name": "C · Lunga",
-              "focus": "40′ di corsa leggera",
-              "totalDuration": 50,
-              "segments": [
-                {
-                  "activity": "Camminata",
-                  "speed": 5,
-                  "duration": 300
-                },
-                {
-                  "activity": "Corsa leggera",
-                  "speed": 7.5,
-                  "duration": 2400
-                },
-                {
-                  "activity": "Camminata",
-                  "speed": 4.5,
-                  "duration": 300
-                }
-              ]
-            }
-          ],
-          "session": {
-            "name": "A · Ritmo",
-            "focus": "8 × (2′ veloce / 1′30″ leggera)",
-            "totalDuration": 38,
-            "segments": [
-              {
-                "activity": "Camminata",
-                "speed": 5,
-                "duration": 300
-              },
-              {
-                "activity": "Corsa veloce",
-                "speed": 9.5,
-                "duration": 120
-              },
-              {
-                "activity": "Corsa leggera",
-                "speed": 7.5,
-                "duration": 90
-              },
-              {
-                "activity": "Corsa veloce",
-                "speed": 9.5,
-                "duration": 120
-              },
-              {
-                "activity": "Corsa leggera",
-                "speed": 7.5,
-                "duration": 90
-              },
-              {
-                "activity": "Corsa veloce",
-                "speed": 9.5,
-                "duration": 120
-              },
-              {
-                "activity": "Corsa leggera",
-                "speed": 7.5,
-                "duration": 90
-              },
-              {
-                "activity": "Corsa veloce",
-                "speed": 9.5,
-                "duration": 120
-              },
-              {
-                "activity": "Corsa leggera",
-                "speed": 7.5,
-                "duration": 90
-              },
-              {
-                "activity": "Corsa veloce",
-                "speed": 9.5,
-                "duration": 120
-              },
-              {
-                "activity": "Corsa leggera",
-                "speed": 7.5,
-                "duration": 90
-              },
-              {
-                "activity": "Corsa veloce",
-                "speed": 9.5,
-                "duration": 120
-              },
-              {
-                "activity": "Corsa leggera",
-                "speed": 7.5,
-                "duration": 90
-              },
-              {
-                "activity": "Corsa veloce",
-                "speed": 9.5,
-                "duration": 120
-              },
-              {
-                "activity": "Corsa leggera",
-                "speed": 7.5,
-                "duration": 90
-              },
-              {
-                "activity": "Corsa veloce",
-                "speed": 9.5,
-                "duration": 120
-              },
-              {
-                "activity": "Corsa leggera",
-                "speed": 7.5,
-                "duration": 90
-              },
-              {
-                "activity": "Camminata",
-                "speed": 4.5,
-                "duration": 300
-              }
-            ]
-          }
-        },
-        {
-          "week": 7,
-          "sessionsPerWeek": 3,
-          "totalDuration": 43,
-          "sessions": [
-            {
-              "name": "A · Ritmo",
-              "focus": "8 × (2′ veloce / 1′30″ leggera)",
-              "totalDuration": 38,
-              "segments": [
-                {
-                  "activity": "Camminata",
-                  "speed": 5,
-                  "duration": 300
-                },
-                {
-                  "activity": "Corsa veloce",
-                  "speed": 9.5,
-                  "duration": 120
-                },
-                {
-                  "activity": "Corsa leggera",
-                  "speed": 7.5,
-                  "duration": 90
-                },
-                {
-                  "activity": "Corsa veloce",
-                  "speed": 9.5,
-                  "duration": 120
-                },
-                {
-                  "activity": "Corsa leggera",
-                  "speed": 7.5,
-                  "duration": 90
-                },
-                {
-                  "activity": "Corsa veloce",
-                  "speed": 9.5,
-                  "duration": 120
-                },
-                {
-                  "activity": "Corsa leggera",
-                  "speed": 7.5,
-                  "duration": 90
-                },
-                {
-                  "activity": "Corsa veloce",
-                  "speed": 9.5,
-                  "duration": 120
-                },
-                {
-                  "activity": "Corsa leggera",
-                  "speed": 7.5,
-                  "duration": 90
-                },
-                {
-                  "activity": "Corsa veloce",
-                  "speed": 9.5,
-                  "duration": 120
-                },
-                {
-                  "activity": "Corsa leggera",
-                  "speed": 7.5,
-                  "duration": 90
-                },
-                {
-                  "activity": "Corsa veloce",
-                  "speed": 9.5,
-                  "duration": 120
-                },
-                {
-                  "activity": "Corsa leggera",
-                  "speed": 7.5,
-                  "duration": 90
-                },
-                {
-                  "activity": "Corsa veloce",
-                  "speed": 9.5,
-                  "duration": 120
-                },
-                {
-                  "activity": "Corsa leggera",
-                  "speed": 7.5,
-                  "duration": 90
-                },
-                {
-                  "activity": "Corsa veloce",
-                  "speed": 9.5,
-                  "duration": 120
-                },
-                {
-                  "activity": "Corsa leggera",
-                  "speed": 7.5,
-                  "duration": 90
-                },
-                {
-                  "activity": "Camminata",
-                  "speed": 4.5,
-                  "duration": 300
-                }
-              ]
-            },
-            {
-              "name": "B · Finale in crescendo",
-              "focus": "25′ di corsa + 5′ veloci",
-              "totalDuration": 40,
-              "segments": [
-                {
-                  "activity": "Camminata",
-                  "speed": 5,
-                  "duration": 300
-                },
-                {
-                  "activity": "Corsa",
-                  "speed": 8.5,
-                  "duration": 1500
-                },
-                {
-                  "activity": "Corsa veloce",
-                  "speed": 9.5,
-                  "duration": 300
-                },
-                {
-                  "activity": "Camminata",
-                  "speed": 4.5,
-                  "duration": 300
-                }
-              ]
-            },
-            {
-              "name": "C · Lunga",
-              "focus": "42′ di corsa",
-              "totalDuration": 52,
+              "focus": "36′ di corsa",
+              "totalDuration": 46,
               "segments": [
                 {
                   "activity": "Camminata",
@@ -6045,20 +5866,21 @@
                 {
                   "activity": "Corsa leggera",
                   "speed": 8,
-                  "duration": 2520
+                  "duration": 2160
                 },
                 {
                   "activity": "Camminata",
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "La seduta più lunga costruisce la resistenza: va fatta piano, parlando."
             }
           ],
           "session": {
-            "name": "A · Ritmo",
-            "focus": "8 × (2′ veloce / 1′30″ leggera)",
-            "totalDuration": 38,
+            "name": "A · Ripetute da 3′",
+            "focus": "5 × (3′ veloce / 2′ leggera)",
+            "totalDuration": 35,
             "segments": [
               {
                 "activity": "Camminata",
@@ -6068,100 +5890,71 @@
               {
                 "activity": "Corsa veloce",
                 "speed": 9.5,
-                "duration": 120
+                "duration": 180
               },
               {
                 "activity": "Corsa leggera",
                 "speed": 7.5,
-                "duration": 90
+                "duration": 120
               },
               {
                 "activity": "Corsa veloce",
                 "speed": 9.5,
-                "duration": 120
+                "duration": 180
               },
               {
                 "activity": "Corsa leggera",
                 "speed": 7.5,
-                "duration": 90
+                "duration": 120
               },
               {
                 "activity": "Corsa veloce",
                 "speed": 9.5,
-                "duration": 120
+                "duration": 180
               },
               {
                 "activity": "Corsa leggera",
                 "speed": 7.5,
-                "duration": 90
+                "duration": 120
               },
               {
                 "activity": "Corsa veloce",
                 "speed": 9.5,
-                "duration": 120
+                "duration": 180
               },
               {
                 "activity": "Corsa leggera",
                 "speed": 7.5,
-                "duration": 90
+                "duration": 120
               },
               {
                 "activity": "Corsa veloce",
                 "speed": 9.5,
-                "duration": 120
+                "duration": 180
               },
               {
                 "activity": "Corsa leggera",
                 "speed": 7.5,
-                "duration": 90
-              },
-              {
-                "activity": "Corsa veloce",
-                "speed": 9.5,
                 "duration": 120
-              },
-              {
-                "activity": "Corsa leggera",
-                "speed": 7.5,
-                "duration": 90
-              },
-              {
-                "activity": "Corsa veloce",
-                "speed": 9.5,
-                "duration": 120
-              },
-              {
-                "activity": "Corsa leggera",
-                "speed": 7.5,
-                "duration": 90
-              },
-              {
-                "activity": "Corsa veloce",
-                "speed": 9.5,
-                "duration": 120
-              },
-              {
-                "activity": "Corsa leggera",
-                "speed": 7.5,
-                "duration": 90
               },
               {
                 "activity": "Camminata",
                 "speed": 4.5,
                 "duration": 300
               }
-            ]
+            ],
+            "why": "I cambi di ritmo allenano cuore e fiato in meno tempo e spezzano la monotonia."
           }
         },
         {
-          "week": 8,
+          "week": 7,
           "sessionsPerWeek": 3,
           "totalDuration": 43,
           "sessions": [
             {
-              "name": "A · Ritmo",
-              "focus": "6 × (2′ veloce / 2′ leggera)",
-              "totalDuration": 34,
+              "name": "A · Ripetute da 3′",
+              "focus": "6 × (3′ veloce / 2′ leggera)",
+              "totalDuration": 40,
               "segments": [
                 {
                   "activity": "Camminata",
@@ -6170,8 +5963,8 @@
                 },
                 {
                   "activity": "Corsa veloce",
-                  "speed": 10,
-                  "duration": 120
+                  "speed": 9.5,
+                  "duration": 180
                 },
                 {
                   "activity": "Corsa leggera",
@@ -6180,8 +5973,8 @@
                 },
                 {
                   "activity": "Corsa veloce",
-                  "speed": 10,
-                  "duration": 120
+                  "speed": 9.5,
+                  "duration": 180
                 },
                 {
                   "activity": "Corsa leggera",
@@ -6190,8 +5983,8 @@
                 },
                 {
                   "activity": "Corsa veloce",
-                  "speed": 10,
-                  "duration": 120
+                  "speed": 9.5,
+                  "duration": 180
                 },
                 {
                   "activity": "Corsa leggera",
@@ -6200,8 +5993,8 @@
                 },
                 {
                   "activity": "Corsa veloce",
-                  "speed": 10,
-                  "duration": 120
+                  "speed": 9.5,
+                  "duration": 180
                 },
                 {
                   "activity": "Corsa leggera",
@@ -6210,8 +6003,8 @@
                 },
                 {
                   "activity": "Corsa veloce",
-                  "speed": 10,
-                  "duration": 120
+                  "speed": 9.5,
+                  "duration": 180
                 },
                 {
                   "activity": "Corsa leggera",
@@ -6220,8 +6013,8 @@
                 },
                 {
                   "activity": "Corsa veloce",
-                  "speed": 10,
-                  "duration": 120
+                  "speed": 9.5,
+                  "duration": 180
                 },
                 {
                   "activity": "Corsa leggera",
@@ -6233,7 +6026,212 @@
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "I cambi di ritmo allenano cuore e fiato in meno tempo e spezzano la monotonia."
+            },
+            {
+              "name": "B · Finale in crescendo",
+              "focus": "25′ di corsa + 5′ più veloci",
+              "totalDuration": 40,
+              "segments": [
+                {
+                  "activity": "Camminata",
+                  "speed": 5,
+                  "duration": 300
+                },
+                {
+                  "activity": "Corsa leggera",
+                  "speed": 8,
+                  "duration": 1500
+                },
+                {
+                  "activity": "Corsa",
+                  "speed": 9,
+                  "duration": 300
+                },
+                {
+                  "activity": "Camminata",
+                  "speed": 4.5,
+                  "duration": 300
+                }
+              ],
+              "why": "I cambi di ritmo allenano cuore e fiato in meno tempo e spezzano la monotonia."
+            },
+            {
+              "name": "C · Lunga",
+              "focus": "38′ di corsa",
+              "totalDuration": 48,
+              "segments": [
+                {
+                  "activity": "Camminata",
+                  "speed": 5,
+                  "duration": 300
+                },
+                {
+                  "activity": "Corsa leggera",
+                  "speed": 8,
+                  "duration": 2280
+                },
+                {
+                  "activity": "Camminata",
+                  "speed": 4.5,
+                  "duration": 300
+                }
+              ],
+              "why": "La seduta più lunga costruisce la resistenza: va fatta piano, parlando."
+            }
+          ],
+          "session": {
+            "name": "A · Ripetute da 3′",
+            "focus": "6 × (3′ veloce / 2′ leggera)",
+            "totalDuration": 40,
+            "segments": [
+              {
+                "activity": "Camminata",
+                "speed": 5,
+                "duration": 300
+              },
+              {
+                "activity": "Corsa veloce",
+                "speed": 9.5,
+                "duration": 180
+              },
+              {
+                "activity": "Corsa leggera",
+                "speed": 7.5,
+                "duration": 120
+              },
+              {
+                "activity": "Corsa veloce",
+                "speed": 9.5,
+                "duration": 180
+              },
+              {
+                "activity": "Corsa leggera",
+                "speed": 7.5,
+                "duration": 120
+              },
+              {
+                "activity": "Corsa veloce",
+                "speed": 9.5,
+                "duration": 180
+              },
+              {
+                "activity": "Corsa leggera",
+                "speed": 7.5,
+                "duration": 120
+              },
+              {
+                "activity": "Corsa veloce",
+                "speed": 9.5,
+                "duration": 180
+              },
+              {
+                "activity": "Corsa leggera",
+                "speed": 7.5,
+                "duration": 120
+              },
+              {
+                "activity": "Corsa veloce",
+                "speed": 9.5,
+                "duration": 180
+              },
+              {
+                "activity": "Corsa leggera",
+                "speed": 7.5,
+                "duration": 120
+              },
+              {
+                "activity": "Corsa veloce",
+                "speed": 9.5,
+                "duration": 180
+              },
+              {
+                "activity": "Corsa leggera",
+                "speed": 7.5,
+                "duration": 120
+              },
+              {
+                "activity": "Camminata",
+                "speed": 4.5,
+                "duration": 300
+              }
+            ],
+            "why": "I cambi di ritmo allenano cuore e fiato in meno tempo e spezzano la monotonia."
+          }
+        },
+        {
+          "week": 8,
+          "sessionsPerWeek": 3,
+          "totalDuration": 43,
+          "sessions": [
+            {
+              "name": "A · Ripetute da 3′",
+              "focus": "5 × (3′ veloce / 2′30″ leggera)",
+              "totalDuration": 38,
+              "segments": [
+                {
+                  "activity": "Camminata",
+                  "speed": 5,
+                  "duration": 300
+                },
+                {
+                  "activity": "Corsa veloce",
+                  "speed": 10,
+                  "duration": 180
+                },
+                {
+                  "activity": "Corsa leggera",
+                  "speed": 7.5,
+                  "duration": 150
+                },
+                {
+                  "activity": "Corsa veloce",
+                  "speed": 10,
+                  "duration": 180
+                },
+                {
+                  "activity": "Corsa leggera",
+                  "speed": 7.5,
+                  "duration": 150
+                },
+                {
+                  "activity": "Corsa veloce",
+                  "speed": 10,
+                  "duration": 180
+                },
+                {
+                  "activity": "Corsa leggera",
+                  "speed": 7.5,
+                  "duration": 150
+                },
+                {
+                  "activity": "Corsa veloce",
+                  "speed": 10,
+                  "duration": 180
+                },
+                {
+                  "activity": "Corsa leggera",
+                  "speed": 7.5,
+                  "duration": 150
+                },
+                {
+                  "activity": "Corsa veloce",
+                  "speed": 10,
+                  "duration": 180
+                },
+                {
+                  "activity": "Corsa leggera",
+                  "speed": 7.5,
+                  "duration": 150
+                },
+                {
+                  "activity": "Camminata",
+                  "speed": 4.5,
+                  "duration": 300
+                }
+              ],
+              "why": "I cambi di ritmo allenano cuore e fiato in meno tempo e spezzano la monotonia."
             },
             {
               "name": "B · Corsa",
@@ -6255,12 +6253,13 @@
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "Corsa facile: gran parte dei progressi di resistenza nasce da qui."
             },
             {
               "name": "C · Traguardo: 5 km",
-              "focus": "45′ di corsa ≈ 6 km",
-              "totalDuration": 55,
+              "focus": "40′ di corsa ≈ 5,3 km",
+              "totalDuration": 50,
               "segments": [
                 {
                   "activity": "Camminata",
@@ -6270,20 +6269,21 @@
                 {
                   "activity": "Corsa leggera",
                   "speed": 8,
-                  "duration": 2700
+                  "duration": 2400
                 },
                 {
                   "activity": "Camminata",
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "Un traguardo misurabile: la prova concreta di quanto sei cresciuto."
             }
           ],
           "session": {
-            "name": "A · Ritmo",
-            "focus": "6 × (2′ veloce / 2′ leggera)",
-            "totalDuration": 34,
+            "name": "A · Ripetute da 3′",
+            "focus": "5 × (3′ veloce / 2′30″ leggera)",
+            "totalDuration": 38,
             "segments": [
               {
                 "activity": "Camminata",
@@ -6293,69 +6293,60 @@
               {
                 "activity": "Corsa veloce",
                 "speed": 10,
-                "duration": 120
+                "duration": 180
               },
               {
                 "activity": "Corsa leggera",
                 "speed": 7.5,
-                "duration": 120
+                "duration": 150
               },
               {
                 "activity": "Corsa veloce",
                 "speed": 10,
-                "duration": 120
+                "duration": 180
               },
               {
                 "activity": "Corsa leggera",
                 "speed": 7.5,
-                "duration": 120
+                "duration": 150
               },
               {
                 "activity": "Corsa veloce",
                 "speed": 10,
-                "duration": 120
+                "duration": 180
               },
               {
                 "activity": "Corsa leggera",
                 "speed": 7.5,
-                "duration": 120
+                "duration": 150
               },
               {
                 "activity": "Corsa veloce",
                 "speed": 10,
-                "duration": 120
+                "duration": 180
               },
               {
                 "activity": "Corsa leggera",
                 "speed": 7.5,
-                "duration": 120
+                "duration": 150
               },
               {
                 "activity": "Corsa veloce",
                 "speed": 10,
-                "duration": 120
+                "duration": 180
               },
               {
                 "activity": "Corsa leggera",
                 "speed": 7.5,
-                "duration": 120
-              },
-              {
-                "activity": "Corsa veloce",
-                "speed": 10,
-                "duration": 120
-              },
-              {
-                "activity": "Corsa leggera",
-                "speed": 7.5,
-                "duration": 120
+                "duration": 150
               },
               {
                 "activity": "Camminata",
                 "speed": 4.5,
                 "duration": 300
               }
-            ]
+            ],
+            "why": "I cambi di ritmo allenano cuore e fiato in meno tempo e spezzano la monotonia."
           }
         }
       ]
@@ -6533,7 +6524,8 @@
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "I cambi di ritmo allenano cuore e fiato in meno tempo e spezzano la monotonia."
             },
             {
               "name": "B · Salita",
@@ -6621,7 +6613,8 @@
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "La pendenza alza lo sforzo senza impatto sulle articolazioni e fa lavorare glutei e polpacci."
             }
           ],
           "session": {
@@ -6724,7 +6717,8 @@
                 "speed": 4.5,
                 "duration": 300
               }
-            ]
+            ],
+            "why": "I cambi di ritmo allenano cuore e fiato in meno tempo e spezzano la monotonia."
           }
         },
         {
@@ -6852,7 +6846,8 @@
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "I cambi di ritmo allenano cuore e fiato in meno tempo e spezzano la monotonia."
             },
             {
               "name": "B · Salita",
@@ -6962,7 +6957,8 @@
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "La pendenza alza lo sforzo senza impatto sulle articolazioni e fa lavorare glutei e polpacci."
             }
           ],
           "session": {
@@ -7085,7 +7081,8 @@
                 "speed": 4.5,
                 "duration": 300
               }
-            ]
+            ],
+            "why": "I cambi di ritmo allenano cuore e fiato in meno tempo e spezzano la monotonia."
           }
         },
         {
@@ -7143,7 +7140,8 @@
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "Le ripetute da quattro minuti sono tra gli stimoli più efficaci per alzare il massimo consumo di ossigeno."
             },
             {
               "name": "B · Intervalli brevi",
@@ -7245,7 +7243,8 @@
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "I cambi di ritmo allenano cuore e fiato in meno tempo e spezzano la monotonia."
             }
           ],
           "session": {
@@ -7298,7 +7297,8 @@
                 "speed": 4.5,
                 "duration": 300
               }
-            ]
+            ],
+            "why": "Le ripetute da quattro minuti sono tra gli stimoli più efficaci per alzare il massimo consumo di ossigeno."
           }
         },
         {
@@ -7366,7 +7366,8 @@
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "Le ripetute da quattro minuti sono tra gli stimoli più efficaci per alzare il massimo consumo di ossigeno."
             },
             {
               "name": "B · Salita",
@@ -7476,7 +7477,8 @@
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "La pendenza alza lo sforzo senza impatto sulle articolazioni e fa lavorare glutei e polpacci."
             }
           ],
           "session": {
@@ -7539,13 +7541,14 @@
                 "speed": 4.5,
                 "duration": 300
               }
-            ]
+            ],
+            "why": "Le ripetute da quattro minuti sono tra gli stimoli più efficaci per alzare il massimo consumo di ossigeno."
           }
         },
         {
           "week": 5,
           "sessionsPerWeek": 2,
-          "totalDuration": 42,
+          "totalDuration": 39,
           "sessions": [
             {
               "name": "A · 4×4",
@@ -7607,12 +7610,13 @@
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "Le ripetute da quattro minuti sono tra gli stimoli più efficaci per alzare il massimo consumo di ossigeno."
             },
             {
-              "name": "B · Intervalli brevi",
-              "focus": "10 × (1′ veloce / 1′30″ cammino svelto)",
-              "totalDuration": 40,
+              "name": "B · Intervalli 10 × 1",
+              "focus": "10 × (1′ veloce / 1′ cammino svelto)",
+              "totalDuration": 35,
               "segments": [
                 {
                   "activity": "Camminata",
@@ -7632,7 +7636,7 @@
                 {
                   "activity": "Camminata svelta",
                   "speed": 6,
-                  "duration": 90
+                  "duration": 60
                 },
                 {
                   "activity": "Corsa veloce",
@@ -7642,7 +7646,7 @@
                 {
                   "activity": "Camminata svelta",
                   "speed": 6,
-                  "duration": 90
+                  "duration": 60
                 },
                 {
                   "activity": "Corsa veloce",
@@ -7652,7 +7656,7 @@
                 {
                   "activity": "Camminata svelta",
                   "speed": 6,
-                  "duration": 90
+                  "duration": 60
                 },
                 {
                   "activity": "Corsa veloce",
@@ -7662,7 +7666,7 @@
                 {
                   "activity": "Camminata svelta",
                   "speed": 6,
-                  "duration": 90
+                  "duration": 60
                 },
                 {
                   "activity": "Corsa veloce",
@@ -7672,7 +7676,7 @@
                 {
                   "activity": "Camminata svelta",
                   "speed": 6,
-                  "duration": 90
+                  "duration": 60
                 },
                 {
                   "activity": "Corsa veloce",
@@ -7682,7 +7686,7 @@
                 {
                   "activity": "Camminata svelta",
                   "speed": 6,
-                  "duration": 90
+                  "duration": 60
                 },
                 {
                   "activity": "Corsa veloce",
@@ -7692,7 +7696,7 @@
                 {
                   "activity": "Camminata svelta",
                   "speed": 6,
-                  "duration": 90
+                  "duration": 60
                 },
                 {
                   "activity": "Corsa veloce",
@@ -7702,7 +7706,7 @@
                 {
                   "activity": "Camminata svelta",
                   "speed": 6,
-                  "duration": 90
+                  "duration": 60
                 },
                 {
                   "activity": "Corsa veloce",
@@ -7712,7 +7716,7 @@
                 {
                   "activity": "Camminata svelta",
                   "speed": 6,
-                  "duration": 90
+                  "duration": 60
                 },
                 {
                   "activity": "Corsa veloce",
@@ -7722,14 +7726,15 @@
                 {
                   "activity": "Camminata svelta",
                   "speed": 6,
-                  "duration": 90
+                  "duration": 60
                 },
                 {
                   "activity": "Camminata",
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "I cambi di ritmo allenano cuore e fiato in meno tempo e spezzano la monotonia."
             }
           ],
           "session": {
@@ -7792,7 +7797,8 @@
                 "speed": 4.5,
                 "duration": 300
               }
-            ]
+            ],
+            "why": "Le ripetute da quattro minuti sono tra gli stimoli più efficaci per alzare il massimo consumo di ossigeno."
           }
         },
         {
@@ -7880,7 +7886,8 @@
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "Scarico: è riposando che il corpo assimila il lavoro dei livelli precedenti."
             },
             {
               "name": "B · Recupero",
@@ -7902,7 +7909,8 @@
                   "speed": 4.5,
                   "duration": 180
                 }
-              ]
+              ],
+              "why": "Muoversi piano scioglie le gambe e tiene viva l’abitudine, senza aggiungere fatica."
             }
           ],
           "session": {
@@ -7985,7 +7993,8 @@
                 "speed": 4.5,
                 "duration": 300
               }
-            ]
+            ],
+            "why": "Scarico: è riposando che il corpo assimila il lavoro dei livelli precedenti."
           }
         }
       ]
@@ -8049,7 +8058,8 @@
                   "speed": 4,
                   "duration": 180
                 }
-              ]
+              ],
+              "why": "Muoversi piano scioglie le gambe e tiene viva l’abitudine, senza aggiungere fatica."
             },
             {
               "name": "B · 18 minuti",
@@ -8082,7 +8092,8 @@
                   "speed": 4,
                   "duration": 180
                 }
-              ]
+              ],
+              "why": "Muoversi piano scioglie le gambe e tiene viva l’abitudine, senza aggiungere fatica."
             },
             {
               "name": "C · 20 minuti",
@@ -8104,7 +8115,8 @@
                   "speed": 4,
                   "duration": 180
                 }
-              ]
+              ],
+              "why": "Muoversi piano scioglie le gambe e tiene viva l’abitudine, senza aggiungere fatica."
             }
           ],
           "session": {
@@ -8127,7 +8139,8 @@
                 "speed": 4,
                 "duration": 180
               }
-            ]
+            ],
+            "why": "Muoversi piano scioglie le gambe e tiene viva l’abitudine, senza aggiungere fatica."
           }
         }
       ]
@@ -8140,7 +8153,7 @@
       "difficulty": "Principiante",
       "totalWeeks": 8,
       "requiresIncline": true,
-      "prerequisite": "Nessuno. Serve un tapis con pendenza regolabile.",
+      "prerequisite": "Tapis con pendenza regolabile.",
       "phases": [
         {
           "name": "Pendenza dolce",
@@ -8262,7 +8275,8 @@
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "La pendenza alza lo sforzo senza impatto sulle articolazioni e fa lavorare glutei e polpacci."
             },
             {
               "name": "B · Salita dolce",
@@ -8285,7 +8299,8 @@
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "La pendenza alza lo sforzo senza impatto sulle articolazioni e fa lavorare glutei e polpacci."
             },
             {
               "name": "C · Salita a tratti lunga",
@@ -8357,7 +8372,8 @@
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "La pendenza alza lo sforzo senza impatto sulle articolazioni e fa lavorare glutei e polpacci."
             }
           ],
           "session": {
@@ -8419,7 +8435,8 @@
                 "speed": 4.5,
                 "duration": 300
               }
-            ]
+            ],
+            "why": "La pendenza alza lo sforzo senza impatto sulle articolazioni e fa lavorare glutei e polpacci."
           }
         },
         {
@@ -8486,7 +8503,8 @@
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "La pendenza alza lo sforzo senza impatto sulle articolazioni e fa lavorare glutei e polpacci."
             },
             {
               "name": "B · Salita dolce",
@@ -8509,7 +8527,8 @@
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "La pendenza alza lo sforzo senza impatto sulle articolazioni e fa lavorare glutei e polpacci."
             },
             {
               "name": "C · Salita a tratti lunga",
@@ -8581,7 +8600,8 @@
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "La pendenza alza lo sforzo senza impatto sulle articolazioni e fa lavorare glutei e polpacci."
             }
           ],
           "session": {
@@ -8643,7 +8663,8 @@
                 "speed": 4.5,
                 "duration": 300
               }
-            ]
+            ],
+            "why": "La pendenza alza lo sforzo senza impatto sulle articolazioni e fa lavorare glutei e polpacci."
           }
         },
         {
@@ -8726,7 +8747,8 @@
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "La pendenza alza lo sforzo senza impatto sulle articolazioni e fa lavorare glutei e polpacci."
             },
             {
               "name": "B · Salita continua",
@@ -8749,7 +8771,8 @@
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "La pendenza alza lo sforzo senza impatto sulle articolazioni e fa lavorare glutei e polpacci."
             },
             {
               "name": "C · Salita a tratti lunga",
@@ -8838,7 +8861,8 @@
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "La pendenza alza lo sforzo senza impatto sulle articolazioni e fa lavorare glutei e polpacci."
             }
           ],
           "session": {
@@ -8916,7 +8940,8 @@
                 "speed": 4.5,
                 "duration": 300
               }
-            ]
+            ],
+            "why": "La pendenza alza lo sforzo senza impatto sulle articolazioni e fa lavorare glutei e polpacci."
           }
         },
         {
@@ -8999,7 +9024,8 @@
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "La pendenza alza lo sforzo senza impatto sulle articolazioni e fa lavorare glutei e polpacci."
             },
             {
               "name": "B · Salita continua",
@@ -9022,7 +9048,8 @@
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "La pendenza alza lo sforzo senza impatto sulle articolazioni e fa lavorare glutei e polpacci."
             },
             {
               "name": "C · Salita a tratti lunga",
@@ -9111,7 +9138,8 @@
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "La pendenza alza lo sforzo senza impatto sulle articolazioni e fa lavorare glutei e polpacci."
             }
           ],
           "session": {
@@ -9189,7 +9217,8 @@
                 "speed": 4.5,
                 "duration": 300
               }
-            ]
+            ],
+            "why": "La pendenza alza lo sforzo senza impatto sulle articolazioni e fa lavorare glutei e polpacci."
           }
         },
         {
@@ -9218,7 +9247,8 @@
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "Scarico: è riposando che il corpo assimila il lavoro dei livelli precedenti."
             },
             {
               "name": "B · Scarico",
@@ -9241,7 +9271,8 @@
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "Scarico: è riposando che il corpo assimila il lavoro dei livelli precedenti."
             },
             {
               "name": "C · Scarico",
@@ -9264,7 +9295,8 @@
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "Scarico: è riposando che il corpo assimila il lavoro dei livelli precedenti."
             }
           ],
           "session": {
@@ -9288,7 +9320,8 @@
                 "speed": 4.5,
                 "duration": 300
               }
-            ]
+            ],
+            "why": "Scarico: è riposando che il corpo assimila il lavoro dei livelli precedenti."
           }
         },
         {
@@ -9317,7 +9350,8 @@
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "La pendenza alza lo sforzo senza impatto sulle articolazioni e fa lavorare glutei e polpacci."
             },
             {
               "name": "B · Salita a tratti",
@@ -9406,7 +9440,8 @@
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "La pendenza alza lo sforzo senza impatto sulle articolazioni e fa lavorare glutei e polpacci."
             },
             {
               "name": "C · Salita continua",
@@ -9429,7 +9464,8 @@
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "La pendenza alza lo sforzo senza impatto sulle articolazioni e fa lavorare glutei e polpacci."
             }
           ],
           "session": {
@@ -9453,7 +9489,8 @@
                 "speed": 4.5,
                 "duration": 300
               }
-            ]
+            ],
+            "why": "La pendenza alza lo sforzo senza impatto sulle articolazioni e fa lavorare glutei e polpacci."
           }
         },
         {
@@ -9482,7 +9519,8 @@
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "La pendenza alza lo sforzo senza impatto sulle articolazioni e fa lavorare glutei e polpacci."
             },
             {
               "name": "B · Salita a tratti",
@@ -9571,7 +9609,8 @@
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "La pendenza alza lo sforzo senza impatto sulle articolazioni e fa lavorare glutei e polpacci."
             },
             {
               "name": "C · Salita continua",
@@ -9594,7 +9633,8 @@
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "La pendenza alza lo sforzo senza impatto sulle articolazioni e fa lavorare glutei e polpacci."
             }
           ],
           "session": {
@@ -9618,7 +9658,8 @@
                 "speed": 4.5,
                 "duration": 300
               }
-            ]
+            ],
+            "why": "La pendenza alza lo sforzo senza impatto sulle articolazioni e fa lavorare glutei e polpacci."
           }
         },
         {
@@ -9647,7 +9688,8 @@
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "Un traguardo misurabile: la prova concreta di quanto sei cresciuto."
             },
             {
               "name": "B · Salita a tratti",
@@ -9736,7 +9778,8 @@
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "La pendenza alza lo sforzo senza impatto sulle articolazioni e fa lavorare glutei e polpacci."
             },
             {
               "name": "C · Salita continua",
@@ -9759,7 +9802,8 @@
                   "speed": 4.5,
                   "duration": 300
                 }
-              ]
+              ],
+              "why": "La pendenza alza lo sforzo senza impatto sulle articolazioni e fa lavorare glutei e polpacci."
             }
           ],
           "session": {
@@ -9783,7 +9827,8 @@
                 "speed": 4.5,
                 "duration": 300
               }
-            ]
+            ],
+            "why": "Un traguardo misurabile: la prova concreta di quanto sei cresciuto."
           }
         }
       ]

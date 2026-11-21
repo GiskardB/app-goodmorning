@@ -242,32 +242,22 @@ const THEME_LABELS = {
 
 const getThemeLabel = (slug) => THEME_LABELS[slug] || 'Allenamento';
 
-// Treadmill energy expenditure — ACSM metabolic equations.
-// Returns kcal burned per second for a given speed (km/h), body weight (kg)
-// and incline grade (decimal, e.g. 0.02 = 2%). Calorie burn on a treadmill is
-// driven by body mass, speed and incline; height has no meaningful effect in
-// these equations, so it is intentionally not used.
-const treadmillKcalPerSecond = (speedKmh, weightKg, grade = 0) => {
-  const speed = speedKmh > 0 ? speedKmh : 0;
+// Treadmill energy expenditure: kcal al secondo per un segmento (velocità, pendenza, tipo di passo) e peso.
+// Usa lo stesso MET dell'indicatore di intensità (treadmillSegmentMet): equazioni ACSM per corsa e camminata,
+// con raccordo verso il Compendium per la camminata oltre 6 km/h. kcal/min = MET × 3,5 × kg / 200.
+const treadmillKcalPerSecond = (seg, weightKg) => {
+  if (!seg?.speed || seg.speed <= 0) return 0;
   const weight = weightKg && weightKg > 0 ? weightKg : 70; // fallback 70 kg
-  if (speed === 0) return 0;
-  const metersPerMin = speed * (1000 / 60); // km/h -> m/min
-  // VO2 in mL/kg/min: walking eq. below ~6.4 km/h, running eq. above
-  const vo2 = speed < 6.4
-    ? 3.5 + 0.1 * metersPerMin + 1.8 * metersPerMin * grade
-    : 3.5 + 0.2 * metersPerMin + 0.9 * metersPerMin * grade;
-  // 5 kcal per litre of O2 consumed
-  const kcalPerMin = (vo2 * weight * 5) / 1000;
-  return kcalPerMin / 60;
+  return (treadmillSegmentMet(seg) * 3.5 * weight) / 200 / 60;
 };
 
 // Tapis senza pendenza regolabile: un tratto in salita diventa un tratto più veloce in piano.
-// Camminata: +0,3 km/h per ogni 1 % (max 6,5 km/h, resta camminata svelta); corsa: +0,25 km/h per 1 % (max +1,5).
+// Camminata: +0,3 km/h per ogni 1 % (max 6,5 km/h a tratti brevi, 6 km/h oltre i 3′); corsa: +0,25 km/h per 1 % (max +1,5).
 const flattenTreadmillSegment = (seg) => {
   if (!seg?.incline) return seg;
   const half = (x) => Math.round(x * 2) / 2;
   const speed = seg.speed < 6.4
-    ? Math.min(6.5, half(seg.speed + 0.3 * seg.incline))
+    ? Math.min(seg.duration > 180 ? 6 : 6.5, half(seg.speed + 0.3 * seg.incline)) // oltre 3′ la camminata resta entro 6 km/h
     : half(seg.speed + Math.min(1.5, 0.25 * seg.incline));
   const kind = speed < 6.4 ? 'Camminata svelta' : speed >= 9.5 ? 'Corsa veloce' : speed >= 8.5 ? 'Corsa' : 'Corsa leggera';
   return { ...seg, incline: 0, speed, activity: `${kind} (al posto della salita)`, adapted: true };
@@ -277,6 +267,7 @@ const adaptTreadmillSession = (session, hasIncline) => {
   return {
     ...session,
     focus: `${session.focus || ''}${session.focus ? ' · ' : ''}senza pendenza: tratti più veloci in piano`,
+    ...(session.why && /pendenza/i.test(session.why) ? { why: 'Senza pendenza lo sforzo sale con il passo: tratti più svelti in piano al posto della salita.' } : {}),
     segments: session.segments.map(flattenTreadmillSegment),
   };
 };
@@ -1369,10 +1360,8 @@ function AppContent() {
         setTreadmillCalories(() => {
           const segments = getTreadmillSession(selectedTreadmillProgram, selectedTreadmillWeek, selectedTreadmillSession, treadmillIncline !== false)?.segments || [];
           const currentSeg = segments[treadmillSegmentIndex];
-          const speed = currentSeg?.speed || 5;
-          const grade = (currentSeg?.incline || 0) / 100; // % -> decimal
           // Accumulate as float, round only for display/saving
-          treadmillCaloriesFloatRef.current += treadmillKcalPerSecond(speed, userProfile?.weight, grade);
+          treadmillCaloriesFloatRef.current += treadmillKcalPerSecond(currentSeg, userProfile?.weight);
           const rounded = Math.round(treadmillCaloriesFloatRef.current);
           treadmillCaloriesRef.current = rounded;
           return rounded;
@@ -3318,7 +3307,7 @@ function AppContent() {
                   <div className="text-xs text-[var(--text-secondary)]">Annuncia esercizi e suggerimenti</div>
                 </div>
               </div>
-              <div className={`w-11 h-6 rounded-full transition-colors flex items-center ${
+              <div className={`w-11 h-6 flex-shrink-0 ml-3 rounded-full transition-colors flex items-center ${
                 voiceEnabled ? 'bg-[var(--primary)]' : 'bg-[var(--border)]'
               }`}>
                 <div className={`w-4 h-4 rounded-full bg-white shadow transition-transform mx-1 ${
@@ -3363,7 +3352,7 @@ function AppContent() {
                   <div className="text-xs text-[var(--text-secondary)]">Beep negli ultimi 3 secondi</div>
                 </div>
               </div>
-              <div className={`w-11 h-6 rounded-full transition-colors flex items-center ${
+              <div className={`w-11 h-6 flex-shrink-0 ml-3 rounded-full transition-colors flex items-center ${
                 countdownEnabled ? 'bg-[var(--primary)]' : 'bg-[var(--border)]'
               }`}>
                 <div className={`w-4 h-4 rounded-full bg-white shadow transition-transform mx-1 ${
@@ -3384,7 +3373,7 @@ function AppContent() {
                   <div className="text-xs text-[var(--text-secondary)]">Qualche frase nei momenti chiave, mai a raffica</div>
                 </div>
               </div>
-              <div className={`w-11 h-6 rounded-full transition-colors flex items-center ${
+              <div className={`w-11 h-6 flex-shrink-0 ml-3 rounded-full transition-colors flex items-center ${
                 coachEnabled ? 'bg-[var(--primary)]' : 'bg-[var(--border)]'
               }`}>
                 <div className={`w-4 h-4 rounded-full bg-white shadow transition-transform mx-1 ${
@@ -3405,7 +3394,7 @@ function AppContent() {
                   <div className="text-xs text-[var(--text-secondary)]">Musica motivazionale durante l'allenamento</div>
                 </div>
               </div>
-              <div className={`w-11 h-6 rounded-full transition-colors flex items-center ${
+              <div className={`w-11 h-6 flex-shrink-0 ml-3 rounded-full transition-colors flex items-center ${
                 musicEnabled ? 'bg-[var(--primary)]' : 'bg-[var(--border)]'
               }`}>
                 <div className={`w-4 h-4 rounded-full bg-white shadow transition-transform mx-1 ${
@@ -3454,7 +3443,7 @@ function AppContent() {
                   <div className="text-xs text-[var(--text-secondary)]">Espandi l'animazione fino ai bordi dello schermo</div>
                 </div>
               </div>
-              <div className={`w-11 h-6 rounded-full transition-colors flex items-center ${
+              <div className={`w-11 h-6 flex-shrink-0 ml-3 rounded-full transition-colors flex items-center ${
                 fullWidthAnimation ? 'bg-[var(--primary)]' : 'bg-[var(--border)]'
               }`}>
                 <div className={`w-4 h-4 rounded-full bg-white shadow transition-transform mx-1 ${
@@ -3748,8 +3737,8 @@ function AppContent() {
         {/* Program Selection Modal */}
         {showTreadmillProgramSelector && (
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4" onClick={() => setShowTreadmillProgramSelector(false)}>
-            <div className="bg-white rounded-2xl p-5 max-w-sm w-full animate-slide-up" onClick={e => e.stopPropagation()}>
-              <div className="flex items-center justify-between mb-4">
+            <div className="bg-white rounded-2xl p-5 max-w-sm w-full max-h-[85vh] flex flex-col animate-slide-up" onClick={e => e.stopPropagation()}>
+              <div className="flex items-center justify-between mb-4 flex-shrink-0">
                 <h2 className="text-lg font-bold">Seleziona Programma</h2>
                 <button
                   onClick={() => setShowTreadmillProgramSelector(false)}
@@ -3758,7 +3747,7 @@ function AppContent() {
                   <CloseIcon />
                 </button>
               </div>
-              <div className="space-y-2">
+              <div className="space-y-2 overflow-y-auto overscroll-contain min-h-0 -mr-2 pr-2">
                 {treadmillPrograms.map((prog) => {
                   const isCurrent = program?.id === prog.id;
                   const locked = programLocked(prog);
@@ -3946,7 +3935,12 @@ function AppContent() {
                   </div>
                 )}
                 {sessionData?.focus && (
-                  <p className="text-sm font-medium mb-3">{sessionData.focus}</p>
+                  <p className={`text-sm font-medium ${sessionData.why ? 'mb-1' : 'mb-3'}`}>{sessionData.focus}</p>
+                )}
+                {sessionData?.why && (
+                  <p className="text-xs text-[var(--text-secondary)] leading-snug mb-3">
+                    <span className="font-semibold text-[var(--primary)]">Perché: </span>{sessionData.why}
+                  </p>
                 )}
 
                 {/* Segments Preview */}
